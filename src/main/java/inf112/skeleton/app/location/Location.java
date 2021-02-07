@@ -10,12 +10,12 @@ public class Location implements ILocation {
     }
 
     @Override
-    public int getX() {
+    public int getColumn() {
         return x;
     }
 
     @Override
-    public int getY() {
+    public int getRow() {
         return y;
     }
 }

@@ -5,10 +5,10 @@ public interface ILocation {
     /**
      * The X coordinate (column) of the location
      */
-    int getX();
+    int getColumn();
 
     /**
      * The Y coordinate (row) of the location
      */
-    int getY();
+    int getRow();
 }
