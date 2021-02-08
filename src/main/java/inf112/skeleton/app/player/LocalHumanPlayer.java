@@ -1,6 +1,5 @@
 package inf112.skeleton.app.player;
 
-import inf112.skeleton.app.board.IBoard;
 import inf112.skeleton.app.shared.Action;
 
 public class LocalHumanPlayer implements IPlayer{
