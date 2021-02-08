@@ -1,3 +1,4 @@
+
 package inf112.skeleton.app;
 
 import com.badlogic.gdx.ApplicationListener;
