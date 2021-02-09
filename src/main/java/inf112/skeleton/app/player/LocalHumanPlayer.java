@@ -6,7 +6,7 @@ import inf112.skeleton.app.robot.Robot;
 public class LocalHumanPlayer implements IPlayer{
 
 
-    private final Robot robot;
+    private final Robot robot; // private final Piece piece;
     private int lifeTokens;
     private int damageTokens;
     private final int id;
@@ -23,6 +23,12 @@ public class LocalHumanPlayer implements IPlayer{
         this.id = id;
         this.robot = robot;
     }
+
+
+    private void loseLifeToken() {
+        this.lifeTokens -= 1;
+    }
+    
 
 
 }
