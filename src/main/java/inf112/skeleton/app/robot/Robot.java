@@ -4,6 +4,8 @@ import java.awt.*;
 
 public class Robot {
 
+    // Creates a robot to assign to a player
+
     private final String name;
     private final Color color;
     // private Image image;
@@ -11,6 +13,7 @@ public class Robot {
     public Robot(String name, Color color) {
         this.name = name;
         this.color = color;
+
 
     }
 
