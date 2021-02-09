@@ -2,6 +2,7 @@ package inf112.skeleton.app.boardLogic;
 
 public class BoardLogic implements IBoardLogic {
 
+    //testing pull and push
 
     @Override
     public Location getLocation() {
