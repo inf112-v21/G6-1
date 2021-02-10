@@ -17,11 +17,6 @@ public class GameLogic implements IGameLogic {
     }
 
     @Override
-    public Location isLocationEmpty() {
-        return null;
-    }
-
-    @Override
     public Location getXCoordinate() {
         return null;
     }

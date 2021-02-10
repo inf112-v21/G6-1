@@ -30,7 +30,10 @@ public class Graphics implements ApplicationListener {
     }
 
     @Override
-    public void resize(int i, int i1) {
+    public void resize(int width, int height) {
+        camera.viewportWidth = width;
+        camera.viewportHeight = height;
+        camera.update();
 
     }
 
