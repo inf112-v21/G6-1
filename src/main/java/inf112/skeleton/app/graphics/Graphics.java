@@ -19,6 +19,7 @@ public class Graphics implements ApplicationListener {
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private SpriteBatch batch;
 
+
     @Override
     public void create() {
         float w = Gdx.graphics.getWidth();
