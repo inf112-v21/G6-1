@@ -32,7 +32,7 @@ Som del av scrum rammeverket er utviklingsteamet en rolle, hvor alle medlemmene 
 - Vilde Haugstad
 
 
-###Arbeidsmetodikk  
+###Arbeidsmetodikk
 Den obligatoriske innleveringen har en avgrenset tidsramme med et definert scope som skal leveres på slutten. Dette passer veldig godt med Scrum rammeverket, hvor du definerer sprinter på en til flere uker. Ved slutten av hver sprint skal et produkt leveres, noe som passer perfekt da vi skal ha en MVP klart både ved oblig 1 og 2.
 
 Illustrasjon av en scrum sprint:
