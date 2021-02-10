@@ -27,11 +27,21 @@ public class GameLogic extends Sprite implements InputProcessor {
         super.draw(batch);
     }
 
+    /**
+     * Update the location of the player on the board
+     * @param updateX
+     * @param updateY
+     */
     public void updatePlayerLocation(float updateX, float updateY) {
 
         this.setPosition(updateX, updateY);
     }
 
+    /**
+     *
+     * @param startPosX
+     * @param startPosY
+     */
     public void setPlayerStartPosition(float startPosX, float startPosY) {
 
         this.setPosition(startPosX, startPosY);
@@ -67,7 +77,8 @@ public class GameLogic extends Sprite implements InputProcessor {
      * @param keyPressed
      * @return true : boolean
      */
-
+    public void playerMoveAction(){
+    }
     @Override
     public boolean keyDown(int keyPressed) {
         // TODO refactor when tested
