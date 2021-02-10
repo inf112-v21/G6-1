@@ -13,7 +13,6 @@ public class GameLogic extends Sprite implements InputProcessor {
     private float updateY;
     private TiledMap gameCourse;
 
-    //testing pull and push
 
     // temporary player while waiting on Player class constructor
     public GameLogic(Sprite sprite){
@@ -33,7 +32,6 @@ public class GameLogic extends Sprite implements InputProcessor {
      * @param updateY
      */
     public void updatePlayerLocation(float updateX, float updateY) {
-
         this.setPosition(updateX, updateY);
     }
 
@@ -43,10 +41,14 @@ public class GameLogic extends Sprite implements InputProcessor {
      * @param startPosY
      */
     public void setPlayerStartPosition(float startPosX, float startPosY) {
-
         this.setPosition(startPosX, startPosY);
     }
 
+    /**
+     *
+     * @param width
+     * @param height
+     */
     public void setPlayerSize(float width, float height) {
         player.setSize(width, height);
 
@@ -59,9 +61,7 @@ public class GameLogic extends Sprite implements InputProcessor {
         if (player.getX() == flag.getY() && player.getX() == flag.getY()){
             player.flag +=1;
         }
-
     }
-
      */
     public void chooseGameCourse(String mapName) {
         // TODO refactor so we only need to type the name of the map instead of the path
@@ -70,6 +70,8 @@ public class GameLogic extends Sprite implements InputProcessor {
         else
             gameCourse = new TmxMapLoader().load(mapName);
     }
+    public void playerMoveAction(){
+    }
 
     /**
      * keyDown registers what happens when the key is pressed down. We want the player to move upon down-press
@@ -77,8 +79,6 @@ public class GameLogic extends Sprite implements InputProcessor {
      * @param keyPressed
      * @return true : boolean
      */
-    public void playerMoveAction(){
-    }
     @Override
     public boolean keyDown(int keyPressed) {
         // TODO refactor when tested
