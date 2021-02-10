@@ -20,10 +20,12 @@ public class GameLogic extends Sprite implements InputProcessor {
     }
 
     public void updatePlayerLocation(float updateX, float updateY) {
+
         this.setPosition(updateX, updateY);
     }
 
     public void setPlayerStartPosition(float startPosX, float startPosY) {
+
         this.setPosition(startPosX, startPosY);
     }
 
@@ -37,6 +39,7 @@ public class GameLogic extends Sprite implements InputProcessor {
 
     @Override
     public boolean keyDown(int keyPressed) {
+        // TODO refactor when tested
         if(keyPressed == Input.Keys.LEFT){
             updateX = getX() - 32;
         }
