@@ -14,7 +14,6 @@ public class Robot {
         this.name = name;
         this.color = color;
 
-
     }
 
     public String getName() {

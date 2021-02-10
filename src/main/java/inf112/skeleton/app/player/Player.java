@@ -21,13 +21,13 @@ public class Player implements IPlayer{
         return new Action[0];
     }
 
-
     public Player(int id, Robot robot) {
         this.id = id;
         this.robot = robot;
         this.lifeTokens = 3;
         this.damageTokens = 0;
     }
+
 
 
 

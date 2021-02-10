@@ -4,8 +4,6 @@ import inf112.skeleton.app.location.Location;
 
 public class GameLogic implements IGameLogic {
 
-    //testing pull and push
-
     @Override
     public Location getLocation() {
         return null;
