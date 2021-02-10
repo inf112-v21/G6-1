@@ -1,5 +1,7 @@
 package inf112.skeleton.app.GameLogic;
 
+import inf112.skeleton.app.location.Location;
+
 public interface IGameLogic {
 
     /**
