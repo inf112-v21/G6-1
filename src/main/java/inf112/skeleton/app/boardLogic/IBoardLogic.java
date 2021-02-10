@@ -1,6 +1,6 @@
 package inf112.skeleton.app.boardLogic;
 
-public interface IBoardLogic {
+//public interface IBoardLogic {
 
     /**
      * Finds location
@@ -8,7 +8,7 @@ public interface IBoardLogic {
      * @param
      * @return
      */
-    Location getLocation();
+  //  Location getLocation();
 
 
     /**
@@ -17,7 +17,7 @@ public interface IBoardLogic {
      * @param
      * @return
      */
-    Location setNewLocation();
+  //  Location setNewLocation();
 
     /**
      * Checks if there is an object at a given location...
@@ -26,7 +26,7 @@ public interface IBoardLogic {
      * @return
      */
 
-    Location isLocationEmpty();
+    //Location isLocationEmpty();
 
     /**
      * Gets the current X coordinate
@@ -35,7 +35,7 @@ public interface IBoardLogic {
      * @return
      */
 
-    Location getXCoordinate();
+  //  Location getXCoordinate();
 
     /**
      * Gets the current Y coordinate
@@ -44,5 +44,5 @@ public interface IBoardLogic {
      * @return
      */
 
-    Location getYCoordinate();
-}
+  //  Location getYCoordinate();
+//}

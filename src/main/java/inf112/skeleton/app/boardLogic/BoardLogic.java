@@ -1,5 +1,5 @@
 package inf112.skeleton.app.boardLogic;
-
+/**
 public class BoardLogic implements IBoardLogic {
 
     //testing pull and push
@@ -30,3 +30,4 @@ public class BoardLogic implements IBoardLogic {
     
     }
 }
+ */
