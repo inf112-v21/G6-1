@@ -15,13 +15,18 @@ public class GameLogic extends Sprite implements InputProcessor {
 
     @Override
     public void draw(Batch batch) {
-        updatePlayer(moveX, moveY);
+        updatePlayerLocation(updateX, updateY);
         super.draw(batch);
     }
 
-    private void updatePlayer(float moveX, float moveY) {
-        setPosition(moveX, moveY);
+    public void updatePlayerLocation(float updateX, float updateY) {
+        this.setPosition(updateX, updateY);
     }
+
+    public void setPlayerStartPosition(float startPosX, float startPosY) {
+        this.setPosition(startPosX, startPosY);
+    }
+
 
     /**
      * keyDown registers what happens when the key is pressed down. We want the player to move upon down-press
@@ -33,10 +38,10 @@ public class GameLogic extends Sprite implements InputProcessor {
     @Override
     public boolean keyDown(int keyPressed) {
         if(keyPressed == Input.Keys.LEFT){
-            moveX = getX() - 32;
+            updateX = getX() - 32;
         }
         else if(keyPressed == Input.Keys.RIGHT){
-            moveX = getX() + 32;
+            updateX = getX() + 32;
         }
         else if(keyPressed == Input.Keys.UP){
             moveX = getY() + 32;
@@ -57,7 +62,7 @@ public class GameLogic extends Sprite implements InputProcessor {
     @Override
     public boolean keyUp(int keyPressed) {
         if(keyPressed == Input.Keys.LEFT) {
-            moveX = getX();
+            updateX = getX();
         }
         else if(keyPressed == Input.Keys.RIGHT){
                 moveX = getX();
