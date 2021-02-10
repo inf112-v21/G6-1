@@ -5,7 +5,7 @@ import inf112.skeleton.app.location.Location;
 import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.robot.Robot;
 
-public class LocalHumanPlayer implements IPlayer{
+public class Player implements IPlayer{
 
 
     private final Robot robot; // private final Piece piece;
@@ -21,7 +21,7 @@ public class LocalHumanPlayer implements IPlayer{
     }
 
 
-    public LocalHumanPlayer(int id, Robot robot) {
+    public Player(int id, Robot robot) {
         this.id = id;
         this.robot = robot;
         this.lifeTokens = 3;
