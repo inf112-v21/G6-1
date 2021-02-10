@@ -25,8 +25,13 @@ public class GameLogic extends Sprite implements InputProcessor {
      * @param updateX :Float
      * @param updateY : Float
      */
+
+    // TODO finne ut om Game kan bruke denne istedenfor playerMoveAction
     public void updatePlayerLocation(float updateX, float updateY) {
-        this.setPosition(updateX, updateY);
+        if (updateX - getX()< 0 || updateX + getX()> getWidth()|| updateY -getY() < 0 || updateY + getHeight() > 0)
+            setPosition(getX(),getY());
+        else
+            this.setPosition(updateX, updateY);
     }
 
     /**
@@ -67,6 +72,7 @@ public class GameLogic extends Sprite implements InputProcessor {
      * Gets the player movement actions
      */
     public void playerMoveAction(){
+
     }
 
     /**
