@@ -1,7 +1,6 @@
 package inf112.skeleton.app.player;
 
-import inf112.skeleton.app.GameLogic.GameLogic;
-import inf112.skeleton.app.GameLogic.GameLogic;
+import inf112.skeleton.app.gameLogic.GameLogic;
 import inf112.skeleton.app.location.Location;
 import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.robot.Robot;
@@ -21,6 +20,7 @@ public class Player implements IPlayer{
         return new Action[0];
     }
 
+
     public Player(int id, Robot robot) {
         this.id = id;
         this.robot = robot;
@@ -29,13 +29,13 @@ public class Player implements IPlayer{
     }
 
 
-
-
     private void loseLifeToken() {
         this.lifeTokens -= 1;
     }
 
-    public int getLifeTokens() { return lifeTokens; }
+    public int getLifeTokens() {
+        return lifeTokens;
+    }
 
     /**
      * Return the players location
