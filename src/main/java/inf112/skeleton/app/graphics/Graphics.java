@@ -4,6 +4,8 @@ package inf112.skeleton.app.graphics;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -15,16 +17,18 @@ public class Graphics implements ApplicationListener {
     private TiledMap tiledMap;
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
+    private SpriteBatch batch;
 
     @Override
     public void create() {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
+        batch = new SpriteBatch();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false,w,h);
         camera.update();
-        tiledMap = new TmxMapLoader().load("Checkmate.tmx");
+        tiledMap = new TmxMapLoader().load("Maps/Checkmate.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
     }
