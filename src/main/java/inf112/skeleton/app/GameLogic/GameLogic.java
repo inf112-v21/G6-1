@@ -7,18 +7,13 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import inf112.skeleton.app.player.Player;
 
 public class GameLogic extends Sprite implements InputProcessor {
     private float updateX;
     private float updateY;
     private TiledMap gameCourse;
-
-
-    // temporary player while waiting on Player class constructor
-    public GameLogic(Sprite sprite){
-        super(sprite);
-    }
-    GameLogic player = new GameLogic(new Sprite(new Texture("flags.png")));
+    Player player = new Player(new Sprite(new Texture("flags.png")));
 
     @Override
     public void draw(Batch batch) {
@@ -28,40 +23,57 @@ public class GameLogic extends Sprite implements InputProcessor {
 
     /**
      * Update the location of the player on the board
-     * @param updateX
-     * @param updateY
+     * @param updateX :Float
+     * @param updateY : Float
      */
     public void updatePlayerLocation(float updateX, float updateY) {
         this.setPosition(updateX, updateY);
     }
 
     /**
-     *
-     * @param startPosX
-     * @param startPosY
+     * Sets the start position of the player
+     * @param startPosX : Float
+     * @param startPosY :Float
      */
     public void setPlayerStartPosition(float startPosX, float startPosY) {
         this.setPosition(startPosX, startPosY);
     }
 
     /**
-     *
-     * @param width
-     * @param height
+     * Sets the size of the player image
+     * @param width : Float
+     * @param height :Float
      */
     public void setPlayerSize(float width, float height) {
         player.setSize(width, height);
-
     }
+
+    /**
+     * Check if player is on a flag.
+     * In first assignment player wins when visiting a flag.
+     * @Return true/false :boolean
+     */
     /*
-    public isPlayerOnFlag(){
-            // TODO check what Yasmin is calling the flag layers
+    public boolean isPlayerOnFlag(){
+            // TODO check what Yasmin is calling the flag layers fix pseudocode
         gameCourse.getProperties();
         Flaglayer flag = flagLayer.containsKey("flag");
         if (player.getX() == flag.getY() && player.getX() == flag.getY()){
-            player.flag +=1;
+            return true;
         }
+        return false;
     }
+*/
+    /**
+     * Gets the player movement actions
+     */
+    public void playerMoveAction(){
+    }
+
+    /**
+     * Chose game course.
+     * for first assignment set to "default"
+     * @param mapName :String
      */
     public void chooseGameCourse(String mapName) {
         // TODO refactor so we only need to type the name of the map instead of the path
@@ -70,11 +82,10 @@ public class GameLogic extends Sprite implements InputProcessor {
         else
             gameCourse = new TmxMapLoader().load(mapName);
     }
-    public void playerMoveAction(){
-    }
 
     /**
-     * keyDown registers what happens when the key is pressed down. We want the player to move upon down-press
+     * keyDown registers what happens when the key is pressed down.
+     * Player move one tile upon down-press
      *
      * @param keyPressed
      * @return true : boolean
@@ -98,8 +109,8 @@ public class GameLogic extends Sprite implements InputProcessor {
     }
 
     /**
-     * keyUp registers what happens when the key is released. We want the player to stop moving when button is released
-     *
+     * keyUp registers what happens when the key is released.
+     * Player to stop moving when button is released
      * @param keyPressed
      * @return true : boolean
      */
@@ -118,7 +129,6 @@ public class GameLogic extends Sprite implements InputProcessor {
         else if(keyPressed == Input.Keys.DOWN){
             updateY = getY();
         }
-
         return true;
     }
 
