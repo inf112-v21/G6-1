@@ -1,6 +1,6 @@
 //package inf112.skeleton.app.player;
 //
-//import inf112.skeleton.app.boardLogic.BoardLogic;
+//import inf112.skeleton.app.boardLogic.GameLogic;
 //import inf112.skeleton.app.shared.Action;
 //
 //public interface IPlayer {

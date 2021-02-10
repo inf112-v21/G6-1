@@ -1,6 +1,6 @@
 //package inf112.skeleton.app.player;
 //
-//import inf112.skeleton.app.boardLogic.BoardLogic;
+//import inf112.skeleton.app.boardLogic.GameLogic;
 //import inf112.skeleton.app.location.Location;
 //import inf112.skeleton.app.shared.Action;
 //import inf112.skeleton.app.robot.Robot;

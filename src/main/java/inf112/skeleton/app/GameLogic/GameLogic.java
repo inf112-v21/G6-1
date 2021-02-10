@@ -1,4 +1,4 @@
-package inf112.skeleton.app.gameLogic;
+package inf112.skeleton.app.GameLogic;
 /**
 public class BoardLogic implements IBoardLogic {
 
