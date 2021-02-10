@@ -1,5 +1,4 @@
 package inf112.skeleton.app.GameLogic;
-
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
@@ -53,15 +52,15 @@ public class GameLogic extends Sprite implements InputProcessor {
      * In first assignment player wins when visiting a flag.
      * @Return true/false :boolean
      */
-    /*
+
+/*
     public boolean isPlayerOnFlag(){
-            // TODO check what Yasmin is calling the flag layers fix pseudocode
-        gameCourse.getProperties();
-        Flaglayer flag = flagLayer.containsKey("flag");
-        if (player.getX() == flag.getY() && player.getX() == flag.getY()){
-            return true;
-        }
+         // TODO check what Yasmin is calling the flag layers fix pseudocode
+        boolean playerOnFlag;
+        playerOnFlag = flagLayer.getCell(getX,getY)getTile.getProperties().containsKey("Flag");
+        if (playerOnFlag) return true;
         return false;
+
     }
 */
     /**
