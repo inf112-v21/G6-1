@@ -1,6 +1,6 @@
 package inf112.skeleton.app.GameLogic;
-/**
-public class BoardLogic implements IBoardLogic {
+
+public class GameLogic implements IGameLogic {
 
     //testing pull and push
 
@@ -27,7 +27,6 @@ public class BoardLogic implements IBoardLogic {
     @Override
     public Location getYCoordinate() {
         return null;
-    
+
     }
 }
- */

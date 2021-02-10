@@ -1,6 +1,6 @@
 package inf112.skeleton.app.GameLogic;
 
-//public interface IBoardLogic {
+public interface IGameLogic {
 
     /**
      * Finds location
@@ -8,7 +8,7 @@ package inf112.skeleton.app.GameLogic;
      * @param
      * @return
      */
-  //  Location getLocation();
+  Location getLocation();
 
 
     /**
@@ -17,7 +17,7 @@ package inf112.skeleton.app.GameLogic;
      * @param
      * @return
      */
-  //  Location setNewLocation();
+  Location setNewLocation();
 
     /**
      * Checks if there is an object at a given location...
@@ -35,7 +35,7 @@ package inf112.skeleton.app.GameLogic;
      * @return
      */
 
-  //  Location getXCoordinate();
+  Location getXCoordinate();
 
     /**
      * Gets the current Y coordinate
@@ -44,5 +44,5 @@ package inf112.skeleton.app.GameLogic;
      * @return
      */
 
-  //  Location getYCoordinate();
-//}
+  Location getYCoordinate();
+}
