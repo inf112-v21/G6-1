@@ -13,7 +13,7 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
     private float updateX;
     private float updateY;
     private TiledMap gameCourse;
-    Player player = new Player(new Sprite(new Texture("flags.png")));
+    //Player player = new Player(new Sprite(new Texture("flags.png")));
 
     @Override
     public void draw(Batch batch) {
