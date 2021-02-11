@@ -9,8 +9,10 @@ public class Main {
     public static void main(String[] args) {
         Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
         cfg.setTitle("GameStopper's RoboRally");
-        cfg.setWindowedMode(480, 320);
+        cfg.setWindowedMode(500, 500);
+        Game game = new Game();
 
-        new Lwjgl3Application(new Graphics(), cfg);
+
+        new Lwjgl3Application(game.startGame(), cfg);
     }
 }
