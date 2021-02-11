@@ -21,7 +21,7 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
     private TiledMap gameCourse;
     private TiledMapTileLayer flagLayer;
 
-    public GameLogic(Sprite sprite) {
+    public GameLogic(Sprite sprite, TiledMapTileLayer flagLayer) {
         super(sprite);
         this.flagLayer = flagLayer;
     }
@@ -92,9 +92,12 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
             gameCourse = new TmxMapLoader().load(mapName);
 
          */
-        return new TmxMapLoader().load("Maps/Checkmate.tmx");
+        return new TmxMapLoader().load("Maps/RiskyExchange.tmx");
     }
 
+    private int normalizedCoordinates(float unNormalizedValue) {
+        return (int) unNormalizedValue/300;
+        }
 
     /**
      * keyDown registers what happens when the key is pressed down.
@@ -106,16 +109,17 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
     @Override
     public boolean keyDown(int keyPressed) {
         if(keyPressed == Input.Keys.LEFT){
-            updateX = getX() - 32;
+            updateX = getX() - 300;
         }
         else if(keyPressed == Input.Keys.RIGHT){
-            updateX = getX() + 32;
+            updateX = getX() + 300;
         }
         else if(keyPressed == Input.Keys.UP){
-            updateY = getY() + 32;
+            updateY = getY() + 300;
         }
         else if(keyPressed == Input.Keys.DOWN){
-            updateY = getY() - 32;
+            updateY = getY() - 300;
+
         }
         return true;
     }
