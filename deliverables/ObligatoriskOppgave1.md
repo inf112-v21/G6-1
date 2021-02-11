@@ -43,6 +43,7 @@ Som del av scrum rammeverket er utviklingsteamet en rolle, hvor alle medlemmene 
 - Vilde Haugstad
 
 
+
 ##Arbeidsmetodikk
 Den obligatoriske innleveringen har en avgrenset tidsramme med et definert scope som skal leveres på slutten. Dette passer veldig godt med Scrum rammeverket, hvor du definerer sprinter på en til flere uker. Ved slutten av hver sprint skal et produkt leveres, noe som passer perfekt da vi skal ha en MVP klart både ved oblig 1 og 2.
 
@@ -67,6 +68,11 @@ Sprint review innebærer et møte hvor teamet viser frem hva vi har oppnådd i l
 Sprint retrospective er hvor teamet tar en egenvurdering på hva som gikk bra og hva som gikk dårlig under sprinten. Her kan vi lage en plan for forbedringer til neste sprint.  Dette vil vi gjennomføre før innleveringsfristen av de obligatoriske oppgavene da dette er en del av vurderingskriteriene.
 
 I tillegg til scrum vil vi benytte oss av metoden for parprogrammering og mob programmering da medlemmene av teamet har forskjellig bakgrunn og kompetanse. Vi ser derfor på parprogrammering som en mulighet til å dele kunnskap og få bedre innsikt i forskjellige deler av prosjektet. 
+
+##UML:
+Class Diagram: [her](https://github.com/inf112-v21/G6-1/blob/master/class_and_interface_diagrams/Class_Diagram.png)
+
+Interface Diagram [her](https://github.com/inf112-v21/G6-1/blob/master/class_and_interface_diagrams/Interface_Diagram.png)
 
 
  
