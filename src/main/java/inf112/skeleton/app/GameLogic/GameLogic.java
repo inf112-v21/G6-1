@@ -32,7 +32,9 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
      */
     @Override
     public void draw(Batch batch) {
-        updatePlayerLocation(updateX, updateY);
+        setPosition(updateX,updateY);
+        if(isPlayerOnFlag()) System.out.println("WON!!!!!!");
+        //updatePlayerLocation(updateX, updateY);
         super.draw(batch);
     }
 
@@ -41,7 +43,6 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
      * @param updateX :Float
      * @param updateY : Float
      */
-
     // TODO finne ut om Game kan bruke denne istedenfor playerMoveAction
     public void updatePlayerLocation(float updateX, float updateY) {
         this.setPosition(updateX,updateY);
@@ -119,7 +120,6 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
         }
         else if(keyPressed == Input.Keys.DOWN){
             updateY = getY() - 300;
-
         }
         return true;
     }
@@ -135,6 +135,7 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
     public boolean keyUp(int keyPressed) {
         if(keyPressed == Input.Keys.LEFT) {
             updateX = getX();
+
         }
         else if(keyPressed == Input.Keys.RIGHT){
             updateX = getX();
