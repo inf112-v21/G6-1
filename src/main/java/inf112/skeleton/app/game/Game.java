@@ -1,15 +1,21 @@
 package inf112.skeleton.app.game;
+import inf112.skeleton.app.GameLogic.GameLogic;
+import inf112.skeleton.app.graphics.Graphics;
+import inf112.skeleton.app.player.Player;
 
 import inf112.skeleton.app.GameLogic.GameLogic;
 
 public class Game implements IGame {
-
-    public Game() {
-
-    }
+    GameLogic gameLogic = new GameLogic();
+    Graphics graphics = new Graphics();
 
     @Override
     public void startGame() {
+        graphics.create();
+        gameLogic.setPlayerStartPosition(20,20);
+        gameLogic.setPlayerSize(32,32);
+        graphics.render();
+        graphics.dispose();
 
     }
 
@@ -20,6 +26,15 @@ public class Game implements IGame {
 
     @Override
     public boolean isGameOver() {
+
+        /*
+        if (flagIsVisited) {
+            return true;
+        } else {
+            return false;
+        }
+
+         */
         return false;
     }
 }

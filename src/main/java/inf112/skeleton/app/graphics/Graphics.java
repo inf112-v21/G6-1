@@ -77,6 +77,5 @@ public class Graphics extends GameLogic implements ApplicationListener {
     @Override
     public void dispose() {
         tiledMap.dispose();
-
     }
 }
