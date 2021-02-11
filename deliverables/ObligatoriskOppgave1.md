@@ -57,3 +57,48 @@ Sprint retrospective er hvor teamet tar en egenvurdering på hva som gikk bra og
 
 I tillegg til scrum vil vi benytte oss av metoden for parprogrammering og mob programmering da medlemmene av teamet har forskjellig bakgrunn og kompetanse. Vi ser derfor på parprogrammering som en mulighet til å dele kunnskap og få bedre innsikt i forskjellige deler av prosjektet. Videre har teamet har valgt å bruke Slack som daglig kommunikasjonskanal, og zoom til digitale møter. 
 
+###Møtereferat
+**Fredag 05.02.2021**
+
+Som forberedelse til møte hadde teamleder utarbeidet et forslag til prosjektmetodikk og begynt på brukerhistorier som dekket MVP krav 1-5 slik at diskusjonen av metoder skulle gå mer effektivt. Under møtet gikk vi i fellesskap gjennom forslaget til arbeidsmetodikk og gjorde tilpasninger slik at alle i teamet var enige om metoder som passet gruppen som helhet. Vi endte med å hente elementer fra Scrum, i tillegg til å drive med mob programmering i starten av prosjektet når vi fortsatt ikke har en komplett oversikt over arkitekturen til koden. Dette ønsker vi for å opprettholde en god kommunikasjon, og for å sikre at vi har en felles forståelse for abstraksjonene vi har valgt.
+
+Vi utarbeidet også flere brukerhistorier, men var litt usikker på hvordan akseptansekriterier og arbeidsoppgaver skulle formuleres. Vi ble enige om at til neste møte skal vi sette oss mer inn i dette slik at brukerhistoriene kan blir komplette.
+
+Da seminaret var over ble vi enige at de av oss som hadde tid skulle fortsette møtet for å utarbeide arkitekturen til interfacet. Dette skulle vi ettertid sende på slack-kanalen til teamet slik at de som måtte gå pga andre forpliktelser var oppdatert og kunne komme med input.
+
+Vi avtalte også at neste møtet skulle bli mandag 08.02 kl 15.00, hvor vi i forberedelse til møtet skulle sette oss inn i Libgdx and Tiled Tutorial, i tillegg til akseptansekriterier og arbeidsoppgaver til brukerhistorier som tidligere nevnt. Vi ønsker å få en god start på kode delen av prosjektet i fellesskap under neste møtet. Deretter skal vi innføre daily scrum slik at vi får en god kontroll på prosjektet og hva alle jobber med fram mot innlevering.
+
+Vi som ble igjen ble ferdig med en foreløpig utarbeidelse av arkitekturen til interfacet.
+
+**Mandag 08.02.2021**         
+
+Agenda: 
+- Gruppen må godkjenne arkitektur til interface.
+- Begynne på koden
+
+I starten av møtet tok vi opp arkitekturen til interface som ble laget forrige møtet. Denne hadde fått noen forbedringer i løpet av helgen og vi hadde utformet et tilhørende klassediagram. Da ikke alle teammedlemmene hadde anledning til å ha digitale møter i helgen, ble oppdateringene postet på slack kanalen slik at alle var oppdatert.
+Vi ble alle enige om hvordan arkitekturen skulle utformes, og vi brukte en del tid på møtet i dag til å forklare og endre.
+
+I tillegg tok vi opp Tiled og forsøkte i fellesskap å forstå litt bedre hvordan programmet fungerte.
+
+Vi avsluttet møtet med å fordele oppgaver på bakgrunn av klassediagrammet vi utformet slik at vi alle kan jobbe med forskjellige deler av koden uavhengig av hverandre og med å planlegge et nytt møte onsdag 10.02. Tirsdag 09.02 skal vi ha daily scrum og ta et møte om vi ser at det blir behov for det.
+
+**Onsdag 10.02.2021**
+
+Agenda:
+Forsøke å fullføre metodene som trengs i GameLogic til MVP
+Opprette player som Sprite i Player.java
+Sette opp kode som trengs for å kunne vise GUI som er laget til i dag
+Bryte opp board hvor board kun har kontroll på brettet og lage interface
+lage en ny klasse som har ansvar for å håndtere spillere på et brett
+
+Erlend og Thomas: Branchet ut for å prøve å kartlegge hvilke funksjoner som er tilgjengelig for både brett og spiller. Metoder til libgdx and tiled. Skal prøve å få kontroll på å flytte spilleren skikkelig og sette opp funksjonene som vi har avtalt og lage de. Skal se på rendering av brettet.
+Erlend vil kjøre de fleste commits etter dette, da vi kjører CodeWithMe via hans PC.
+
+Vilde:
+
+Hossein: Skrevet kode.
+
+Yasmin: Lagd maps i tiled.
+
+På dette møtet gikk vi igjennom hva vi hadde gjort siden sist. Erlend og Thomas hadde forsøkt å kartlegge hvilke funksjoner som var tilgjengelig for både brett og spiller og satt seg mer inn i metoder til Libgdx and Tiled. Vilde hadde skrevet ferdig arbeidsmetodikk, forbedret brukerhistorier og satt seg inn i hvordan markdown fungerer. Hossein skrev metoder til player og Yasmin hadde lagd maps i Tiled. 
