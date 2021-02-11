@@ -12,6 +12,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import inf112.skeleton.app.location.Location;
 import inf112.skeleton.app.player.Player;
 
+
 public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
 
     private float updateX;
