@@ -86,6 +86,7 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
 
     public void setPlayerSize(Player player,float width, float height) {
         player.setSize(width, height);
+
     }
 
     /**
