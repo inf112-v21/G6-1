@@ -72,10 +72,12 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
 
 
     public boolean isPlayerOnFlag(){
-         // TODO check what Yasmin is calling the flag layers fix pseudocode
-        boolean playerOnFlag;
-        playerOnFlag = flagLayer.getCell(getX,getY)getTile.getProperties().containsKey("Flag");
-        if (playerOnFlag) return true;
+        boolean playerOnFlag =false;
+        playerOnFlag = flagLayer.getCell((int) getX(),(int)getY()).getTile().getProperties().containsKey("Flag");;
+        if (playerOnFlag){
+            return true;
+        }
+
         return false;
 
     }
