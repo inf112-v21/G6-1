@@ -22,9 +22,9 @@ public class Player extends Sprite implements IPlayer {
     private Location location;
     private Location checkPoint;
 */
-public Player(Sprite sprite, TiledMapTileLayer collisionLayer) {
+public Player(Sprite sprite) {
     super(sprite);
-    this.collisionLayer = collisionLayer;
+
         /* This is not needed yet
         this.id = id;
         this.robot = robot;
