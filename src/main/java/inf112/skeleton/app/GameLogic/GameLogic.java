@@ -1,4 +1,6 @@
 package inf112.skeleton.app.GameLogic;
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
@@ -16,6 +18,9 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
     private TiledMap gameCourse;
     //private final TiledMapTileLayer flagLayer;
     public Player player = new Player(new Sprite(new Texture("flags.png")));
+    //public InputProcessor InputProcessorPlayer = new InputProcessor() {
+    //Gdx.input.setInputProcessor(player);
+
     /*
     public GameLogic(TiledMapTileLayer flagLayer) {
         this.flagLayer = flagLayer;
@@ -70,7 +75,7 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
      * @Return true/false :boolean
      */
 
-
+/*
     public boolean isPlayerOnFlag(){
         boolean playerOnFlag =false;
         playerOnFlag = flagLayer.getCell((int) getX(),(int)getY()).getTile().getProperties().containsKey("Flag");;
@@ -81,7 +86,7 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
         return false;
 
     }
-
+*/
     /**
      * Gets the player movement actions
      */
