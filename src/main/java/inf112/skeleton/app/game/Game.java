@@ -14,23 +14,4 @@ public class Game implements IGame {
         graphics = new Graphics();
         return graphics;
     }
-
-    @Override
-    public void executeActionOn() {
-
-    }
-
-    @Override
-    public boolean isGameOver() {
-
-        /*
-        if (flagIsVisited) {
-            return true;
-        } else {
-            return false;
-        }
-
-         */
-        return false;
-    }
 }

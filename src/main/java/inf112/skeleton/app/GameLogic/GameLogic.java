@@ -9,18 +9,22 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import inf112.skeleton.app.game.IGame;
+import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.location.Location;
 import inf112.skeleton.app.player.Player;
 
 
 public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
 
+    private IGame game;
     private float updateX;
     private float updateY;
     private TiledMap gameCourse;
 
-    public GameLogic(Sprite sprite) {
+    public GameLogic(Sprite sprite, Game game) {
         super(sprite);
+        this.game = game;
     }
     //private final TiledMapTileLayer flagLayer;
     //public Player player;
@@ -155,6 +159,7 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
 
     @Override
     public boolean keyUp(int keyPressed) {
+
         if(keyPressed == Input.Keys.LEFT) {
             updateX = getX();
         }
