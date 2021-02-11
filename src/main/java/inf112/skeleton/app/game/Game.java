@@ -1,5 +1,6 @@
 package inf112.skeleton.app.game;
 
+import inf112.skeleton.app.GameLogic.GameLogic;
 
 public class Game implements IGame {
 
