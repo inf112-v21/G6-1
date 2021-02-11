@@ -36,8 +36,6 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
     */
 
 
-
-
     /**
      * Takes Player SpriteBatch, sends updated players location to super draw
      * @param batch : Player
@@ -67,6 +65,10 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
 
          */
         this.setPosition(updateX, updateY);
+    }
+
+    public void getPlayerPosition(float X, float Y) {
+
     }
 
     /**
