@@ -15,6 +15,10 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
     private TiledMap gameCourse;
     Player player = new Player(new Sprite(new Texture("flags.png")));
 
+    /**
+     * Takes Player SpriteBatch, sends updated players location to super draw
+     * @param batch : Player
+     */
     @Override
     public void draw(Batch batch) {
         updatePlayerLocation(updateX, updateY);
