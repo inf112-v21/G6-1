@@ -7,11 +7,21 @@ import inf112.skeleton.app.game.Game;
 import org.junit.Test;
 import java.awt.event.KeyEvent;
 
+
 import static org.junit.Assert.assertTrue;
 
 public class GameLogicTest {
-    Sprite playerSprite = new Sprite();
-    GameLogic gameLogic = new GameLogic(playerSprite, new Game());
+    Sprite playerSprite;
+    GameLogic gameLogic;
+
+
+    public void setup() {
+        Sprite playerSprite = new Sprite();
+        GameLogic gameLogic = new GameLogic(playerSprite, new Game());
+
+
+    }
+
 
 
     @Test
