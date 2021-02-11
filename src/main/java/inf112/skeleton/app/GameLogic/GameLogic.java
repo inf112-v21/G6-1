@@ -15,7 +15,7 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
     private float updateY;
     private TiledMap gameCourse;
     private final TiledMapTileLayer flagLayer;
-    Player player = new Player(new Sprite(new Texture("flags.png")));
+    public Player player = new Player(new Sprite(new Texture("flags.png")));
 
     public GameLogic(TiledMapTileLayer flagLayer) {
         this.flagLayer = flagLayer;
