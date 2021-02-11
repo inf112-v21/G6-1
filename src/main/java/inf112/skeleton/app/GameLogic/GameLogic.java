@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import inf112.skeleton.app.location.Location;
 import inf112.skeleton.app.player.Player;
@@ -13,7 +14,13 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
     private float updateX;
     private float updateY;
     private TiledMap gameCourse;
-    //Player player = new Player(new Sprite(new Texture("flags.png")));
+    private final TiledMapTileLayer flagLayer;
+    Player player = new Player(new Sprite(new Texture("flags.png")));
+
+    public GameLogic(TiledMapTileLayer flagLayer) {
+        this.flagLayer = flagLayer;
+    }
+
 
     /**
      * Takes Player SpriteBatch, sends updated players location to super draw
@@ -63,7 +70,7 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
      * @Return true/false :boolean
      */
 
-/*
+
     public boolean isPlayerOnFlag(){
          // TODO check what Yasmin is calling the flag layers fix pseudocode
         boolean playerOnFlag;
@@ -72,7 +79,7 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
         return false;
 
     }
-*/
+
     /**
      * Gets the player movement actions
      */
