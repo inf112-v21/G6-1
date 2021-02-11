@@ -26,6 +26,7 @@ public class Player extends Sprite implements IPlayer, InputProcessor {
 public Player(Sprite sprite) {
     super(sprite);
 
+
         /* This is not needed yet
         this.id = id;
         this.robot = robot;
