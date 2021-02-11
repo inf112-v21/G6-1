@@ -1,5 +1,6 @@
 package inf112.skeleton.app.player;
 
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -9,7 +10,7 @@ import inf112.skeleton.app.location.Location;
 import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.robot.Robot;
 
-public class Player extends Sprite implements IPlayer {
+public class Player extends Sprite implements IPlayer, InputProcessor {
 
 
     private Texture img;
@@ -57,5 +58,45 @@ public Player(Sprite sprite) {
     @Override
     public Action[] getActions(GameLogic board) {
         return new Action[0];
+    }
+
+    @Override
+    public boolean keyDown(int i) {
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int i) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char c) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int i, int i1, int i2, int i3) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int i, int i1, int i2, int i3) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int i, int i1, int i2) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int i, int i1) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int i) {
+        return false;
     }
 }

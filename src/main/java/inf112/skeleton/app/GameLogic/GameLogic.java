@@ -13,19 +13,23 @@ import inf112.skeleton.app.location.Location;
 import inf112.skeleton.app.player.Player;
 
 public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
+
     private float updateX;
     private float updateY;
     private TiledMap gameCourse;
+
+    public GameLogic(Sprite sprite) {
+        super(sprite);
+    }
     //private final TiledMapTileLayer flagLayer;
-    public Player player = new Player(new Sprite());
-    //(new Texture("Player/OwnPlayer.png"))
-    //public InputProcessor InputProcessorPlayer = new InputProcessor() {
-    //Gdx.input.setInputProcessor(player);
+    //public Player player;
 
     /*
     public GameLogic(TiledMapTileLayer flagLayer) {
         this.flagLayer = flagLayer;
-    }*/
+    */
+
+
 
 
     /**
@@ -46,10 +50,12 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
 
     // TODO finne ut om Game kan bruke denne istedenfor playerMoveAction
     public void updatePlayerLocation(float updateX, float updateY) {
-        if (updateX - getX()< 0 || updateX + getX()> getWidth()|| updateY -getY() < 0 || updateY + getHeight() > 0)
+        /*if (updateX - getX()< 0 || updateX + getX()> getWidth()|| updateY -getY() < 0 || updateY + getHeight() > 0)
             setPosition(getX(),getY());
         else
-            this.setPosition(updateX, updateY);
+
+         */
+        this.setPosition(updateX, updateY);
     }
 
     /**
@@ -66,7 +72,8 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
      * @param width : Float
      * @param height :Float
      */
-    public void setPlayerSize(float width, float height) {
+
+    public void setPlayerSize(Player player,float width, float height) {
         player.setSize(width, height);
     }
 
@@ -79,7 +86,7 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
 /*
     public boolean isPlayerOnFlag(){
         boolean playerOnFlag =false;
-        playerOnFlag = flagLayer.getCell((int) getX(),(int)getY()).getTile().getProperties().containsKey("Flag");;
+        playerOnFlag = flagLayer.getCell((int) getX(),(int)getY()).getTile().getProperties().containsKey("Flag");
         if (playerOnFlag){
             return true;
         }

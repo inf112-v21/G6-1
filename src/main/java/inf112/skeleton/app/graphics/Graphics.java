@@ -2,9 +2,11 @@ package inf112.skeleton.app.graphics;
 
 
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -12,6 +14,8 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.graphics.GL20;
 import inf112.skeleton.app.GameLogic.GameLogic;
+import inf112.skeleton.app.player.Player;
+
 
 
 public class Graphics extends GameLogic implements ApplicationListener {
@@ -20,24 +24,22 @@ public class Graphics extends GameLogic implements ApplicationListener {
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private SpriteBatch batch;
+    private GameLogic player;
 
 
     @Override
     public void create() {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
-        //batch = new SpriteBatch();
-        //Gdx.input.setInputProcessor((InputProcessor) player);
-
-
-
+        batch = new SpriteBatch();
         camera = new OrthographicCamera();
-        camera.zoom = 12f; //Shows more of the board
+        camera.zoom = 10f; //Shows more of the board
         camera.setToOrtho(false, h,w); //something needs adjustment here
         camera.update();
         tiledMap =chooseGameCourse();
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-
+        player = new GameLogic(new Sprite(new Texture("Player/OwlPlayer.png")));
+        Gdx.input.setInputProcessor(player);
     }
 
     @Override
