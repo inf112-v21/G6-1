@@ -32,7 +32,8 @@ public class Graphics extends GameLogic implements ApplicationListener {
 
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false,w,h);
+        camera.zoom = 12f; //Shows more of the board
+        camera.setToOrtho(false, h,w); //something needs adjustment here
         camera.update();
         tiledMap = new TmxMapLoader().load("Maps/Checkmate.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
