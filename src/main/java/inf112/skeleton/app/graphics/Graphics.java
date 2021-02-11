@@ -39,11 +39,12 @@ public class Graphics implements  ApplicationListener {
         camera.zoom = 10f; //Shows more of the board
         camera.setToOrtho(false, h,w); //something needs adjustment here
         camera.update();
-
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-        player = new GameLogic(new Sprite(new Texture("Player/OwlPlayer.png")));
+        player = new GameLogic(new Sprite(new Texture("Player/OwlPlayer.png")),(TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"));
         Gdx.input.setInputProcessor(player);
+
+
     }
 
     @Override

@@ -12,26 +12,17 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import inf112.skeleton.app.location.Location;
 import inf112.skeleton.app.player.Player;
 
-
 public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
 
     private float updateX;
     private float updateY;
     private TiledMap gameCourse;
+    private TiledMapTileLayer flagLayer;
 
     public GameLogic(Sprite sprite) {
         super(sprite);
-    }
-    //private final TiledMapTileLayer flagLayer;
-    //public Player player;
-
-    /*
-    public GameLogic(TiledMapTileLayer flagLayer) {
         this.flagLayer = flagLayer;
-    */
-
-
-
+    }
 
     /**
      * Takes Player SpriteBatch, sends updated players location to super draw
@@ -57,6 +48,8 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
 
          */
         this.setPosition(updateX, updateY);
+
+
     }
 
     /**
@@ -73,7 +66,6 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
      * @param width : Float
      * @param height :Float
      */
-
     public void setPlayerSize(Player player,float width, float height) {
         player.setSize(width, height);
     }
@@ -84,24 +76,19 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
      * @Return true/false :boolean
      */
 
-/*
+
     public boolean isPlayerOnFlag(){
         boolean playerOnFlag =false;
         playerOnFlag = flagLayer.getCell((int) getX(),(int)getY()).getTile().getProperties().containsKey("Flag");
         if (playerOnFlag){
+            System.out.println("FLLLLLLLLLLLLLLAAAAAAAAAAAAAAAGGGGGGGGGGGGGGGGGGGGGG :D:D:D:D:D:D:D");
             return true;
         }
 
         return false;
 
     }
-*/
-    /**
-     * Gets the player movement actions
-     */
-    public void playerMoveAction(){
 
-    }
 
     /**
      * Chose game course.
