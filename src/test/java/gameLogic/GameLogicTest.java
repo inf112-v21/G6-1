@@ -78,9 +78,6 @@ public class GameLogicTest {
         assertTrue(newY > originalY);
         assertTrue(newX == originalX);
 
-
-
-
     }
 
     @Test
