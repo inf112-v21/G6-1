@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.awt.event.KeyEvent;
 
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class GameLogicTest {
