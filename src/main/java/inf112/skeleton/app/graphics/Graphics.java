@@ -36,13 +36,13 @@ public class Graphics implements  ApplicationListener {
         float h = Gdx.graphics.getHeight();
         batch = new SpriteBatch();
         camera = new OrthographicCamera();
-        camera.zoom = 10f; //Shows more of the board
+        camera.zoom = 6f; //Shows more of the board
         camera.setToOrtho(false, h,w); //something needs adjustment here
         camera.update();
 
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-        player = new GameLogic(new Sprite(new Texture("Player/OwlPlayer.png")), new Game());
+        player = new GameLogic(new Sprite(new Texture("Player/OwlPlayer1.png")), new Game());
         //player = new GameLogic(new Sprite(new Texture("Player/OwlPlayer.png")));
         Gdx.input.setInputProcessor(player);
     }
