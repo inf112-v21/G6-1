@@ -18,7 +18,10 @@ import inf112.skeleton.app.player.Player;
 
 
 
-public class Graphics extends GameLogic implements ApplicationListener {
+public class Graphics implements  ApplicationListener {
+
+
+
 
     private TiledMap tiledMap;
     private OrthographicCamera camera;
@@ -36,7 +39,8 @@ public class Graphics extends GameLogic implements ApplicationListener {
         camera.zoom = 10f; //Shows more of the board
         camera.setToOrtho(false, h,w); //something needs adjustment here
         camera.update();
-        tiledMap =chooseGameCourse();
+
+        tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         player = new GameLogic(new Sprite(new Texture("Player/OwlPlayer.png")));
         Gdx.input.setInputProcessor(player);
@@ -58,12 +62,11 @@ public class Graphics extends GameLogic implements ApplicationListener {
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
-        /*
         tiledMapRenderer.getBatch().begin();
         player.draw(tiledMapRenderer.getBatch());
         tiledMapRenderer.getBatch().end();
 
-         */
+
     }
 
     @Override
