@@ -1,17 +1,28 @@
 package inf112.skeleton.app.game;
-import inf112.skeleton.app.GameLogic.GameLogic;
-import inf112.skeleton.app.graphics.Graphics;
-import inf112.skeleton.app.player.Player;
 
-import inf112.skeleton.app.GameLogic.GameLogic;
 
 public class Game implements IGame {
-    Graphics graphics;
+
+    public Game() {
+
+    }
+    // Sett inn i tiledmap
+    //finne ut hvordan de fungerer
+    //Se om man kan finne ut hva som er flagg fra tiledmap
 
 
     @Override
-    public Graphics startGame() {
-        graphics = new Graphics();
-        return graphics;
+    public void startGame() {
+
+    }
+
+    @Override
+    public void executeActionOn() {
+
+    }
+
+    @Override
+    public boolean isGameOver() {
+        return false;
     }
 }
