@@ -198,4 +198,9 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
     public Location getYCoordinate() {
         return null;
     }
+
+    @Override
+    public boolean isGameOver() {
+        return false;
+    }
 }
