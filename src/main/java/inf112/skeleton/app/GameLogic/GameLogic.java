@@ -1,9 +1,13 @@
 package inf112.skeleton.app.GameLogic;
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -11,16 +15,16 @@ import inf112.skeleton.app.location.Location;
 import inf112.skeleton.app.player.Player;
 
 public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
+
     private float updateX;
     private float updateY;
     private TiledMap gameCourse;
-    //private final TiledMapTileLayer flagLayer;
-    public Player player = new Player(new Sprite(new Texture("flags.png")));
-    /*
-    public GameLogic(TiledMapTileLayer flagLayer) {
-        this.flagLayer = flagLayer;
-    }*/
+    private TiledMapTileLayer flagLayer;
 
+    public GameLogic(Sprite sprite, TiledMapTileLayer flagLayer) {
+        super(sprite);
+        this.flagLayer = flagLayer;
+    }
 
     /**
      * Takes Player SpriteBatch, sends updated players location to super draw
@@ -40,10 +44,8 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
 
     // TODO finne ut om Game kan bruke denne istedenfor playerMoveAction
     public void updatePlayerLocation(float updateX, float updateY) {
-        if (updateX - getX()< 0 || updateX + getX()> getWidth()|| updateY -getY() < 0 || updateY + getHeight() > 0)
-            setPosition(getX(),getY());
-        else
-            this.setPosition(updateX, updateY);
+        this.setPosition(updateX,updateY);
+
     }
 
     /**
@@ -61,47 +63,41 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
      * @param height :Float
      */
     public void setPlayerSize(float width, float height) {
-        player.setSize(width, height);
+        setSize(width, height);
     }
 
     /**
      * Check if player is on a flag.
-     * In first assignment player wins when visiting a flag.
+     * In first assignment player wins when visiting one flag.
      * @Return true/false :boolean
      */
-
-
-    public boolean isPlayerOnFlag(){
-        boolean playerOnFlag =false;
-        // TODO flagLayer isnt defined, so this was commented out to compile
-        // playerOnFlag = flagLayer.getCell((int) getX(),(int)getY()).getTile().getProperties().containsKey("Flag");;
-        if (playerOnFlag){
+    public boolean isPlayerOnFlag() {
+        TiledMapTileLayer.Cell cell = flagLayer.getCell(normalizedCoordinates(getX()), normalizedCoordinates(getY()));
+        if(cell!= null){
             return true;
         }
-
-        return false;
-
-    }
-
-    /**
-     * Gets the player movement actions
-     */
-    public void playerMoveAction(){
-
+        else return false;
     }
 
     /**
      * Chose game course.
-     * for first assignment set to "default"
-     * @param mapName :String
+     * for first assignment not used
      */
-    public void chooseGameCourse(String mapName) {
+    public TiledMap chooseGameCourse() {
+        /*
         // TODO refactor so we only need to type the name of the map instead of the path
         if(mapName == "default")
             gameCourse = new TmxMapLoader().load("Maps/Checkmate.tmx");
         else
             gameCourse = new TmxMapLoader().load(mapName);
+
+         */
+        return new TmxMapLoader().load("Maps/RiskyExchange.tmx");
     }
+
+    private int normalizedCoordinates(float unNormalizedValue) {
+        return (int) unNormalizedValue/300;
+        }
 
     /**
      * keyDown registers what happens when the key is pressed down.
@@ -112,18 +108,18 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
      */
     @Override
     public boolean keyDown(int keyPressed) {
-        // TODO refactor when tested
         if(keyPressed == Input.Keys.LEFT){
-            updateX = getX() - 32;
+            updateX = getX() - 300;
         }
         else if(keyPressed == Input.Keys.RIGHT){
-            updateX = getX() + 32;
+            updateX = getX() + 300;
         }
         else if(keyPressed == Input.Keys.UP){
-            updateY = getY() + 32;
+            updateY = getY() + 300;
         }
         else if(keyPressed == Input.Keys.DOWN){
-            updateY = getY() - 32;
+            updateY = getY() - 300;
+
         }
         return true;
     }
@@ -201,5 +197,10 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
     @Override
     public Location getYCoordinate() {
         return null;
+    }
+
+    @Override
+    public boolean isGameOver() {
+        return false;
     }
 }
