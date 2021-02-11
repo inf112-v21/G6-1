@@ -1,6 +1,4 @@
 package inf112.skeleton.app.GameLogic;
-
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,33 +7,19 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import inf112.skeleton.app.game.IGame;
-import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.location.Location;
 import inf112.skeleton.app.player.Player;
 
-
 public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
-
-    private IGame game;
     private float updateX;
     private float updateY;
     private TiledMap gameCourse;
-
-    public GameLogic(Sprite sprite, Game game) {
-        super(sprite);
-        this.game = game;
-    }
-
-    // private final TiledMapTileLayer flagLayer;
-    //public Player player;
-
+    //private final TiledMapTileLayer flagLayer;
+    public Player player = new Player(new Sprite(new Texture("flags.png")));
     /*
     public GameLogic(TiledMapTileLayer flagLayer) {
         this.flagLayer = flagLayer;
-    */
-
-
+    }*/
 
 
     /**
@@ -56,17 +40,10 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
 
     // TODO finne ut om Game kan bruke denne istedenfor playerMoveAction
     public void updatePlayerLocation(float updateX, float updateY) {
-        if (this.isGameOver()) {
-            // Do not update the player positions if the game has ended
-            return;
-        }
-
-        /*if (updateX - getX()< 0 || updateX + getX()> getWidth()|| updateY -getY() < 0 || updateY + getHeight() > 0)
+        if (updateX - getX()< 0 || updateX + getX()> getWidth()|| updateY -getY() < 0 || updateY + getHeight() > 0)
             setPosition(getX(),getY());
         else
-
-         */
-        this.setPosition(updateX, updateY);
+            this.setPosition(updateX, updateY);
     }
 
     /**
@@ -83,8 +60,7 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
      * @param width : Float
      * @param height :Float
      */
-
-    public void setPlayerSize(Player player,float width, float height) {
+    public void setPlayerSize(float width, float height) {
         player.setSize(width, height);
     }
 
@@ -97,7 +73,8 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
 
     public boolean isPlayerOnFlag(){
         boolean playerOnFlag =false;
-        // playerOnFlag = flagLayer.getCell((int) getX(),(int)getY()).getTile().getProperties().containsKey("Flag");
+        // TODO flagLayer isnt defined, so this was commented out to compile
+        // playerOnFlag = flagLayer.getCell((int) getX(),(int)getY()).getTile().getProperties().containsKey("Flag");;
         if (playerOnFlag){
             return true;
         }
@@ -116,20 +93,15 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
     /**
      * Chose game course.
      * for first assignment set to "default"
-     *
+     * @param mapName :String
      */
-    public TiledMap chooseGameCourse() {
-        /*
+    public void chooseGameCourse(String mapName) {
         // TODO refactor so we only need to type the name of the map instead of the path
         if(mapName == "default")
             gameCourse = new TmxMapLoader().load("Maps/Checkmate.tmx");
         else
             gameCourse = new TmxMapLoader().load(mapName);
-
-         */
-        return new TmxMapLoader().load("Maps/Checkmate.tmx");
     }
-
 
     /**
      * keyDown registers what happens when the key is pressed down.
@@ -165,7 +137,6 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
 
     @Override
     public boolean keyUp(int keyPressed) {
-
         if(keyPressed == Input.Keys.LEFT) {
             updateX = getX();
         }
@@ -230,11 +201,5 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
     @Override
     public Location getYCoordinate() {
         return null;
-    }
-
-
-    @Override
-    public boolean isGameOver() {
-        return this.isPlayerOnFlag();
     }
 }
