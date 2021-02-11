@@ -26,7 +26,8 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
         super(sprite);
         this.game = game;
     }
-    //private final TiledMapTileLayer flagLayer;
+
+    // private final TiledMapTileLayer flagLayer;
     //public Player player;
 
     /*
@@ -55,6 +56,11 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
 
     // TODO finne ut om Game kan bruke denne istedenfor playerMoveAction
     public void updatePlayerLocation(float updateX, float updateY) {
+        if (this.isGameOver()) {
+            // Do not update the player positions if the game has ended
+            return;
+        }
+
         /*if (updateX - getX()< 0 || updateX + getX()> getWidth()|| updateY -getY() < 0 || updateY + getHeight() > 0)
             setPosition(getX(),getY());
         else
@@ -88,10 +94,10 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
      * @Return true/false :boolean
      */
 
-/*
+
     public boolean isPlayerOnFlag(){
         boolean playerOnFlag =false;
-        playerOnFlag = flagLayer.getCell((int) getX(),(int)getY()).getTile().getProperties().containsKey("Flag");
+        // playerOnFlag = flagLayer.getCell((int) getX(),(int)getY()).getTile().getProperties().containsKey("Flag");
         if (playerOnFlag){
             return true;
         }
@@ -99,7 +105,7 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
         return false;
 
     }
-*/
+
     /**
      * Gets the player movement actions
      */
@@ -224,5 +230,11 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
     @Override
     public Location getYCoordinate() {
         return null;
+    }
+
+
+    @Override
+    public boolean isGameOver() {
+        return this.isPlayerOnFlag();
     }
 }

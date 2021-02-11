@@ -6,8 +6,8 @@ import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.GameLogic.GameLogic;
 
 public class Game implements IGame {
-    //GameLogic gameLogic = new GameLogic();
     Graphics graphics;
+
 
     @Override
     public Graphics startGame() {
