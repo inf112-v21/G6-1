@@ -3,6 +3,9 @@ package gameLogic;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import inf112.skeleton.app.GameLogic.GameLogic;
 import inf112.skeleton.app.game.Game;
 import org.junit.Before;
@@ -20,12 +23,13 @@ import static org.junit.Assert.assertTrue;
 public class GameLogicTest {
     Sprite playerSprite;
     GameLogic gameLogic;
-
+    private TiledMapTileLayer flagLayer;
+    private TiledMap tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
 
     @Before
     public void setup() {
         playerSprite = new Sprite();
-        gameLogic = new GameLogic(playerSprite, new Game());
+        gameLogic = new GameLogic(playerSprite, (TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"));
     }
 
 
@@ -77,9 +81,6 @@ public class GameLogicTest {
         //check if player position has moved
         assertTrue(newY > originalY);
         assertTrue(newX == originalX);
-
-
-
 
     }
 
