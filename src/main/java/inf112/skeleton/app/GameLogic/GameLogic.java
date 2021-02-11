@@ -17,7 +17,8 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
     private float updateY;
     private TiledMap gameCourse;
     //private final TiledMapTileLayer flagLayer;
-    public Player player = new Player(new Sprite(new Texture("flags.png")));
+    public Player player = new Player(new Sprite());
+    //(new Texture("Player/OwnPlayer.png"))
     //public InputProcessor InputProcessorPlayer = new InputProcessor() {
     //Gdx.input.setInputProcessor(player);
 
@@ -97,15 +98,20 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
     /**
      * Chose game course.
      * for first assignment set to "default"
-     * @param mapName :String
+     *
      */
-    public void chooseGameCourse(String mapName) {
+    public TiledMap chooseGameCourse() {
+        /*
         // TODO refactor so we only need to type the name of the map instead of the path
         if(mapName == "default")
             gameCourse = new TmxMapLoader().load("Maps/Checkmate.tmx");
         else
             gameCourse = new TmxMapLoader().load(mapName);
+
+         */
+        return new TmxMapLoader().load("Maps/Checkmate.tmx");
     }
+
 
     /**
      * keyDown registers what happens when the key is pressed down.

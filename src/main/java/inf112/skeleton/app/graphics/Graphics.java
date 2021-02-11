@@ -3,6 +3,7 @@ package inf112.skeleton.app.graphics;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -25,9 +26,8 @@ public class Graphics extends GameLogic implements ApplicationListener {
     public void create() {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
-        batch = new SpriteBatch();
-
-       // Gdx.input.setInputProcessor(GameLogic player);
+        //batch = new SpriteBatch();
+        //Gdx.input.setInputProcessor((InputProcessor) player);
 
 
 
@@ -35,7 +35,7 @@ public class Graphics extends GameLogic implements ApplicationListener {
         camera.zoom = 12f; //Shows more of the board
         camera.setToOrtho(false, h,w); //something needs adjustment here
         camera.update();
-        tiledMap = new TmxMapLoader().load("Maps/Checkmate.tmx");
+        tiledMap =chooseGameCourse();
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
 
     }
@@ -56,10 +56,12 @@ public class Graphics extends GameLogic implements ApplicationListener {
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
-
+        /*
         tiledMapRenderer.getBatch().begin();
         player.draw(tiledMapRenderer.getBatch());
         tiledMapRenderer.getBatch().end();
+
+         */
     }
 
     @Override
