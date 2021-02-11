@@ -11,7 +11,7 @@ import inf112.skeleton.app.robot.Robot;
 
 public class Player extends Sprite implements IPlayer {
 
-    private final TiledMapTileLayer collisionLayer;
+
     private Texture img;
 
 /*
