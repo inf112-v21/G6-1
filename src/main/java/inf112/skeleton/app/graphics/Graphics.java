@@ -27,7 +27,9 @@ public class Graphics extends GameLogic implements ApplicationListener {
         float h = Gdx.graphics.getHeight();
         batch = new SpriteBatch();
 
-        Gdx.input.setInputProcessor(GameLogic player);
+       // Gdx.input.setInputProcessor(GameLogic player);
+
+
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false,w,h);
@@ -53,6 +55,10 @@ public class Graphics extends GameLogic implements ApplicationListener {
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
+
+        tiledMapRenderer.getBatch().begin();
+        player.draw(tiledMapRenderer.getBatch());
+        tiledMapRenderer.getBatch().end();
     }
 
     @Override
@@ -67,6 +73,7 @@ public class Graphics extends GameLogic implements ApplicationListener {
 
     @Override
     public void dispose() {
+        tiledMap.dispose();
 
     }
 }
