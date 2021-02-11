@@ -14,12 +14,12 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
     private float updateX;
     private float updateY;
     private TiledMap gameCourse;
-    private final TiledMapTileLayer flagLayer;
+    //private final TiledMapTileLayer flagLayer;
     public Player player = new Player(new Sprite(new Texture("flags.png")));
-
+    /*
     public GameLogic(TiledMapTileLayer flagLayer) {
         this.flagLayer = flagLayer;
-    }
+    }*/
 
 
     /**
