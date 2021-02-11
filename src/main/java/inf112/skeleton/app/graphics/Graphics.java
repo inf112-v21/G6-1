@@ -10,9 +10,10 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.graphics.GL20;
+import inf112.skeleton.app.GameLogic.GameLogic;
 
 
-public class Graphics implements ApplicationListener {
+public class Graphics extends GameLogic implements ApplicationListener {
 
     private TiledMap tiledMap;
     private OrthographicCamera camera;
@@ -25,6 +26,10 @@ public class Graphics implements ApplicationListener {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
         batch = new SpriteBatch();
+
+       // Gdx.input.setInputProcessor(GameLogic player);
+
+
 
         camera = new OrthographicCamera();
         camera.zoom = 12f; //Shows more of the board
@@ -51,6 +56,10 @@ public class Graphics implements ApplicationListener {
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
+
+        tiledMapRenderer.getBatch().begin();
+        player.draw(tiledMapRenderer.getBatch());
+        tiledMapRenderer.getBatch().end();
     }
 
     @Override
@@ -65,6 +74,7 @@ public class Graphics implements ApplicationListener {
 
     @Override
     public void dispose() {
+        tiledMap.dispose();
 
     }
 }
