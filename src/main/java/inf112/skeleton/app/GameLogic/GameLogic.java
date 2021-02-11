@@ -6,6 +6,8 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -42,13 +44,7 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
 
     // TODO finne ut om Game kan bruke denne istedenfor playerMoveAction
     public void updatePlayerLocation(float updateX, float updateY) {
-        /*if (updateX - getX()< 0 || updateX + getX()> getWidth()|| updateY -getY() < 0 || updateY + getHeight() > 0)
-            setPosition(getX(),getY());
-        else
-
-         */
-        this.setPosition(updateX, updateY);
-
+        this.setPosition(updateX,updateY);
 
     }
 
@@ -66,34 +62,26 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
      * @param width : Float
      * @param height :Float
      */
-    public void setPlayerSize(Player player,float width, float height) {
-        player.setSize(width, height);
+    public void setPlayerSize(float width, float height) {
+        setSize(width, height);
     }
 
     /**
      * Check if player is on a flag.
-     * In first assignment player wins when visiting a flag.
+     * In first assignment player wins when visiting one flag.
      * @Return true/false :boolean
      */
-
-
-    public boolean isPlayerOnFlag(){
-        boolean playerOnFlag =false;
-        playerOnFlag = flagLayer.getCell((int) getX(),(int)getY()).getTile().getProperties().containsKey("Flag");
-        if (playerOnFlag){
-            System.out.println("FLLLLLLLLLLLLLLAAAAAAAAAAAAAAAGGGGGGGGGGGGGGGGGGGGGG :D:D:D:D:D:D:D");
+    public boolean isPlayerOnFlag() {
+        TiledMapTileLayer.Cell cell = flagLayer.getCell(normalizedCoordinates(getX()), normalizedCoordinates(getY()));
+        if(cell!= null){
             return true;
         }
-
-        return false;
-
+        else return false;
     }
-
 
     /**
      * Chose game course.
-     * for first assignment set to "default"
-     *
+     * for first assignment not used
      */
     public TiledMap chooseGameCourse() {
         /*
@@ -117,7 +105,6 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
      */
     @Override
     public boolean keyDown(int keyPressed) {
-        // TODO refactor when tested
         if(keyPressed == Input.Keys.LEFT){
             updateX = getX() - 32;
         }
