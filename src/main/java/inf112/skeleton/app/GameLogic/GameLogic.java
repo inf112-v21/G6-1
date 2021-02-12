@@ -1,12 +1,11 @@
 package inf112.skeleton.app.GameLogic;
+
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-
 
 public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
 
@@ -14,7 +13,6 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
     private float updateY = 0;
     private TiledMap gameCourse;
     private TiledMapTileLayer flagLayer;
-
 
     public GameLogic(Sprite sprite, TiledMapTileLayer flagLayer) {
         super(sprite);
@@ -33,12 +31,8 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
         super.draw(batch);
     }
 
-    /**
-     * Update the location of the player on the board if player can move
-     * If player can't move, player stays at its old location
-     * @param updateX : Float
-     * @param updateY : Float
-     */
+
+    @Override
     public void updatePlayerLocation(float updateX, float updateY) {
         if (canPlayerMove(updateX, updateY)){
             this.setPosition(updateX, updateY);
@@ -47,47 +41,39 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
     }
 
 
-    /**
-     * Sets the pixel-size of the player image
-     *
-     * @param width : Float
-     * @param height :Float
-     */
+    @Override
     public void setPlayerSize(float width, float height) {
+
         setSize(width, height);
     }
 
-    /**
-     * Check if player is on a flag.
-     *
-     * @Return boolean
-     */
+
+    @Override
     public boolean isPlayerOnFlag() {
         TiledMapTileLayer.Cell cell = flagLayer.getCell(normalizedCoordinates(getX()), normalizedCoordinates(getY()));
         return cell!= null;
     }
 
-    /**
-     *  Check if its possible to move in the given x- and yDirection
-     *
-     * @param xDirection : Float
-     * @param yDirection : Float
-     * @return boolean
-     */
+
+    @Override
     public boolean canPlayerMove(float xDirection, float yDirection){
         return !(xDirection < 0 || xDirection > 3300 || yDirection < 0 || yDirection > 3900);
     }
 
 
-    /**
-     * Normalize pixel-coordinates to integer
-     *
-     * @param unNormalizedValue : Float
-     * @return Normalized Integer
-     */
-    private int normalizedCoordinates(float unNormalizedValue) {
+    @Override
+    public int normalizedCoordinates(float unNormalizedValue) {
         return (int) unNormalizedValue/300;
         }
+
+    public boolean isGameOver() {
+        if (isPlayerOnFlag()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     /**
      * keyDown registers what happens when the key is pressed down.
@@ -114,6 +100,7 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
         return true;
     }
 
+
     /**
      * keyUp registers what happens when the key is released.
      * Player to stop moving when button is released
@@ -132,51 +119,40 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
         return true;
     }
 
-    /**
-     * In first assignment, game is over when player visits a flag.
-     * Checks if game is over
-     *
-     * @return boolean
-     */
-    public boolean isGameOver() {
-        if (isPlayerOnFlag()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
 
     @Override
     public boolean keyTyped(char c) {
         return false;
     }
 
+
     @Override
     public boolean touchDown(int i, int i1, int i2, int i3) {
         return false;
     }
+
 
     @Override
     public boolean touchUp(int i, int i1, int i2, int i3) {
         return false;
     }
 
+
     @Override
     public boolean touchDragged(int i, int i1, int i2) {
         return false;
     }
+
 
     @Override
     public boolean mouseMoved(int i, int i1) {
         return false;
     }
 
+
     @Override
     public boolean scrolled(int i) {
         return false;
     }
-
 
 }
