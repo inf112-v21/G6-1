@@ -14,7 +14,7 @@ Yasmin Mohamoud:
 - Går studieretning IKT og har erfaring i design (ui) og litt HTML. Har hatt INF100 og tar INF101 dette semesteret, så har ikke mye erfaring med koding i Java.
 
 Hossein Sharifi:
-- Går studieretning Datateknologi og har erfaring i python og java. Har hatt fagene INF101 og INF102. Jobber i tillegg i IT avdelingen til UiB. s 
+- Går studieretning Datateknologi og har erfaring i python og java. Har hatt fagene INF101 og INF102. Jobber i tillegg i IT avdelingen til UiB. 
 
 Vilde Haugstad:
 - Går studieretning IKT og har erfaring i python og java. Har tatt INF101 og INF102. Har fra tidligere bachelor i økonomi og administrasjon og master i PR og kommunikasjon. 
@@ -70,7 +70,9 @@ Sprint retrospective er hvor teamet tar en egenvurdering på hva som gikk bra og
 I tillegg til scrum vil vi benytte oss av metoden for parprogrammering og mob programmering da medlemmene av teamet har forskjellig bakgrunn og kompetanse. Vi ser derfor på parprogrammering som en mulighet til å dele kunnskap og få bedre innsikt i forskjellige deler av prosjektet. 
 
 ##UML:
-Class Diagram: [her](https://github.com/inf112-v21/GameStoppers/blob/master/classDiagram/Updated_ClassDiagram.png)
+Class Diagram: [her](https://github.com/inf112-v21/G6-1/blob/master/class_and_interface_diagrams/Class_Diagram.png)
+
+Interface Diagram [her](https://github.com/inf112-v21/G6-1/blob/master/class_and_interface_diagrams/Interface_Diagram.png)
 
 ##Beskrivelse av applikasjonen
 Gruppen skal implementere en digital versjon av brettspillet RoboRally hvor det skal være mulig å spille alene, med AI eller multiplayer fra flere maskiner. Spilleren skal utføre trekk ved å få utdelt 9 kort og deretter trekke 5 av disse som skal bestemme hvordan spilleren skal kunne bevege seg på brettet. Spilleren må unngå vegger, lasere og hull i brettet, og kan bli påført skade hvis dette skjer. Om spilleren blir påført nok skade vil roboten dø, og spillet er over om roboten har mistet livet 3 ganger. Spiller vinner spillet ved å besøke flaggene på brettet i riktig rekkefølge. Applikasjonen skal vise brett, spiller, hindringer og flagg og skal bevege roboten på bakgrunn av spillerens valg, samt trekke tilfeldige kort som spiller kan velge fra hver runde. Applikasjonen skal også holde rede på hvor mye skade spilleren påfører seg selv eller andre hver runde.
