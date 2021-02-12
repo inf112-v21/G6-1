@@ -15,8 +15,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.graphics.GL20;
 import inf112.skeleton.app.GameLogic.GameLogic;
-import inf112.skeleton.app.game.Game;
-import inf112.skeleton.app.player.Player;
+
 
 
 
