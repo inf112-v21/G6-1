@@ -89,6 +89,8 @@ public class Graphics implements  ApplicationListener {
 
     @Override
     public void dispose() {
+
         tiledMap.dispose();
+        batch.dispose();
     }
 }
