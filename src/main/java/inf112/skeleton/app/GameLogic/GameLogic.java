@@ -82,20 +82,6 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
         return !(xDirection < 0 || xDirection > 3300 || yDirection < 0 || yDirection > 3900);
     }
 
-    /**
-     * Choose game course.
-     * Not used for the first assignment
-     */
-    public TiledMap chooseGameCourse() {
-        /*
-        if(mapName == "default")
-            gameCourse = new TmxMapLoader().load("Maps/Checkmate.tmx");
-        else
-            gameCourse = new TmxMapLoader().load(mapName);
-
-         */
-        return new TmxMapLoader().load("Maps/RiskyExchange.tmx");
-    }
 
     /**
      * Normalize pixel-coordinates to integer
