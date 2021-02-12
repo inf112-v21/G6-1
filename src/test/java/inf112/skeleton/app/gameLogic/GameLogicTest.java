@@ -70,7 +70,7 @@ public class GameLogicTest {
         float originalX = 1;
         float originalY = 1;
 
-        gameLogic.setPlayerStartPosition(originalX,originalY);
+        //gameLogic.setPlayerStartPosition(originalX,originalY);
 
         //simulate key press
         try {

@@ -46,10 +46,6 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
         this.setPosition(getX(), getY());
     }
 
-    //TODO this funktion dosent do anything because of the class-variables which is set to zero when starting the game. use in update player?
-    public void setPlayerStartPosition(float startPosX, float startPosY) {
-        this.setPosition(startPosX, startPosY);
-    }
 
     /**
      * Sets the pixel-size of the player image
