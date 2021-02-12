@@ -71,7 +71,7 @@ public class Graphics implements  ApplicationListener {
         tiledMapRenderer.getBatch().begin();
         player.draw(tiledMapRenderer.getBatch());
         tiledMapRenderer.getBatch().end();
-        if (player.isPlayerOnFlag()) {
+        if (player.isGameOver()) {
             pause();
             dispose();
         }
