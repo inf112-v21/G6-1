@@ -1,6 +1,5 @@
 package inf112.skeleton.app.graphics;
 
-
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -16,20 +15,13 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.graphics.GL20;
 import inf112.skeleton.app.GameLogic.GameLogic;
 
-
-
-
 public class Graphics implements  ApplicationListener {
-
-
-
 
     private TiledMap tiledMap;
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private SpriteBatch batch;
     private GameLogic player;
-
 
     @Override
     public void create() {
@@ -45,12 +37,13 @@ public class Graphics implements  ApplicationListener {
         player = new GameLogic(new Sprite(new Texture("Player/OwlPlayer1.png")),(TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"));
         Gdx.input.setInputProcessor(player);
         player.setPlayerSize(300,300);
-
-
-
-
     }
 
+    /**
+     * Displayed on the screen.
+     * @param width
+     * @param height
+     */
     @Override
     public void resize(int width, int height) {
         camera.viewportWidth = width;
@@ -59,6 +52,9 @@ public class Graphics implements  ApplicationListener {
 
     }
 
+    /**
+     * This is where the graphics of the game get rendered.
+     */
     @Override
     public void render() {
 
@@ -87,6 +83,9 @@ public class Graphics implements  ApplicationListener {
 
     }
 
+    /**
+     * Disposes the window mode.
+     */
     @Override
     public void dispose() {
 

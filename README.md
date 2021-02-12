@@ -7,6 +7,8 @@ GameStoppers' project is a simple board-game interface with working movement usi
 to navigate a figure around a 12x14 grid. The board-game will stop, and tell the player they won, if
 you navigate the figure on top of a flag.
 
+![Overview](https://github.com/inf112-v21/GameStoppers/blob/master/classDiagram/Updated_ClassDiagram.png?raw=true)
+
 ## How code runs 
 
 **Game-class:**
@@ -61,11 +63,6 @@ The code runs using mainly libgdx and tiledmap to both generate the graphics of 
 
 * Win the game by navigating the displayed character to one of the three black flags on the board.
 
-## File-manifest. List of included files
-
-## Known bugs
-
-## Troubleshooting
 
 ## Credits
 
