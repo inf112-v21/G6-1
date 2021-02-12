@@ -5,16 +5,16 @@
 
 
 Erlend Osland Nytveit:
-- Går studieretning IKT og har erfaring i...
+- Går studieretning IKT og har erfaring med python og java. Har hatt fagene INF101 og INF102. Har fra tidligere mesterbrev og fagingeniør utdanning innenfor automatisering.
 
 Thomas Rimmereide:
-- Går studieretning Informasjonsvitenskap og har erfaring i...
+- Går studieretning Informasjonsvitenskap og har erfaring i python og tar java dette semesteret. Har fra tidligere fagingeniør utdanning innenfor automatisering.
 
 Yasmin Mohamoud:
 - Går studieretning IKT og har erfaring i design (ui) og litt HTML. Har hatt INF100 og tar INF101 dette semesteret, så har ikke mye erfaring med koding i Java.
 
 Hossein Sharifi:
-- Går studieretning Datateknologi og har erfaring i...
+- Går studieretning Datateknologi og har erfaring i python og java. Har hatt fagene INF101 og INF102. Jobber i tillegg i IT avdelingen til UiB. s 
 
 Vilde Haugstad:
 - Går studieretning IKT og har erfaring i python og java. Har tatt INF101 og INF102. Har fra tidligere bachelor i økonomi og administrasjon og master i PR og kommunikasjon. 
@@ -154,6 +154,23 @@ Vi har valgt å skrive brukerhistorier med akseptansekriterier og arbeidsoppgave
     Work task:
 - Create user manual.
 
+##Sprint review
+
+I følge Scrum skal en sprint ha en sprint review. Dette fikk vi dessverre ikke tid til for denne aktuelle sprinten. Vi planlegger å presentere til produkteier/gruppeleder neste seminar.
+
+##Sprint retrospective
+
+Som team har vi jobbet godt sammen, vi har hatt jevnlig møter hvor alle har deltatt og bidratt. Kommunikasjonsflyten har vært god og Slack og Zoom har fungert bra som kommunikasjonskanaler. Vi har diskutert mye i fellesskap slik at alle kunne komme med sin mening og bidra til kunnskapsdeling.
+
+Forberedelse til neste sprint er å bli flinkere til å bruke project board. Da fristen for denne innleveringen var relativt kort jobbet vi mye i fellesskap og med CodeWithMe med flere arbeidsoppgaver parallelt. Dermed klarte vi ikke helt å holde oversikten på project board og tydelig markere hvem som jobbet med hva da vi alle bidro på de fleste arbeidsoppgavene.
+
+Vi endret også arkitektur på oppgaven fra opprinnelig plan. Da ingen hadde tidligere erfaring med Tiled og Libgdx visste vi ikke hvilke funksjonaliteter vi kunne hente inn. Dermed ble UML diagrammet vi utarbeidet som utgangspunkt til arkitektur noe endret og vi måtte oppdatere det underveis.
+
+Vi har også hatt litt utfordringer med git, da vi ikke har brukt dette til en gruppeoppgave tidligere. Disse har vi klart å løse fortløpende, men brukt mer tid enn ønsket.
+
+Testene får vi ikke kjørt da vi har problemer med å finne sti til assets mappe. Dette har vi brukt mye tid på å fikse og testdekningen ble dermed ikke så god som vi hadde planlagt. Til neste sprint må vi finne ut av hvordan vi fikser dette problemet og øke testdekningen.
+
+Vi er fornøyd med å ha klart å produsere et kjørende RoboRally som dekker MVP krav 1-5. Til neste innlevering ønsker vi å fortsette på MVP kravene.
 
 ##Møtereferat
 ###**Fredag 05.02.2021**
@@ -202,4 +219,13 @@ Vi avtalte å ha en mob programmering og CodeWithMe økt torsdag 11.02, og møte
 - Sjekke at applikasjonen oppfyller alle krav.
 - Ha sprint review og retrospect.
 
-Etter mob programmeringen og CodeWithMe igår var alle ganske oppdatert på hva som gjenstod for å fullføre obligatorisk oppgave 1. Vi gikk først gjennom det som vi ønsket å fikse i fellesskap, før vi opprettet breakout rooms på Zoom hvor vi fordelte oppgavene som gjenstod for at vi skulle bli ferdig. 
+Etter mob programmeringen og CodeWithMe igår var alle ganske oppdatert på hva som gjenstod for å fullføre obligatorisk oppgave 1. Vi gikk først gjennom det som vi ønsket å fikse i fellesskap, før vi opprettet breakout rooms på Zoom hvor vi fordelte oppgavene som gjenstod for at vi skulle bli ferdig. Gikk også gjennom sprint review og sprint retrospective.
+
+
+
+
+
+
+
+
+
