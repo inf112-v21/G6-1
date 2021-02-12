@@ -46,13 +46,13 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
         this.setPosition(getX(), getY());
     }
 
-    //TODO this funktion dosent do anything because of the classvariables which is set to zero when starting the game. use in update player?
+    //TODO this funktion dosent do anything because of the class-variables which is set to zero when starting the game. use in update player?
     public void setPlayerStartPosition(float startPosX, float startPosY) {
         this.setPosition(startPosX, startPosY);
     }
 
     /**
-     * Sets the pixelsize of the player image
+     * Sets the pixel-size of the player image
      *
      * @param width : Float
      * @param height :Float
@@ -83,8 +83,8 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
     }
 
     /**
-     * Chose game course.
-     * for first assignment not used
+     * Choose game course.
+     * Not used for the first assignment
      */
     public TiledMap chooseGameCourse() {
         /*
@@ -98,7 +98,7 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
     }
 
     /**
-     * Normalize pixel coordinates to int
+     * Normalize pixel-coordinates to integer
      *
      * @param unNormalizedValue : Float
      * @return Normalized Integer
@@ -151,11 +151,19 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
     }
 
     /**
-     * In first assignment game is over when player visits a flag.
+     * In first assignment, game is over when player visits a flag.
      * Checks if game is over
      *
      * @return boolean
      */
+    public boolean isGameOver() {
+        if (isPlayerOnFlag()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 
     @Override
