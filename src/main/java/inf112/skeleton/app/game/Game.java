@@ -7,7 +7,7 @@ import inf112.skeleton.app.graphics.Graphics;
 public class Game implements IGame {
 
         Graphics graphics;
-        GameLogic gameLogic;
+
 
     @Override
     public Graphics startGame() {
