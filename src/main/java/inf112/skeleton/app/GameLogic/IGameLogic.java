@@ -48,6 +48,4 @@ public interface IGameLogic {
 
   Location getYCoordinate();
 
-  boolean isGameOver();
-
 }
