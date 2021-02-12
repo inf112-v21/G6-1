@@ -26,7 +26,7 @@ public class GameLogicTest {
     Sprite playerSprite;
     GameLogic gameLogic;
     private TiledMapTileLayer flagLayer;
-    private TiledMap tiledMap= new TmxMapLoader().load(".../android/Assets/Maps/RiskyExchange.tmx");
+    private TiledMap tiledMap= new TmxMapLoader().load("/Maps/RiskyExchange.tmx");
     //InstrumentationRegistry.getContext().getAssets().open(filePath);
     @Before
     public void setup() {

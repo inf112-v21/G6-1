@@ -43,10 +43,10 @@ public class Graphics implements  ApplicationListener {
         camera.update();
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-        player = new GameLogic(new Sprite(new Texture("Player/OwlPlayer.png")),(TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"));
+        player = new GameLogic(new Sprite(new Texture("Player/OwlPlayer1.png")),(TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"));
         Gdx.input.setInputProcessor(player);
         player.setPlayerSize(300,300);
-        player.setPosition(300,2700);
+
 
 
 

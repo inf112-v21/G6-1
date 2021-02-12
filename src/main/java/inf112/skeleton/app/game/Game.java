@@ -1,28 +1,15 @@
 package inf112.skeleton.app.game;
 
 
+import inf112.skeleton.app.graphics.Graphics;
+
 public class Game implements IGame {
-
-    public Game() {
-
-    }
-    // Sett inn i tiledmap
-    //finne ut hvordan de fungerer
-    //Se om man kan finne ut hva som er flagg fra tiledmap
+        Graphics graphics;
 
 
-    @Override
-    public void startGame() {
-
-    }
-
-    @Override
-    public void executeActionOn() {
-
-    }
-
-    @Override
-    public boolean isGameOver() {
-        return false;
-    }
+        @Override
+        public Graphics startGame() {
+            graphics = new Graphics();
+            return graphics;
+        }
 }
