@@ -10,8 +10,8 @@ import inf112.skeleton.app.location.Location;
 
 public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
 
-    private float updateX = 300;
-    private float updateY = 2700;
+    private float updateX = 0;
+    private float updateY = 0;
     private TiledMap gameCourse;
     private TiledMapTileLayer flagLayer;
 
