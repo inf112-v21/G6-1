@@ -7,4 +7,6 @@ public interface IGame {
 
     Graphics startGame();
 
+    boolean isGameOver();
+
 }

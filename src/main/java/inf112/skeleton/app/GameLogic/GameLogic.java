@@ -156,10 +156,7 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
      *
      * @return boolean
      */
-    @Override
-    public boolean isGameOver() {
-        return this.isPlayerOnFlag();
-    }
+
 
     @Override
     public boolean keyTyped(char c) {
