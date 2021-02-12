@@ -9,11 +9,11 @@ public class Game implements IGame {
         GameLogic gameLogic;
 
 
-        @Override
-        public Graphics startGame() {
-            graphics = new Graphics();
-            return graphics;
-        }
+    @Override
+    public Graphics startGame() {
+        graphics = new Graphics();
+        return graphics;
+    }
 
     @Override
     public boolean isGameOver() {
