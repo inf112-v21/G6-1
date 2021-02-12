@@ -74,8 +74,86 @@ Class Diagram: [her](https://github.com/inf112-v21/G6-1/blob/master/class_and_in
 
 Interface Diagram [her](https://github.com/inf112-v21/G6-1/blob/master/class_and_interface_diagrams/Interface_Diagram.png)
 
+##Beskrivelse av applikasjonen
+Gruppen skal implementere en digital versjon av brettspillet RoboRally hvor det skal være mulig å spille alene, med AI eller multiplayer fra flere maskiner. Spilleren skal utføre trekk ved å få utdelt 9 kort og deretter trekke 5 av disse som skal bestemme hvordan spilleren skal kunne bevege seg på brettet. Spilleren må unngå vegger, lasere og hull i brettet, og kan bli påført skade hvis dette skjer. Om spilleren blir påført nok skade vil roboten dø, og spillet er over om roboten har mistet livet 3 ganger. Spiller vinner spillet ved å besøke flaggene på brettet i riktig rekkefølge. Applikasjonen skal vise brett, spiller, hindringer og flagg og skal bevege roboten på bakgrunn av spillerens valg, samt trekke tilfeldige kort som spiller kan velge fra hver runde. Applikasjonen skal også holde rede på hvor mye skade spilleren påfører seg selv eller andre hver runde.
 
- 
+##Brukerhistorier
+Vi har valgt å skrive brukerhistorier med akseptansekriterier og arbeidsoppgaver på engelsk da disse også er lagt inn som issues på github.
+
+**1) As a user, I would like to see the game board.**
+
+
+    Acceptance criteria:
+- Run the program - the game board should be rendered (but rendering of game pieces on the board is irrelevant).
+
+
+    Work task:
+- Generate a game board.
+- Create a method that shows the game board.
+
+**2) As a user, I want to be able to see the game pieces on the game board.**
+
+    Acceptance criteria:
+- The game board is rendered with game pieces that are visually different depending on the type of game piece.
+
+
+    Work task:
+- Create a player
+- Add images for floor, flag and player.
+- Render images on to game board.
+
+**3) As a user, I want to be able to move my robot on the game board with arrow keys on the keyboard.**
+
+
+    Acceptance criteria:
+- The robot should move left, right, up, down depending on which key arrows are pressed.
+
+
+    Work task:
+- Define start-point for robot on board.
+- Create method to make robot move left when left key arrow is pressed.
+- Create method to make robot move right when right key arrow is pressed.
+- Create method to make robot move up when up key arrow is pressed.
+- Create method to make robot move down when down key arrow is pressed.
+
+**4) As a user, I do not want to be able to move outside the grid of the board.**
+
+    Acceptance criteria:
+- The robot will not move if the player tries to move it off grid.
+
+
+    Work task:
+- Create a method that checks if the player tries to move to a tile outside the grid.
+- Add that the player stays in the same position if it tries to move to a invalid location.
+
+**5) As a user, I want the robot to be able to visit flags.**
+
+    Acceptance criteria:
+- When a robot moves to a tile with a flag it must be registered that the robot has collected a flag.
+
+
+    Work task:
+- Create a method that registers if a player has visited a flag.
+
+**6) As a user, I want the game to end when I have visited a flag.**
+
+    Acceptance criteria:
+- When a robot moves to a tile with a flag it must be registered that the player has won. The play window must then be removed.
+
+
+    Work task:
+- Create a method for ending the game when a player has visited a flag.
+- Create a method for exiting the play window when a player has visited a flag.
+
+**7) As a user, I would like documentation on how to run the program.**
+
+    Acceptance criteria:
+- The player should be able to read the documentation that states how the program works and runs.
+
+
+    Work task:
+- Create user manual.
+
 
 ##Møtereferat
 **Fredag 05.02.2021**
