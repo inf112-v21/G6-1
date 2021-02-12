@@ -27,14 +27,6 @@ public class GameLogicTest {
     private TiledMapTileLayer flagLayer;
     //InstrumentationRegistry.getContext().getAssets().open(filePath);
 
-
-    @Test
-    public void add() {
-        int a = 1;
-        int b = 1;
-        assertEquals(a,b);
-    }
-
     @BeforeEach
     public void setup() {
         playerSprite = new Sprite();
@@ -53,16 +45,8 @@ public class GameLogicTest {
         float flagX = 300;
         float flagY = 2700;
 
-        //TODO find actual coordinates
-        // TODO translate flag coordinates to pixel coords which are much larger
-        //  i.e. if each tile is 32px then tile (1,9) becomes (32, 288)
-
-        boolean yes = true;
-
-        //gameLogic.updatePlayerLocation(flagX, flagY);
-        //assertTrue(gameLogic.isPlayerOnFlag());
-        assertTrue(yes);
-
+        gameLogic.updatePlayerLocation(flagX, flagY);
+        assertTrue(gameLogic.isPlayerOnFlag());
     }
 
     @Test
@@ -82,16 +66,16 @@ public class GameLogicTest {
 
         assertFalse(gameLogic.canPlayerMove(xPosetivDirection, 0));
         assertFalse(gameLogic.canPlayerMove(xNegativeDiretion, 0));
-        assertFalse(gameLogic.canPlayerMove(yPosetivDirection,0));
-        assertFalse(gameLogic.canPlayerMove(yNegativDiretion,0));
+        assertFalse(gameLogic.canPlayerMove(0,yPosetivDirection));
+        assertFalse(gameLogic.canPlayerMove(0,yPosetivDirection));
 
         assertTrue(gameLogic.canPlayerMove(0,0));
     }
 
     @Test
     public void testPlayerMovesUpWhenUpKeyIsPressed() throws Exception {
-        /** TODO Her får vi problemer pga i GameLogic ligger det klassevariabler som setter spiller til null igjen.
-         *  SetPlayerStart position må fikses på*/
+
+
         //set player position
         float originalX = 1;
         float originalY = 1;
