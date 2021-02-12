@@ -46,6 +46,8 @@ public class Graphics implements  ApplicationListener {
         player = new GameLogic(new Sprite(new Texture("Player/OwlPlayer.png")),(TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"));
         Gdx.input.setInputProcessor(player);
         player.setPlayerSize(300,300);
+        player.setPosition(300,2700);
+
 
 
     }
@@ -60,6 +62,7 @@ public class Graphics implements  ApplicationListener {
 
     @Override
     public void render() {
+
         Gdx.gl.glClearColor(1, 0, 0, 1);
         //Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

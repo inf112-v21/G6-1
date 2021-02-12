@@ -10,9 +10,10 @@ import inf112.skeleton.app.GameLogic.GameLogic;
 import inf112.skeleton.app.game.Game;
 import org.junit.Before;
 import org.junit.Test;
+//import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
-
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
@@ -21,24 +22,24 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class GameLogicTest {
+
     Sprite playerSprite;
     GameLogic gameLogic;
     private TiledMapTileLayer flagLayer;
-    private TiledMap tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
-
+    private TiledMap tiledMap= new TmxMapLoader().load(".../android/Assets/Maps/RiskyExchange.tmx");
+    //InstrumentationRegistry.getContext().getAssets().open(filePath);
     @Before
     public void setup() {
         playerSprite = new Sprite();
         gameLogic = new GameLogic(playerSprite, (TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"));
     }
 
-
     @Test
     public void testGameIsOverIfPlayerStartsOnFlag() throws Exception {
-        int flagX = 1;
-        int flagY = 9; //TODO find actual coordinates
+        float flagX = 300;
+        float flagY = 2700; //TODO find actual coordinates
 
-        // TODO translate flag coord to pixel coords which are much larger
+        // TODO translate flag coordinates to pixel coords which are much larger
         //  i.e. if each tile is 32px then tile (1,9) becomes (32, 288)
 
         gameLogic.setPlayerStartPosition(flagX, flagY);
@@ -53,11 +54,23 @@ public class GameLogicTest {
 
     @Test
     public void testPlayersPositionMustBeOnGameBoard() throws Exception {
+        float xPosetivDirection = 3301;
+        float xNegativeDiretion = -1;
+        float yPosetivDirection = 3901;
+        float yNegativDiretion = -1;
 
+        assertFalse(gameLogic.canPlayerMove(xPosetivDirection, 0));
+        assertFalse(gameLogic.canPlayerMove(xNegativeDiretion, 0));
+        assertFalse(gameLogic.canPlayerMove(yPosetivDirection,0));
+        assertFalse(gameLogic.canPlayerMove(yNegativDiretion,0));
+
+        assertTrue(gameLogic.canPlayerMove(0,0));
     }
 
     @Test
     public void testPlayerMovesUpWhenUpKeyIsPressed() throws Exception {
+        /** TODO Her får vi problemer pga i GameLogic ligger det klassevariabler som setter spiller til null igjen.
+         *  SetPlayerStart position må fikses på*/
         //set player position
         float originalX = 1;
         float originalY = 1;
@@ -98,5 +111,7 @@ public class GameLogicTest {
     public void testPlayerMovesLeftWhenLeftKeyIsPressed() throws Exception {
 
     }
+
+
 
 }
