@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import inf112.skeleton.app.location.Location;
+
 
 public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
 
@@ -186,26 +186,6 @@ public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
     @Override
     public boolean scrolled(int i) {
         return false;
-    }
-
-    @Override
-    public Location getLocation() {
-        return null;
-    }
-
-    @Override
-    public Location setNewLocation() {
-        return null;
-    }
-
-    @Override
-    public Location getXCoordinate() {
-        return null;
-    }
-
-    @Override
-    public Location getYCoordinate() {
-        return null;
     }
 
 
