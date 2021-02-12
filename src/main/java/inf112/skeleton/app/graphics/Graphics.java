@@ -92,5 +92,6 @@ public class Graphics implements  ApplicationListener {
 
         tiledMap.dispose();
         batch.dispose();
+
     }
 }
