@@ -17,7 +17,7 @@ Hossein Sharifi:
 - Går studieretning Datateknologi og har erfaring i...
 
 Vilde Haugstad:
-- Går studieretning IKT og har erfaring i...
+- Går studieretning IKT og har erfaring i python og java. Har tatt INF101 og INF102. Har fra tidligere bachelor i økonomi og administrasjon og master i PR og kommunikasjon. 
 
 ### Roller
 
@@ -156,7 +156,7 @@ Vi har valgt å skrive brukerhistorier med akseptansekriterier og arbeidsoppgave
 
 
 ##Møtereferat
-**Fredag 05.02.2021**
+###**Fredag 05.02.2021**
 
 Som forberedelse til møte hadde teamleder utarbeidet et forslag til prosjektmetodikk og begynt på brukerhistorier som dekket MVP krav 1-5 slik at diskusjonen av metoder skulle gå mer effektivt. Under møtet gikk vi i fellesskap gjennom forslaget til arbeidsmetodikk og gjorde tilpasninger slik at alle i teamet var enige om metoder som passet gruppen som helhet. Vi endte med å hente elementer fra Scrum, i tillegg til å drive med mob programmering i starten av prosjektet når vi fortsatt ikke har en komplett oversikt over arkitekturen til koden. Dette ønsker vi for å opprettholde en god kommunikasjon, og for å sikre at vi har en felles forståelse for abstraksjonene vi har valgt.
 
@@ -168,9 +168,9 @@ Vi avtalte også at neste møtet skulle bli mandag 08.02 kl 15.00, hvor vi i for
 
 Vi som ble igjen ble ferdig med en foreløpig utarbeidelse av arkitekturen til interfacet.
 
-**Mandag 08.02.2021**         
+###**Mandag 08.02.2021**         
 
-Agenda: 
+**Agenda: **
 - Gruppen må godkjenne arkitektur til interface.
 - Begynne på koden
 
@@ -181,9 +181,9 @@ I tillegg tok vi opp Tiled og forsøkte i fellesskap å forstå litt bedre hvord
 
 Vi avsluttet møtet med å fordele oppgaver på bakgrunn av klassediagrammet vi utformet slik at vi alle kan jobbe med forskjellige deler av koden uavhengig av hverandre og med å planlegge et nytt møte onsdag 10.02. Tirsdag 09.02 skal vi ha daily scrum og ta et møte om vi ser at det blir behov for det.
 
-**Onsdag 10.02.2021**
+###**Onsdag 10.02.2021**
 
-Agenda:
+**Agenda:**
 - Forsøke å fullføre metodene som trengs i GameLogic til MVP
 - Opprette player som Sprite i Player.java
 - Sette opp kode som trengs for å kunne vise GUI som er laget til i dag
@@ -194,3 +194,12 @@ På dette møtet gikk vi igjennom hva vi hadde gjort siden sist. Erlend og Thoma
 Vi mob programmerte sammen under dette møtet og kartla hva veien var videre. Da ingen av oss før dette prosjektet hadde hatt erfaring med Libgdx og Tiled brukte vi mer tid enn forventet til å sette oss inn i dette, og vår opprinnelige plan for koden ble endret en del. Dermed ble mange av de opprinnelige metodene overflødig da Tiled dekket disse. Vi delegerte arbeid på nytt og bestemte oss for å dele teamet opp i ansvarsområder og kjøre CodeWithMe.
 
 Vi avtalte å ha en mob programmering og CodeWithMe økt torsdag 11.02, og møtes på nytt på seminar fredag 12.02 for å ha sprint review og retrospective før oppgaven skal leveres. 
+
+###**Fredag 11.02.2021**
+
+**Agenda:**
+- Få ferdig testene.
+- Sjekke at applikasjonen oppfyller alle krav.
+- Ha sprint review og retrospect.
+
+Etter mob programmeringen og CodeWithMe igår var alle ganske oppdatert på hva som gjenstod for å fullføre obligatorisk oppgave 1. Vi gikk først gjennom det som vi ønsket å fikse i fellesskap, før vi opprettet breakout rooms på Zoom hvor vi fordelte oppgavene som gjenstod for at vi skulle bli ferdig. 
