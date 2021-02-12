@@ -1,13 +1,11 @@
 package inf112.skeleton.app.game;
 
 
-import inf112.skeleton.app.GameLogic.GameLogic;
 import inf112.skeleton.app.graphics.Graphics;
 
 public class Game implements IGame {
 
-        Graphics graphics;
-        GameLogic gameLogic;
+    private Graphics graphics;
 
     @Override
     public Graphics startGame() {

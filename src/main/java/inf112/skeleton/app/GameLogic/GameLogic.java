@@ -4,14 +4,12 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
 
     private float updateX = 0;
     private float updateY = 0;
-    private TiledMap gameCourse;
     private TiledMapTileLayer flagLayer;
 
     public GameLogic(Sprite sprite, TiledMapTileLayer flagLayer) {
