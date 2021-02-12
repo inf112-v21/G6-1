@@ -2,7 +2,6 @@ package inf112.skeleton.app.graphics;
 
 
 import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,6 +15,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.graphics.GL20;
 import inf112.skeleton.app.GameLogic.GameLogic;
+import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.player.Player;
 
 
@@ -72,8 +72,10 @@ public class Graphics implements  ApplicationListener {
         tiledMapRenderer.getBatch().begin();
         player.draw(tiledMapRenderer.getBatch());
         tiledMapRenderer.getBatch().end();
-
-
+        if (player.isPlayerOnFlag()) {
+            pause();
+            dispose();
+        }
     }
 
     @Override
