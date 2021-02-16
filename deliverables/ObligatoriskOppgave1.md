@@ -96,8 +96,8 @@ Vi har valgt å skrive brukerhistorier med akseptansekriterier og arbeidsoppgave
 
 
     Work task:
-- Create a player
-- Add images for floor, flag and player.
+- Create a localHumanPlayer
+- Add images for floor, flag and localHumanPlayer.
 - Render images on to game board.
 
 **3) As a user, I want to be able to move my robot on the game board with arrow keys on the keyboard.**
@@ -117,12 +117,12 @@ Vi har valgt å skrive brukerhistorier med akseptansekriterier og arbeidsoppgave
 **4) As a user, I do not want to be able to move outside the grid of the board.**
 
     Acceptance criteria:
-- The robot will not move if the player tries to move it off grid.
+- The robot will not move if the localHumanPlayer tries to move it off grid.
 
 
     Work task:
-- Create a method that checks if the player tries to move to a tile outside the grid.
-- Add that the player stays in the same position if it tries to move to a invalid location.
+- Create a method that checks if the localHumanPlayer tries to move to a tile outside the grid.
+- Add that the localHumanPlayer stays in the same position if it tries to move to a invalid location.
 
 **5) As a user, I want the robot to be able to visit flags.**
 
@@ -131,22 +131,22 @@ Vi har valgt å skrive brukerhistorier med akseptansekriterier og arbeidsoppgave
 
 
     Work task:
-- Create a method that registers if a player has visited a flag.
+- Create a method that registers if a localHumanPlayer has visited a flag.
 
 **6) As a user, I want the game to end when I have visited a flag.**
 
     Acceptance criteria:
-- When a robot moves to a tile with a flag it must be registered that the player has won. The play window must then be removed.
+- When a robot moves to a tile with a flag it must be registered that the localHumanPlayer has won. The play window must then be removed.
 
 
     Work task:
-- Create a method for ending the game when a player has visited a flag.
-- Create a method for exiting the play window when a player has visited a flag.
+- Create a method for ending the game when a localHumanPlayer has visited a flag.
+- Create a method for exiting the play window when a localHumanPlayer has visited a flag.
 
 **7) As a user, I would like documentation on how to run the program.**
 
     Acceptance criteria:
-- The player should be able to read the documentation that states how the program works and runs.
+- The localHumanPlayer should be able to read the documentation that states how the program works and runs.
 
 
     Work task:
@@ -200,11 +200,11 @@ Vi avsluttet møtet med å fordele oppgaver på bakgrunn av klassediagrammet vi 
 
 **Agenda:**
 - Forsøke å fullføre metodene som trengs i GameLogic til MVP
-- Opprette player som Sprite i Player.java
+- Opprette localHumanPlayer som Sprite i Player.java
 - Sette opp kode som trengs for å kunne vise GUI som er laget til i dag
 
 
-På dette møtet gikk vi igjennom hva vi hadde gjort siden sist. Erlend og Thomas hadde forsøkt å kartlegge hvilke funksjoner som var tilgjengelig for både brett og spiller og satt seg mer inn i metoder til Libgdx and Tiled. Vilde hadde skrevet ferdig arbeidsmetodikk, forbedret brukerhistorier og satt seg inn i hvordan markdown fungerer. Hossein skrev metoder til player og Yasmin hadde lagd maps i Tiled.
+På dette møtet gikk vi igjennom hva vi hadde gjort siden sist. Erlend og Thomas hadde forsøkt å kartlegge hvilke funksjoner som var tilgjengelig for både brett og spiller og satt seg mer inn i metoder til Libgdx and Tiled. Vilde hadde skrevet ferdig arbeidsmetodikk, forbedret brukerhistorier og satt seg inn i hvordan markdown fungerer. Hossein skrev metoder til localHumanPlayer og Yasmin hadde lagd maps i Tiled.
 
 Vi mob programmerte sammen under dette møtet og kartla hva veien var videre. Da ingen av oss før dette prosjektet hadde hatt erfaring med Libgdx og Tiled brukte vi mer tid enn forventet til å sette oss inn i dette, og vår opprinnelige plan for koden ble endret en del. Dermed ble mange av de opprinnelige metodene overflødig da Tiled dekket disse. Vi delegerte arbeid på nytt og bestemte oss for å dele teamet opp i ansvarsområder og kjøre CodeWithMe.
 

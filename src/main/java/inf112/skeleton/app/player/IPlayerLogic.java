@@ -1,8 +1,8 @@
-package inf112.skeleton.app.GameLogic;
+package inf112.skeleton.app.player;
 
 
 
-public interface IGameLogic {
+public interface IPlayerLogic {
 
 
     /**
@@ -11,16 +11,18 @@ public interface IGameLogic {
      * @param updateX : Float
      * @param updateY : Float
      */
-    void updatePlayerLocation(float updateX, float updateY);
+    void updatePlayerLocation( float updateX, float updateY);
 
 
     /**
      * Sets the width and height of the player image
      *
-     * @param width : Float
+     * @param width  : Float
      * @param height :Float
      */
-    void setPlayerSize(float width, float height);
+    static void setPlayerSize( float width, float height) {
+
+    }
 
 
     /**
@@ -28,7 +30,7 @@ public interface IGameLogic {
      *
      * @Return boolean
      */
-    boolean isPlayerOnFlag();
+    boolean isPlayerOnFlag( );
 
 
     /**
@@ -56,5 +58,7 @@ public interface IGameLogic {
      *
      * @return boolean
      */
-    boolean isGameOver();
+    static boolean isGameOver() {
+        return false;
+    }
 }

@@ -1,68 +1,27 @@
-package inf112.skeleton.app.GameLogic;
+package inf112.skeleton.app.player;
 
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.g2d.Batch;
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
-public class GameLogic extends Sprite implements InputProcessor, IGameLogic {
+abstract class Player extends Sprite {
 
-    private float updateX = 0;
-    private float updateY = 0;
-    private TiledMapTileLayer flagLayer;
+    public TiledMapTileLayer flagLayer;
 
-    public GameLogic(Sprite sprite, TiledMapTileLayer flagLayer) {
+    public Player(Sprite sprite, TiledMapTileLayer flagLayer) {
         super(sprite);
         this.flagLayer = flagLayer;
     }
 
-    /**
-     * Update and draw Player SpriteBatch
-     *
-     * @param batch : Player
-     */
-    @Override
-    public void draw(Batch batch) {
-        updatePlayerLocation(updateX, updateY);
-        if(isPlayerOnFlag()) System.out.println("VICTORY!");
-        super.draw(batch);
-    }
+    public abstract void updatePlayerLocation(float updateX, float updateY);
 
+    public abstract void setPlayerSize(float width, float height);
 
-    @Override
-    public void updatePlayerLocation(float updateX, float updateY) {
-        if (canPlayerMove(updateX, updateY)){
-            this.setPosition(updateX, updateY);
-        }
-        this.setPosition(getX(), getY());
-    }
+    public abstract boolean isPlayerOnFlag(TiledMapTileLayer flagLayer);
 
+    public abstract boolean canPlayerMove(float xDirection, float yDirection);
 
-    @Override
-    public void setPlayerSize(float width, float height) {
-
-        setSize(width, height);
-    }
-
-
-    @Override
-    public boolean isPlayerOnFlag() {
-        TiledMapTileLayer.Cell cell = flagLayer.getCell(normalizedCoordinates(getX()), normalizedCoordinates(getY()));
-        return cell!= null;
-    }
-
-
-    @Override
-    public boolean canPlayerMove(float xDirection, float yDirection){
-        return !(xDirection < 0 || xDirection > 3300 || yDirection < 0 || yDirection > 3900);
-    }
-
-
-    @Override
-    public int normalizedCoordinates(float unNormalizedValue) {
-        return (int) unNormalizedValue/300;
-        }
+    public abstract int normalizedCoordinates(float unNormalizedValue);
 
     public boolean isGameOver() {
         if (isPlayerOnFlag()) {

@@ -7,13 +7,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.graphics.GL20;
-import inf112.skeleton.app.GameLogic.GameLogic;
+import inf112.skeleton.app.player.LocalHumanPlayer;
+
 
 public class Graphics implements  ApplicationListener {
 
@@ -21,7 +21,7 @@ public class Graphics implements  ApplicationListener {
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private SpriteBatch batch;
-    private GameLogic player;
+    private LocalHumanPlayer localHumanPlayer;
 
     @Override
     public void create() {
@@ -34,9 +34,10 @@ public class Graphics implements  ApplicationListener {
         camera.update();
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-        player = new GameLogic(new Sprite(new Texture("Player/OwlPlayer1.png")),(TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"));
-        Gdx.input.setInputProcessor(player);
-        player.setPlayerSize(300,300);
+        localHumanPlayer = new LocalHumanPlayer(new Sprite(new Texture("Player/OwlPlayer1.png")),(TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"));
+        Gdx.input.setInputProcessor((InputProcessor) localHumanPlayer); // TODO funker det å bare caste???
+        localHumanPlayer.setPlayerSize(300,300);
+
     }
 
     /**
@@ -65,9 +66,9 @@ public class Graphics implements  ApplicationListener {
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
         tiledMapRenderer.getBatch().begin();
-        player.draw(tiledMapRenderer.getBatch());
+        localHumanPlayer.draw(tiledMapRenderer.getBatch());
         tiledMapRenderer.getBatch().end();
-        if (player.isGameOver()) {
+        if (localHumanPlayer.isGameOver(localHumanPlayer.flagLayer)) {
             pause();
             dispose();
         }

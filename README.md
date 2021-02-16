@@ -4,7 +4,7 @@ Simple skeleton with libgdx.
 ## Description
 
 GameStoppers' project is a simple board-game interface with working movement using arrow-keys on a computer
-to navigate a figure around a 12x14 grid. The board-game will stop, and tell the player they won, if
+to navigate a figure around a 12x14 grid. The board-game will stop, and tell the localHumanPlayer they won, if
 you navigate the figure on top of a flag.
 
 ![Overview](https://github.com/inf112-v21/GameStoppers/blob/master/classDiagram/Updated_ClassDiagram.png?raw=true)
@@ -17,11 +17,11 @@ you navigate the figure on top of a flag.
 * More will be implemented in this class in the future
 
 **GameLogic-class:**
-* Used to update, move, and check if player can move. 
+* Used to update, move, and check if localHumanPlayer can move. 
   
-* Method to check if player reaches flag
+* Method to check if localHumanPlayer reaches flag
     
-* Method to update position of player and draw player
+* Method to update position of localHumanPlayer and draw localHumanPlayer
     
 * Method to normalize from pixels to tiles for movement and checking certain tiles. Will be used in other classes
 
@@ -29,7 +29,7 @@ you navigate the figure on top of a flag.
     
 * Initializes GUI settings
     
-* Shows the board and player
+* Shows the board and localHumanPlayer
     
 * Is in control of the game's graphics
 
@@ -49,7 +49,7 @@ you navigate the figure on top of a flag.
 
 The code runs using mainly libgdx and tiledmap to both generate the graphics of the board, and implement
     moving-methods. Within TiledMap there are methods to recognize what properties certain tiles has, given
-    a coordinate(x,y) on the grid. Using this, we can use getX and getY methods from the player to check if
+    a coordinate(x,y) on the grid. Using this, we can use getX and getY methods from the localHumanPlayer to check if
     they match the coordinates of the flag. When this is the case, a method isGameOver() will become true,
     and tell graphics to end the game.
 
