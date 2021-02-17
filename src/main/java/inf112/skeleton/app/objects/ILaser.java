@@ -1,4 +1,4 @@
 package inf112.skeleton.app.objects;
 
-public class Laser implements ILaser{
+public interface ILaser {
 }
