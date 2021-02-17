@@ -1,13 +1,16 @@
 package inf112.skeleton.app.cards;
+import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Direction;
 abstract class Card {
-  public Card() {
+  private final int priority;
+  private final Action action;
+  private final Direction direction;
 
+  public Card(int priority, Action action, Direction direction) {
+    this.priority = priority;
+    this.action = action;
+    this.direction = direction;
     }
-    public abstract int priority();
 
-    public abstract String cardType ();
-
-    public abstract Direction direction();
 
 }

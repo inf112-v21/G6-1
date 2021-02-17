@@ -1,7 +1,9 @@
 package inf112.skeleton.app.shared;
 
 public enum Action {
-    MOVE,
+    MOVEONE,
+    MOVETWO,
+    MOVETHREE,
     ROTATE_LEFT,
     ROTATE_RIGHT,
     U_TURN,
