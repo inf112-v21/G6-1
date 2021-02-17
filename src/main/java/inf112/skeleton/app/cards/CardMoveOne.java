@@ -2,7 +2,7 @@ package inf112.skeleton.app.cards;
 
 import inf112.skeleton.app.shared.Direction;
 
-public class CardMoveOne extends ACardLogic{
+public class CardMoveOne extends Card {
     @Override
     public int priority() {
         return 0;
@@ -10,6 +10,8 @@ public class CardMoveOne extends ACardLogic{
 
     @Override
     public String cardType() {
+        switch (Direction.EAST) {
+        }
         return null;
     }
 

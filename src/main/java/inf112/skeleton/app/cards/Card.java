@@ -1,7 +1,9 @@
 package inf112.skeleton.app.cards;
 import inf112.skeleton.app.shared.Direction;
-abstract class ACardLogic {
+abstract class Card {
+  public Card() {
 
+    }
     public abstract int priority();
 
     public abstract String cardType ();

@@ -2,7 +2,7 @@ package inf112.skeleton.app.cards;
 
 import inf112.skeleton.app.shared.Direction;
 
-public class CardMoveTwo extends ACardLogic{
+public class CardMoveTwo extends Card {
     @Override
     public int priority() {
         return 0;
