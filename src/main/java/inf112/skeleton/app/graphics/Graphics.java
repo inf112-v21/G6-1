@@ -21,7 +21,7 @@ public class Graphics implements  ApplicationListener {
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private SpriteBatch batch;
-    private LocalHumanPlayer localHumanPlayer;
+    public LocalHumanPlayer localHumanPlayer;
 
     @Override
     public void create() {
@@ -37,6 +37,7 @@ public class Graphics implements  ApplicationListener {
         localHumanPlayer = new LocalHumanPlayer(new Sprite(new Texture("Player/OwlPlayer1.png")),(TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"));
         Gdx.input.setInputProcessor((InputProcessor) localHumanPlayer); // TODO funker det å bare caste???
         localHumanPlayer.setPlayerSize(300,300);
+
 
     }
 

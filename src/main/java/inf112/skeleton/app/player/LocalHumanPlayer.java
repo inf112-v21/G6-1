@@ -12,7 +12,6 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
     private float updateY = 0;
 
     public LocalHumanPlayer(Sprite sprite, TiledMapTileLayer flagLayer) {
-
         super(sprite, flagLayer);
     }
     /**
