@@ -37,6 +37,7 @@ public class Graphics implements  ApplicationListener {
         localHumanPlayer = new LocalHumanPlayer(new Sprite(new Texture("Player/OwlPlayer1.png")),(TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"));
         Gdx.input.setInputProcessor((InputProcessor) localHumanPlayer); // TODO funker det å bare caste???
         localHumanPlayer.setPlayerSize(300,300);
+        localHumanPlayer.setPosition(localHumanPlayer.updateX = 300,localHumanPlayer.updateY = 300);
 
 
     }

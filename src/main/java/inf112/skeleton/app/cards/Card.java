@@ -11,6 +11,4 @@ abstract class Card {
     this.action = action;
     this.direction = direction;
     }
-
-
 }

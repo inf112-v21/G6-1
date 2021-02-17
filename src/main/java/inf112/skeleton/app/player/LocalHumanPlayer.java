@@ -8,8 +8,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 
 public class LocalHumanPlayer extends Player implements InputProcessor {
-    private float updateX = 0;
-    private float updateY = 0;
+    public float updateX;
+    public float updateY;
 
     public LocalHumanPlayer(Sprite sprite, TiledMapTileLayer flagLayer) {
         super(sprite, flagLayer);
