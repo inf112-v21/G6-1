@@ -13,5 +13,6 @@ public class Main {
         cfg.setWindowedMode(700, 700);
         Game game = new Game();
         new Lwjgl3Application(game.startGame(), cfg);
+
         }
     }
