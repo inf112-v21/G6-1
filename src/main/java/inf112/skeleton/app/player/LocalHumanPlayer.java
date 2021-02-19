@@ -33,6 +33,7 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
         this.setPosition(getX(), getY());
     }
     public void setPlayerSize(float width, float height) {
+
         setSize(width, height);
     }
 

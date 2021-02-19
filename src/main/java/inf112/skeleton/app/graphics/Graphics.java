@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.GL20;
 import inf112.skeleton.app.player.LocalHumanPlayer;
 
 
+
 public class Graphics implements  ApplicationListener {
 
     private TiledMap tiledMap;
