@@ -82,7 +82,6 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
             updateX = getX() - tileDirection;
         }
         else if(keyPressed == Input.Keys.RIGHT){
-            System.out.println(graphics.testCard.action.getAction());
             updateX = getX() + tileDirection;
         }
         else if(keyPressed == Input.Keys.UP){

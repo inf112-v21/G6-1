@@ -1,12 +1,13 @@
 package inf112.skeleton.app.shared;
 
 public enum Action {
-    MOVEONE(300),
-    MOVETWO(600),
-    MOVETHREE(900),
+    MOVE_ONE(300),
+    MOVE_TWO(600),
+    MOVE_THREE(900),
     ROTATE_LEFT(90),
     ROTATE_RIGHT(270),
-    U_TURN(180);
+    U_TURN(180),
+    BACK_UP(-300);
 
     private int action;
 
