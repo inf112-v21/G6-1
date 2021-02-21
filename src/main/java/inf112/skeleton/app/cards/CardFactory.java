@@ -19,27 +19,27 @@ public class CardFactory extends Sprite {
         return new CardMoveOne(new Sprite(cardMoveOneTexture), 1, Action.MOVE_ONE);
     }
 
-    public Card createCardMoveTwo(Sprite sprite) {
+    public Card createCardMoveTwo() {
         return new CardMoveTwo((new Sprite(cardMoveTwoTexture)), 1, Action.MOVE_TWO);
     }
 
-    public Card createCardMoveThree(Sprite sprite) {
+    public Card createCardMoveThree() {
         return new CardMoveThree((new Sprite(cardMoveThreeTexture)), 1, Action.MOVE_THREE);
     }
 
-    public Card createCardRotateLeft(Sprite sprite) {
+    public Card createCardRotateLeft() {
         return new CardRotateLeft((new Sprite(cardRotateLeftTexture)), 1, Action.ROTATE_LEFT);
     }
 
-    public Card createCardRotateRight(Sprite sprite) {
+    public Card createCardRotateRight() {
         return new CardRotateRight((new Sprite(cardRotateRightTexture)), 1, Action.ROTATE_RIGHT);
     }
 
-    public Card createCardUturn(Sprite sprite) {
+    public Card createCardUturn() {
         return new CardUturn((new Sprite(cardUturnTexture)), 1, Action.U_TURN);
     }
 
-    public Card createCardBackUp(Sprite sprite) {
+    public Card createCardBackUp() {
         return new CardBackUp((new Sprite(cardBackUp)), 1, Action.BACK_UP);
     }
 
