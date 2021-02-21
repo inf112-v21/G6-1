@@ -5,11 +5,15 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import inf112.skeleton.app.game.Game;
+import inf112.skeleton.app.graphics.Graphics;
+
 
 
 public class LocalHumanPlayer extends Player implements InputProcessor {
     public float updateX;
     public float updateY;
+    Graphics graphics;
 
     public LocalHumanPlayer(Sprite sprite, TiledMapTileLayer flagLayer) {
         super(sprite, flagLayer);
@@ -27,6 +31,10 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
     }
 
      public void updatePlayerLocation(float updateX, float updateY) {
+             //this.setPosition(graphics.testCard.action.getAction()+299, 600);
+
+
+        // System.out.println(graphics.testCard.action);
         if (canPlayerMove(updateX, updateY)){
             this.setPosition(updateX, updateY);
         }
@@ -74,6 +82,7 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
             updateX = getX() - tileDirection;
         }
         else if(keyPressed == Input.Keys.RIGHT){
+            System.out.println(graphics.testCard.action.getAction());
             updateX = getX() + tileDirection;
         }
         else if(keyPressed == Input.Keys.UP){

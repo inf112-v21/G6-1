@@ -12,8 +12,10 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.graphics.GL20;
+import inf112.skeleton.app.cards.CardMoveOne;
 import inf112.skeleton.app.player.LocalHumanPlayer;
-
+import inf112.skeleton.app.shared.Action;
+import inf112.skeleton.app.shared.Direction;
 
 
 public class Graphics implements  ApplicationListener {
@@ -22,13 +24,14 @@ public class Graphics implements  ApplicationListener {
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private SpriteBatch batch;
+    public CardMoveOne testCard;
     public LocalHumanPlayer localHumanPlayer;
 
     @Override
     public void create() {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
-        batch = new SpriteBatch();
+        //batch = new SpriteBatch();
         camera = new OrthographicCamera();
         camera.zoom = 6f; //Shows more of the board
         camera.setToOrtho(false, h,w); //something needs adjustment here
@@ -36,10 +39,12 @@ public class Graphics implements  ApplicationListener {
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         localHumanPlayer = new LocalHumanPlayer(new Sprite(new Texture("Player/OwlPlayer1.png")),(TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"));
-        Gdx.input.setInputProcessor((InputProcessor) localHumanPlayer); // TODO funker det å bare caste??? Ja
+        testCard = new CardMoveOne((new Sprite(new Texture("Cards/Move1.png"))),1, Action.MOVEONE, Direction.NORTH);
+        testCard.setSize(300,300);
+        testCard.setPosition(-300,-300);
+        Gdx.input.setInputProcessor((InputProcessor) localHumanPlayer);
         localHumanPlayer.setPlayerSize(300,300);
-        localHumanPlayer.setPosition(localHumanPlayer.updateX = 300,localHumanPlayer.updateY = 300);
-
+        localHumanPlayer.setPosition(localHumanPlayer.updateX = 0,localHumanPlayer.updateY = 0);
 
     }
 
@@ -69,7 +74,10 @@ public class Graphics implements  ApplicationListener {
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
         tiledMapRenderer.getBatch().begin();
+        //TODO her må det være mulig å kjøre draw felles
         localHumanPlayer.draw(tiledMapRenderer.getBatch());
+        System.out.println(testCard.action.getAction());
+        testCard.draw(tiledMapRenderer.getBatch());
         tiledMapRenderer.getBatch().end();
         if (localHumanPlayer.isGameOver(localHumanPlayer.flagLayer)) {
             pause();
