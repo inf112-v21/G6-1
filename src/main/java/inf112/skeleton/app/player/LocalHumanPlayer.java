@@ -24,12 +24,12 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
      * @param batch : Player
      */
     @Override
+
     public void draw(Batch batch) {
         updatePlayerLocation(updateX, updateY);
         //if(isPlayerOnFlag()) System.out.println("VICTORY!");
         super.draw(batch);
     }
-
      public void updatePlayerLocation(float updateX, float updateY) {
              //this.setPosition(graphics.testCard.action.getAction()+299, 600);
 

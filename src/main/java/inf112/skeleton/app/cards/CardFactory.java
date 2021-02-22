@@ -13,13 +13,16 @@ public class CardFactory extends Sprite {
     public Texture cardRotateRightTexture = new Texture("Cards/RotateRight.png");
     public Texture cardUturnTexture = new Texture("Cards/U-turn.png");
     public Texture cardBackUp = new Texture("Cards/BackUp.png");
+
+
+
     // TODO card skal ikke ha en direction. De skal handle ut i fra player sin direction, dvs player å få direction
     // Card or CardMoveX???
     public CardMoveOne createCardMoveOne(int priority) {
         return new CardMoveOne(new Sprite(cardMoveOneTexture), priority, Action.MOVE_ONE);
     }
 
-    public Card createCardMoveTwo(int priority) {
+    public  Card createCardMoveTwo(int priority) {
         return new CardMoveTwo((new Sprite(cardMoveTwoTexture)),priority, Action.MOVE_TWO);
     }
 

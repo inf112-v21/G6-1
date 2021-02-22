@@ -13,12 +13,12 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.graphics.GL20;
-import inf112.skeleton.app.cards.Card;
-import inf112.skeleton.app.cards.CardFactory;
-import inf112.skeleton.app.cards.CardMoveOne;
+import inf112.skeleton.app.cards.*;
 import inf112.skeleton.app.player.LocalHumanPlayer;
 import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Direction;
+
+import java.util.ArrayList;
 
 
 public class Graphics implements  ApplicationListener {
@@ -29,7 +29,12 @@ public class Graphics implements  ApplicationListener {
     private SpriteBatch spriteBatch;
     public LocalHumanPlayer localHumanPlayer;
     public Sprite sprite;
+    public CardMoveOne testcard;
 
+    public  Card testcard2;
+    public Card testcard3;
+    public CardFactory cardFactory;
+    public ArrayList<Card> cardDeck = new ArrayList<Card>();
     @Override
     public void create() {
         float w = Gdx.graphics.getWidth();
@@ -42,10 +47,14 @@ public class Graphics implements  ApplicationListener {
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         localHumanPlayer = new LocalHumanPlayer(new Sprite(new Texture("Player/OwlPlayer1.png")),(TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"), Direction.NORTH);
+        testcard = new CardMoveOne(new Sprite(new Texture("Cards/Move1.png")),1,Action.MOVE_ONE);
+        testcard2 = new CardMoveOne(new Sprite(new Texture("Cards/Move1.png")),1,Action.MOVE_ONE);
+        testcard2.setPosition(900,900);
         Gdx.input.setInputProcessor((InputProcessor) localHumanPlayer);
         localHumanPlayer.setPlayerSize(300,300);
+        testcard3 = cardDeck.get(1);
         localHumanPlayer.setPosition(localHumanPlayer.updateX = 0,localHumanPlayer.updateY = 0);
-    }
+    }/// TODO note to self ser ut som at kort i alle klassene skal være CARD
 
     /**
      * Displayed on the screen.
@@ -73,6 +82,8 @@ public class Graphics implements  ApplicationListener {
         tiledMapRenderer.render();
         tiledMapRenderer.getBatch().begin();
         localHumanPlayer.draw(tiledMapRenderer.getBatch());
+        testcard.draw(tiledMapRenderer.getBatch());
+        testcard2.draw(tiledMapRenderer.getBatch());
         tiledMapRenderer.getBatch().end();
         if (localHumanPlayer.isGameOver(localHumanPlayer.flagLayer)) {
             pause();

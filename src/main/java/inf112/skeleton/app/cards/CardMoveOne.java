@@ -7,13 +7,9 @@ import inf112.skeleton.app.shared.Direction;
 
 public class CardMoveOne extends Card {
 
-    public CardMoveOne(Sprite sprite,int priority, Action action) {
-        super(sprite,priority, action);
+    public CardMoveOne(Sprite sprite, int priority, Action action) {
+        super(sprite, priority, action);
 
     }
 
-    @Override
-    public void draw(Batch batch) {
-        super.draw(batch);
-    }
 }

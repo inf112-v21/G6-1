@@ -12,9 +12,11 @@ public enum Action {
     private int action;
 
     public int getAction(){
+
         return this.action;
     }
     private Action(int action){
+
         this.action = action;
     }
 
