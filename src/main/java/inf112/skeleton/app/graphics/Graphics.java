@@ -18,6 +18,7 @@ import inf112.skeleton.app.cards.CardFactory;
 import inf112.skeleton.app.cards.CardMoveOne;
 import inf112.skeleton.app.player.LocalHumanPlayer;
 import inf112.skeleton.app.shared.Action;
+import inf112.skeleton.app.shared.Direction;
 
 
 public class Graphics implements  ApplicationListener {
@@ -40,7 +41,7 @@ public class Graphics implements  ApplicationListener {
         camera.update();
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-        localHumanPlayer = new LocalHumanPlayer(new Sprite(new Texture("Player/OwlPlayer1.png")),(TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"));
+        localHumanPlayer = new LocalHumanPlayer(new Sprite(new Texture("Player/OwlPlayer1.png")),(TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"), Direction.NORTH);
         Gdx.input.setInputProcessor((InputProcessor) localHumanPlayer);
         localHumanPlayer.setPlayerSize(300,300);
         localHumanPlayer.setPosition(localHumanPlayer.updateX = 0,localHumanPlayer.updateY = 0);
