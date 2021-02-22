@@ -1,29 +1,29 @@
 package inf112.skeleton.app.networking;
 
 
+
+
 import com.esotericsoftware.kryonet.Connection;
-import com.esotericsoftware.kryonet.Server;
 import com.esotericsoftware.kryonet.Listener;
-import org.lwjgl.system.CallbackI;
+import com.esotericsoftware.kryonet.Server;
+import com.esotericsoftware.kryo.Kryo;
 
 
 import java.io.IOException;
 
 
-public class NetworkServer extends Listener{
+public class NetworkServer extends Listener {
     //Object for server
-    static Server server;
+    Server server;
+    Kyro kyro = server.getKryo();
 
     //What ports to be used
     static int udpPort = 54777, tcpPort = 54555;
 
-    String PacketMessage;
 
     //Server is being created, and bound to chosen ports then started.
     public void run() {
         server = new Server();
-
-
         System.out.println("Creating the server...");
         try {
             server.bind(udpPort, tcpPort);
@@ -32,10 +32,9 @@ public class NetworkServer extends Listener{
         }
         server.start();
         System.out.println("Server has started:O");
-
         server.addListener(new NetworkServer());
-
     }
+
     //Used when someone connects to server
     public void isConnected(Connection connector){
         System.out.println("Received connection from "+ connector.getRemoteAddressTCP().getHostString());

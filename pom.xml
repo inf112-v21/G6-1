@@ -25,8 +25,6 @@
   </repositories>
 
 
-
-
   <dependencies>
     <!-- https://mvnrepository.com/artifact/com.badlogicgames.gdx/gdx -->
     <dependency>
@@ -52,6 +50,12 @@
       <groupId>kryonet</groupId>
       <artifactId>kryonet</artifactId>
       <version>2.21</version>
+    </dependency>
+
+    <dependency>
+      <groupId>com.esotericsoftware</groupId>
+      <artifactId>kryonet</artifactId>
+      <version>2.22.0-RC1</version>
     </dependency>
 
     <dependency>
