@@ -38,14 +38,14 @@ public class Graphics implements  ApplicationListener {
     public Sprite CardBackUpSprite;
     public Sprite CardUTurnSprite;
 
-    public void CardSizeAndPosition(Sprite sprite, float xPos, float yPos){
+    public void CardSizeAndPosition(Sprite sprite, float xPos){
         sprite.setSize(600,600);
-        sprite.setPosition(xPos,yPos);
+        sprite.setPosition(xPos,-600);
     }
     @Override
     public void create() {
         float w = Gdx.graphics.getWidth();
-        
+
         float h = Gdx.graphics.getHeight();
         spriteBatch = new SpriteBatch();
         camera = new OrthographicCamera();
@@ -55,32 +55,25 @@ public class Graphics implements  ApplicationListener {
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         localHumanPlayer = new LocalHumanPlayer(new Sprite(new Texture("Player/OwlPlayer1.png")),(TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"), Direction.NORTH);
-        testcard = new CardMoveOne(new Sprite(new Texture("Cards/Move1.png")),1,Action.MOVE_ONE);
-        testcard.setSize(600,600);
-        testcard.setPosition(0,-600);
-        testcard2 = new CardMoveTwo(new Sprite(new Texture("Cards/Move2.png")),1,Action.MOVE_TWO);
-        testcard2.setSize(600,600);
-        testcard2.setPosition(600,-600);
 
-
-        CardMoveOneSprite = new Sprite(new Texture("Player/OwlPlayer1.png"));
-        CardSizeAndPosition(CardMoveOneSprite, 0,-600);
-        /*
-        CardMoveOneSprite.setPosition(0,-600);
-        CardMoveOneSprite.setSize(600,600);
-        CardMoveTwoSprite = new Sprite(new Texture("Player/OwlPlayer1.png"));
-        CardMoveThreeSprite = new Sprite(new Texture("Player/OwlPlayer1.png"));
-        CardRotateLeftSprite = new Sprite(new Texture("Player/OwlPlayer1.png"));
-        CardRotateRightSprite = new Sprite(new Texture("Player/OwlPlayer1.png"));
-        CardBackUpSprite = new Sprite(new Texture("Player/OwlPlayer1.png"));
-        CardUTurnSprite = new Sprite(new Texture("Player/OwlPlayer1.png"));
-        */
-
+        CardMoveOneSprite = new Sprite(new Texture("Cards/Move1.png"));
+        CardSizeAndPosition(CardMoveOneSprite, 0);
+        CardMoveTwoSprite = new Sprite(new Texture("Cards/Move2.png"));
+        CardSizeAndPosition(CardMoveTwoSprite,600);
+        CardMoveThreeSprite = new Sprite(new Texture("Cards/Move3.png"));
+        CardSizeAndPosition(CardMoveThreeSprite,1200);
+        CardRotateLeftSprite = new Sprite(new Texture("Cards/RotateLeft.png"));
+        CardSizeAndPosition(CardRotateLeftSprite,1800);
+        CardRotateRightSprite = new Sprite(new Texture("Cards/RotateRight.png"));
+        CardSizeAndPosition(CardRotateRightSprite,2400);
+        CardBackUpSprite = new Sprite(new Texture("Cards/BackUp.png"));
+        CardSizeAndPosition(CardBackUpSprite,3000);
+        CardUTurnSprite = new Sprite(new Texture("Cards/U-turn.png"));
+        CardSizeAndPosition(CardUTurnSprite,3600);
         Gdx.input.setInputProcessor((InputProcessor) localHumanPlayer);
         localHumanPlayer.setPlayerSize(300,300);
-        //cardDeck.card(0);
         localHumanPlayer.setPosition(localHumanPlayer.updateX = 0,localHumanPlayer.updateY = 0);
-    }/// TODO note to self ser ut som at kort i alle klassene skal være CARD
+    }
 
     /**
      * Displayed on the screen.
@@ -107,13 +100,13 @@ public class Graphics implements  ApplicationListener {
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
         tiledMapRenderer.getBatch().begin();
-        /*
-        localHumanPlayer.draw(tiledMapRenderer.getBatch());
-        testcard.draw(tiledMapRenderer.getBatch());
-
-        testcard2.draw(tiledMapRenderer.getBatch());
-        */
         CardMoveOneSprite.draw(tiledMapRenderer.getBatch());
+        CardMoveTwoSprite.draw(tiledMapRenderer.getBatch());
+        CardMoveThreeSprite.draw(tiledMapRenderer.getBatch());
+        CardRotateLeftSprite.draw(tiledMapRenderer.getBatch());
+        CardRotateRightSprite.draw(tiledMapRenderer.getBatch());
+        CardUTurnSprite.draw(tiledMapRenderer.getBatch());
+        CardBackUpSprite.draw(tiledMapRenderer.getBatch());
         tiledMapRenderer.getBatch().end();
         if (localHumanPlayer.isGameOver(localHumanPlayer.flagLayer)) {
             pause();
