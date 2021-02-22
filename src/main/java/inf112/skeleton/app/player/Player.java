@@ -8,11 +8,13 @@ import inf112.skeleton.app.shared.Direction;
 abstract class Player extends Sprite {
 
 
+    public Direction direction;
     public TiledMapTileLayer flagLayer;
 
-    public Player(Sprite sprite, TiledMapTileLayer flagLayer) {
+    public Player(Sprite sprite, TiledMapTileLayer flagLayer, Direction direction) {
         super(sprite);
         this.flagLayer = flagLayer;
+        this.direction = direction;
 
     }
 

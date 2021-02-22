@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 import inf112.skeleton.app.player.LocalHumanPlayer;
+import inf112.skeleton.app.shared.Direction;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ public class LocalHumanPlayerLogicTest {
     @BeforeEach
     public void setup() {
         playerSprite = new Sprite();
-        playerLogic = new LocalHumanPlayer(playerSprite, (TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"));
+        playerLogic = new LocalHumanPlayer(playerSprite, (TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"), Direction.NORTH);
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
     }
 
@@ -39,7 +40,7 @@ public class LocalHumanPlayerLogicTest {
     public void testGameIsOverIfPlayerStartsOnFlag() throws Exception {
 
         playerSprite = new Sprite();
-        playerLogic = new LocalHumanPlayer(playerSprite, (TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"));
+        playerLogic = new LocalHumanPlayer(playerSprite, (TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"),Direction.NORTH);
         float flagX = 300;
         float flagY = 2700;
 

@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.graphics.Graphics;
-
+import inf112.skeleton.app.shared.Direction;
 
 
 public class LocalHumanPlayer extends Player implements InputProcessor {
@@ -15,8 +15,8 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
     public float updateY;
     Graphics graphics;
 
-    public LocalHumanPlayer(Sprite sprite, TiledMapTileLayer flagLayer) {
-        super(sprite, flagLayer);
+    public LocalHumanPlayer(Sprite sprite, TiledMapTileLayer flagLayer, Direction direction) {
+        super(sprite, flagLayer, direction);
     }
     /**
      * Update and draw Player SpriteBatch
