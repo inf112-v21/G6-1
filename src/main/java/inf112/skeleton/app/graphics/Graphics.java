@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -18,8 +17,6 @@ import inf112.skeleton.app.player.LocalHumanPlayer;
 import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Direction;
 
-import java.util.ArrayList;
-
 
 public class Graphics implements  ApplicationListener {
 
@@ -30,14 +27,25 @@ public class Graphics implements  ApplicationListener {
     public LocalHumanPlayer localHumanPlayer;
     public Sprite sprite;
     public CardMoveOne testcard;
-
     public  Card testcard2;
     public Card testcard3;
     public CardFactory cardFactory;
-    public ArrayList<Card> cardDeck = new ArrayList<Card>();
+    public Sprite CardMoveOneSprite;
+    public Sprite CardMoveTwoSprite;
+    public Sprite CardMoveThreeSprite;
+    public Sprite CardRotateLeftSprite;
+    public Sprite CardRotateRightSprite;
+    public Sprite CardBackUpSprite;
+    public Sprite CardUTurnSprite;
+
+    public void CardSizeAndPosition(Sprite sprite, float xPos, float yPos){
+        sprite.setSize(600,600);
+        sprite.setPosition(xPos,yPos);
+    }
     @Override
     public void create() {
         float w = Gdx.graphics.getWidth();
+        
         float h = Gdx.graphics.getHeight();
         spriteBatch = new SpriteBatch();
         camera = new OrthographicCamera();
@@ -48,11 +56,29 @@ public class Graphics implements  ApplicationListener {
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         localHumanPlayer = new LocalHumanPlayer(new Sprite(new Texture("Player/OwlPlayer1.png")),(TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"), Direction.NORTH);
         testcard = new CardMoveOne(new Sprite(new Texture("Cards/Move1.png")),1,Action.MOVE_ONE);
-        testcard2 = new CardMoveOne(new Sprite(new Texture("Cards/Move1.png")),1,Action.MOVE_ONE);
-        testcard2.setPosition(900,900);
+        testcard.setSize(600,600);
+        testcard.setPosition(0,-600);
+        testcard2 = new CardMoveTwo(new Sprite(new Texture("Cards/Move2.png")),1,Action.MOVE_TWO);
+        testcard2.setSize(600,600);
+        testcard2.setPosition(600,-600);
+
+
+        CardMoveOneSprite = new Sprite(new Texture("Player/OwlPlayer1.png"));
+        CardSizeAndPosition(CardMoveOneSprite, 0,-600);
+        /*
+        CardMoveOneSprite.setPosition(0,-600);
+        CardMoveOneSprite.setSize(600,600);
+        CardMoveTwoSprite = new Sprite(new Texture("Player/OwlPlayer1.png"));
+        CardMoveThreeSprite = new Sprite(new Texture("Player/OwlPlayer1.png"));
+        CardRotateLeftSprite = new Sprite(new Texture("Player/OwlPlayer1.png"));
+        CardRotateRightSprite = new Sprite(new Texture("Player/OwlPlayer1.png"));
+        CardBackUpSprite = new Sprite(new Texture("Player/OwlPlayer1.png"));
+        CardUTurnSprite = new Sprite(new Texture("Player/OwlPlayer1.png"));
+        */
+
         Gdx.input.setInputProcessor((InputProcessor) localHumanPlayer);
         localHumanPlayer.setPlayerSize(300,300);
-        testcard3 = cardDeck.get(1);
+        //cardDeck.card(0);
         localHumanPlayer.setPosition(localHumanPlayer.updateX = 0,localHumanPlayer.updateY = 0);
     }/// TODO note to self ser ut som at kort i alle klassene skal være CARD
 
@@ -81,9 +107,13 @@ public class Graphics implements  ApplicationListener {
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
         tiledMapRenderer.getBatch().begin();
+        /*
         localHumanPlayer.draw(tiledMapRenderer.getBatch());
         testcard.draw(tiledMapRenderer.getBatch());
+
         testcard2.draw(tiledMapRenderer.getBatch());
+        */
+        CardMoveOneSprite.draw(tiledMapRenderer.getBatch());
         tiledMapRenderer.getBatch().end();
         if (localHumanPlayer.isGameOver(localHumanPlayer.flagLayer)) {
             pause();
