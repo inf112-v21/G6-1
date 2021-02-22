@@ -15,32 +15,32 @@ public class CardFactory extends Sprite {
     public Texture cardBackUp = new Texture("Cards/BackUp.png");
     // TODO card skal ikke ha en direction. De skal handle ut i fra player sin direction, dvs player å få direction
     // Card or CardMoveX???
-    public CardMoveOne createCardMoveOne() {
-        return new CardMoveOne(new Sprite(cardMoveOneTexture), 1, Action.MOVE_ONE);
+    public CardMoveOne createCardMoveOne(int priority) {
+        return new CardMoveOne(new Sprite(cardMoveOneTexture), priority, Action.MOVE_ONE);
     }
 
-    public Card createCardMoveTwo() {
-        return new CardMoveTwo((new Sprite(cardMoveTwoTexture)), 1, Action.MOVE_TWO);
+    public Card createCardMoveTwo(int priority) {
+        return new CardMoveTwo((new Sprite(cardMoveTwoTexture)),priority, Action.MOVE_TWO);
     }
 
-    public Card createCardMoveThree() {
-        return new CardMoveThree((new Sprite(cardMoveThreeTexture)), 1, Action.MOVE_THREE);
+    public Card createCardMoveThree(int priority) {
+        return new CardMoveThree((new Sprite(cardMoveThreeTexture)), priority, Action.MOVE_THREE);
     }
 
-    public Card createCardRotateLeft() {
-        return new CardRotateLeft((new Sprite(cardRotateLeftTexture)), 1, Action.ROTATE_LEFT);
+    public Card createCardRotateLeft(int priority) {
+        return new CardRotateLeft((new Sprite(cardRotateLeftTexture)), priority, Action.ROTATE_LEFT);
     }
 
-    public Card createCardRotateRight() {
-        return new CardRotateRight((new Sprite(cardRotateRightTexture)), 1, Action.ROTATE_RIGHT);
+    public Card createCardRotateRight(int priority) {
+        return new CardRotateRight((new Sprite(cardRotateRightTexture)), priority, Action.ROTATE_RIGHT);
     }
 
-    public Card createCardUturn() {
-        return new CardUturn((new Sprite(cardUturnTexture)), 1, Action.U_TURN);
+    public Card createCardUturn(int priority) {
+        return new CardUturn((new Sprite(cardUturnTexture)), priority, Action.U_TURN);
     }
 
-    public Card createCardBackUp() {
-        return new CardBackUp((new Sprite(cardBackUp)), 1, Action.BACK_UP);
+    public Card createCardBackUp(int priority) {
+        return new CardBackUp((new Sprite(cardBackUp)), priority, Action.BACK_UP);
     }
 
 }
