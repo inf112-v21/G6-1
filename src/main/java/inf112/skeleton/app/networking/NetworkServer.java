@@ -6,7 +6,7 @@ package inf112.skeleton.app.networking;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
-import com.esotericsoftware.kryo.Kryo;
+import inf112.skeleton.app.networking.packets.PacketMessage;
 
 
 import java.io.IOException;
@@ -15,7 +15,6 @@ import java.io.IOException;
 public class NetworkServer extends Listener {
     //Object for server
     Server server;
-    Kyro kyro = server.getKryo();
 
     //What ports to be used
     static int udpPort = 54777, tcpPort = 54555;
@@ -25,6 +24,7 @@ public class NetworkServer extends Listener {
     public void run() {
         server = new Server();
         System.out.println("Creating the server...");
+        server.getKryo().register(PacketMessage.class);
         try {
             server.bind(udpPort, tcpPort);
         } catch (IOException e) {
