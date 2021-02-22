@@ -26,10 +26,7 @@ public class Graphics implements  ApplicationListener {
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private SpriteBatch spriteBatch;
-    public CardMoveOne testCard;
     public LocalHumanPlayer localHumanPlayer;
-    public CardFactory cardFactory = new CardFactory();
-    public CardMoveOne cardmoveone;
     public Sprite sprite;
 
     @Override
@@ -44,10 +41,6 @@ public class Graphics implements  ApplicationListener {
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         localHumanPlayer = new LocalHumanPlayer(new Sprite(new Texture("Player/OwlPlayer1.png")),(TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"));
-        cardmoveone =  cardFactory.createCardMoveOne();
-        //cardmoveone = new CardMoveOne(new Sprite(new Texture("Cards/Move1.png")),1,Action.MOVE_ONE);
-        //testCard.setSize(300,300);
-        //testCard.setPosition(-300,-300);
         Gdx.input.setInputProcessor((InputProcessor) localHumanPlayer);
         localHumanPlayer.setPlayerSize(300,300);
         localHumanPlayer.setPosition(localHumanPlayer.updateX = 0,localHumanPlayer.updateY = 0);
@@ -78,10 +71,7 @@ public class Graphics implements  ApplicationListener {
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
         tiledMapRenderer.getBatch().begin();
-        //TODO her må det være mulig å kjøre draw felles
         localHumanPlayer.draw(tiledMapRenderer.getBatch());
-        //System.out.println(testCard.action.getAction());
-        //cardFactory.draw(tiledMapRenderer.getBatch());
         tiledMapRenderer.getBatch().end();
         if (localHumanPlayer.isGameOver(localHumanPlayer.flagLayer)) {
             pause();

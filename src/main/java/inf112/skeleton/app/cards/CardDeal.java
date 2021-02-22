@@ -6,12 +6,12 @@ import java.util.Random;
 public class CardDeal {
     private Random rand = new Random();
     private ArrayList<CardDeck> cardDeck = new ArrayList<CardDeck>();
-    private ArrayList<CardDeck> dealtCards;
+    public ArrayList<CardDeck> dealtCards;
 
     public int random(){
         return rand.nextInt(84);
-
     }
+
     public CardDeal() {
         for(int i = 0; i < 9; i++){
             dealtCards.add(cardDeck.get(random()));
