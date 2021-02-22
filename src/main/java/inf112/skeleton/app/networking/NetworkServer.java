@@ -24,15 +24,22 @@ public class NetworkServer extends Listener {
     public void run() {
         server = new Server();
         System.out.println("Creating the server...");
+
+
         server.getKryo().register(PacketMessage.class);
+        server.getKryo().register(int[].class);
+
+
         try {
             server.bind(udpPort, tcpPort);
         } catch (IOException e) {
             e.printStackTrace();
         }
         server.start();
+
         System.out.println("Server has started:O");
-        server.addListener(new NetworkServer());
+
+        server.addListener(this);
     }
 
     //Used when someone connects to server
@@ -50,3 +57,15 @@ public class NetworkServer extends Listener {
 
 
 }
+
+
+/*
+//TODO Launche serveren i Game; forslag til metode til det:
+public void launchServer(){
+    if(server == null); //If the server is already set-up
+        print("Server already exsists")
+    this.server = new NetworkServer(this); //Not sure if (this) is needed.
+    this.client = new NetworkClient(this); //Probably more parameteres needed for client, such as viewport or ip.
+                                           //Might have to use a if-sentence for this, or try-catch
+}
+ */
