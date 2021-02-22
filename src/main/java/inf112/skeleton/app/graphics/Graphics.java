@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -12,8 +13,11 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.graphics.GL20;
+import inf112.skeleton.app.cards.Card;
+import inf112.skeleton.app.cards.CardFactory;
+import inf112.skeleton.app.cards.CardMoveOne;
 import inf112.skeleton.app.player.LocalHumanPlayer;
-
+import inf112.skeleton.app.shared.Action;
 
 
 public class Graphics implements  ApplicationListener {
@@ -21,14 +25,15 @@ public class Graphics implements  ApplicationListener {
     private TiledMap tiledMap;
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
-    private SpriteBatch batch;
+    private SpriteBatch spriteBatch;
     public LocalHumanPlayer localHumanPlayer;
+    public Sprite sprite;
 
     @Override
     public void create() {
         float w = Gdx.graphics.getWidth();
         float h = Gdx.graphics.getHeight();
-        batch = new SpriteBatch();
+        spriteBatch = new SpriteBatch();
         camera = new OrthographicCamera();
         camera.zoom = 6f; //Shows more of the board
         camera.setToOrtho(false, h,w); //something needs adjustment here
@@ -36,11 +41,9 @@ public class Graphics implements  ApplicationListener {
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         localHumanPlayer = new LocalHumanPlayer(new Sprite(new Texture("Player/OwlPlayer1.png")),(TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"));
-        Gdx.input.setInputProcessor((InputProcessor) localHumanPlayer); // TODO funker det å bare caste??? Ja
+        Gdx.input.setInputProcessor((InputProcessor) localHumanPlayer);
         localHumanPlayer.setPlayerSize(300,300);
-        localHumanPlayer.setPosition(localHumanPlayer.updateX = 300,localHumanPlayer.updateY = 300);
-
-
+        localHumanPlayer.setPosition(localHumanPlayer.updateX = 0,localHumanPlayer.updateY = 0);
     }
 
     /**
@@ -53,7 +56,6 @@ public class Graphics implements  ApplicationListener {
         camera.viewportWidth = width;
         camera.viewportHeight = height;
         camera.update();
-
     }
 
     /**
@@ -94,7 +96,7 @@ public class Graphics implements  ApplicationListener {
     public void dispose() {
 
         tiledMap.dispose();
-        batch.dispose();
+        spriteBatch.dispose();
 
     }
 }

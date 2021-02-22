@@ -3,14 +3,17 @@ package inf112.skeleton.app.player;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import inf112.skeleton.app.shared.Direction;
 
 abstract class Player extends Sprite {
+
 
     public TiledMapTileLayer flagLayer;
 
     public Player(Sprite sprite, TiledMapTileLayer flagLayer) {
         super(sprite);
         this.flagLayer = flagLayer;
+
     }
 
     public abstract void updatePlayerLocation(float updateX, float updateY);
