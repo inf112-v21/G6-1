@@ -6,7 +6,7 @@ import inf112.skeleton.app.shared.Direction;
 
 public class CardUturn extends Card {
 
-    public CardUturn(Sprite sprite,int priority, Action action) {
-        super(sprite,priority, action);
+    public CardUturn(int priority, Action action) {
+        super(priority, action);
     }
 }

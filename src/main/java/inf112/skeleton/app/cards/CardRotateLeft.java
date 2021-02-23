@@ -6,7 +6,7 @@ import inf112.skeleton.app.shared.Direction;
 
 public class CardRotateLeft extends Card {
 
-    public CardRotateLeft(Sprite sprite,int priority, Action action) {
-        super(sprite,priority, action);
+    public CardRotateLeft(int priority, Action action) {
+        super(priority, action);
     }
 }

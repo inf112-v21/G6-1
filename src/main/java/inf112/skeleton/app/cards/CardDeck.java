@@ -26,37 +26,37 @@ public class CardDeck extends Sprite {
     private void renderCardDeck() {
         int priority = 490;
         for(int i = 0; i<18; i++){
-            cardDeck.add(new CardMoveOne(new Sprite(new Texture("Cards/Move1.png")), priority, Action.MOVE_ONE));
+            cardDeck.add(new CardMoveOne(priority, Action.MOVE_ONE));
             priority += 10;
         }
         priority = 670;
         for(int i = 0; i<12; i++){
-            cardDeck.add(new CardMoveTwo((new Sprite(new Texture("Cards/Move1.png"))),priority, Action.MOVE_TWO));
+            cardDeck.add(new CardMoveTwo(priority, Action.MOVE_TWO));
             priority += 10;
         }
         priority = 790;
         for(int i = 0; i<6; i++){
-            cardDeck.add(new CardMoveThree((new Sprite(new Texture("Cards/Move1.png"))), priority, Action.MOVE_THREE));
+            cardDeck.add(new CardMoveThree(priority, Action.MOVE_THREE));
             priority += 10;
         }
         priority = 70;
         for(int i = 0; i<18; i++){
-            cardDeck.add(new CardRotateLeft((new Sprite(new Texture("Cards/Move1.png"))), priority, Action.ROTATE_LEFT));
+            cardDeck.add(new CardRotateLeft(priority, Action.ROTATE_LEFT));
             priority += 10;
         }
         priority = 80;
         for(int i = 0; i<18; i++){
-            cardDeck.add(new CardRotateRight((new Sprite(new Texture("Cards/Move1.png"))), priority, Action.ROTATE_RIGHT));
+            cardDeck.add(new CardRotateRight(priority, Action.ROTATE_RIGHT));
             priority += 10;
         }
         priority = 10;
         for(int i = 0; i<6; i++){
-            cardDeck.add(new CardUturn((new Sprite(new Texture("Cards/Move1.png"))), priority, Action.U_TURN));
+            cardDeck.add(new CardUturn(priority, Action.U_TURN));
             priority += 10;
         }
         priority = 430;
         for(int i = 0; i<6; i++){
-            cardDeck.add(new CardBackUp((new Sprite(new Texture("Cards/Move1.png"))), priority, Action.BACK_UP));
+            cardDeck.add(new CardBackUp(priority, Action.BACK_UP));
             priority += 10;
         }
     }
