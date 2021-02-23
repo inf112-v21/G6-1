@@ -21,7 +21,7 @@ import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Direction;
 
 
-public class Graphics implements  ApplicationListener {
+public class Graphics implements ApplicationListener {
 
     private TiledMap tiledMap;
     private OrthographicCamera camera;
