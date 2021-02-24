@@ -1,11 +1,8 @@
 package inf112.skeleton.app.graphics;
 
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -13,16 +10,11 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.graphics.GL20;
-import inf112.skeleton.app.cards.Card;
-import inf112.skeleton.app.cards.CardFactory;
-import inf112.skeleton.app.cards.CardMoveOne;
 import inf112.skeleton.app.player.LocalHumanPlayer;
-import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Direction;
 
 
-public class Graphics implements ApplicationListener {
-
+public class Graphics extends ScreenAdapter implements ApplicationListener{
     private TiledMap tiledMap;
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
@@ -30,13 +22,16 @@ public class Graphics implements ApplicationListener {
     public LocalHumanPlayer localHumanPlayer;
     public Sprite sprite;
 
+    public Texture background;
+    public Texture youwin;
+
     @Override
     public void create() {
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
+        float w = 600;
+        float h = 1000;
         spriteBatch = new SpriteBatch();
         camera = new OrthographicCamera();
-        camera.zoom = 6f; //Shows more of the board
+        camera.zoom = 7f; //Shows more of the board
         camera.setToOrtho(false, h,w); //something needs adjustment here
         camera.update();
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
@@ -45,6 +40,9 @@ public class Graphics implements ApplicationListener {
         Gdx.input.setInputProcessor((InputProcessor) localHumanPlayer);
         localHumanPlayer.setPlayerSize(300,300);
         localHumanPlayer.setPosition(localHumanPlayer.updateX = 0,localHumanPlayer.updateY = 0);
+
+        background = new Texture("Background2.png");
+        youwin = new Texture("YouWin.jpg");
     }
 
     /**
@@ -64,19 +62,30 @@ public class Graphics implements ApplicationListener {
      */
     @Override
     public void render() {
+        //background image
+        spriteBatch.begin();
+        spriteBatch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        spriteBatch.end();
 
-        Gdx.gl.glClearColor(1, 0, 0, 1);
-        //Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        //player on display
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
         tiledMapRenderer.getBatch().begin();
         localHumanPlayer.draw(tiledMapRenderer.getBatch());
         tiledMapRenderer.getBatch().end();
+
+        //if the player has won, get "you win"-message up
         if (localHumanPlayer.isGameOver(localHumanPlayer.flagLayer)) {
             pause();
-            dispose();
+            System.out.println("You Won!");
+            //"you win" screen pops up
+            spriteBatch.begin();
+            spriteBatch.draw(youwin, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            spriteBatch.end();
+            pause();
+            //use timer
+            //dispose(); //maybe get "you win" message up before it disposes so quickly
         }
     }
 
@@ -95,9 +104,9 @@ public class Graphics implements ApplicationListener {
      */
     @Override
     public void dispose() {
-
         tiledMap.dispose();
         spriteBatch.dispose();
-
+        background.dispose();
+        youwin.dispose();
     }
 }
