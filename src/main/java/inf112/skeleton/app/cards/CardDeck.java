@@ -7,8 +7,7 @@ import java.util.Random;
 //TODO Split this class again after figuring out why it dosent work
 
 public class CardDeck {
-    public ArrayList<Card> cardDeck;
-    public ArrayList<Card> cards = new ArrayList<Card>();
+    public ArrayList<Card> cardDeck= new ArrayList<Card>();
     public Random rand = new Random();
 
     public CardDeck(){
@@ -20,6 +19,7 @@ public class CardDeck {
     /**
      * Render a sorted card deck ,with all cards and correct priority
      */
+    // TODO refactor priority descending or ascending
     private void renderCardDeck() {
         int priority = 490;
         for(int i = 0; i<18; i++){
@@ -72,6 +72,11 @@ public class CardDeck {
         return rand.nextInt(84);
     }
 
+    public ArrayList<Card> getDeck(){
+        ArrayList<Card>deck = new ArrayList<Card>();
+        deck = cardDeck;
+        return deck;
+    }
     /**
      * @return enough cards for one round "Shuffled"
      */

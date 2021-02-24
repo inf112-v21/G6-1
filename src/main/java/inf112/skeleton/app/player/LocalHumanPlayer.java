@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.cards.Card;
+import inf112.skeleton.app.cards.CardDeck;
+import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Direction;
 
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
     public float updateX;
     public float updateY;
 
-    //private CardDeck cardDeck = new CardDeck();
+    private CardDeck cardDeck = new CardDeck();
     public ArrayList<Card> deck;
 
     public LocalHumanPlayer(Sprite sprite, TiledMapTileLayer flagLayer, Direction direction) {
@@ -34,14 +36,49 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
         super.draw(batch);
     }
 
+    //TODO denne fjernes før innlevering da vi nå skal bruke kort og ikke innput
     @Override
      public void updatePlayerLocation(float updateX, float updateY) {
-        if (canPlayerMove(updateX, updateY)){
+        /*if (canPlayerMove(updateX, updateY)){
             this.setPosition(updateX, updateY);
+        }*/
+        for(Card card : cardDeck.getDeck()){
+            System.out.println(card.action +""+card.priority);
         }
-        this.setPosition(getX(), getY());
+        System.out.println();
+        this.setPosition(cardDeck.getCard().action.getAction(), getY());
     }
 
+
+    public boolean isItmoveCard(Card card){
+        return card.action == Action.MOVE_ONE || card.action == Action.MOVE_TWO|| card.action == Action.MOVE_THREE||card.action== Action.BACK_UP;
+    }
+    public void updatePlayerLocationCard(Card card, Player player) {
+        if (isItmoveCard(card)) {
+            if (player.direction == Direction.NORTH) {
+                this.setPosition(getX(), card.action.getAction());
+            } else if (player.direction == Direction.SOUTH) {
+                this.setPosition(getX(), -card.action.getAction());
+            } else if (player.direction == Direction.EAST) {
+                this.setPosition(card.action.getAction(), getY());
+            } else if (player.direction == Direction.WEST) {
+                this.setPosition(card.action.getAction(), getY());
+            } else if(!isItmoveCard(card)) {
+
+            }
+        }
+    }
+
+/*
+        moveCard.action;
+        player.direction;
+        card.action;
+        if direction == noe
+                move direction;
+        if action feks turn;
+        player.direction = new dirction;
+    }
+*/
     @Override
     public void setPlayerSize(float width, float height) {
         setSize(width, height);

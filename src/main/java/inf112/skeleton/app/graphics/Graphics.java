@@ -13,6 +13,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.graphics.GL20;
 import inf112.skeleton.app.player.LocalHumanPlayer;
+import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Direction;
 
 
@@ -102,10 +103,9 @@ public class Graphics implements  ApplicationListener {
         CardUTurnSprite.draw(tiledMapRenderer.getBatch());
         CardBackUpSprite.draw(tiledMapRenderer.getBatch());
         tiledMapRenderer.getBatch().end();
-
         if (localHumanPlayer.isGameOver(localHumanPlayer.flagLayer)) {
             pause();
-            dispose();
+           dispose();
         }
     }
 

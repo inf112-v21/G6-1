@@ -21,8 +21,6 @@ public class LocalHumanPlayerLogicTest {
 
     @BeforeEach
     public void setup() {
-
-
     }
 
 
@@ -33,7 +31,7 @@ public class LocalHumanPlayerLogicTest {
         float flagY = 2700;
 
         cfg = new Lwjgl3ApplicationConfiguration();
-        cfg.setInitialVisible(true);
+        //cfg.setInitialVisible(true);
         new Lwjgl3Application(graphics, cfg);
         graphics.localHumanPlayer.setPosition(300,2700);
         graphics.localHumanPlayer.setPosition(graphics.localHumanPlayer.updateX = 300, graphics.localHumanPlayer.updateY = 2700);
