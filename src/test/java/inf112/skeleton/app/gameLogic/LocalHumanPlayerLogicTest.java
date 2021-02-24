@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
 
 public class LocalHumanPlayerLogicTest {
 
-
+/*
     Graphics graphics = new Graphics();
     Lwjgl3ApplicationConfiguration cfg;
 
