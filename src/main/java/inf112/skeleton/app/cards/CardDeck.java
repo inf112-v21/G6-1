@@ -1,31 +1,29 @@
 package inf112.skeleton.app.cards;
-
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import inf112.skeleton.app.shared.Action;
 
 import java.util.ArrayList;
+import java.util.Random;
 
-public class CardDeck extends Sprite {
+//TODO Split this class again after figuring out why it dosent work
+
+public class CardDeck {
     public ArrayList<Card> cardDeck;
-    //TODO refactor to better than a million for loops.
-    //TODO kan denne rendres en gang og brukes gjennom hele spillet??
-    /*
-    public Texture cardMoveOneTexture = new Texture("Cards/Move1.png");
-    public Texture cardMoveTwoTexture = new Texture("Cards/Move2.png");
-    public Texture cardMoveThreeTexture = new Texture("Cards/Move3.png");
-    public Texture cardRotateLeftTexture = new Texture("Cards/RotateLeft.png");
-    public Texture cardRotateRightTexture = new Texture("Cards/RotateRight.png");
-    public Texture cardUturnTexture = new Texture("Cards/U-turn.png");
-    public Texture cardBackUp = new Texture("Cards/BackUp.png");
-*/
-    public  CardDeck(){
-       renderCardDeck();
+    public ArrayList<Card> cards = new ArrayList<Card>();
+    public Random rand = new Random();
+
+    public CardDeck(){
+        // 67% sikker på at dette går ann.
+        renderCardDeck();
+       //this.cards = renderCardDeck();
     }
 
+    /**
+     * Render a sorted card deck ,with all cards and correct priority
+     */
     private void renderCardDeck() {
         int priority = 490;
         for(int i = 0; i<18; i++){
+            // 96% sikker på at nullpointer kommer ved oprettelse av kort.. 0% sikker på hvorfor
             cardDeck.add(new CardMoveOne(priority, Action.MOVE_ONE));
             priority += 10;
         }
@@ -55,12 +53,33 @@ public class CardDeck extends Sprite {
             priority += 10;
         }
         priority = 430;
-        for(int i = 0; i<6; i++){
+        for(int i = 0; i<6; i++) {
             cardDeck.add(new CardBackUp(priority, Action.BACK_UP));
             priority += 10;
         }
     }
-    public Card card(int i){
-        return cardDeck.get(i);
+
+    /**
+     * For Development, will be removed
+     * @return one card from deck.
+     */
+    public Card getCard(){
+        return cardDeck.get(0);
+    }
+
+    //TODO Create uniform random function
+    public int random(){
+        return rand.nextInt(84);
+    }
+
+    /**
+     * @return enough cards for one round "Shuffled"
+     */
+    public ArrayList<Card> CardDeal() {
+        ArrayList<Card> cardDeckOneRound = new ArrayList<Card>();
+        for(int i = 0; i < 9; i++){
+            cardDeckOneRound.add(cardDeck.get(random()));
+        }
+        return cardDeckOneRound;
     }
 }

@@ -5,61 +5,65 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import inf112.skeleton.app.game.Game;
-import inf112.skeleton.app.graphics.Graphics;
+import inf112.skeleton.app.cards.Card;
 import inf112.skeleton.app.shared.Direction;
+
+import java.util.ArrayList;
 
 
 public class LocalHumanPlayer extends Player implements InputProcessor {
     public float updateX;
     public float updateY;
-    Graphics graphics;
+
+    //private CardDeck cardDeck = new CardDeck();
+    public ArrayList<Card> deck;
 
     public LocalHumanPlayer(Sprite sprite, TiledMapTileLayer flagLayer, Direction direction) {
         super(sprite, flagLayer, direction);
     }
+
     /**
      * Update and draw Player SpriteBatch
      *
      * @param batch : Player
      */
     @Override
-
     public void draw(Batch batch) {
         updatePlayerLocation(updateX, updateY);
         //if(isPlayerOnFlag()) System.out.println("VICTORY!");
         super.draw(batch);
     }
+
+    @Override
      public void updatePlayerLocation(float updateX, float updateY) {
-             //this.setPosition(graphics.testCard.action.getAction()+299, 600);
-
-
-        // System.out.println(graphics.testCard.action);
         if (canPlayerMove(updateX, updateY)){
             this.setPosition(updateX, updateY);
         }
         this.setPosition(getX(), getY());
     }
-    public void setPlayerSize(float width, float height) {
 
+    @Override
+    public void setPlayerSize(float width, float height) {
         setSize(width, height);
     }
 
-
+    @Override
     public boolean isPlayerOnFlag(TiledMapTileLayer flagLayer) {
         TiledMapTileLayer.Cell cell = flagLayer.getCell(normalizedCoordinates(getX()), normalizedCoordinates(getY()));
         return cell!= null;
     }
 
+    @Override
     public boolean canPlayerMove(float xDirection, float yDirection){
         return !(xDirection < 0 || xDirection > 3300 || yDirection < 0 || yDirection > 3900);
     }
 
+    @Override
     public int normalizedCoordinates(float unNormalizedValue) {
-
         return (int) unNormalizedValue/300;
     }
 
+    @Override
     public boolean isGameOver(TiledMapTileLayer flagLayer) {
         if (isPlayerOnFlag(flagLayer)) {
             return true;
@@ -68,6 +72,8 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
         }
     }
 
+
+
     /**
      * keyDown registers what happens when the key is pressed down.
      * Player move one tile upon down-press
@@ -75,6 +81,7 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
      * @param keyPressed
      * @return true : boolean
      */
+
     @Override
     public boolean keyDown(int keyPressed) {
         int tileDirection = 300;

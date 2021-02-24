@@ -30,4 +30,6 @@ abstract class Player extends Sprite {
 
     public abstract boolean isGameOver(TiledMapTileLayer flagLayer);
 
+
+
 }

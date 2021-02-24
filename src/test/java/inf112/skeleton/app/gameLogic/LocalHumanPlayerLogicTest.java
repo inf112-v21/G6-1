@@ -1,50 +1,43 @@
 package inf112.skeleton.app.gameLogic;
 
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
+
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import inf112.skeleton.app.graphics.Graphics;
 import inf112.skeleton.app.player.LocalHumanPlayer;
-import inf112.skeleton.app.shared.Direction;
+import org.junit.jupiter.api.Assertions;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import java.awt.*;
+import org.junit.Before;
 
+import static org.junit.Assert.*;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 public class LocalHumanPlayerLogicTest {
 
-    Sprite playerSprite;
-    LocalHumanPlayer playerLogic;
-    private TiledMap tiledMap;
-    private TiledMapTileLayer flagLayer;
-    //InstrumentationRegistry.getContext().getAssets().open(filePath);
+
+    Graphics graphics = new Graphics();
+    Lwjgl3ApplicationConfiguration cfg;
 
     @BeforeEach
     public void setup() {
-        playerSprite = new Sprite();
-        playerLogic = new LocalHumanPlayer(playerSprite, (TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"), Direction.NORTH);
-        tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
-    }
 
+
+    }
 
 
     // does not work, gameLogic points to null;
     @Test
     public void testGameIsOverIfPlayerStartsOnFlag() throws Exception {
-
-        playerSprite = new Sprite();
-        playerLogic = new LocalHumanPlayer(playerSprite, (TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"),Direction.NORTH);
         float flagX = 300;
         float flagY = 2700;
 
-
+        cfg = new Lwjgl3ApplicationConfiguration();
+        cfg.setInitialVisible(true);
+        new Lwjgl3Application(graphics, cfg);
+        graphics.localHumanPlayer.setPosition(300,2700);
+        graphics.localHumanPlayer.setPosition(graphics.localHumanPlayer.updateX = 300, graphics.localHumanPlayer.updateY = 2700);
+        assertTrue(graphics.localHumanPlayer.isGameOver(graphics.localHumanPlayer.flagLayer));
     }
 /*
     @Test
