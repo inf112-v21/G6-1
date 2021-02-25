@@ -8,7 +8,7 @@ import inf112.skeleton.app.networking.Network.PacketMessage;
 
 import java.io.IOException;
 
-public class Client extends Listener {
+public class GameClient extends Listener {
     static com.esotericsoftware.kryonet.Client client;
     static String ip = "localhost";
     static int udpPort = 54777, tcpPort = 54555;

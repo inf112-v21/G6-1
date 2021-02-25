@@ -13,7 +13,7 @@ public class Network {
         kyro.register(registerName.class);
         kyro.register(String[].class);
         kyro.register(updateNames.class);
-        kyro.register(PacketMessage.class)
+        kyro.register(PacketMessage.class);
 
     }
 

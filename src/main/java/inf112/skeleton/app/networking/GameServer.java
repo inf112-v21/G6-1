@@ -5,6 +5,7 @@ package inf112.skeleton.app.networking;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import com.esotericsoftware.kryonet.Server;
 import inf112.skeleton.app.networking.Network.PacketMessage;
 
 
@@ -12,9 +13,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class Server extends Listener {
+public class GameServer extends Listener {
     //Object for server
-    com.esotericsoftware.kryonet.Server server;
+    Server server;
 
     //What ports to be used
     static int udpPort = 54777, tcpPort = 54555;
@@ -22,9 +23,10 @@ public class Server extends Listener {
 
     //Server is being created, and bound to chosen ports then started.
     public void run() {
-        server = new com.esotericsoftware.kryonet.Server();
+        server = new Server();
         System.out.println("Creating the server...");
 
+        Network.register(server);
 
         server.getKryo().register(PacketMessage.class);
         server.getKryo().register(int[].class);
@@ -46,14 +48,14 @@ public class Server extends Listener {
     //Used when someone connects to server
     public void isConnected(Connection connector){
         System.out.println("Received connection from "+ connector.getRemoteAddressTCP().getHostString());
-        PacketMessage packetMessage = new PacketMessage;
+        PacketMessage packetMessage = new PacketMessage();
         packetMessage.message = "Heisann!";
 
         connector.sendTCP(packetMessage);
     }
     //Used when someone disconnects from server
     public void isDisconnected(Connection connector){
-        playerConnected Connection = (playerConnected)c;
+        playerConnected Connection = (playerConnected) connector;
         if(Connection.name != null) {
             PacketMessage packetMessage = new PacketMessage();
             packetMessage.message = Connection.name + " has disconnected...";
@@ -73,11 +75,16 @@ public class Server extends Listener {
         Connection[] connections = server.getConnections();
 
         ArrayList connectedNames = new ArrayList(connections.length);
-
+        //Checks the players connected and adds them to connectedNames.
         for(int i = connections.length - 1; i>=0; i--) {
             playerConnected connection = (playerConnected)connections[i];
-            connectedNames.add(connection.name)
+            connectedNames.add(connection.name);
         }
+
+        //names in updateNames takes all the connectedNames, and server sends it to everyone on TCP
+        Network.updateNames updateNames = new Network.updateNames();
+        updateNames.names = (String[])connectedNames.toArray(new String[connectedNames.size()]);
+        server.sendToAllTCP(updateNames.names);
     }
 
 }
