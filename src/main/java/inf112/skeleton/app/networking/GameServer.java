@@ -1,8 +1,5 @@
 package inf112.skeleton.app.networking;
 
-
-
-
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
@@ -28,11 +25,6 @@ public class GameServer extends Listener {
 
         Network.register(server);
 
-        server.getKryo().register(PacketMessage.class);
-        server.getKryo().register(int[].class);
-
-
-
         try {
             server.bind(udpPort, tcpPort);
         } catch (IOException e) {
@@ -45,17 +37,22 @@ public class GameServer extends Listener {
         server.addListener(this);
     }
 
+    //When something is sent to the server, received checks what it is and sends it to GameClient
+    public void received(Connection c, Object o){
+
+    }
+
     //Used when someone connects to server
-    public void isConnected(Connection connector){
-        System.out.println("Received connection from "+ connector.getRemoteAddressTCP().getHostString());
+    public void isConnected(Connection c){
+        System.out.println("Received connection from "+ c.getRemoteAddressTCP().getHostString());
         PacketMessage packetMessage = new PacketMessage();
         packetMessage.message = "Heisann!";
-
-        connector.sendTCP(packetMessage);
+        c.sendTCP(packetMessage);
     }
+
     //Used when someone disconnects from server
-    public void isDisconnected(Connection connector){
-        playerConnected Connection = (playerConnected) connector;
+    public void isDisconnected(Connection c){
+        playerConnected Connection = (playerConnected) c;
         if(Connection.name != null) {
             PacketMessage packetMessage = new PacketMessage();
             packetMessage.message = Connection.name + " has disconnected...";
@@ -70,7 +67,7 @@ public class GameServer extends Listener {
 
     }
 
-    void updateNames() {
+    public void updateNames() {
         // Collects names for every connected
         Connection[] connections = server.getConnections();
 
@@ -90,13 +87,13 @@ public class GameServer extends Listener {
 }
 
 
-/*
+
 //TODO Launche serveren i Game; forslag til metode til det:
 public void launchServer(){
     if(server == null); //If the server is already set-up
-        print("Server already exsists")
+        System.out.println("Server already exsists");
     this.server = new Server(this); //Not sure if (this) is needed.
     this.client = new Client(this); //Probably more parameteres needed for client, such as viewport or ip.
                                            //Might have to use a if-sentence for this, or try-catch
 }
- */
+

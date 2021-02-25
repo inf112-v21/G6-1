@@ -8,13 +8,19 @@ import com.jcraft.jogg.Packet;
 public class Network {
     static public final int udpPort = 54777, tcpPort = 54555;
 
+    /**
+     * Method used to register all needed classes for the server and client.
+     *
+     * @param endPoint
+     */
     static public void register (EndPoint endPoint) {
-        com.esotericsoftware.kryo.Kryo kyro = endPoint.getKryo();
+        Kryo kyro = endPoint.getKryo();
         kyro.register(registerName.class);
-        kyro.register(String[].class);
         kyro.register(updateNames.class);
         kyro.register(PacketMessage.class);
 
+        kyro.register(String[].class);
+        kyro.register(int[].class);
     }
 
     static public class registerName{

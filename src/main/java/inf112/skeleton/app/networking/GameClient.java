@@ -19,18 +19,16 @@ public class GameClient extends Listener {
         client = new com.esotericsoftware.kryonet.Client();
         client.getKryo().register(PacketMessage.class);
         client.start();
-        client.connect(10000, "192.168.0.4", 54555, 54777);
+
+        // Tries to connect to a server times out after 10 seconds.
+        try {
+            client.connect(10000, ip, 54555, 54777);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null,"Server is not startet. Can not connect");
+        }
         client.addListener(this);
 
         System.out.println("Client should now be waiting for a packet...\n");
-
-
-    public void received(Connection c, Object p){
-
-        }
-
-
-
     }
 
 }
