@@ -6,10 +6,12 @@ package inf112.skeleton.app.networking;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
-import inf112.skeleton.app.networking.packets.PacketMessage;
+import inf112.skeleton.app.networking.Network.PacketMessage;
+import inf112.skeleton.app.networking.Network.updateNames;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 
 public class NetworkServer extends Listener {
@@ -30,6 +32,7 @@ public class NetworkServer extends Listener {
         server.getKryo().register(int[].class);
 
 
+
         try {
             server.bind(udpPort, tcpPort);
         } catch (IOException e) {
@@ -45,16 +48,39 @@ public class NetworkServer extends Listener {
     //Used when someone connects to server
     public void isConnected(Connection connector){
         System.out.println("Received connection from "+ connector.getRemoteAddressTCP().getHostString());
-        PacketMessage packetMessage = new PacketMessage();
+        PacketMessage packetMessage = new PacketMessage;
         packetMessage.message = "Heisann!";
 
         connector.sendTCP(packetMessage);
     }
     //Used when someone disconnects from server
     public void isDisconnected(Connection connector){
+        playerConnected Connection = (playerConnected)c;
+        if(Connection.name != null) {
+            PacketMessage packetMessage = new PacketMessage();
+            packetMessage.message = Connection.name + " has disconnected...";
+            server.sendToAllTCP(packetMessage);
+            updateNames();
+        }
         System.out.println("Player disconnected");
     }
 
+    static class playerConnected extends Connection {
+        public String name;
+
+    }
+
+    void updateNames() {
+        // Collects names for every connected
+        Connection[] connections = server.getConnections();
+
+        ArrayList connectedNames = new ArrayList(connections.length);
+
+        for(int i = connections.length - 1; i>=0; i--) {
+            playerConnected connection = (playerConnected)connections[i];
+            connectedNames.add(connection.name)
+        }
+    }
 
 }
 

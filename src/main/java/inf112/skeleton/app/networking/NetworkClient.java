@@ -4,7 +4,7 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Connection;
 import com.jcraft.jogg.Packet;
-import inf112.skeleton.app.networking.packets.PacketMessage;
+import inf112.skeleton.app.networking.Network.PacketMessage;
 
 import java.io.IOException;
 
