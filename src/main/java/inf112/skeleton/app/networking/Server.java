@@ -5,18 +5,16 @@ package inf112.skeleton.app.networking;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import com.esotericsoftware.kryonet.Server;
 import inf112.skeleton.app.networking.Network.PacketMessage;
-import inf112.skeleton.app.networking.Network.updateNames;
 
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class NetworkServer extends Listener {
+public class Server extends Listener {
     //Object for server
-    Server server;
+    com.esotericsoftware.kryonet.Server server;
 
     //What ports to be used
     static int udpPort = 54777, tcpPort = 54555;
@@ -24,7 +22,7 @@ public class NetworkServer extends Listener {
 
     //Server is being created, and bound to chosen ports then started.
     public void run() {
-        server = new Server();
+        server = new com.esotericsoftware.kryonet.Server();
         System.out.println("Creating the server...");
 
 
@@ -90,8 +88,8 @@ public class NetworkServer extends Listener {
 public void launchServer(){
     if(server == null); //If the server is already set-up
         print("Server already exsists")
-    this.server = new NetworkServer(this); //Not sure if (this) is needed.
-    this.client = new NetworkClient(this); //Probably more parameteres needed for client, such as viewport or ip.
+    this.server = new Server(this); //Not sure if (this) is needed.
+    this.client = new Client(this); //Probably more parameteres needed for client, such as viewport or ip.
                                            //Might have to use a if-sentence for this, or try-catch
 }
  */
