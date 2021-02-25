@@ -69,7 +69,7 @@ public class CardDeck {
 
     //TODO Create uniform random function
     public int random(){
-        return rand.nextInt(84);
+        return rand.nextInt(83);
     }
 
     public ArrayList<Card> getDeck(){

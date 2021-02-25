@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -14,7 +13,6 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.graphics.GL20;
 import inf112.skeleton.app.player.LocalHumanPlayer;
-import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Direction;
 
 
@@ -48,13 +46,10 @@ public class Graphics implements  ApplicationListener {
         camera.update();
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-
         localHumanPlayer = new LocalHumanPlayer((TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"), Direction.NORTH);
         Gdx.input.setInputProcessor((InputProcessor) localHumanPlayer);
-        //localHumanPlayer.setPlayerSize(300,300);
-        //localHumanPlayer.setPosition(localHumanPlayer.updateX = 0,localHumanPlayer.updateY = 0);
         player = new Sprite(new Texture(("Player/OwlPlayer1.png")));
-        player.setPosition(localHumanPlayer.xStart(600),localHumanPlayer.yStartPos(600));
+        player.setPosition(localHumanPlayer.xStart(0),localHumanPlayer.yStartPos(0));
         CardMoveOneSprite = new Sprite(new Texture("Cards/Move1.png"));
         CardSizeAndPosition(CardMoveOneSprite, 0);
         CardMoveTwoSprite = new Sprite(new Texture("Cards/Move2.png"));
@@ -98,9 +93,7 @@ public class Graphics implements  ApplicationListener {
         tiledMapRenderer.render();
 
         tiledMapRenderer.getBatch().begin();
-
-       // localHumanPlayer.draw(tiledMapRenderer.getBatch());
-        player.setPosition(localHumanPlayer.setXPos(), localHumanPlayer.setYPos());
+        player.setPosition(localHumanPlayer.getX(), localHumanPlayer.getY());
         player.draw(tiledMapRenderer.getBatch());
         CardMoveOneSprite.draw(tiledMapRenderer.getBatch());
         CardMoveTwoSprite.draw(tiledMapRenderer.getBatch());
@@ -109,8 +102,14 @@ public class Graphics implements  ApplicationListener {
         CardRotateRightSprite.draw(tiledMapRenderer.getBatch());
         CardUTurnSprite.draw(tiledMapRenderer.getBatch());
         CardBackUpSprite.draw(tiledMapRenderer.getBatch());
-        tiledMapRenderer.getBatch().end();
+        localHumanPlayer.round(localHumanPlayer);
 
+        tiledMapRenderer.getBatch().end();
+        /*
+        if(localHumanPlayer.isPlayerOnFlag(localHumanPlayer.flagLayer)){
+            pause();
+            dispose();
+        }*/
     }
 
     @Override

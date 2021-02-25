@@ -3,7 +3,12 @@ package inf112.skeleton.app.player;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import inf112.skeleton.app.cards.Card;
+import inf112.skeleton.app.cards.CardDeck;
+import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Direction;
+import java.util.ArrayList;
+
 
 
 public class LocalHumanPlayer extends Player implements InputProcessor {
@@ -13,8 +18,7 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
     }
     public float xPosition;
     public float yPosition;
-    public float newXPosition;
-    public float newYPosition;
+    private CardDeck cardDeck = new CardDeck();
 
     /**
      * Needed to mach Sprite positions with back-end
@@ -39,8 +43,9 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
      * set x position
      * @return
      */
-    public float setXPos(){
-        if(canPlayerMove(newXPosition,newYPosition)) xPosition = newXPosition;
+    public float setXPos(float newXPosition){
+       // if(canPlayerMove(newXPosition, yPosition))
+        xPosition = newXPosition;
         return xPosition;
     }
 
@@ -48,14 +53,90 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
      * set y position
      * @return
      */
-    public float setYPos(){
-        if(canPlayerMove(newXPosition,newYPosition)) yPosition = newYPosition;
+    public float setYPos(float newYPosition){
+        if(canPlayerMove(xPosition, newYPosition)) yPosition = newYPosition;
         return yPosition;
     }
 
-    @Override
-    public void updatePlayerLocation(float updateX, float updateY) {
+    /**
+     *
+     * @return x positon of player : float
+     */
+    public float getX() {
+        return xPosition;
+    }
 
+    /**
+     *
+     * @return y position of player : float
+     */
+    public float getY() {
+        return yPosition;
+    }
+
+    /**
+     *  Checks if a card is a card that changes the position og a player
+     * @param card : Card of a player
+     * @return
+     */
+    public boolean movePlayerCard(Card card){
+        return card.action == Action.MOVE_ONE || card.action == Action.MOVE_TWO|| card.action == Action.MOVE_THREE||card.action== Action.BACK_UP;
+    }
+
+    /**
+     * dummiround method used only for developmen. WILL BE DELETED
+     * @param player
+     */
+    public void round(LocalHumanPlayer player){
+        System.out.println("NEW ROUND");
+        ArrayList<Card> playerCard = cardDeck.CardDeal();
+        for(int i = 0; i <9; i++){
+            Card card = playerCard.get(i);
+            System.out.println(getX() + " old Xpos " + getY() + " old Y pos" );
+            System.out.println(player.direction + " oldDirection");
+            System.out.println(playerCard.get(i).action);
+            updatePlayerLocation(player, card);
+            System.out.println(player.direction + " newDirection");
+            System.out.println(getX() + " new Xpos " + getY() + " new Y pos" );
+            System.out.println("  ");
+        }
+    }
+
+    /**
+     * sets new player direction from player cards
+     * @param player
+     * @param cardDirection
+     */
+    public void setDirection(LocalHumanPlayer player, Card cardDirection){
+       float newDrection = player.direction.getDirection()+cardDirection.action.getAction();
+       if(newDrection > 270) newDrection = newDrection - 360;
+       if(newDrection < 0) newDrection = 270;
+       if(newDrection == 0) player.direction = Direction.NORTH;
+       else if (newDrection == 90) player.direction = Direction.EAST;
+       else if (newDrection == 180) player.direction = Direction.SOUTH;
+       else if (newDrection == 270) player.direction = Direction.WEST;
+    }
+
+    /**
+     * Update player location or direction from player card
+     * @param player
+     * @param card
+     */
+    @Override
+    public void updatePlayerLocation(LocalHumanPlayer player, Card card) {
+        if (movePlayerCard(card)) {
+            if (player.direction == Direction.NORTH && canPlayerMove(getX(),getY()+card.action.getAction())) {
+                setYPos(getY()+card.action.getAction());
+            } else if (player.direction == Direction.SOUTH && canPlayerMove(getX(),getY()-card.action.getAction())) {
+                setYPos(getY()-card.action.getAction());
+            } else if (player.direction == Direction.EAST && canPlayerMove(getX()+card.action.getAction(),getY())) {
+                setXPos(getX()+card.action.getAction());
+            } else if (player.direction == Direction.WEST && canPlayerMove(getX()-card.action.getAction(),getY())) {
+                setXPos(getX()-card.action.getAction());
+            }
+        } else if (!movePlayerCard(card)) {
+            setDirection(player, card);
+        }
     }
 
     @Override
@@ -71,135 +152,19 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
 
     @Override
     public int normalizedCoordinates(float unNormalizedValue) {
-        return 0;
-    }
-
-    @Override
-    public boolean isGameOver(TiledMapTileLayer flagLayer) {
-        return false;
-    }
-
-    @Override
-    public boolean move() {
-        return false;
-    }
-
-    /*
-        public float updateX;
-        public float updateY;
-        public Graphics graphics;
-
-        private CardDeck cardDeck = new CardDeck();
-        public ArrayList<Card> card = cardDeck.getDeck();
-
-        public LocalHumanPlayer(Sprite sprite, TiledMapTileLayer flagLayer, Direction direction) {
-            super(sprite, flagLayer, direction);
-        }
-
-
-        @Override
-        public void draw(Batch batch) {
-            updatePlayerLocation(updateX, updateY);
-            //if(isPlayerOnFlag()) System.out.println("VICTORY!");
-            super.draw(batch);
-        }
-
-
-        //TODO denne fjernes før innlevering da vi nå skal bruke kort og ikke innput
-        @Override
-         public void updatePlayerLocation(float updateX, float updateY) {
-       //     if (canPlayerMove(updateX, updateY)){
-         //       this.setPosition(updateX, updateY);
-          //  }
-            for(Card card : cardDeck.getDeck()){
-
-               // System.out.println(card.action +""+card.priority);
-
-            }
-
-            this.setPosition(cardDeck.getCard().action.getAction(), getY());
-        }
-
-
-        public boolean isItmoveCard(Card card){
-            return card.action == Action.MOVE_ONE || card.action == Action.MOVE_TWO|| card.action == Action.MOVE_THREE||card.action== Action.BACK_UP;
-        }
-        public void updatePlayerLocationCard(Card card, Player player) {
-            if (isItmoveCard(card)) {
-                if (player.direction == Direction.NORTH && canPlayerMove(getX(), card.action.getAction())) {
-                    this.setPosition(getX(), card.action.getAction());
-                } else if (player.direction == Direction.SOUTH) {
-                    this.setPosition(getX(), -card.action.getAction());
-                } else if (player.direction == Direction.EAST) {
-                    this.setPosition(card.action.getAction(), getY());
-                } else if (player.direction == Direction.WEST) {
-                    this.setPosition(card.action.getAction(), getY());
-                }
-            }else if(!isItmoveCard(card)) {
-                if(card.action == Action.U_TURN){
-                    if(player.direction == Direction.WEST){
-                        player.direction = Direction.EAST;
-                    }else if(player.direction == Direction.EAST){
-                        player.direction = Direction.WEST;
-                    }else if (player.direction == Direction.NORTH){
-                        player.direction = Direction.SOUTH;
-                    }else if (player.direction == Direction.SOUTH){
-                        player.direction = Direction.NORTH;
-                    }
-                }
-
-                }
-            else {
-                this.setPosition(getX(),getY());
-            }
-        }
-
-    /*
-            moveCard.action;
-            player.direction;
-            card.action;
-            if direction == noe
-                    move direction;
-            if action feks turn;
-            player.direction = new dirction;
-        }
-
-    @Override
-    public void setPlayerSize(float width, float height) {
-        setSize(width, height);
-    }
-
-    @Override
-    public boolean isPlayerOnFlag(TiledMapTileLayer flagLayer) {
-        TiledMapTileLayer.Cell cell = flagLayer.getCell(normalizedCoordinates(getX()), normalizedCoordinates(getY()));
-        return cell!= null;
-    }
-
-    @Override
-    public boolean canPlayerMove(float xDirection, float yDirection){
-        return !(xDirection < 0 || xDirection > 3300 || yDirection < 0 || yDirection > 3900);
-    }
-
-    @Override
-    public int normalizedCoordinates(float unNormalizedValue) {
         return (int) unNormalizedValue/300;
     }
 
     @Override
     public boolean isGameOver(TiledMapTileLayer flagLayer) {
-        if (isPlayerOnFlag(flagLayer)) {
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
     @Override
     public boolean move() {
-
-        return true;
+        return false;
     }
-*/
+
 
     /**
      * keyDown registers what happens when the key is pressed down.
@@ -219,10 +184,10 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
             newXPosition = xPosition + tileDirection;
         }
         else if(keyPressed==Input.Keys.UP){
-            newYPosition = yPosition + tileDirection;
+            setYPos(yPosition + tileDirection);
         }
         else if(keyPressed==Input.Keys.DOWN){
-            newYPosition = yPosition - tileDirection;
+            setYPos(yPosition - tileDirection);
         }
 
         return true;
