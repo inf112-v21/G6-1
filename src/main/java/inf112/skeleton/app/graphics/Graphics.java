@@ -1,6 +1,8 @@
 package inf112.skeleton.app.graphics;
 
-import com.badlogic.gdx.*;
+import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -20,7 +22,14 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private SpriteBatch spriteBatch;
     public LocalHumanPlayer localHumanPlayer;
-    public Sprite sprite;
+    public Sprite CardMoveOneSprite;
+    public Sprite CardMoveTwoSprite;
+    public Sprite CardMoveThreeSprite;
+    public Sprite CardRotateLeftSprite;
+    public Sprite CardRotateRightSprite;
+    public Sprite CardBackUpSprite;
+    public Sprite CardUTurnSprite;
+    public Sprite player;
 
     public Texture background;
     public Texture youwin;
@@ -36,7 +45,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         camera.update();
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-        localHumanPlayer = new LocalHumanPlayer(new Sprite(new Texture("Player/OwlPlayer1.png")),(TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"), Direction.NORTH);
+        localHumanPlayer = new LocalHumanPlayer((TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"), Direction.NORTH);
         Gdx.input.setInputProcessor((InputProcessor) localHumanPlayer);
         localHumanPlayer.setPlayerSize(300,300);
         localHumanPlayer.setPosition(localHumanPlayer.updateX = 0,localHumanPlayer.updateY = 0);
@@ -71,8 +80,20 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
+
         tiledMapRenderer.getBatch().begin();
-        localHumanPlayer.draw(tiledMapRenderer.getBatch());
+        player.setPosition(localHumanPlayer.getX(), localHumanPlayer.getY());
+        player.draw(tiledMapRenderer.getBatch());
+        CardMoveOneSprite.draw(tiledMapRenderer.getBatch());
+        CardMoveOneSprite.setPosition(localHumanPlayer.cardXPos,localHumanPlayer.cardYPos);
+        CardMoveTwoSprite.draw(tiledMapRenderer.getBatch());
+        CardMoveThreeSprite.draw(tiledMapRenderer.getBatch());
+        CardRotateLeftSprite.draw(tiledMapRenderer.getBatch());
+        CardRotateRightSprite.draw(tiledMapRenderer.getBatch());
+        CardUTurnSprite.draw(tiledMapRenderer.getBatch());
+        CardBackUpSprite.draw(tiledMapRenderer.getBatch());
+        localHumanPlayer.round(localHumanPlayer);
+
         tiledMapRenderer.getBatch().end();
 
         //if the player has won, get "you win"-message up

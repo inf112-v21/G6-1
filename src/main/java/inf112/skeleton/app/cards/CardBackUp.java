@@ -6,7 +6,7 @@ import inf112.skeleton.app.shared.Direction;
 
 public class CardBackUp extends Card {
 
-    public CardBackUp(Sprite sprite, int priority, Action action) {
-        super(sprite, priority, action);
+    public CardBackUp( int priority, Action action) {
+        super( priority, action);
     }
 }
