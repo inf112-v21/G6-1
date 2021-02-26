@@ -1,10 +1,13 @@
 package inf112.skeleton.app.player;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.cards.Card;
 import inf112.skeleton.app.cards.CardDeck;
+import inf112.skeleton.app.graphics.Graphics;
 import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Direction;
 import java.util.ArrayList;
@@ -14,12 +17,25 @@ import java.util.ArrayList;
 public class LocalHumanPlayer extends Player implements InputProcessor {
 
     public LocalHumanPlayer(TiledMapTileLayer flagLayer, Direction direction) {
+
         super(flagLayer, direction);
     }
     public float xPosition;
     public float yPosition;
-    private CardDeck cardDeck = new CardDeck();
+    public float cardXPos;
+    public float cardYPos;
 
+    private CardDeck cardDeck = new CardDeck();
+    Graphics graphics;
+
+    public float setCardX(float xCardStart){
+        cardXPos = xCardStart;
+        return cardXPos;
+    }
+    public float setCardY(float yCardStart){
+        cardYPos = yCardStart;
+        return cardYPos;
+    }
     /**
      * Needed to mach Sprite positions with back-end
      * @param xStartPosition
@@ -88,17 +104,17 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
      * @param player
      */
     public void round(LocalHumanPlayer player){
-        System.out.println("NEW ROUND");
+        //System.out.println("NEW ROUND");
         ArrayList<Card> playerCard = cardDeck.CardDeal();
         for(int i = 0; i <9; i++){
             Card card = playerCard.get(i);
-            System.out.println(getX() + " old Xpos " + getY() + " old Y pos" );
-            System.out.println(player.direction + " oldDirection");
-            System.out.println(playerCard.get(i).action);
+            //System.out.println(getX() + " old Xpos " + getY() + " old Y pos" );
+            //System.out.println(player.direction + " oldDirection");
+            //System.out.println(playerCard.get(i).action);
             updatePlayerLocation(player, card);
-            System.out.println(player.direction + " newDirection");
-            System.out.println(getX() + " new Xpos " + getY() + " new Y pos" );
-            System.out.println("  ");
+            //System.out.println(player.direction + " newDirection");
+            //System.out.println(getX() + " new Xpos " + getY() + " new Y pos" );
+            //System.out.println("  ");
         }
     }
 
@@ -213,9 +229,24 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
         return false;
     }
 
+    public float cardPosX(){
+        return cardXPos;
+    }
+    public float cardPosY(){
+        return cardXPos;
+    }
+
 
     @Override
     public boolean touchDown(int i, int i1, int i2, int i3) {
+        float x  = Gdx.input.getX();
+        float y = Gdx.input.getY();
+        System.out.println("Y" + Gdx.input.getY());
+        System.out.println("X" + Gdx.input.getX());
+        if (x >609 && x < 678 && y > 869 && y < 957){
+            cardXPos = 3900;
+            cardYPos = 3900;
+        }
         return false;
     }
 

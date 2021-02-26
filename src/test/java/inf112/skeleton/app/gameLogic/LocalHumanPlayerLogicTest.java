@@ -46,6 +46,7 @@ public class LocalHumanPlayerLogicTest {
 
 
 
+
     @Test
     public void testPlayersPositionMustBeOnGameBoard() throws Exception {
         float xPosetivDirection = 3301;
@@ -137,6 +138,11 @@ public class LocalHumanPlayerLogicTest {
         assertTrue(newX > originalX);
         assertTrue(newY == originalY);
 
+        try {
+            Robot robot = new Robot();
+            robot.keyPress(Input.Keys.LEFT);
+        } catch (AWTException e) {
+            e.printStackTrace();
     }
 
     @Test

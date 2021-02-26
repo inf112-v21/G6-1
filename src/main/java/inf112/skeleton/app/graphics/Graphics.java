@@ -38,8 +38,8 @@ public class Graphics implements  ApplicationListener {
     }
     @Override
     public void create() {
-        float w = Gdx.graphics.getWidth();
-        float h = Gdx.graphics.getHeight();
+        float w = 600;//Gdx.graphics.getWidth();
+        float h = 1000; //Gdx.graphics.getHeight();
         camera = new OrthographicCamera();
         camera.zoom = 6f; //Shows more of the board
         camera.setToOrtho(false, h,w); //something needs adjustment here
@@ -49,9 +49,16 @@ public class Graphics implements  ApplicationListener {
         localHumanPlayer = new LocalHumanPlayer((TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"), Direction.NORTH);
         Gdx.input.setInputProcessor((InputProcessor) localHumanPlayer);
         player = new Sprite(new Texture(("Player/OwlPlayer1.png")));
+
         player.setPosition(localHumanPlayer.xStart(0),localHumanPlayer.yStartPos(0));
+
         CardMoveOneSprite = new Sprite(new Texture("Cards/Move1.png"));
-        CardSizeAndPosition(CardMoveOneSprite, 0);
+        //CardSizeAndPosition(CardMoveOneSprite, 0);
+        CardMoveOneSprite.setSize(400,550);
+        CardMoveOneSprite.setPosition(localHumanPlayer.setCardX(0), localHumanPlayer.setCardY(-600));
+
+
+
         CardMoveTwoSprite = new Sprite(new Texture("Cards/Move2.png"));
         CardSizeAndPosition(CardMoveTwoSprite,600);
         CardMoveThreeSprite = new Sprite(new Texture("Cards/Move3.png"));
@@ -96,6 +103,7 @@ public class Graphics implements  ApplicationListener {
         player.setPosition(localHumanPlayer.getX(), localHumanPlayer.getY());
         player.draw(tiledMapRenderer.getBatch());
         CardMoveOneSprite.draw(tiledMapRenderer.getBatch());
+        CardMoveOneSprite.setPosition(localHumanPlayer.cardXPos,localHumanPlayer.cardYPos);
         CardMoveTwoSprite.draw(tiledMapRenderer.getBatch());
         CardMoveThreeSprite.draw(tiledMapRenderer.getBatch());
         CardRotateLeftSprite.draw(tiledMapRenderer.getBatch());
@@ -132,4 +140,6 @@ public class Graphics implements  ApplicationListener {
         spriteBatch.dispose();
 
     }
+
+
 }
