@@ -6,6 +6,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.jcraft.jogg.Packet;
 import inf112.skeleton.app.networking.Network.PacketMessage;
 
+import javax.swing.*;
 import java.io.IOException;
 
 public class GameClient extends Listener {
@@ -24,7 +25,7 @@ public class GameClient extends Listener {
         try {
             client.connect(10000, ip, 54555, 54777);
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null,"Server is not startet. Can not connect");
+            JOptionPane.showMessageDialog(null,"Server is not started. Can not connect");
         }
         client.addListener(this);
 

@@ -10,6 +10,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
+// Creates a Kryonet server.
+// The server can send and receive data from and to clients.
+// run() starts the server
+
 public class GameServer extends Listener {
     //Object for server
     Server server;
@@ -37,7 +41,7 @@ public class GameServer extends Listener {
         server.addListener(this);
     }
 
-    //When something is sent to the server, received checks what it is and sends it to GameClient
+    //When something is sent to the server, received() checks what it is and sends it to GameClient
     public void received(Connection c, Object o){
 
     }
@@ -86,7 +90,7 @@ public class GameServer extends Listener {
 
 }
 
-
+/*
 
 //TODO Launche serveren i Game; forslag til metode til det:
 public void launchServer(){
@@ -96,4 +100,7 @@ public void launchServer(){
     this.client = new Client(this); //Probably more parameteres needed for client, such as viewport or ip.
                                            //Might have to use a if-sentence for this, or try-catch
 }
+
+ */
+
 
