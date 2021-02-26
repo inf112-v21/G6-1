@@ -193,21 +193,18 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
     @Override
     public boolean keyDown(int keyPressed) {
         int tileDirection = 300;
-        if(keyPressed == Input.Keys.LEFT){
+        if (keyPressed == Input.Keys.LEFT) {
 
-        if(keyPressed==Input.Keys.LEFT){
-            setXPos(xPosition - tileDirection);
+            if (keyPressed == Input.Keys.LEFT) {
+                setXPos(xPosition - tileDirection);
+            } else if (keyPressed == Input.Keys.RIGHT) {
+                setXPos(xPosition + tileDirection);
+            } else if (keyPressed == Input.Keys.UP) {
+                setYPos(yPosition + tileDirection);
+            } else if (keyPressed == Input.Keys.DOWN) {
+                setYPos(yPosition - tileDirection);
+            }
         }
-        else if(keyPressed == Input.Keys.RIGHT){
-            updateX = getX() + tileDirection;
-        }
-        else if(keyPressed==Input.Keys.UP){
-            setYPos(yPosition + tileDirection);
-        }
-        else if(keyPressed==Input.Keys.DOWN){
-            setYPos(yPosition - tileDirection);
-        }
-
         return true;
     }
 
@@ -222,7 +219,7 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
     @Override
     public boolean keyUp(int keyPressed) {
 
-        return true;
+        return false;
     }
 
 
