@@ -7,7 +7,7 @@ public class Packets {
     }
 
     public static class CardsPacket{
-        public int[][] programCards;
+        public int[][] playedCards;
         public int playerId;
     }
     public static class PlayerNumberPacket{
