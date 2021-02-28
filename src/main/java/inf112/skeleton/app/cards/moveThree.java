@@ -4,9 +4,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Direction;
 
-public class CardMoveThree extends Card {
+public class moveThree extends Card {
 
-    public CardMoveThree(int priority, Action action) {
+    public moveThree(int priority, Action action) {
         super(priority, action);
     }
 }

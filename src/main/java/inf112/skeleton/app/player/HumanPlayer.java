@@ -3,7 +3,6 @@ package inf112.skeleton.app.player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.cards.Card;
 import inf112.skeleton.app.cards.CardDeck;
@@ -14,55 +13,56 @@ import java.util.ArrayList;
 
 
 
-public class LocalHumanPlayer extends Player implements InputProcessor {
+public class HumanPlayer extends Player implements InputProcessor {
 
-    public LocalHumanPlayer(TiledMapTileLayer flagLayer, Direction direction) {
+    public HumanPlayer(TiledMapTileLayer flagLayer, Direction direction, String name) {
 
-        super(flagLayer, direction);
+        super(flagLayer, direction, name);
     }
-    public float xPosition;
-    public float yPosition;
-    public float cardXPos;
-    public float cardYPos;
+    public float CurrentPlayerXPosition;
+    public float CurrentPlayerYPosition;
+    public float currentCardXPosition;
+    public float currentCardYPosition;
 
     private CardDeck cardDeck = new CardDeck();
     Graphics graphics;
+    public ArrayList<Card> playerCardDeck = cardDeck.CardDeal();
 
-    public float setCardX(float xCardStart){
-        cardXPos = xCardStart;
-        return cardXPos;
+    public float setCardStartPositionXDirection(float cardStartPositionXDirection){
+        currentCardXPosition = cardStartPositionXDirection;
+        return currentCardXPosition;
     }
-    public float setCardY(float yCardStart){
-        cardYPos = yCardStart;
-        return cardYPos;
-    }
-    /**
-     * Needed to mach Sprite positions with back-end
-     * @param xStartPosition
-     * @return
-     */
-    public float xStart(float xStartPosition){
-        xPosition = xStartPosition;
-        return xPosition;
+    public float setCardStartPositionYDirection(float cardStartPositionYDirection){
+        currentCardYPosition = cardStartPositionYDirection;
+        return currentCardYPosition;
     }
     /**
      * Needed to mach Sprite positions with back-end
-     * @param yStartPosition
+     * @param PlayerStartPositionXDirection
      * @return
      */
-    public float yStartPos(float yStartPosition){
-        yPosition = yStartPosition;
-        return yPosition;
+    public float setPlayerStartPositionXDirection(float PlayerStartPositionXDirection){
+        CurrentPlayerXPosition = PlayerStartPositionXDirection;
+        return CurrentPlayerXPosition;
+    }
+    /**
+     * Needed to mach Sprite positions with back-end
+     * @param PlayerStartPositionYCoordinate
+     * @return
+     */
+    public float setPlayerStartPositionYCoordinate(float PlayerStartPositionYCoordinate){
+        CurrentPlayerYPosition = PlayerStartPositionYCoordinate;
+        return CurrentPlayerYPosition;
     }
 
     /**
      * set x position
      * @return
      */
-    public float setXPos(float newXPosition){
+    public float setPlayerXPosition(float newXPosition){
        // if(canPlayerMove(newXPosition, yPosition))
-        xPosition = newXPosition;
-        return xPosition;
+        CurrentPlayerXPosition = newXPosition;
+        return CurrentPlayerXPosition;
     }
 
     /**
@@ -70,8 +70,8 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
      * @return
      */
     public float setYPos(float newYPosition){
-        if(canPlayerMove(xPosition, newYPosition)) yPosition = newYPosition;
-        return yPosition;
+        if(canPlayerMove(CurrentPlayerXPosition, newYPosition)) CurrentPlayerYPosition = newYPosition;
+        return CurrentPlayerYPosition;
     }
 
     /**
@@ -79,7 +79,7 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
      * @return x positon of player : float
      */
     public float getX() {
-        return xPosition;
+        return CurrentPlayerXPosition;
     }
 
     /**
@@ -87,7 +87,7 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
      * @return y position of player : float
      */
     public float getY() {
-        return yPosition;
+        return CurrentPlayerYPosition;
     }
 
     /**
@@ -103,7 +103,7 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
      * dummiround method used only for developmen. WILL BE DELETED
      * @param player
      */
-    public void round(LocalHumanPlayer player){
+    public void round(HumanPlayer player){
         //System.out.println("NEW ROUND");
         ArrayList<Card> playerCard = cardDeck.CardDeal();
         for(int i = 0; i <9; i++){
@@ -123,7 +123,7 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
      * @param player
      * @param cardDirection
      */
-    public void setDirection(LocalHumanPlayer player, Card cardDirection){
+    public void setDirection(HumanPlayer player, Card cardDirection){
        float newDrection = player.direction.getDirection()+cardDirection.action.getAction();
        if(newDrection > 270) newDrection = newDrection - 360;
        if(newDrection < 0) newDrection = 270;
@@ -139,16 +139,16 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
      * @param card
      */
     @Override
-    public void updatePlayerLocation(LocalHumanPlayer player, Card card) {
+    public void updatePlayerLocation(HumanPlayer player, Card card) {
         if (movePlayerCard(card)) {
             if (player.direction == Direction.NORTH && canPlayerMove(getX(),getY()+card.action.getAction())) {
                 setYPos(getY()+card.action.getAction());
             } else if (player.direction == Direction.SOUTH && canPlayerMove(getX(),getY()-card.action.getAction())) {
                 setYPos(getY()-card.action.getAction());
             } else if (player.direction == Direction.EAST && canPlayerMove(getX()+card.action.getAction(),getY())) {
-                setXPos(getX()+card.action.getAction());
+                setPlayerXPosition(getX()+card.action.getAction());
             } else if (player.direction == Direction.WEST && canPlayerMove(getX()-card.action.getAction(),getY())) {
-                setXPos(getX()-card.action.getAction());
+                setPlayerXPosition(getX()-card.action.getAction());
             }
         } else if (!movePlayerCard(card)) {
             setDirection(player, card);
@@ -157,7 +157,7 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
 
     @Override
     public boolean isPlayerOnFlag(TiledMapTileLayer flagLayer) {
-        TiledMapTileLayer.Cell cell = flagLayer.getCell(normalizedCoordinates(xPosition), normalizedCoordinates(yPosition));
+        TiledMapTileLayer.Cell cell = flagLayer.getCell(normalizedCoordinates(CurrentPlayerXPosition), normalizedCoordinates(CurrentPlayerYPosition));
         return cell!= null;
     }
 
@@ -196,13 +196,13 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
         if (keyPressed == Input.Keys.LEFT) {
 
             if (keyPressed == Input.Keys.LEFT) {
-                setXPos(xPosition - tileDirection);
+                setPlayerXPosition(CurrentPlayerXPosition - tileDirection);
             } else if (keyPressed == Input.Keys.RIGHT) {
-                setXPos(xPosition + tileDirection);
+                setPlayerXPosition(CurrentPlayerXPosition + tileDirection);
             } else if (keyPressed == Input.Keys.UP) {
-                setYPos(yPosition + tileDirection);
+                setYPos(CurrentPlayerYPosition + tileDirection);
             } else if (keyPressed == Input.Keys.DOWN) {
-                setYPos(yPosition - tileDirection);
+                setYPos(CurrentPlayerYPosition - tileDirection);
             }
         }
         return true;
@@ -229,10 +229,10 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
     }
 
     public float cardPosX(){
-        return cardXPos;
+        return currentCardXPosition;
     }
     public float cardPosY(){
-        return cardXPos;
+        return currentCardXPosition;
     }
 
 
@@ -243,8 +243,8 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
         System.out.println("Y" + Gdx.input.getY());
         System.out.println("X" + Gdx.input.getX());
         if (x >609 && x < 678 && y > 869 && y < 957){
-            cardXPos = 3900;
-            cardYPos = 3900;
+            currentCardXPosition = 3900;
+            currentCardYPosition = 3900;
         }
         return false;
     }

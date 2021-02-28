@@ -4,8 +4,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Direction;
 
-public class CardRotateRight extends Card {
-    public CardRotateRight(int priority, Action action) {
-        super(priority, action);
+public class moveTwo extends Card {
+
+    public moveTwo(int priority, Action action) {
+        super( priority, action);
     }
 }

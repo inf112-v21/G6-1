@@ -2,9 +2,9 @@ package inf112.skeleton.app.cards;
 
 import inf112.skeleton.app.shared.Action;
 
-public class CardMoveOne extends Card {
+public class moveOne extends Card {
 
-    public CardMoveOne(int priority, Action action) {
+    public moveOne(int priority, Action action) {
         super(priority, action);
     }
 }
