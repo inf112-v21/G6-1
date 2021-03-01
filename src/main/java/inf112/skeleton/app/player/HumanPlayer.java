@@ -15,10 +15,9 @@ import java.util.Arrays;
 public class HumanPlayer extends Player implements InputProcessor {
 
 
+    public HumanPlayer(Direction direction, String name) {
 
-    public HumanPlayer(TiledMapTileLayer flagLayer, Direction direction, String name) {
-
-        super(flagLayer, direction, name);
+        super(direction, name);
     }
     private int dummyPlayerDeck = 9;
     private CardDeck cardDeck = new CardDeck();

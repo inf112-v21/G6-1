@@ -44,13 +44,12 @@ public class Game implements IGame, InputProcessor {
 
     @Override
     public ArrayList<Player> createPlayers(int numberOfPlayers) {
-        /*ArrayList <Player> numberOfPlayersList = new ArrayList<>();
+        ArrayList <Player> numberOfPlayersList = new ArrayList<>();
         for (int i = 0; i < numberOfPlayers; i++) {
             numberOfPlayersList.add(new HumanPlayer(Direction.NORTH, "Vilde"));
         }
         return numberOfPlayersList;
-        */
-        return null;
+
     }
 
     @Override
