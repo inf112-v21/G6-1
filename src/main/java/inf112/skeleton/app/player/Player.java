@@ -29,5 +29,4 @@ abstract class Player  {
 
     public abstract boolean isGameOver(TiledMapTileLayer flagLayer);
 
-    public abstract boolean move();
 }

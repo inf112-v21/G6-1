@@ -4,7 +4,6 @@ import inf112.skeleton.app.shared.Action;
 import java.util.ArrayList;
 import java.util.Random;
 
-//TODO Split this class again after figuring out why it dosent work
 
 public class CardDeck {
     public ArrayList<Card> cardDeck= new ArrayList<Card>();
@@ -12,13 +11,11 @@ public class CardDeck {
     String playerName;
     public CardDeck(){
         renderCardDeck();
-
     }
 
     /**
-     * Render a sorted card deck ,with all cards and correct priority
+     * Creates a sorted card deck ,with all 84 cards with correct priority
      */
-    // TODO refactor priority descending or ascending
     private void renderCardDeck() {
         int priority = 490;
         for(int i = 0; i<18; i++){
@@ -58,28 +55,27 @@ public class CardDeck {
     }
 
     /**
-     * For Development, will be removed
-     * @return one card from deck.
+     * Returns a random number between 0-84
+     * @return int
      */
-    public Card getCard(){
-        return cardDeck.get(0);
-    }
-
-    //TODO Create uniform random function
     public int random(){
         return rand.nextInt(83);
     }
 
-    // Development TO be deleted
+    /**
+     * Getter for complete cardDeck
+     * @return ArrayList : Card
+     */
     public ArrayList<Card> getDeck(){
         ArrayList<Card>deck = new ArrayList<Card>();
         deck = cardDeck;
         return deck;
     }
+
     /**
-     * @return enough cards for one round "Shuffled"
+     * @return enough cards for one player one round "Shuffled"
      */
-    public ArrayList<Card> CardDeal() {
+    public ArrayList<Card> dealNineCards() {
         ArrayList<Card> cardDeckOneRound = new ArrayList<Card>();
         for(int i = 0; i < 9; i++){
             cardDeckOneRound.add(cardDeck.get(random()));

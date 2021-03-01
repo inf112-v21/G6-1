@@ -17,8 +17,6 @@ import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Direction;
 
-import java.util.ArrayList;
-
 
 public class Graphics extends ScreenAdapter implements ApplicationListener{
     private TiledMap tiledMap;
@@ -38,6 +36,18 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     public Sprite backUpSprite;
     public Sprite uTurnSprite;
     public Sprite player;
+
+    private Sprite cardOne;
+    private Sprite cardTwo;
+    private Sprite cardThree;
+    private Sprite cardFour;
+    private Sprite cardFive;
+    private Sprite cardSix;
+    private Sprite cardSeven;
+    private Sprite cardEight;
+    private Sprite cardNine;
+
+
 
     /**
      * test for LHP
@@ -62,78 +72,73 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         player = new Sprite(new Texture(("Player/OwlPlayer1.png")));
         player.setSize(300,300);
         Gdx.input.setInputProcessor((InputProcessor) humanPlayer);
-        player.setPosition(humanPlayer.setPlayerStartPositionXDirection(0) , humanPlayer.setPlayerStartPositionYCoordinate(0) );
+        player.setPosition(humanPlayer.setPlayerStartXPosition(0) , humanPlayer.setPlayerStartYPosition(0) );
+
+        //Create cardSprite
         moveOneSprite = new Sprite(new Texture("Cards/Move1.png"));
+        cardSize(moveOneSprite);
         moveTwoSprite = new Sprite(new Texture("Cards/Move2.png"));
-        //CardSizeAndPosition(CardMoveTwoSprite,600);
+        cardSize(moveTwoSprite);
         moveThreeSprite = new Sprite(new Texture("Cards/Move3.png"));
-        //CardSizeAndPosition(CardMoveThreeSprite,1200);
+        cardSize(moveThreeSprite);
         rotateLeftSprite = new Sprite(new Texture("Cards/RotateLeft.png"));
-        //CardSizeAndPosition(CardRotateLeftSprite,1800);
+        cardSize(rotateLeftSprite);
         rotateRightSprite = new Sprite(new Texture("Cards/RotateRight.png"));
-        //CardSizeAndPosition(CardRotateRightSprite,2400);
+        cardSize(rotateRightSprite);
         backUpSprite = new Sprite(new Texture("Cards/BackUp.png"));
-        //CardSizeAndPosition(CardBackUpSprite,3000);
+        cardSize(backUpSprite);
         uTurnSprite = new Sprite(new Texture("Cards/U-turn.png"));
-        //CardSizeAndPosition(CardUTurnSprite,3600);
+        cardSize(uTurnSprite);
+        bindSpriteToCard();
 
         background = new Texture("Background2.png");
         youwin = new Texture("YouWin.jpg");
     }
 
-    public void dealHand() {
-        int cardYPos = -600;
-        ArrayList<Card> playerCardDeck;
-        playerCardDeck = humanPlayer.playerCardDeck;
-        ArrayList<Card> playerRoundCard = new ArrayList<>();
-        playerRoundCard.add(playerCardDeck.get(0));
-        if (playerCardDeck.size() >=4 && !playerRoundCard.isEmpty()) {
-            int cardXPos = 0;
-            for (int i = 0; i < 9; i++) {
-
-                Card playerCard = playerCardDeck.get(i);
-                //System.out.println(playerCard.action);
-                tiledMapRenderer.getBatch().begin();
-                if (playerCard.action == Action.MOVE_ONE) {
-                    moveOneSprite.setPosition(cardXPos, cardYPos);
-                    moveOneSprite.setSize(400, 550);
-                    moveOneSprite.draw(tiledMapRenderer.getBatch());
-                }
-                if (playerCard.action == Action.MOVE_TWO) {
-                    moveTwoSprite.setPosition(cardXPos, cardYPos);
-                    moveTwoSprite.setSize(400, 550);
-                    moveTwoSprite.draw(tiledMapRenderer.getBatch());
-                }
-                if (playerCard.action == Action.MOVE_THREE) {
-                    moveThreeSprite.setPosition(cardXPos, cardYPos);
-                    moveOneSprite.setSize(400, 550);
-                    moveThreeSprite.draw(tiledMapRenderer.getBatch());
-                }
-                if (playerCard.action == Action.ROTATE_LEFT) {
-                    rotateLeftSprite.setPosition(cardXPos, cardYPos);
-                    rotateLeftSprite.setSize(400, 550);
-                    rotateLeftSprite.draw(tiledMapRenderer.getBatch());
-                }
-                if (playerCard.action == Action.ROTATE_RIGHT) {
-                    rotateRightSprite.setPosition(cardXPos, cardYPos);
-                    rotateRightSprite.setSize(400, 550);
-                    rotateRightSprite.draw(tiledMapRenderer.getBatch());
-                }
-                if (playerCard.action == Action.U_TURN) {
-                    uTurnSprite.setPosition(cardXPos, cardYPos);
-                    uTurnSprite.setSize(400, 550);
-                    uTurnSprite.draw(tiledMapRenderer.getBatch());
-                }
-                if (playerCard.action == Action.BACK_UP) {
-                    backUpSprite.setPosition(cardXPos, cardYPos);
-                    backUpSprite.setSize(400, 550);
-                    backUpSprite.draw(tiledMapRenderer.getBatch());
-                }
-                tiledMapRenderer.getBatch().end();
-                cardXPos += 450;
-            }
-        }
+    public void bindSpriteToCard(){
+        cardOne = getMatchingSpriteToPlayerCard(humanPlayer.playerDeck.get(0));
+        cardTwo = getMatchingSpriteToPlayerCard(humanPlayer.playerDeck.get(1));
+        cardThree = getMatchingSpriteToPlayerCard(humanPlayer.playerDeck.get(2));
+        cardFour = getMatchingSpriteToPlayerCard(humanPlayer.playerDeck.get(3));
+        cardFive = getMatchingSpriteToPlayerCard(humanPlayer.playerDeck.get(4));
+        cardSix = getMatchingSpriteToPlayerCard(humanPlayer.playerDeck.get(5));
+        cardSeven = getMatchingSpriteToPlayerCard(humanPlayer.playerDeck.get(6));
+        cardEight = getMatchingSpriteToPlayerCard(humanPlayer.playerDeck.get(7));
+        cardNine  = getMatchingSpriteToPlayerCard(humanPlayer.playerDeck.get(8));
     }
+
+    public Sprite getMatchingSpriteToPlayerCard(Card playerCard) {
+                if (playerCard.action == Action.MOVE_ONE) return moveOneSprite;
+                if (playerCard.action == Action.MOVE_TWO) return moveTwoSprite;
+                if (playerCard.action == Action.MOVE_THREE) return moveThreeSprite;
+                if (playerCard.action == Action.ROTATE_LEFT) return rotateLeftSprite;
+                if (playerCard.action == Action.ROTATE_RIGHT) return rotateRightSprite;
+                if (playerCard.action == Action.U_TURN) return uTurnSprite;
+                if (playerCard.action == Action.BACK_UP) return backUpSprite;
+        return null;
+    }
+    public void updateCardPositions(){
+        cardOne.setPosition(humanPlayer.cardCoordinates.get(0),humanPlayer.cardCoordinates.get(1));
+        cardOne.draw(tiledMapRenderer.getBatch());
+        cardTwo.setPosition(humanPlayer.cardCoordinates.get(2),humanPlayer.cardCoordinates.get(3));
+        cardTwo.draw(tiledMapRenderer.getBatch());
+        cardThree.setPosition(humanPlayer.cardCoordinates.get(4),humanPlayer.cardCoordinates.get(5));
+        cardThree.draw(tiledMapRenderer.getBatch());
+        cardFour.setPosition(humanPlayer.cardCoordinates.get(6),humanPlayer.cardCoordinates.get(7));
+        cardFour.draw(tiledMapRenderer.getBatch());
+        cardFive.setPosition(humanPlayer.cardCoordinates.get(8),humanPlayer.cardCoordinates.get(9));
+        cardFive.draw(tiledMapRenderer.getBatch());
+        cardSix.setPosition(humanPlayer.cardCoordinates.get(10),humanPlayer.cardCoordinates.get(11));
+        cardSix.draw(tiledMapRenderer.getBatch());
+        cardSeven.setPosition(humanPlayer.cardCoordinates.get(12),humanPlayer.cardCoordinates.get(13));
+        cardSeven.draw(tiledMapRenderer.getBatch());
+        cardEight.setPosition(humanPlayer.cardCoordinates.get(14),humanPlayer.cardCoordinates.get(15));
+        cardEight.draw(tiledMapRenderer.getBatch());
+        cardNine.setPosition(humanPlayer.cardCoordinates.get(16),humanPlayer.cardCoordinates.get(17));
+        cardNine.draw(tiledMapRenderer.getBatch());
+
+    }
+
 
 
 
@@ -157,27 +162,19 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         //background image
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, 1500,800);
-        //System.out.println(Gdx.graphics.getWidth() + " " +  Gdx.graphics.getHeight());
         spriteBatch.end();
-        dealHand();
+
         //player on display
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
-
         tiledMapRenderer.getBatch().begin();
-        player.setPosition(humanPlayer.getX(), humanPlayer.getY());
-        player.draw(tiledMapRenderer.getBatch());
-        //CardMoveOneSprite.draw(tiledMapRenderer.getBatch());
-        //CardMoveOneSprite.setPosition(localHumanPlayer.cardXPos,localHumanPlayer.cardYPos);
-        //CardMoveTwoSprite.draw(tiledMapRenderer.getBatch());
-        //CardMoveThreeSprite.draw(tiledMapRenderer.getBatch());
-        //CardRotateLeftSprite.draw(tiledMapRenderer.getBatch());
-        //CardRotateRightSprite.draw(tiledMapRenderer.getBatch());
-        //CardUTurnSprite.draw(tiledMapRenderer.getBatch());
-        //CardBackUpSprite.draw(tiledMapRenderer.getBatch());
-        //humanPlayer.round(humanPlayer);
 
+        bindSpriteToCard();
+        updateCardPositions();
+        player.setPosition(humanPlayer.getPlayerXPosition(), humanPlayer.getPlayerYPosition());
+        player.draw(tiledMapRenderer.getBatch());
+        humanPlayer.round(humanPlayer);
         tiledMapRenderer.getBatch().end();
 
         //if the player has won, get "you win"-message up
