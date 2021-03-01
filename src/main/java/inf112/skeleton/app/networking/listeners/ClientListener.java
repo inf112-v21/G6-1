@@ -5,7 +5,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.networking.packets.Packets;
-import inf112.skeleton.app.cards.Card;
+import inf112.skeleton.app.cards.*;
 
 import java.nio.file.Path;
 
@@ -45,7 +45,7 @@ public class ClientListener extends Listener {
     }
 
 
-    /**
+    /** VENTER TIL VILDE HAR LAGET FUNKSJONEN TIL DENNE
      * Sends an array to the server which contains the cards that the
      * player has chosen to play.
      * @param cardsToBePlayed the cards that the player wants to play
@@ -71,17 +71,10 @@ public class ClientListener extends Listener {
         cl.sendTCP(name);
     }
 
-    /**
-     * Client calls this method when it has received information from the server.
-     * Method should sort the information and do the appropriate action through game
-     * @param connection
-     * @param object
-     */
-    public void received(Connection connection, Object object) {
+
+    public void received() {
 
     }
-
-
 
 
     // send a text message to other players?

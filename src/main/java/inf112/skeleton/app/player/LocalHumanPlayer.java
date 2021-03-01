@@ -5,6 +5,8 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import inf112.skeleton.app.networking.Network;
+import inf112.skeleton.app.networking.packets.Packets;
 
 
 public class LocalHumanPlayer extends Player implements InputProcessor {
@@ -24,6 +26,7 @@ public class LocalHumanPlayer extends Player implements InputProcessor {
         updatePlayerLocation(updateX, updateY);
         //if(isPlayerOnFlag()) System.out.println("VICTORY!");
         super.draw(batch);
+
     }
 
      public void updatePlayerLocation(float updateX, float updateY) {

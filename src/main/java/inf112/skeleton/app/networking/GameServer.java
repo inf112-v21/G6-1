@@ -1,9 +1,12 @@
 package inf112.skeleton.app.networking;
 
+import com.badlogic.gdx.maps.Map;
+import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import inf112.skeleton.app.networking.Network.PacketMessage;
+import inf112.skeleton.app.networking.listeners.ServerListener;
 
 
 import java.io.IOException;
@@ -15,19 +18,32 @@ import java.util.ArrayList;
 // run() starts the server
 
 public class GameServer extends Listener {
-    //Object for server
+    private String map = "RiskyExchange.tmx";
+
+    // Server object
     Server server;
+    ServerListener serverListener;
+
 
     //What ports to be used
     static int udpPort = 54777, tcpPort = 54555;
 
 
+    public GameServer(String map) {
+        this.map = map;
+    }
+
+
     //Server is being created, and bound to chosen ports then started.
     public void run() {
         server = new Server();
+        serverListener = new ServerListener(server,map);
+
         System.out.println("Creating the server...");
 
         Network.register(server);
+
+        server.addListener(serverListener);
 
         try {
             server.bind(udpPort, tcpPort);
@@ -37,9 +53,12 @@ public class GameServer extends Listener {
         server.start();
 
         System.out.println("Server has started:O");
-
-        server.addListener(this);
     }
+
+
+
+
+
 
     //When something is sent to the server, received() checks what it is and sends it to GameClient
     public void received(Connection c, Object o){

@@ -35,10 +35,10 @@ public class ServerListener extends Listener {
         allPlayersReady = new boolean[6];
         ShutdownPlayer = new boolean[6];
 
-        int i = 1;
-        while(i < 5) {
-            allPlayersReady[i] = false;
-            ShutdownPlayer[i] = false;
+        int players = 1;
+        while(players <= 6) {
+            allPlayersReady[players] = false;
+            ShutdownPlayer[players] = false;
             i++;
         }
 
@@ -67,7 +67,7 @@ public class ServerListener extends Listener {
      * @param connection
      */
     public void playerIsDisconnected(Connection connection) {
-        System.out.println("Player: " + connection.getID() + " has been disconnected");
+        System.out.println("Player: " + playerNumber + " has been disconnected");
         playerNumber--;
         playerNames[connection.getID()] = null;
         Packets.PlayerNumberPacket numberOfPlayers = new Packets.PlayerNumberPacket();

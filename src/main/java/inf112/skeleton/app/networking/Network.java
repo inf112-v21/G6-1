@@ -3,6 +3,7 @@ package inf112.skeleton.app.networking;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
 import com.jcraft.jogg.Packet;
+import inf112.skeleton.app.networking.packets.Packets;
 
 //In this class, common methods for both Server and Client will be implemented.
 public class Network {
@@ -15,6 +16,17 @@ public class Network {
      */
     static public void register (EndPoint endPoint) {
         Kryo kyro = endPoint.getKryo();
+
+        kyro.register(Packets.CardsPacket.class);
+        kyro.register(Packets.MessagePacket.class);
+        kyro.register(Packets.NamePacket.class);
+        kyro.register(Packets.PlayerNumberPacket.class);
+        kyro.register(Packets.ReadySignalPacket.class);
+        kyro.register(Packets.RemovePlayerPacket.class);
+        kyro.register(Packets.ShutDownRobotPacket.class);
+        kyro.register(Packets.StartSignalPacket.class);
+
+
         kyro.register(registerName.class);
         kyro.register(updateNames.class);
         kyro.register(PacketMessage.class);

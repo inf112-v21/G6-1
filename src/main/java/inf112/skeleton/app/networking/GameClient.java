@@ -21,6 +21,7 @@ public class GameClient extends Listener {
         client.getKryo().register(PacketMessage.class);
         client.start();
 
+        Network.register(client);
         // Tries to connect to a server times out after 10 seconds.
         try {
             client.connect(10000, ip, 54555, 54777);
