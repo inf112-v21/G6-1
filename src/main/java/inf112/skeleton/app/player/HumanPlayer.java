@@ -15,30 +15,17 @@ import java.util.Arrays;
 public class HumanPlayer extends Player implements InputProcessor {
 
 
-    public HumanPlayer(Direction direction, String name) {
+    public HumanPlayer(Direction direction, String name, String piece) {
 
-        super(direction, name);
+        super(direction, name, piece);
     }
-    private int dummyPlayerDeck = 9;
+    //TODO move to new card class?
     private CardDeck cardDeck = new CardDeck();
-    private ArrayList<Card> chosenCards = new ArrayList<>();
 
-    public float playerCurrentXPosition;
-    public float playerCurrentYPosition;
-    public ArrayList<Card> playerDeck = cardDeck.dealNineCards();
-    // Coordinates for cards. even = x odd = y
-    public ArrayList<Float> cardCoordinates = new ArrayList<Float>(
-            Arrays.asList(0f,-600f,
-                        500f,-600f,
-                        1000f,-600f,
-                        1500f,-600f,
-                        2000f,-600f,
-                        2500f,-600f,
-                        3000f,-600f,
-                        3500f,-600f,
-                        4000f,-600f));
+    public ArrayList<Card> startDeckPlayer(HumanPlayer player){
+        return cardDeck.dealNineCards();
 
-
+    }
 
     /**
      * Needed to mach Sprite positions with back-end
@@ -92,6 +79,7 @@ public class HumanPlayer extends Player implements InputProcessor {
         return playerCurrentYPosition;
     }
 
+        //TODO move to new cardClass
     /**
      *  Checks if a card is a card that changes the position of a player
      *  and not the direction
@@ -105,6 +93,7 @@ public class HumanPlayer extends Player implements InputProcessor {
      //TODO dummy method to do rounds without priority used only for development. DELETE BEFORE DELIVERY
     public void round(HumanPlayer player){
         //System.out.println("NEW ROUND");
+
         if(dummyPlayerDeck ==4 && chosenCards.size()==5){
             updatePlayerLocation(player,chosenCards.get(0));
             updatePlayerLocation(player,chosenCards.get(1));
@@ -176,7 +165,7 @@ public class HumanPlayer extends Player implements InputProcessor {
             setPlayerDirection(player, card);
         }
     }
-
+    //TODO move to new card class
     /**
      * Sets new position for the card a player choose
      * @param cardXPositionIndex
@@ -213,12 +202,13 @@ public class HumanPlayer extends Player implements InputProcessor {
         return (int) unNormalizedValue/300;
     }
 
+    //TODO move to game
     @Override
     public boolean isGameOver(TiledMapTileLayer flagLayer) {
         return false;
     }
 
-
+    //TODO move to game
     /**
      * keyDown registers what happens when the key is pressed down.
      * Player move one tile upon down-press

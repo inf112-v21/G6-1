@@ -46,7 +46,7 @@ public class Game implements IGame, InputProcessor {
     public ArrayList<Player> createPlayers(int numberOfPlayers) {
         ArrayList <Player> numberOfPlayersList = new ArrayList<>();
         for (int i = 0; i < numberOfPlayers; i++) {
-            numberOfPlayersList.add(new HumanPlayer(Direction.NORTH, "Vilde"));
+            numberOfPlayersList.add(new HumanPlayer(Direction.NORTH, "Vilde", "Patrick"));
         }
         return numberOfPlayersList;
 

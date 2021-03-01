@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import inf112.skeleton.app.cards.Card;
@@ -57,6 +56,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
 
     }
 
+
     @Override
     public void create() {
         float w = 600;
@@ -68,7 +68,8 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         camera.update();
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-        humanPlayer = new HumanPlayer(Direction.NORTH, " Erlend");
+        humanPlayer = new HumanPlayer(Direction.NORTH, " Erlend","supermario");
+        humanPlayer.playerDeck = humanPlayer.startDeckPlayer(humanPlayer);
         player = new Sprite(new Texture(("Player/OwlPlayer1.png")));
         player.setSize(300,300);
         Gdx.input.setInputProcessor((InputProcessor) humanPlayer);
@@ -169,14 +170,16 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
         tiledMapRenderer.getBatch().begin();
-
+        System.out.println(humanPlayer.playerCurrentXPosition + "x");
+        System.out.println(humanPlayer.playerCurrentYPosition +"Y");
         bindSpriteToCard();
         updateCardPositions();
         player.setPosition(humanPlayer.getPlayerXPosition(), humanPlayer.getPlayerYPosition());
         player.draw(tiledMapRenderer.getBatch());
         humanPlayer.round(humanPlayer);
         tiledMapRenderer.getBatch().end();
-
+        //System.out.println(humanPlayer.isPlayerOnFlag((TiledMapTileLayer) tiledMap.getLayers().get("flagLayer")));
+/*
         //if the player has won, get "you win"-message up
         if (humanPlayer.isPlayerOnFlag((TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"))) {
             pause();
@@ -189,7 +192,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
             //use timer
             //dispose(); //maybe get "you win" message up before it disposes so quickly
         }
-
+*/
     }
 
     @Override
