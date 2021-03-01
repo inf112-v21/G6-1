@@ -14,6 +14,8 @@ import java.util.Arrays;
 
 public class HumanPlayer extends Player implements InputProcessor {
 
+
+
     public HumanPlayer(TiledMapTileLayer flagLayer, Direction direction, String name) {
 
         super(flagLayer, direction, name);

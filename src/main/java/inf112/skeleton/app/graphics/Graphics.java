@@ -68,7 +68,8 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         camera.update();
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-        humanPlayer = new HumanPlayer(Direction.NORTH, " Erlend");
+        //humanPlayer = new HumanPlayer(Direction.NORTH, " Erlend");
+        humanPlayer = new HumanPlayer((TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"), Direction.NORTH, " Erlend");
         player = new Sprite(new Texture(("Player/OwlPlayer1.png")));
         player.setSize(300,300);
         Gdx.input.setInputProcessor((InputProcessor) humanPlayer);
@@ -176,9 +177,9 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         player.draw(tiledMapRenderer.getBatch());
         humanPlayer.round(humanPlayer);
         tiledMapRenderer.getBatch().end();
-        /*
+
         //if the player has won, get "you win"-message up
-        if (humanPlayer.isGameOver(humanPlayer.flagLayer)) {
+        if (humanPlayer.isPlayerOnFlag(humanPlayer.flagLayer)) {
             pause();
             System.out.println("You Won!");
             //"you win" screen pops up
@@ -189,7 +190,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
             //use timer
             //dispose(); //maybe get "you win" message up before it disposes so quickly
         }
-        */
+
     }
 
     @Override

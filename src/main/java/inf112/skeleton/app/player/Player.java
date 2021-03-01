@@ -9,13 +9,22 @@ public abstract class Player  {
 
 
     public final String name;
+    public TiledMapTileLayer flagLayer;
     public Direction direction;
 
+    /*
     public Player(Direction direction, String name) {
         this.name = name;
         this.direction = direction;
 
+    }*/
+    public Player(TiledMapTileLayer flagLayer, Direction direction, String name) {
+        this.name = name;
+        this.flagLayer = flagLayer;
+        this.direction = direction;
+
     }
+
 
     public abstract void updatePlayerLocation(HumanPlayer player, Card card) throws InterruptedException;
 
