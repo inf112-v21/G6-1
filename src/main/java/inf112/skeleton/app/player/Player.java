@@ -5,16 +5,14 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.cards.Card;
 import inf112.skeleton.app.shared.Direction;
 
-abstract class Player  {
+public abstract class Player  {
 
 
     public final String name;
     public Direction direction;
-    public TiledMapTileLayer flagLayer;
 
-    public Player(TiledMapTileLayer flagLayer, Direction direction, String name) {
+    public Player(Direction direction, String name) {
         this.name = name;
-        this.flagLayer = flagLayer;
         this.direction = direction;
 
     }

@@ -15,9 +15,9 @@ import java.util.ArrayList;
 
 public class HumanPlayer extends Player implements InputProcessor {
 
-    public HumanPlayer(TiledMapTileLayer flagLayer, Direction direction, String name) {
+    public HumanPlayer(Direction direction, String name) {
 
-        super(flagLayer, direction, name);
+        super(direction, name);
     }
     public float CurrentPlayerXPosition;
     public float CurrentPlayerYPosition;
@@ -242,7 +242,39 @@ public class HumanPlayer extends Player implements InputProcessor {
         float y = Gdx.input.getY();
         System.out.println("Y" + Gdx.input.getY());
         System.out.println("X" + Gdx.input.getX());
-        if (x >609 && x < 678 && y > 869 && y < 957){
+        if (x > 221 && x < 278 && y > 699 && y < 780){
+            currentCardXPosition = 3900;
+            currentCardYPosition = 3900;
+        }
+        else if(x > 284 && x < 341 && y > 701 && y < 778){
+            currentCardXPosition = 3900;
+            currentCardYPosition = 3900;
+        }
+        else if(x > 350 && x < 406 && y > 701 && y < 778){
+            currentCardXPosition = 3900;
+            currentCardYPosition = 3900;
+        }
+        else if(x > 413 && x < 473 && y > 701 && y < 777){
+            currentCardXPosition = 3900;
+            currentCardYPosition = 3900;
+        }
+        else if(x > 478 && x < 535 && y > 701 && y < 778){
+            currentCardXPosition = 3900;
+            currentCardYPosition = 3900;
+        }
+        else if(x > 543 && x < 599 && y > 701 && y < 779) {
+            currentCardXPosition = 3900;
+            currentCardYPosition = 3900;
+        }
+        else if(x > 607 && x < 662 && y > 701 && y < 778) {
+            currentCardXPosition = 3900;
+            currentCardYPosition = 3900;
+        }
+        else if(x > 671 && x < 730 && y > 701 && y < 778) {
+            currentCardXPosition = 3900;
+            currentCardYPosition = 3900;
+        }
+        else if(x > 735 && x < 791 && y > 701 && y < 779) {
             currentCardXPosition = 3900;
             currentCardYPosition = 3900;
         }
