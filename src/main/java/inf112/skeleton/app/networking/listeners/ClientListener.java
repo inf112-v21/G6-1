@@ -57,6 +57,30 @@ public class ClientListener extends Listener {
         }
     }
 
+    /**
+     * Alerts all the clients by sending the start signal to the server.
+     */
+    public void sendStartSignalToServer() {
+        Packets.StartSignalPacket startSignalPacket = new Packets.StartSignalPacket();
+        startSignalPacket.start = true;
+        cl.sendTCP(startSignalPacket);
+    }
+
+
+    public void sendNameToServer(Packets.NamePacket name) {
+        cl.sendTCP(name);
+    }
+
+    /**
+     * Client calls this method when it has received information from the server.
+     * Method should sort the information and do the appropriate action through game
+     * @param connection
+     * @param object
+     */
+    public void received(Connection connection, Object object) {
+
+    }
+
 
 
 
