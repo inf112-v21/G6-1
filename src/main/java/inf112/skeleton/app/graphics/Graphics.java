@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import inf112.skeleton.app.cards.Card;
@@ -75,7 +76,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         Gdx.input.setInputProcessor((InputProcessor) humanPlayer);
         player.setPosition(humanPlayer.setPlayerStartXPosition(0) , humanPlayer.setPlayerStartYPosition(0) );
 
-        //Create cardSprite
+        //Create cardSprite to be matched whit correct backend card.
         moveOneSprite = new Sprite(new Texture("Cards/Move1.png"));
         cardSize(moveOneSprite);
         moveTwoSprite = new Sprite(new Texture("Cards/Move2.png"));
@@ -90,13 +91,16 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         cardSize(backUpSprite);
         uTurnSprite = new Sprite(new Texture("Cards/U-turn.png"));
         cardSize(uTurnSprite);
-        bindSpriteToCard();
+        bindCardSpriteToCard();
 
         background = new Texture("Background2.png");
         youwin = new Texture("YouWin.jpg");
     }
 
-    public void bindSpriteToCard(){
+    /**
+     * Binds the card to the correct card sprite from the players deck.
+     */
+    public void bindCardSpriteToCard(){
         cardOne = getMatchingSpriteToPlayerCard(humanPlayer.playerDeck.get(0));
         cardTwo = getMatchingSpriteToPlayerCard(humanPlayer.playerDeck.get(1));
         cardThree = getMatchingSpriteToPlayerCard(humanPlayer.playerDeck.get(2));
@@ -108,6 +112,12 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         cardNine  = getMatchingSpriteToPlayerCard(humanPlayer.playerDeck.get(8));
     }
 
+    /**
+     * Help method for bindCardSpriteToCard.
+     * Checks the type of card from the player card deck
+     * @param playerCard
+     * @return Sprite
+     */
     public Sprite getMatchingSpriteToPlayerCard(Card playerCard) {
                 if (playerCard.action == Action.MOVE_ONE) return moveOneSprite;
                 if (playerCard.action == Action.MOVE_TWO) return moveTwoSprite;
@@ -118,6 +128,10 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
                 if (playerCard.action == Action.BACK_UP) return backUpSprite;
         return null;
     }
+
+    /**
+     * Updates the cards positions on the board
+     */
     public void updateCardPositions(){
         cardOne.setPosition(humanPlayer.cardCoordinates.get(0),humanPlayer.cardCoordinates.get(1));
         cardOne.draw(tiledMapRenderer.getBatch());
@@ -172,14 +186,14 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         tiledMapRenderer.getBatch().begin();
         System.out.println(humanPlayer.playerCurrentXPosition + "x");
         System.out.println(humanPlayer.playerCurrentYPosition +"Y");
-        bindSpriteToCard();
+        bindCardSpriteToCard();
         updateCardPositions();
         player.setPosition(humanPlayer.getPlayerXPosition(), humanPlayer.getPlayerYPosition());
         player.draw(tiledMapRenderer.getBatch());
         humanPlayer.round(humanPlayer);
         tiledMapRenderer.getBatch().end();
-        //System.out.println(humanPlayer.isPlayerOnFlag((TiledMapTileLayer) tiledMap.getLayers().get("flagLayer")));
-/*
+        
+
         //if the player has won, get "you win"-message up
         if (humanPlayer.isPlayerOnFlag((TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"))) {
             pause();
@@ -192,7 +206,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
             //use timer
             //dispose(); //maybe get "you win" message up before it disposes so quickly
         }
-*/
+
     }
 
     @Override

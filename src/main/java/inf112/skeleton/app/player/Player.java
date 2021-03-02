@@ -55,5 +55,8 @@ public abstract class Player  {
 
     public abstract boolean isGameOver(TiledMapTileLayer flagLayer);
 
+    public abstract float setPlayerStartXPosition(float playerStartXPosition);
+
+    public abstract float setPlayerStartYPosition(float playerStartYPosition);
 
 }

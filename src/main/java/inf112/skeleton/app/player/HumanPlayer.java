@@ -14,7 +14,14 @@ import java.util.Arrays;
 
 public class HumanPlayer extends Player implements InputProcessor {
 
-
+    /**
+     * This is the backend version of the human player. This class keeps track of everything related
+     * to the human player. It also contain methods for matching players sprite in graphics class to the player.
+     * As well as keeping track of players card.
+     * @param direction The direction the player is facing
+     * @param name The name of the player
+     * @param piece The name of chosen piece, which is matched with a Sprite in graphics
+     */
     public HumanPlayer(Direction direction, String name, String piece) {
 
         super(direction, name, piece);
@@ -22,6 +29,12 @@ public class HumanPlayer extends Player implements InputProcessor {
     //TODO move to new card class?
     private CardDeck cardDeck = new CardDeck();
 
+    /**
+     * Get the first player deck og card. This deck is automatically updated
+     * by other methods and needs to be used only when starting the game.
+     * @param player
+     * @return
+     */
     public ArrayList<Card> startDeckPlayer(HumanPlayer player){
         return cardDeck.dealNineCards();
 
@@ -29,16 +42,20 @@ public class HumanPlayer extends Player implements InputProcessor {
 
     /**
      * Needed to mach Sprite positions with back-end
+     * When setting up player sprite in create method.
+     * Pass this method in as X parameter in set player position sprite-built-in method.
+     *
      * @param playerStartXPosition
      * @return
      */
     public float setPlayerStartXPosition(float playerStartXPosition){
         playerCurrentXPosition = playerStartXPosition;
-        return playerCurrentXPosition;
+        return playerStartXPosition;
     }
     /**
-     *
      * Needed to mach Sprite positions with back-end
+     * When setting up player sprite in create method.
+     * Pass this method in as X parameter in set player position sprite-built-in method.
      * @param playerStartYPosition
      * @return
      */
@@ -48,16 +65,18 @@ public class HumanPlayer extends Player implements InputProcessor {
     }
 
     /**
-     * set x position
-     * @return
+     * Updates player X position and returns the same value, used in the render method of the
+     * graphics class to keep track on player sprite and backend.
+     * @return updated player x position
      */
     public float updatePlayerXPosition(float newXPosition){
         return playerCurrentXPosition = newXPosition;
     }
 
     /**
-     * set y position
-     * @return
+     * Updates player Y position and returns the same value, used in the render method of the
+     * graphics class to keep track on player sprite and backend.
+     * @return updated player y position
      */
     public float updatePlayerYPosition(float newYPosition){
         return playerCurrentYPosition = newYPosition;
@@ -65,7 +84,7 @@ public class HumanPlayer extends Player implements InputProcessor {
 
     /**
      *
-     * @return x positon of player : float
+     * @return x position of player : float
      */
     public float getPlayerXPosition() {
         return playerCurrentXPosition;
@@ -79,18 +98,20 @@ public class HumanPlayer extends Player implements InputProcessor {
         return playerCurrentYPosition;
     }
 
+
         //TODO move to new cardClass
     /**
      *  Checks if a card is a card that changes the position of a player
-     *  and not the direction
+     *  and not the direction.
      * @param card : Card of a player
-     * @return
+     * @return boolean
      */
     public boolean moveTypeCard(Card card){
         return card.action == Action.MOVE_ONE || card.action == Action.MOVE_TWO|| card.action == Action.MOVE_THREE||card.action== Action.BACK_UP;
     }
 
-     //TODO dummy method to do rounds without priority used only for development. DELETE BEFORE DELIVERY
+     //TODO dummy method to do rounds without priority used only for development.
+     // Erlend will DELETE BEFORE DELIVERY
     public void round(HumanPlayer player){
         //System.out.println("NEW ROUND");
 
@@ -130,18 +151,18 @@ public class HumanPlayer extends Player implements InputProcessor {
     }
 
     /**
-     * sets new player direction from player cards
+     * Set new direction of the player related to the given card
      * @param player
      * @param cardDirection
      */
     public void setPlayerDirection(HumanPlayer player, Card cardDirection){
-       float newDrection = player.direction.getDirection()+cardDirection.action.getAction();
-       if(newDrection > 270) newDrection = newDrection - 360;
-       if(newDrection < 0) newDrection = 270;
-       if(newDrection == 0) player.direction = Direction.NORTH;
-       else if (newDrection == 90) player.direction = Direction.EAST;
-       else if (newDrection == 180) player.direction = Direction.SOUTH;
-       else if (newDrection == 270) player.direction = Direction.WEST;
+       float newDirection = player.direction.getDirection()+cardDirection.action.getAction();
+       if(newDirection > 270) newDirection = newDirection - 360;
+       if(newDirection < 0) newDirection = 270;
+       if(newDirection == 0) player.direction = Direction.NORTH;
+       else if (newDirection == 90) player.direction = Direction.EAST;
+       else if (newDirection == 180) player.direction = Direction.SOUTH;
+       else if (newDirection == 270) player.direction = Direction.WEST;
     }
 
     /**
@@ -165,13 +186,16 @@ public class HumanPlayer extends Player implements InputProcessor {
             setPlayerDirection(player, card);
         }
     }
+
     //TODO move to new card class
     /**
-     * Sets new position for the card a player choose
-     * @param cardXPositionIndex
-     * @param cardYPositionIndex
+     * Sets new position for the given card.
+     * This function is used to move cards the player is holding
+     * to the programming slots on the board in the correct order.
+     * @param cardXPositionIndex X index of the card from cardCoordinates list
+     * @param cardYPositionIndex Y index of the card from cardCoordinates list
      */
-    public void setNewCardPos(int cardXPositionIndex, int cardYPositionIndex){
+    public void UpdateCardPosition(int cardXPositionIndex, int cardYPositionIndex){
         int chosenCardListSize = chosenCards.size();
         if (chosenCardListSize < 6){
             cardCoordinates.set(cardXPositionIndex, 3900f);
@@ -186,23 +210,42 @@ public class HumanPlayer extends Player implements InputProcessor {
         }
     }
 
+    /**
+     * Check if the player is on a flag.
+     * The flag layer is common for all players.
+     * @param flagLayer
+     * @return boolean
+     */
     @Override
     public boolean isPlayerOnFlag(TiledMapTileLayer flagLayer) {
         TiledMapTileLayer.Cell cell = flagLayer.getCell(normalizedCoordinates(playerCurrentXPosition), normalizedCoordinates(playerCurrentYPosition));
         return cell!= null;
     }
 
+    /**
+     * Check if the player can move. For the time the player can move
+     * if the player keeps within the board.
+     * @param xDirection
+     * @param yDirection
+     * @return boolean
+     */
     @Override
     public boolean canPlayerMove(float xDirection, float yDirection) {
         return !(xDirection < 0 || xDirection > 3300 || yDirection < 0 || yDirection > 3900);
     }
 
+    /**
+     * Calculate normalized coordinates. The tiled-map operates with
+     * tile-size of 300 by 300. While the layers operates with tile-size of 1 by 1.
+     * @param unNormalizedValue
+     * @return int
+     */
     @Override
     public int normalizedCoordinates(float unNormalizedValue) {
         return (int) unNormalizedValue/300;
     }
 
-    //TODO move to game
+    //TODO move to game and UPDATE!
     @Override
     public boolean isGameOver(TiledMapTileLayer flagLayer) {
         return false;
@@ -252,6 +295,17 @@ public class HumanPlayer extends Player implements InputProcessor {
         return false;
     }
 
+    /**
+     * Create a click-box around the cards the player is holding.
+     * When clicked the card sprite moves to the programming slots on the board
+     * and backend part of the card i added to the chosen card list.
+     *
+     * @param i
+     * @param i1
+     * @param i2
+     * @param i3
+     * @return
+     */
     //TODO need to be able to undo choice of card
     @Override
     public boolean touchDown(int i, int i1, int i2, int i3) {
@@ -262,47 +316,47 @@ public class HumanPlayer extends Player implements InputProcessor {
         if (x >460 && x < 515 && y > 810 && y < 895){
             chosenCards.add(playerDeck.get(0));
             dummyPlayerDeck -=1;
-            setNewCardPos(0,1);
+            UpdateCardPosition(0,1);
         }
         else if(x >530 && x < 590 && y > 810 && y < 895){
             chosenCards.add(playerDeck.get(1));
             dummyPlayerDeck -= 1;
-            setNewCardPos(2,3);
+            UpdateCardPosition(2,3);
         }
         else if(x >605 && x < 660 && y > 810 && y < 895){
             chosenCards.add(playerDeck.get(2));
             dummyPlayerDeck -= 1;
-            setNewCardPos(4,5);
+            UpdateCardPosition(4,5);
         }
         else if(x >675 && x < 730 && y > 810 && y < 895){
             chosenCards.add(playerDeck.get(3));
             dummyPlayerDeck -=1;
-            setNewCardPos(6,7);
+            UpdateCardPosition(6,7);
         }
         else if(x >745 && x < 800 && y > 810 && y < 895){
             chosenCards.add(playerDeck.get(4));
             dummyPlayerDeck -=1;
-            setNewCardPos(8,9);
+            UpdateCardPosition(8,9);
         }
         else if(x >815 && x < 875 && y > 810 && y < 895){
             chosenCards.add(playerDeck.get(5));
             dummyPlayerDeck -= 1 ;
-            setNewCardPos(10,11);
+            UpdateCardPosition(10,11);
         }
         else if(x >890 && x < 945 && y > 810 && y < 895){
             chosenCards.add(playerDeck.get(6));
             dummyPlayerDeck -= 1 ;
-            setNewCardPos(12,13);
+            UpdateCardPosition(12,13);
         }
         else if(x >960 && x < 1015 && y > 810 && y < 895){
             chosenCards.add(playerDeck.get(7));
             dummyPlayerDeck -= 1 ;
-            setNewCardPos(14,15);
+            UpdateCardPosition(14,15);
         }
         else if(x >1030 && x < 1090 && y > 810 && y < 895){
             chosenCards.add(playerDeck.get(8));
             dummyPlayerDeck -= 1 ;
-            setNewCardPos(16,17);
+            UpdateCardPosition(16,17);
         }
         return false;
     }
