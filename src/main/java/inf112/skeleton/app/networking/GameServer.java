@@ -10,6 +10,7 @@ import inf112.skeleton.app.networking.listeners.ServerListener;
 
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 
@@ -23,6 +24,7 @@ public class GameServer extends Listener {
     // Server object
     Server server;
     ServerListener serverListener;
+    private InetAddress address;
 
 
     //What ports to be used
@@ -60,6 +62,8 @@ public class GameServer extends Listener {
 
 
 
+
+
     //When something is sent to the server, received() checks what it is and sends it to GameClient
     public void received(Connection c, Object o){
 
@@ -83,6 +87,10 @@ public class GameServer extends Listener {
             updateNames();
         }
         System.out.println("Player disconnected");
+    }
+
+    public InetAddress getAddress() {
+        return address;
     }
 
     static class playerConnected extends Connection {
@@ -112,12 +120,17 @@ public class GameServer extends Listener {
 /*
 
 //TODO Launche serveren i Game; forslag til metode til det:
-public void launchServer(){
-    if(server == null); //If the server is already set-up
-        System.out.println("Server already exsists");
-    this.server = new Server(this); //Not sure if (this) is needed.
-    this.client = new Client(this); //Probably more parameteres needed for client, such as viewport or ip.
-                                           //Might have to use a if-sentence for this, or try-catch
+public InetAddress hostNewGame(String map) {
+    server = new server(map);
+    server.run();
+
+    client = new client(server.getAddress())
+    return server.getAddress()
+}
+
+public void InetAddress joinNewGame(InetAddress ip) {
+    client = new client(ip);
+
 }
 
  */

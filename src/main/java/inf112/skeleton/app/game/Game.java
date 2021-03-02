@@ -5,22 +5,49 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.graphics.Graphics;
+import inf112.skeleton.app.networking.GameClient;
+import inf112.skeleton.app.networking.GameServer;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.shared.Direction;
+import inf112.skeleton.app.networking.*;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 public class Game implements IGame, InputProcessor {
 
     private Graphics graphics;
     int numberOfPlayers;
+    GameServer server;
+    GameClient client;
+
+
+
 
     @Override
     public Graphics startGame() {
         graphics = new Graphics();
+        server = new GameServer("RiskyExchange");
+        server.run();
+        client = new GameClient();
         return graphics;
     }
+
+    //TODO Launche serveren i Game; forslag til metode til det:
+    public InetAddress hostNewGame(String map) {
+        server = new server(map);
+        server.run();
+
+        client = new GameClient(server.getAddress());
+        return server.getAddress();
+    }
+
+    public void InetAddress joinNewGame(InetAddress ip) {
+        client = new client(ip);
+
+    }
+
 
     @Override
     public void playGame() {
@@ -30,7 +57,7 @@ public class Game implements IGame, InputProcessor {
         // do rounds
         // cardsToBePlayed ();
         // stop condition pga render
-        }
+    }
 
 
     @Override
