@@ -95,7 +95,7 @@ public class GameServer extends Listener {
 
     static class playerConnected extends Connection {
         public String name;
-
+        
     }
 
     public void updateNames() {

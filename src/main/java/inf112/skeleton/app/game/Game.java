@@ -15,6 +15,10 @@ import inf112.skeleton.app.networking.*;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
+
+// Game is the centerpiece, it sends information to the
+// GameClient which in turn send information to the GameServer
+
 public class Game implements IGame, InputProcessor {
 
     private Graphics graphics;
@@ -36,10 +40,10 @@ public class Game implements IGame, InputProcessor {
 
     //TODO Launche serveren i Game; forslag til metode til det:
     public InetAddress hostNewGame(String map) {
-        server = new server(map);
+        server = new GameServer(map);
         server.run();
+        client = new GameClient(server.getAddress(),this);
 
-        client = new GameClient(server.getAddress());
         return server.getAddress();
     }
 

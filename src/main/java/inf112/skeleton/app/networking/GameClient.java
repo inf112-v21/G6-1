@@ -1,12 +1,14 @@
 package inf112.skeleton.app.networking;
 
 import com.esotericsoftware.kryonet.Client;
+import com.esotericsoftware.kryonet.EndPoint;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Connection;
 import com.jcraft.jogg.Packet;
 import inf112.skeleton.app.networking.Network;
 import inf112.skeleton.app.networking.Network.PacketMessage;
 import inf112.skeleton.app.game.Game;
+import inf112.skeleton.app.networking.listeners.ClientListener;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -17,6 +19,27 @@ public class GameClient extends Listener {
     static InetAddress ip;
     static int udpPort = 54777, tcpPort = 54555;
     static boolean messageReceived = false;
+
+    private ClientListener cListener;
+
+    public GameClient(InetAddress address, Game game, int tcpPort, int udpPort) {
+        client = new Client();
+        cListener = new ClientListener();
+
+        cListener.initialize(client,game);
+        registerPacks();
+        client.addListener(cListener);
+
+        new Thread(client).start();
+
+        try {
+            client.connect(5000, ip, tcpPort, udpPort);
+        }catch (IOException e){
+            JOptionPane.showMessageDialog(null,"Server is not started. Can not connect");
+        }
+
+
+    }
 
 
     /**
@@ -41,6 +64,10 @@ public class GameClient extends Listener {
 
         System.out.println("IP Address: "+ ip.getHostAddress());
         System.out.println("Client should now be waiting for a packet...\n");
+    }
+
+    public void registerPacks() {
+
     }
 
 
