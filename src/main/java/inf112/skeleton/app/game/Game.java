@@ -34,21 +34,27 @@ public class Game implements IGame, InputProcessor {
 
 
     @Override
-    public void gameOver() {
+    public boolean isGameOver() {
+        return false;
     }
 
     @Override
     public void setUpGame() {
+        // ask number of players
+        // await num of player selection
+
+        // present board choices
+        // await board selection
 
     }
 
     @Override
     public ArrayList<Player> createPlayers(int numberOfPlayers) {
-        ArrayList <Player> numberOfPlayersList = new ArrayList<>();
+        ArrayList <Player> playerList = new ArrayList<>();
         for (int i = 0; i < numberOfPlayers; i++) {
-            numberOfPlayersList.add(new HumanPlayer(Direction.NORTH, "Vilde", "Patrick"));
+            playerList.add(new HumanPlayer(Direction.NORTH, "Vilde", "erlend"));
         }
-        return numberOfPlayersList;
+        return playerList;
 
     }
 

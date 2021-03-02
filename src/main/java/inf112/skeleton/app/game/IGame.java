@@ -16,7 +16,7 @@ public interface IGame {
 
     void playGame ();
 
-    void gameOver();
+    boolean isGameOver();
 
     void setUpGame ();
 

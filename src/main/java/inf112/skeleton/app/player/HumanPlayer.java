@@ -307,6 +307,8 @@ public class HumanPlayer extends Player implements InputProcessor {
      * @return
      */
     //TODO need to be able to undo choice of card
+
+    /*
     @Override
     public boolean touchDown(int i, int i1, int i2, int i3) {
         float x  = Gdx.input.getX();
@@ -354,6 +356,59 @@ public class HumanPlayer extends Player implements InputProcessor {
             UpdateCardPosition(14,15);
         }
         else if(x >1030 && x < 1090 && y > 810 && y < 895){
+            chosenCards.add(playerDeck.get(8));
+            dummyPlayerDeck -= 1 ;
+            UpdateCardPosition(16,17);
+        }
+        return false;
+    }
+    */
+    public boolean touchDown(int i, int i1, int i2, int i3) {
+        float x  = Gdx.input.getX();
+        float y = Gdx.input.getY();
+        //System.out.println("Y" + Gdx.input.getY());
+        System.out.println("X" + Gdx.input.getX());
+        if (x >221 && x < 275 && y > 701 && y < 780){
+            chosenCards.add(playerDeck.get(0));
+            dummyPlayerDeck -=1;
+            UpdateCardPosition(0,1);
+        }
+        else if(x >292 && x < 348 && y > 701 && y < 780){
+            chosenCards.add(playerDeck.get(1));
+            dummyPlayerDeck -= 1;
+            UpdateCardPosition(2,3);
+        }
+        else if(x >364 && x < 419 && y > 701 && y < 780){
+            chosenCards.add(playerDeck.get(2));
+            dummyPlayerDeck -= 1;
+            UpdateCardPosition(4,5);
+        }
+        else if(x >435 && x < 491 && y > 701 && y < 780){
+            chosenCards.add(playerDeck.get(3));
+            dummyPlayerDeck -=1;
+            UpdateCardPosition(6,7);
+        }
+        else if(x >507 && x < 564 && y > 701 && y < 780){
+            chosenCards.add(playerDeck.get(4));
+            dummyPlayerDeck -=1;
+            UpdateCardPosition(8,9);
+        }
+        else if(x >578 && x < 635 && y > 701 && y < 780){
+            chosenCards.add(playerDeck.get(5));
+            dummyPlayerDeck -= 1 ;
+            UpdateCardPosition(10,11);
+        }
+        else if(x >650 && x < 705 && y > 701 && y < 780){
+            chosenCards.add(playerDeck.get(6));
+            dummyPlayerDeck -= 1 ;
+            UpdateCardPosition(12,13);
+        }
+        else if(x >720 && x < 778 && y > 701 && y < 780){
+            chosenCards.add(playerDeck.get(7));
+            dummyPlayerDeck -= 1 ;
+            UpdateCardPosition(14,15);
+        }
+        else if(x >792 && x < 847 && y > 701 && y < 780){
             chosenCards.add(playerDeck.get(8));
             dummyPlayerDeck -= 1 ;
             UpdateCardPosition(16,17);
