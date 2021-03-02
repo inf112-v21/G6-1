@@ -47,7 +47,7 @@ public class GameServer extends Listener {
 
         server.addListener(serverListener);
 
-        InetAddress address = new InetAddress();
+
         try {
             server.bind(udpPort, tcpPort);
         } catch (IOException e) {
@@ -57,14 +57,9 @@ public class GameServer extends Listener {
         System.out.println("Server has started:O");
 
         //String string = (String) server.getAddress();
-        System.out.println(address);
+
+
     }
-
-
-
-
-
-
 
 
     //When something is sent to the server, received() checks what it is and sends it to GameClient

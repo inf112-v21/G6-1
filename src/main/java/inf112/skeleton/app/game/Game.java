@@ -44,7 +44,8 @@ public class Game implements IGame, InputProcessor {
     }
 
     public void joinNewGame(InetAddress ip) {
-        client = new GameClient(ip, this);
+        client = new GameClient(ip,this);
+        host = false;
     }
 
 

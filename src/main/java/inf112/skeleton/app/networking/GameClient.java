@@ -22,37 +22,29 @@ public class GameClient extends Listener {
 
     private ClientListener cListener;
 
-    public GameClient(InetAddress address, Game game) {
+
+    public GameClient(InetAddress ip, Game game) {
         client = new Client();
         cListener = new ClientListener();
 
-        cListener.initialize(client,game);
-        registerPacks();
+        cListener.initialize(client, game);
+
         client.addListener(cListener);
 
         new Thread(client).start();
+
         try {
-            client.connect(5000, ip, tcpPort, udpPort);
-        }catch (IOException e){
-            JOptionPane.showMessageDialog(null,"Server is not started. Can not connect");
+            client.connect(5000, ip, udpPort,tcpPort);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-
     }
 
-
-    /**
-     *
-     * @param ip ip address of the server
-     * @param game Game object to send data from and to the server
-     */
-    public void runClient(InetAddress ip, Game game) throws IOException {
-
-        client = new com.esotericsoftware.kryonet.Client();
-        client.getKryo().register(PacketMessage.class);
+    public void runClient() {
+        client = new Client();
+        Network.register(client);
         client.start();
 
-    Network.register(client);
         // Tries to connect to a server times out after 10 seconds.
         try {
             client.connect(10000, ip, 54555, 54777);
