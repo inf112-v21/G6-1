@@ -31,13 +31,7 @@ public class ServerListener extends Listener {
         allPlayersReady = new boolean[6];
         ShutdownPlayer = new boolean[6];
 
-        int players = 1;
-        while(players <= 6) {
-            allPlayersReady[players] = false;
-            ShutdownPlayer[players] = false;
-            players++;
-        }
-        allPlayersReady[1] = true;
+
     }
 
 

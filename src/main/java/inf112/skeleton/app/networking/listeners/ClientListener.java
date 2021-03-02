@@ -50,13 +50,15 @@ public class ClientListener extends Listener {
      * player has chosen to play.
      * @param cardsToBePlayed the cards that the player wants to play
      */
+    //TODO CardsToBePlayed eller lingende bør bli laget
+    /*
     public void sendCardsToServer(CardsToBePlayed[] cardsToBePlayed) {
         Packets.CardsPacket newCards = new Packets.CardsPacket();
         if (cardsToBePlayed != null) {
 
         }
     }
-
+*/
     /**
      * Alerts all the clients by sending the start signal to the server.
      */

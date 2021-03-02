@@ -24,7 +24,7 @@ public class GameServer extends Listener {
     // Server object
     Server server;
     ServerListener serverListener;
-    private InetAddress address;
+    public InetAddress address;
 
 
     //What ports to be used
@@ -47,14 +47,17 @@ public class GameServer extends Listener {
 
         server.addListener(serverListener);
 
+        InetAddress address = new InetAddress();
         try {
             server.bind(udpPort, tcpPort);
         } catch (IOException e) {
             e.printStackTrace();
         }
         server.start();
-
         System.out.println("Server has started:O");
+
+        //String string = (String) server.getAddress();
+        System.out.println(address);
     }
 
 

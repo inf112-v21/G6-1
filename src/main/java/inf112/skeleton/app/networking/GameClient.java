@@ -22,7 +22,7 @@ public class GameClient extends Listener {
 
     private ClientListener cListener;
 
-    public GameClient(InetAddress address, Game game, int tcpPort, int udpPort) {
+    public GameClient(InetAddress address, Game game) {
         client = new Client();
         cListener = new ClientListener();
 
@@ -31,7 +31,6 @@ public class GameClient extends Listener {
         client.addListener(cListener);
 
         new Thread(client).start();
-
         try {
             client.connect(5000, ip, tcpPort, udpPort);
         }catch (IOException e){

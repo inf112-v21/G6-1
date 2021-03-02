@@ -3,14 +3,12 @@ package inf112.skeleton.app.game;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.graphics.Graphics;
 import inf112.skeleton.app.networking.GameClient;
 import inf112.skeleton.app.networking.GameServer;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.shared.Direction;
-import inf112.skeleton.app.networking.*;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
@@ -32,9 +30,7 @@ public class Game implements IGame, InputProcessor {
     @Override
     public Graphics startGame() {
         graphics = new Graphics();
-        server = new GameServer("RiskyExchange");
-        server.run();
-        client = new GameClient();
+        hostNewGame("RiskyExchange");
         return graphics;
     }
 
@@ -47,9 +43,8 @@ public class Game implements IGame, InputProcessor {
         return server.getAddress();
     }
 
-    public void InetAddress joinNewGame(InetAddress ip) {
-        client = new client(ip);
-
+    public void joinNewGame(InetAddress ip) {
+        client = new GameClient(ip, this);
     }
 
 
