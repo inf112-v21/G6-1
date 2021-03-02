@@ -33,15 +33,15 @@ public abstract class Player  {
         this.playerDeck = new ArrayList<>();
         // Coordinates for cards. even = x odd = y
         this.cardCoordinates = new ArrayList<Float>(
-                Arrays.asList(0f,-600f,
-                        500f,-600f,
-                        1000f,-600f,
-                        1500f,-600f,
-                        2000f,-600f,
-                        2500f,-600f,
-                        3000f,-600f,
-                        3500f,-600f,
-                        4000f,-600f));
+                Arrays.asList(5555f,3090f,
+                        6080f,3090f,
+                        6605f,3090f,
+                        5555f,2370f,
+                        6080f,2370f,
+                        6605f,2370f,
+                        5555f,1640f,
+                        6080f,1640f,
+                        6605f,1640f));
         this.dummyPlayerDeck = 9;
     }
 

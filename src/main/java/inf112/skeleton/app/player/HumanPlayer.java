@@ -3,11 +3,16 @@ package inf112.skeleton.app.player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.Vector3;
 import inf112.skeleton.app.cards.Card;
 import inf112.skeleton.app.cards.CardDeck;
+import inf112.skeleton.app.graphics.Graphics;
 import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Direction;
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -126,15 +131,15 @@ public class HumanPlayer extends Player implements InputProcessor {
             playerDeck = new ArrayList<>();
             playerDeck = cardDeck.dealNineCards();
             cardCoordinates =new ArrayList<Float>(
-                    Arrays.asList(0f,-600f,
-                            500f,-600f,
-                            1000f,-600f,
-                            1500f,-600f,
-                            2000f,-600f,
-                            2500f,-600f,
-                            3000f,-600f,
-                            3500f,-600f,
-                            4000f,-600f));
+                    Arrays.asList(5555f,3090f,
+                            6080f,3090f,
+                            6605f,3090f,
+                            5555f,2370f,
+                            6080f,2370f,
+                            6605f,2370f,
+                            5555f,1640f,
+                            6080f,1640f,
+                            6605f,1640f));
         }
         /*
         ArrayList<Card> playerCard = cardDeck.CardDeal();
@@ -195,15 +200,15 @@ public class HumanPlayer extends Player implements InputProcessor {
      * @param cardXPositionIndex X index of the card from cardCoordinates list
      * @param cardYPositionIndex Y index of the card from cardCoordinates list
      */
-    public void UpdateCardPosition(int cardXPositionIndex, int cardYPositionIndex){
+    public void updateCardPosition(int cardXPositionIndex, int cardYPositionIndex){
         int chosenCardListSize = chosenCards.size();
         if (chosenCardListSize < 6){
-            cardCoordinates.set(cardXPositionIndex, 3900f);
-            if (chosenCardListSize == 1) cardCoordinates.set(cardYPositionIndex, 3900f);
-            if (chosenCardListSize == 2) cardCoordinates.set(cardYPositionIndex, 3300f);
-            if (chosenCardListSize == 3) cardCoordinates.set(cardYPositionIndex, 2700f);
-            if (chosenCardListSize == 4) cardCoordinates.set(cardYPositionIndex, 2100f);
-            if (chosenCardListSize == 5) cardCoordinates.set(cardYPositionIndex, 1500f);
+            cardCoordinates.set(cardYPositionIndex, 520f);
+            if (chosenCardListSize == 1) cardCoordinates.set(cardXPositionIndex, 3945f);
+            if (chosenCardListSize == 2) cardCoordinates.set(cardXPositionIndex, 4490f);
+            if (chosenCardListSize == 3) cardCoordinates.set(cardXPositionIndex, 5020f);
+            if (chosenCardListSize == 4) cardCoordinates.set(cardXPositionIndex, 5550f);
+            if (chosenCardListSize == 5) cardCoordinates.set(cardXPositionIndex, 6090f);
         }else{
             cardCoordinates.set(cardXPositionIndex,cardCoordinates.get(cardXPositionIndex));
             cardCoordinates.set(cardYPositionIndex,cardCoordinates.get(cardYPositionIndex));
@@ -251,7 +256,7 @@ public class HumanPlayer extends Player implements InputProcessor {
         return false;
     }
 
-    //TODO move to game
+
     /**
      * keyDown registers what happens when the key is pressed down.
      * Player move one tile upon down-press
@@ -295,6 +300,24 @@ public class HumanPlayer extends Player implements InputProcessor {
         return false;
     }
 
+
+    Vector3 touchPos = new Vector3();
+    Graphics graphics;
+    public float xhg;
+    public float yhg;
+
+    public void coordinates(OrthographicCamera camera){
+        if (Gdx.input.isTouched()) {
+            touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+            camera.unproject(touchPos);
+        }
+        if(Gdx.input.justTouched()){
+            xhg = touchPos.x;
+            yhg= touchPos.y;
+            System.out.println(touchPos.x+ "just");
+        }
+    }
+
     /**
      * Create a click-box around the cards the player is holding.
      * When clicked the card sprite moves to the programming slots on the board
@@ -308,118 +331,66 @@ public class HumanPlayer extends Player implements InputProcessor {
      */
     //TODO need to be able to undo choice of card
 
-    /*
     @Override
     public boolean touchDown(int i, int i1, int i2, int i3) {
-        float x  = Gdx.input.getX();
-        float y = Gdx.input.getY();
-        System.out.println("Y" + Gdx.input.getY());
-        System.out.println("X" + Gdx.input.getX());
-        if (x >460 && x < 515 && y > 810 && y < 895){
-            chosenCards.add(playerDeck.get(0));
-            dummyPlayerDeck -=1;
-            UpdateCardPosition(0,1);
-        }
-        else if(x >530 && x < 590 && y > 810 && y < 895){
-            chosenCards.add(playerDeck.get(1));
-            dummyPlayerDeck -= 1;
-            UpdateCardPosition(2,3);
-        }
-        else if(x >605 && x < 660 && y > 810 && y < 895){
-            chosenCards.add(playerDeck.get(2));
-            dummyPlayerDeck -= 1;
-            UpdateCardPosition(4,5);
-        }
-        else if(x >675 && x < 730 && y > 810 && y < 895){
-            chosenCards.add(playerDeck.get(3));
-            dummyPlayerDeck -=1;
-            UpdateCardPosition(6,7);
-        }
-        else if(x >745 && x < 800 && y > 810 && y < 895){
-            chosenCards.add(playerDeck.get(4));
-            dummyPlayerDeck -=1;
-            UpdateCardPosition(8,9);
-        }
-        else if(x >815 && x < 875 && y > 810 && y < 895){
-            chosenCards.add(playerDeck.get(5));
-            dummyPlayerDeck -= 1 ;
-            UpdateCardPosition(10,11);
-        }
-        else if(x >890 && x < 945 && y > 810 && y < 895){
-            chosenCards.add(playerDeck.get(6));
-            dummyPlayerDeck -= 1 ;
-            UpdateCardPosition(12,13);
-        }
-        else if(x >960 && x < 1015 && y > 810 && y < 895){
-            chosenCards.add(playerDeck.get(7));
-            dummyPlayerDeck -= 1 ;
-            UpdateCardPosition(14,15);
-        }
-        else if(x >1030 && x < 1090 && y > 810 && y < 895){
-            chosenCards.add(playerDeck.get(8));
-            dummyPlayerDeck -= 1 ;
-            UpdateCardPosition(16,17);
-        }
-        return false;
-    }
-    */
-    public boolean touchDown(int i, int i1, int i2, int i3) {
-        float x  = Gdx.input.getX();
-        float y = Gdx.input.getY();
-        //System.out.println("Y" + Gdx.input.getY());
-        System.out.println("X" + Gdx.input.getX());
-        if (x >221 && x < 275 && y > 701 && y < 780){
-            chosenCards.add(playerDeck.get(0));
-            dummyPlayerDeck -=1;
-            UpdateCardPosition(0,1);
-        }
-        else if(x >292 && x < 348 && y > 701 && y < 780){
-            chosenCards.add(playerDeck.get(1));
-            dummyPlayerDeck -= 1;
-            UpdateCardPosition(2,3);
-        }
-        else if(x >364 && x < 419 && y > 701 && y < 780){
-            chosenCards.add(playerDeck.get(2));
-            dummyPlayerDeck -= 1;
-            UpdateCardPosition(4,5);
-        }
-        else if(x >435 && x < 491 && y > 701 && y < 780){
-            chosenCards.add(playerDeck.get(3));
-            dummyPlayerDeck -=1;
-            UpdateCardPosition(6,7);
-        }
-        else if(x >507 && x < 564 && y > 701 && y < 780){
-            chosenCards.add(playerDeck.get(4));
-            dummyPlayerDeck -=1;
-            UpdateCardPosition(8,9);
-        }
-        else if(x >578 && x < 635 && y > 701 && y < 780){
-            chosenCards.add(playerDeck.get(5));
-            dummyPlayerDeck -= 1 ;
-            UpdateCardPosition(10,11);
-        }
-        else if(x >650 && x < 705 && y > 701 && y < 780){
-            chosenCards.add(playerDeck.get(6));
-            dummyPlayerDeck -= 1 ;
-            UpdateCardPosition(12,13);
-        }
-        else if(x >720 && x < 778 && y > 701 && y < 780){
-            chosenCards.add(playerDeck.get(7));
-            dummyPlayerDeck -= 1 ;
-            UpdateCardPosition(14,15);
-        }
-        else if(x >792 && x < 847 && y > 701 && y < 780){
-            chosenCards.add(playerDeck.get(8));
-            dummyPlayerDeck -= 1 ;
-            UpdateCardPosition(16,17);
-        }
-        return false;
+     return false;
     }
 
 
     @Override
     public boolean touchUp(int i, int i1, int i2, int i3) {
+        float x  = xhg;
+        float y = yhg;
+        System.out.println(xhg + " X Pos");
+        System.out.println(yhg +" Y pos");
+
+        if (x >5555 && x < 6005 && y >= 3090 && y <= 3740){
+            chosenCards.add(playerDeck.get(0));
+            dummyPlayerDeck -=1;
+            updateCardPosition(0,1);
+        }
+        else if(x >6080 && x < 6535 && y >= 3090 && y <= 3740){
+            chosenCards.add(playerDeck.get(1));
+            dummyPlayerDeck -= 1;
+            updateCardPosition(2,3);
+        }
+        else if(x >6605 && x < 7060 && y >= 3090 && y <= 3740){
+            chosenCards.add(playerDeck.get(2));
+            dummyPlayerDeck -= 1;
+            updateCardPosition(4,5);
+        }
+        else if(x >5555 && x < 6005 && y >= 2370 && y <= 3020){
+            chosenCards.add(playerDeck.get(3));
+            dummyPlayerDeck -=1;
+            updateCardPosition(6,7);
+        }
+        else if(x >6080 && x < 6535 && y >= 2370 && y <= 3020){
+            chosenCards.add(playerDeck.get(4));
+            dummyPlayerDeck -=1;
+            updateCardPosition(8,9);
+        }
+        else if(x >6605 && x < 7060 && y >= 2370 && y <= 3020){
+            chosenCards.add(playerDeck.get(5));
+            dummyPlayerDeck -= 1 ;
+            updateCardPosition(10,11);
+        }
+        else if(x >5555 && x < 6005 && y >= 1640 && y <= 2290){
+            chosenCards.add(playerDeck.get(6));
+            dummyPlayerDeck -= 1 ;
+            updateCardPosition(12,13);
+        }
+        else if(x >6080 && x < 6535 && y >= 1640 && y <= 2290){
+            chosenCards.add(playerDeck.get(7));
+            dummyPlayerDeck -= 1 ;
+            updateCardPosition(14,15);
+        }
+        else if(x >6605 && x < 7060 && y >= 1640 && y <= 2290){
+            chosenCards.add(playerDeck.get(8));
+            dummyPlayerDeck -= 1 ;
+            updateCardPosition(16,17);
+        }
         return false;
+
     }
 
 
@@ -439,6 +410,8 @@ public class HumanPlayer extends Player implements InputProcessor {
     public boolean scrolled(int i) {
         return false;
     }
+
+
 
 
 }

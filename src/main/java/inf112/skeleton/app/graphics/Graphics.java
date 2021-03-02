@@ -12,6 +12,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector3;
 import inf112.skeleton.app.cards.Card;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.shared.Action;
@@ -20,7 +21,7 @@ import inf112.skeleton.app.shared.Direction;
 
 public class Graphics extends ScreenAdapter implements ApplicationListener{
     private TiledMap tiledMap;
-    private OrthographicCamera camera;
+    public OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private SpriteBatch spriteBatch;
     public HumanPlayer humanPlayer;
@@ -53,7 +54,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
      * test for LHP
      */
     public void cardSize(Sprite sprite){
-        sprite.setSize(400,550);
+        sprite.setSize(455,650);
 
     }
 
@@ -68,6 +69,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         camera.setToOrtho(false, h,w); //something needs adjustment here
         camera.update();
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
+
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         humanPlayer = new HumanPlayer(Direction.NORTH, " Erlend","supermario");
         humanPlayer.playerDeck = humanPlayer.startDeckPlayer(humanPlayer);
@@ -93,7 +95,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         cardSize(uTurnSprite);
         bindCardSpriteToCard();
 
-        background = new Texture("Background2.png");
+        background = new Texture("3.png");
         youwin = new Texture("YouWin.jpg");
     }
 
@@ -164,35 +166,43 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
      */
     @Override
     public void resize(int width, int height) {
-        camera.viewportWidth = width;
-        camera.viewportHeight = height;
+        camera.viewportWidth = 1280;
+        camera.viewportHeight = 720;
         camera.update();
     }
 
     /**
      * This is where the graphics of the game get rendered.
      */
+
+
+
+    public OrthographicCamera cam(){
+        return camera;
+    }
+
     @Override
     public void render() {
         //background image
         spriteBatch.begin();
-        spriteBatch.draw(background, 0, 0, 1500,800);
+        spriteBatch.draw(background, 0, 0, 1280,720);
         spriteBatch.end();
-
+        humanPlayer.coordinates(camera);
         //player on display
+        //System.out.println(humanPlayer.yhg);
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
         tiledMapRenderer.getBatch().begin();
-        System.out.println(humanPlayer.playerCurrentXPosition + "x");
-        System.out.println(humanPlayer.playerCurrentYPosition +"Y");
+        //System.out.println(humanPlayer.playerCurrentXPosition + "x");
+        //System.out.println(humanPlayer.playerCurrentYPosition +"Y");
         bindCardSpriteToCard();
         updateCardPositions();
         player.setPosition(humanPlayer.getPlayerXPosition(), humanPlayer.getPlayerYPosition());
         player.draw(tiledMapRenderer.getBatch());
         humanPlayer.round(humanPlayer);
         tiledMapRenderer.getBatch().end();
-        
+
 
         //if the player has won, get "you win"-message up
         if (humanPlayer.isPlayerOnFlag((TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"))) {
