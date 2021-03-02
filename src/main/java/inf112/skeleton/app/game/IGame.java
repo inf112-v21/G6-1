@@ -14,13 +14,13 @@ public interface IGame {
      */
     Graphics startGame();
 
-    void playGame ();
+    void executeMoves();
 
     boolean isGameOver();
 
     void setUpGame ();
 
-    ArrayList createPlayers(int numberOfPlayers);
+    ArrayList createPlayers();
 
 
 

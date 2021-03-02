@@ -12,7 +12,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Vector3;
 import inf112.skeleton.app.cards.Card;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.shared.Action;
@@ -174,13 +173,6 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     /**
      * This is where the graphics of the game get rendered.
      */
-
-
-
-    public OrthographicCamera cam(){
-        return camera;
-    }
-
     @Override
     public void render() {
         //background image

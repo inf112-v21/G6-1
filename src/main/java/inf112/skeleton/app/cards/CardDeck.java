@@ -67,7 +67,7 @@ public class CardDeck {
      * @return ArrayList : Card
      */
     public ArrayList<Card> getDeck(){
-        ArrayList<Card>deck = new ArrayList<Card>();
+        ArrayList<Card> deck = new ArrayList<Card>();
         deck = cardDeck;
         return deck;
     }
