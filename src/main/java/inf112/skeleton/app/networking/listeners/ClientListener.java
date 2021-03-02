@@ -5,6 +5,9 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.networking.packets.Packets;
+import inf112.skeleton.app.cards.*;
+
+import java.nio.file.Path;
 
 
 /**
@@ -25,7 +28,7 @@ public class ClientListener extends Listener {
      * @param game that is played
      */
     public void initialize(Client cl, Game game) {
-        this.client = cl;
+        this.cl = cl;
         this.game = game;
         message = new Packets.MessagePacket();
         cards = new Packets.CardsPacket();
@@ -37,7 +40,7 @@ public class ClientListener extends Listener {
      * @param connection
      */
     public void isConnected(Connection connection) {
-        System.out.println("CL: Established connection");
+        System.out.println("Cl: Established connection");
         c = false;
     }
 
@@ -47,7 +50,12 @@ public class ClientListener extends Listener {
      * player has chosen to play.
      * @param cardsToBePlayed the cards that the player wants to play
      */
+    public void sendCardsToServer(CardsToBePlayed[] cardsToBePlayed) {
+        Packets.CardsPacket newCards = new Packets.CardsPacket();
+        if (cardsToBePlayed != null) {
 
+        }
+    }
 
     /**
      * Alerts all the clients by sending the start signal to the server.
@@ -55,12 +63,12 @@ public class ClientListener extends Listener {
     public void sendStartSignalToServer() {
         Packets.StartSignalPacket startSignalPacket = new Packets.StartSignalPacket();
         startSignalPacket.start = true;
-        client.sendTCP(startSignalPacket);
+        cl.sendTCP(startSignalPacket);
     }
 
 
     public void sendNameToServer(Packets.NamePacket name) {
-        client.sendTCP(name);
+        cl.sendTCP(name);
     }
 
 
@@ -69,7 +77,7 @@ public class ClientListener extends Listener {
     }
 
 
-
+    // send a text message to other players?
 
 
 
