@@ -19,10 +19,6 @@ public class ServerListener extends Listener {
     private boolean[] allPlayersReady;
     public boolean[] ShutdownPlayer;
 
-
-
-
-
     /**
      *
      * @param server Kryonet server that is being used
@@ -39,9 +35,8 @@ public class ServerListener extends Listener {
         while(players <= 6) {
             allPlayersReady[players] = false;
             ShutdownPlayer[players] = false;
-            i++;
+            players++;
         }
-
         allPlayersReady[1] = true;
     }
 
