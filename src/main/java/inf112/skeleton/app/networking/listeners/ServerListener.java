@@ -12,10 +12,8 @@ public class ServerListener extends Listener {
     private final String map;
     private Server server;
     private int playerNumber = 1;
-
-    private ArrayList<Packets.CardsPacket> cardsReceived;
-
     private boolean[] allPlayersReady;
+    private ArrayList<Packets.CardsPacket> cardsReceived;
     private String[] playerNames;
     public boolean[] ShutdownPlayer;
 
@@ -31,6 +29,10 @@ public class ServerListener extends Listener {
         allPlayersReady = new boolean[6];
         ShutdownPlayer = new boolean[6];
 
+        for (int i = 1; i < 6; i++) {
+            ShutdownPlayer[i] = false;
+        }
+        allPlayersReady[]
     }
 
 
