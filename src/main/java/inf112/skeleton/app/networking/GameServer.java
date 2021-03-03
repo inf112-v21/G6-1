@@ -11,6 +11,7 @@ import inf112.skeleton.app.networking.listeners.ServerListener;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 
@@ -47,13 +48,21 @@ public class GameServer extends Listener {
 
         server.addListener(serverListener);
 
-
         try {
             server.bind(tcpPort, udpPort);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         server.start();
+
+        try {
+            address = InetAddress.getLocalHost();
+            System.out.println(address);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+
         System.out.println("Server has started:O");
 
         //String string = (String) server.getAddress();

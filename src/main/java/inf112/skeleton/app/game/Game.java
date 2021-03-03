@@ -67,7 +67,6 @@ public class Game implements IGame, InputProcessor {
 
         if(choice.equals("1")){
             hostNewGame("RiskyExchange");
-
         }
         else if(choice.equals("2")){
             InetAddress hostIp = null;
