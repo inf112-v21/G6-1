@@ -47,9 +47,8 @@ public class GameServer extends Listener {
 
         System.out.println("Creating the server...");
 
-        Network.register(server);
-
         server.addListener(serverListener);
+        Network.register(server);
 
         try {
             server.bind(tcpPort, udpPort);

@@ -25,7 +25,7 @@ public class ClientListener extends Listener {
     /**
      *
      * @param cl the client that is connected to the server.
-     * @param game that is played
+     * @param game is whats played
      */
     public void initialize(Client cl, Game game) {
         this.cl = cl;
@@ -39,9 +39,9 @@ public class ClientListener extends Listener {
      * send a message to the server and set the connection to true.
      * @param connection
      */
-    public void isConnected(Connection connection) {
+    public void connected(Connection connection) {
         System.out.println("Cl: Established connection");
-        c = false;
+        this.c = true;
     }
 
 
@@ -51,14 +51,19 @@ public class ClientListener extends Listener {
      * @param cardsToBePlayed the cards that the player wants to play
      */
     //TODO CardsToBePlayed eller lingende bør bli laget
-    /*
-    public void sendCardsToServer(CardsToBePlayed[] cardsToBePlayed) {
-        Packets.CardsPacket newCards = new Packets.CardsPacket();
-        if (cardsToBePlayed != null) {
 
+    public void sendCardsToServer(CardDeck cardsToBePlayed) {
+        Packets.CardsPacket cards = new Packets.CardsPacket();
+        if (cardsToBePlayed != null) {
+            cards.playedCards = new int[cardsToBePlayed.length][4];
+            for (int i = 0; i < cardsToBePlayed.length; i++) {
+
+            }
         }
     }
-*/
+
+
+
     /**
      * Alerts all the clients by sending the start signal to the server.
      */
@@ -74,12 +79,29 @@ public class ClientListener extends Listener {
     }
 
 
-    public void received() {
-
+    public void received(Connection c, Object object) {
+        if (object instanceof Packets.CardsPacket) {
+            Packets.CardsPacket p = (Packets.CardsPacket) object;
+            cards = p;
+            game.isReady(p);
+        } else if (object instanceof Packets.PlayerNumberPacket) {
+            Packets.PlayerNumberPacket p = (Packets.PlayerNumberPacket) object;
+            game.setNumberOfPlayers(p.playerNumber);
+        } else if (object instanceof Packets.StartSignalPacket){
+            // public boolean start;
+        } else if (object instanceof Packets.NamePacket) {
+            Packets.NamePacket name = (Packets.NamePacket) object;
+            // game.receivesNames(names);
+        } else if (object instanceof Packets.ReadySignalPacket) {
+            Packets.ReadySignalPacket ready = (Packets.ReadySignalPacket) object;
+            game.getAllReady(ready.allReady);
+        } else if (object instanceof Packets);
     }
 
-
-    // send a text message to other players?
+    public void disconnected() {
+        this.c = false;
+        System.out.println("Cl: You have been disconnected");
+    }
 
 
 

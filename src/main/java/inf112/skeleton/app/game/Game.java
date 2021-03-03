@@ -9,6 +9,7 @@ import inf112.skeleton.app.card.CardDeck;
 import inf112.skeleton.app.graphics.Graphics;
 import inf112.skeleton.app.networking.GameClient;
 import inf112.skeleton.app.networking.GameServer;
+import inf112.skeleton.app.networking.packets.Packets;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.shared.Direction;
@@ -19,7 +20,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 import java.util.concurrent.ThreadPoolExecutor;
-
 
 // Game is the centerpiece, it sends information to the
 // GameClient which in turn send information to the GameServer
@@ -35,8 +35,8 @@ public class Game implements IGame, InputProcessor {
     CardDeck cardDeck;
     GameServer server;
     GameClient client;
-
-
+    private ArrayList<Packets.CardsPacket> allPlayerCards;
+    private boolean[] ready;
 
 
     @Override
@@ -161,10 +161,53 @@ public class Game implements IGame, InputProcessor {
 
     }
 
+    /**
+     *
+     *
+     */
+    public void isReady(Packets.CardsPacket p) {
+        for (Packets.CardsPacket pc : allPlayerCards) {
+            if (pc.playerId == p.playerId) {
+                return;
+            }
+            allPlayerCards.add(p);
+        }
+
+        if (allPlayerCards.size() == numberOfPlayers) {
+            boolean contains = false;
+            for (int i = 1; i < numberOfPlayers; i++) {
+                if (p.playerId == i) {
+                    contains = true;
+                    break;
+                }
+            }
+        }
+        // når alle har sendt inn kort så starter vi runden.
+        executeMoves();
+    }
+
+    public void getAllReady(boolean[] ready) {
+        this.ready = ready;
+    }
+
+
+
+    public void setNumberOfPlayers(int i) {
+        numberOfPlayers = i;
+    }
+
+    public int getNumberOfPlayers(int i) {
+        return numberOfPlayers;
+    }
+
 
     @Override
     public boolean isGameOver() {
         return false;
+    }
+
+    public void setupPlayer() {
+
     }
 
 

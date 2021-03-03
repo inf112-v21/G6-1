@@ -15,8 +15,8 @@ public class ServerListener extends Listener {
 
     private ArrayList<Packets.CardsPacket> cardsReceived;
 
-    private String[] playerNames;
     private boolean[] allPlayersReady;
+    private String[] playerNames;
     public boolean[] ShutdownPlayer;
 
     /**
@@ -40,7 +40,8 @@ public class ServerListener extends Listener {
     // It will print out a message and update what players are on the server
     // and update and send the number of players to all clients.
 
-    public void playerIsConnected(Connection connection) {
+    // TODO må være connected() siden metoden er fra Listener.java
+    public void connected(Connection connection) {
         System.out.println("Player number " + playerNumber + " has connected to the server");
         playerNumber++;
         Packets.PlayerNumberPacket numberOfPlayers = new Packets.PlayerNumberPacket();
@@ -55,15 +56,15 @@ public class ServerListener extends Listener {
      * called and it will print which player disconnected.
      * @param connection
      */
-    public void playerIsDisconnected(Connection connection) {
-        System.out.println("Player: " + playerNumber + " has been disconnected");
+    public void disconnected(Connection connection) {
+        System.out.println("Player: (" + playerNumber + ") has been disconnected");
         playerNumber--;
         playerNames[connection.getID()] = null;
         Packets.PlayerNumberPacket numberOfPlayers = new Packets.PlayerNumberPacket();
         numberOfPlayers.playerNumber = playerNumber;
         server.sendToAllTCP(numberOfPlayers);
-        Packets.NamePacket name = new Packets.NamePacket();
-        server.sendToAllTCP(name);
+        Packets.NamePacket namePacket = new Packets.NamePacket();
+        server.sendToAllTCP(namePacket);
     }
 
     /** When something is sent to the server this method gets called and sorts
