@@ -26,18 +26,19 @@ public class GameClient extends Listener {
     public GameClient(InetAddress ip, Game game) {
         client = new Client();
         cListener = new ClientListener();
-
         cListener.initialize(client, game);
 
-        client.addListener(cListener);
+        Network.register(client);
 
         new Thread(client).start();
+        client.start();
 
         try {
-            client.connect(5000, ip, udpPort,tcpPort);
+            client.connect(5000, ip, tcpPort, udpPort);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        client.addListener(cListener);
     }
 
     public void runClient() {

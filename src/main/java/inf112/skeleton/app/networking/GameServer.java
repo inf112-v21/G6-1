@@ -49,7 +49,7 @@ public class GameServer extends Listener {
 
 
         try {
-            server.bind(udpPort, tcpPort);
+            server.bind(tcpPort, udpPort);
         } catch (IOException e) {
             e.printStackTrace();
         }

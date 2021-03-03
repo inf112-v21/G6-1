@@ -11,7 +11,9 @@ import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.shared.Direction;
 
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 
 // Game is the centerpiece, it sends information to the
@@ -30,7 +32,7 @@ public class Game implements IGame, InputProcessor {
     @Override
     public Graphics startGame() {
         graphics = new Graphics();
-        hostNewGame("RiskyExchange");
+        chooseHostOrJoin();
         return graphics;
     }
 
@@ -45,7 +47,37 @@ public class Game implements IGame, InputProcessor {
 
     public void joinNewGame(InetAddress ip) {
         client = new GameClient(ip,this);
+
         host = false;
+    }
+    public void chooseHostOrJoin () {
+        Scanner HostOrJoin = new Scanner(System.in);
+        System.out.println("Host (1) or join (2) a game?");
+
+        String choice = HostOrJoin.nextLine();
+        System.out.println("You choose " + choice);
+
+        if(choice.equals("1")){
+            hostNewGame("RiskyExchange");
+
+        }
+        else if(choice.equals("2")){
+            InetAddress hostIp = null;
+            Scanner askForIpAddress = new Scanner(System.in);
+            System.out.println("Please enter the server IP to join: ");
+
+            String ChoosenIP = askForIpAddress.nextLine();
+            try {
+                hostIp = InetAddress.getByName(ChoosenIP);
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
+            System.out.println(hostIp.getHostAddress());
+            joinNewGame(hostIp);
+        }
+        else{
+            System.out.println("Please enter 1 or 2 when asked to");
+        }
     }
 
 
