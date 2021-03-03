@@ -27,6 +27,31 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     public Texture background;
     public Texture youWin;
 
+    //Texture for 5 different players
+    public Texture playerGreenEast;
+    public Texture playerGreenNorth;
+    public Texture playerGreenSouth;
+    public Texture playerGreenWest;
+
+    public Texture playerGreyEast;
+    public Texture playerGreyNorth;
+    public Texture playerGreySouth;
+    public Texture playerGreyWest;
+
+    public Texture playerOrangeEast;
+    public Texture playerOrangeNorth;
+    public Texture playerOrangeSouth;
+    public Texture playerOrangeWest;
+
+    public Texture playerPinkEast;
+    public Texture playerPinkNorth;
+    public Texture playerPinkSouth;
+    public Texture playerPinkWest;
+
+    public Texture playerPurpleEast;
+    public Texture playerPurpleNorth;
+    public Texture playerPurpleSouth;
+    public Texture playerPurpleWest;
 
     public Sprite moveOneSprite;
     public Sprite moveTwoSprite;
@@ -47,6 +72,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     private Sprite cardEight;
     private Sprite cardNine;
     private CardMoveLogic cardMoveLogic = new CardMoveLogic();
+
 
 
     /**
@@ -72,7 +98,35 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         humanPlayer = new HumanPlayer(Direction.NORTH, " Erlend","Super mario");
         humanPlayer.playerDeck = cardMoveLogic.playerDeck();
+
         player = new Sprite(new Texture(("Player/OwlPlayer1.png")));
+
+        //New texture for all different player colors
+        playerGreenEast = new Texture(("Player/RobotGreenEast.png"));
+        playerGreenNorth = new Texture(("Player/RobotGreenNorth.png"));
+        playerGreenSouth = new Texture(("Player/RobotGreenSouth.png"));
+        playerGreenWest = new Texture(("Player/RobotGreenWest.png"));
+
+        playerGreyEast = new Texture(("Player/RobotGreyEast.png"));
+        playerGreyNorth = new Texture(("Player/RobotGreyNorth.png"));
+        playerGreySouth = new Texture(("Player/RobotGreySouth.png"));
+        playerGreyWest = new Texture(("Player/RobotGreyWest.png"));
+
+        playerOrangeEast = new Texture(("Player/RobotOrangeEast.png"));
+        playerOrangeNorth = new Texture(("Player/RobotOrangeNorth.png"));
+        playerOrangeSouth = new Texture(("Player/RobotOrangeSouth.png"));
+        playerOrangeWest = new Texture(("Player/RobotOrangeWest.png"));
+
+        playerPinkEast = new Texture(("Player/RobotPinkEast.png"));
+        playerPinkNorth = new Texture(("Player/RobotPinkNorth.png"));
+        playerPinkSouth = new Texture(("Player/RobotPinkSouth.png"));
+        playerPinkWest = new Texture(("Player/RobotPinkWest.png"));
+
+        playerPurpleEast = new Texture(("Player/RobotPurpleEast.png"));
+        playerPurpleNorth = new Texture(("Player/RobotPurpleEast.png"));
+        playerPurpleSouth = new Texture(("Player/RobotPurpleEast.png"));
+        playerPurpleWest = new Texture(("Player/RobotPurpleEast.png"));
+
         player.setSize(300,300);
         Gdx.input.setInputProcessor(humanPlayer);
         player.setPosition(humanPlayer.setPlayerStartXPosition(0) , humanPlayer.setPlayerStartYPosition(0) );
@@ -191,6 +245,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         player.draw(tiledMapRenderer.getBatch());
         humanPlayer.round();
         tiledMapRenderer.getBatch().end();
+        player.setTexture(playerGreenEast);
 
 
         //if the player has won, get "you win"-message up

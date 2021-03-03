@@ -51,7 +51,7 @@ public class ClientListener extends Listener {
      * @param cardsToBePlayed the cards that the player wants to play
      */
     //TODO CardsToBePlayed eller lingende bør bli laget
-
+/*
     public void sendCardsToServer(CardDeck cardsToBePlayed) {
         Packets.CardsPacket cards = new Packets.CardsPacket();
         if (cardsToBePlayed != null) {
@@ -61,7 +61,7 @@ public class ClientListener extends Listener {
             }
         }
     }
-
+*/
 
 
     /**

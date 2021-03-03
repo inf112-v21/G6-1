@@ -179,6 +179,11 @@ public class HumanPlayer extends Player implements InputProcessor {
         else if(x >6605 && x < 7060 && y >= 1640 && y <= 2290){
             cardLogic.moveCardWhenClicked(8,16,17,this);
         }
+
+        if (chosenCards.size() == 5) {
+            // TODO tell game you@re done choosing cards
+        }
+
         return false;
     }
     @Override

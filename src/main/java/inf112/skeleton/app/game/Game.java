@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.card.CardDeck;
+import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.graphics.Graphics;
 import inf112.skeleton.app.networking.GameClient;
 import inf112.skeleton.app.networking.GameServer;
@@ -37,6 +38,9 @@ public class Game implements IGame, InputProcessor {
     GameClient client;
     private ArrayList<Packets.CardsPacket> allPlayerCards;
     private boolean[] ready;
+    CardMoveLogic cardMoveLogic = new CardMoveLogic();
+
+
 
 
     @Override
@@ -142,24 +146,18 @@ public class Game implements IGame, InputProcessor {
 
                 for (Player player: players) {
                     if (player.chosenCards.get(moveNumber).equals(move)) {
-                        // TODO this cast will throw an exception if the player isn't human
-                        // TODO move the method from HumanPlayer to game or
-                        //  at least to Player and make the signature need a plary
-                        //  then remove try catch
-                        try {
-                            player.updatePlayerLocation(move);
-                        } catch (Exception e) {
-
-                        }
+                        player.updatePlayerLocation(move);
                     }
                 }
             }
         }
+        for (Player player: players) {
+            player.cardCoordinates = cardMoveLogic.resetCardCoordinates();
+            player.chosenCards = new ArrayList<>();
+            player.playerDeck = cardMoveLogic.playerDeck();
+        }
     }
 
-    void doMoveOnPlayer(Player player, Card move) {
-
-    }
 
     /**
      *
@@ -202,7 +200,12 @@ public class Game implements IGame, InputProcessor {
 
 
     @Override
-    public boolean isGameOver() {
+    public boolean isGameOver(TiledMapTileLayer flagLayer) {
+        for (Player p: players) {
+            if (p.isPlayerOnFlag(flagLayer)){
+                return true;
+            }
+        }
         return false;
     }
 
