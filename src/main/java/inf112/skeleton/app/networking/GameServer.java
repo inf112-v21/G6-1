@@ -37,7 +37,10 @@ public class GameServer extends Listener {
     }
 
 
-    //Server is being created, and bound to chosen ports then started.
+    /**
+     * Starts the server, tries to bind it and fetches host-ip for futher use.
+     *
+     */
     public void run() {
         server = new Server();
         serverListener = new ServerListener(server,map);
@@ -65,26 +68,35 @@ public class GameServer extends Listener {
 
         System.out.println("Server has started:O");
 
-        //String string = (String) server.getAddress();
-
 
     }
 
 
-    //When something is sent to the server, received() checks what it is and sends it to GameClient
+    //TODO We need this class for anything to be recieved by server from clients
     public void received(Connection c, Object o){
 
     }
 
-    //Used when someone connects to server
-    public static void isConnected(Connection c){
+    /**
+     * Method to be used to tell server a new connection has been made, sending a simple respons to server and
+     * updating names in the names-variable.
+     *
+     * @param c - Connection object used to identify user
+     */
+    public void isConnected(Connection c){
         System.out.println("Received connection from "+ c.getRemoteAddressTCP().getHostString());
         PacketMessage packetMessage = new PacketMessage();
         packetMessage.message = "Heisann!";
         c.sendTCP(packetMessage);
+        updateNames();
     }
 
-    //Used when someone disconnects from server
+    /**
+     * Method to be used to tell server a user has disconnected, sending a simple respons to server, and updates the new
+     * names-list, removing the given user;)
+     *
+     * @param c - Connection object used to identify user
+     */
     public void isDisconnected(Connection c){
         playerConnected Connection = (playerConnected) c;
         if(Connection.name != null) {
@@ -105,6 +117,11 @@ public class GameServer extends Listener {
         
     }
 
+    /**
+     * Methods for keeping the names updated within the server, can be used to add and remove names
+     * //TODO Gjør den faktisk det? Hvis ikke bør den det
+     *
+     */
     public void updateNames() {
         // Collects names for every connected
         Connection[] connections = server.getConnections();

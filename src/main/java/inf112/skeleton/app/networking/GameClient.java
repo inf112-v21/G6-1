@@ -16,13 +16,17 @@ import java.net.InetAddress;
 
 public class GameClient extends Listener {
     static com.esotericsoftware.kryonet.Client client;
-    static InetAddress ip;
     static int udpPort = 54777, tcpPort = 54555;
-    static boolean messageReceived = false;
 
     private ClientListener cListener;
 
 
+    /**
+     * Used to create a client-object. Registers same packets as server does
+     *
+     * @param ip - InetAddress object
+     * @param game
+     */
     public GameClient(InetAddress ip, Game game) {
         client = new Client();
         cListener = new ClientListener();
@@ -36,27 +40,14 @@ public class GameClient extends Listener {
         try {
             client.connect(5000, ip, tcpPort, udpPort);
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-        client.addListener(cListener);
-    }
-
-    public void runClient() {
-        client = new Client();
-        Network.register(client);
-        client.start();
-
-        // Tries to connect to a server times out after 10 seconds.
-        try {
-            client.connect(10000, ip, 54555, 54777);
-        } catch (IOException e) {
             JOptionPane.showMessageDialog(null,"Server is not started. Can not connect");
         }
-        client.addListener(this);
-
+        client.addListener(cListener);
         System.out.println("IP Address: "+ ip.getHostAddress());
-        System.out.println("Client should now be waiting for a packet...\n");
+
     }
+
+//TODO Trenger muligens en recieved her også
 
 
 }

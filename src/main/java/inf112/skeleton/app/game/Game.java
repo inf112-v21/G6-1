@@ -46,7 +46,13 @@ public class Game implements IGame, InputProcessor {
         return graphics;
     }
 
-    //TODO Launche serveren i Game; forslag til metode til det:
+    /**
+     * InetAddress object created by the host. This is the only place server.run() should be used,
+     * to avoid creating more than on server.
+     *
+     * @param map - What map to be used in the hosted game.
+     * @return
+     */
     public InetAddress hostNewGame(String map) {
         server = new GameServer(map);
         server.run();
@@ -55,11 +61,21 @@ public class Game implements IGame, InputProcessor {
         return server.getAddress();
     }
 
+    /**
+     * Creates client object for user. Might need more in this method.
+     *
+     * @param ip InetAddress object, is being called properly in @chooseHostOrJoin()
+     */
     public void joinNewGame(InetAddress ip) {
         client = new GameClient(ip,this);
 
     }
 
+    /**
+     * Method to prompt if user is hosting a game or joining a game. In this method, a proper InetAddress object is
+     * created for @joinNewGame()
+     *
+     */
     public void chooseHostOrJoin () {
         Scanner HostOrJoin = new Scanner(System.in);
         System.out.println("Host (1) or join (2) a game?: ");
