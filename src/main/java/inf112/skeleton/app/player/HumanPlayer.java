@@ -3,6 +3,7 @@ package inf112.skeleton.app.player;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import inf112.skeleton.app.card.Card;
 import com.badlogic.gdx.InputProcessor;
@@ -20,8 +21,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 public class HumanPlayer extends Player implements InputProcessor {
 
 
-    public HumanPlayer(Direction direction, String name, String piece) {
-        super(direction, name, piece);
+    public HumanPlayer(Direction direction, int id, String piece) {
+        super(direction, id, piece);
     }
 
     private float mouseClickXCoordinate;
@@ -32,6 +33,12 @@ public class HumanPlayer extends Player implements InputProcessor {
         cardMoveLogic = new CardMoveLogic();
         mouseClickPosition = new Vector3();
     }
+
+
+
+
+
+
 
     @Override
     public float setPlayerStartXPosition(float playerStartXPosition){
@@ -71,14 +78,10 @@ public class HumanPlayer extends Player implements InputProcessor {
         return cell!= null;
     }
 
-
     @Override
     public boolean canPlayerMoveX(float xDirection, float yDirection) {
         return !(xDirection < 0 || xDirection > 3300 || yDirection < 0 || yDirection > 3900);
     }
-
-
-
 
     @Override
     public int normalizedCoordinates(float unNormalizedValue) {
@@ -200,7 +203,6 @@ public class HumanPlayer extends Player implements InputProcessor {
         if (chosenCards.size() == 5) {
             // TODO tell game you@re done choosing cards
         }
-
         return false;
     }
     @Override

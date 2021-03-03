@@ -27,10 +27,10 @@ public abstract class Player  {
      * @param id The name of the player
      * @param piece The name of chosen piece, which is matched with a Sprite in graphics
      */
-    public Player(Direction direction, int id, String piece) {
+
 
     //TODO comment on the other things
-    public Player(Direction direction, String name, String piece) {
+    public Player(Direction direction, int id, String piece) {
         this.piece = piece;
         this.id = id;
         this.direction = direction;
