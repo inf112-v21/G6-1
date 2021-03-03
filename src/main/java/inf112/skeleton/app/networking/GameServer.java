@@ -77,7 +77,7 @@ public class GameServer extends Listener {
     }
 
     //Used when someone connects to server
-    public void isConnected(Connection c){
+    public static void isConnected(Connection c){
         System.out.println("Received connection from "+ c.getRemoteAddressTCP().getHostString());
         PacketMessage packetMessage = new PacketMessage();
         packetMessage.message = "Heisann!";
@@ -124,22 +124,5 @@ public class GameServer extends Listener {
 
 }
 
-/*
-
-//TODO Launche serveren i Game; forslag til metode til det:
-public InetAddress hostNewGame(String map) {
-    server = new server(map);
-    server.run();
-
-    client = new client(server.getAddress())
-    return server.getAddress()
-}
-
-public void InetAddress joinNewGame(InetAddress ip) {
-    client = new client(ip);
-
-}
-
- */
 
 

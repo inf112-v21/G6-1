@@ -58,9 +58,5 @@ public class GameClient extends Listener {
         System.out.println("Client should now be waiting for a packet...\n");
     }
 
-    public void registerPacks() {
-
-    }
-
 
 }

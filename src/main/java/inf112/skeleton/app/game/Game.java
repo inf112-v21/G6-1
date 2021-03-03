@@ -18,6 +18,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
+import java.util.concurrent.ThreadPoolExecutor;
 
 
 // Game is the centerpiece, it sends information to the
@@ -56,6 +57,7 @@ public class Game implements IGame, InputProcessor {
 
     public void joinNewGame(InetAddress ip) {
         client = new GameClient(ip,this);
+
     }
 
     public void chooseHostOrJoin () {
