@@ -57,7 +57,7 @@ public class Game implements IGame, InputProcessor {
     public void joinNewGame(InetAddress ip) {
         client = new GameClient(ip,this);
     }
-    
+
     public void chooseHostOrJoin () {
         Scanner HostOrJoin = new Scanner(System.in);
         System.out.println("Host (1) or join (2) a game?: ");
@@ -88,22 +88,8 @@ public class Game implements IGame, InputProcessor {
         }
     }
 
+    
 
-    @Override
-    public void playGame() {
-        startGame();
-        //this.numberOfPlayers = 8; //TODO make this function
-
-        // do rounds
-        // cardsToBePlayed ();
-        // stop condition pga render
-    }
-
-
-    @Override
-    public boolean isGameOver() {
-        return false;
-    }
 
     @Override
     public void setUpGame() {
