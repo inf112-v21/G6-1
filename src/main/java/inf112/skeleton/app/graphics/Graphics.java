@@ -1,9 +1,6 @@
 package inf112.skeleton.app.graphics;
 
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -12,12 +9,12 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.graphics.GL20;
 import inf112.skeleton.app.player.LocalHumanPlayer;
+import inf112.skeleton.app.screen.MainMenuScreen;
 import inf112.skeleton.app.shared.Direction;
 
 
-public class Graphics extends ScreenAdapter implements ApplicationListener{
+public class Graphics implements ApplicationListener{
     private TiledMap tiledMap;
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
@@ -51,7 +48,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         spriteBatch = new SpriteBatch();
         camera = new OrthographicCamera();
         camera.zoom = 7f; //Shows more of the board
-        camera.setToOrtho(false, h,w); //something needs adjustment here
+        camera.setToOrtho(false, h, w); //something needs adjustment here
         camera.update();
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
@@ -74,7 +71,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         CardUTurnSprite = new Sprite(new Texture("Cards/U-turn.png"));
         CardSizeAndPosition(CardUTurnSprite,3600);
 
-        background = new Texture("Background2.png");
+        background = new Texture("Background.png");
         youwin = new Texture("YouWin.jpg");
     }
 
@@ -85,8 +82,8 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
      */
     @Override
     public void resize(int width, int height) {
-        camera.viewportWidth = width;
-        camera.viewportHeight = height;
+        camera.viewportWidth = 1280;
+        camera.viewportHeight = 720;
         camera.update();
     }
 
@@ -97,7 +94,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     public void render() {
         //background image
         spriteBatch.begin();
-        spriteBatch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        spriteBatch.draw(background, 0, 0, 1280, 720);
         spriteBatch.end();
 
         //player on display
