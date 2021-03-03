@@ -6,9 +6,11 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.card.CardDeck;
+import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.graphics.Graphics;
 import inf112.skeleton.app.networking.GameClient;
 import inf112.skeleton.app.networking.GameServer;
+import inf112.skeleton.app.networking.packets.Packets;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.shared.Direction;
@@ -19,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 import java.util.concurrent.ThreadPoolExecutor;
-
 
 // Game is the centerpiece, it sends information to the
 // GameClient which in turn send information to the GameServer
@@ -35,6 +36,9 @@ public class Game implements IGame, InputProcessor {
     CardDeck cardDeck;
     GameServer server;
     GameClient client;
+    private ArrayList<Packets.CardsPacket> allPlayerCards;
+    private boolean[] ready;
+    CardMoveLogic cardMoveLogic = new CardMoveLogic();
 
 
 
@@ -142,31 +146,72 @@ public class Game implements IGame, InputProcessor {
 
                 for (Player player: players) {
                     if (player.chosenCards.get(moveNumber).equals(move)) {
-                        // TODO this cast will throw an exception if the player isn't human
-                        // TODO move the method from HumanPlayer to game or
-                        //  at least to Player and make the signature need a plary
-                        //  then remove try catch
-                        try {
-                            player.updatePlayerLocation(move);
-                        } catch (Exception e) {
-
-                        }
+                        player.updatePlayerLocation(move);
                     }
                 }
             }
         }
+        for (Player player: players) {
+            player.cardCoordinates = cardMoveLogic.resetCardCoordinates();
+            player.chosenCards = new ArrayList<>();
+            player.playerDeck = cardMoveLogic.playerDeck();
+        }
     }
 
-    void doMoveOnPlayer(Player player, Card move) {
 
+    /**
+     *
+     *
+     */
+    public void isReady(Packets.CardsPacket p) {
+        for (Packets.CardsPacket pc : allPlayerCards) {
+            if (pc.playerId == p.playerId) {
+                return;
+            }
+            allPlayerCards.add(p);
+        }
+
+        if (allPlayerCards.size() == numberOfPlayers) {
+            boolean contains = false;
+            for (int i = 1; i < numberOfPlayers; i++) {
+                if (p.playerId == i) {
+                    contains = true;
+                    break;
+                }
+            }
+        }
+        // når alle har sendt inn kort så starter vi runden.
+        executeMoves();
+    }
+
+    public void getAllReady(boolean[] ready) {
+        this.ready = ready;
+    }
+
+
+
+    public void setNumberOfPlayers(int i) {
+        numberOfPlayers = i;
+    }
+
+    public int getNumberOfPlayers(int i) {
+        return numberOfPlayers;
     }
 
 
     @Override
-    public boolean isGameOver() {
+    public boolean isGameOver(TiledMapTileLayer flagLayer) {
+        for (Player p: players) {
+            if (p.isPlayerOnFlag(flagLayer)){
+                return true;
+            }
+        }
         return false;
     }
 
+    public void setupPlayer() {
+
+    }
 
     @Override
     public ArrayList<Player> createPlayers() {
@@ -235,4 +280,5 @@ public class Game implements IGame, InputProcessor {
     public boolean scrolled(int i) {
         return false;
     }
+
 }

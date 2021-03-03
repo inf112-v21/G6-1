@@ -19,7 +19,7 @@ import java.util.ArrayList;
 // The server can send and receive data from and to clients.
 // run() starts the server
 
-public class GameServer extends Listener {
+public class GameServer implements Runnable {
     private String map = "RiskyExchange.tmx";
 
     // Server object
@@ -47,9 +47,8 @@ public class GameServer extends Listener {
 
         System.out.println("Creating the server...");
 
-        Network.register(server);
-
         server.addListener(serverListener);
+        Network.register(server);
 
         try {
             server.bind(tcpPort, udpPort);
@@ -114,7 +113,6 @@ public class GameServer extends Listener {
 
     static class playerConnected extends Connection {
         public String name;
-        
     }
 
     /**

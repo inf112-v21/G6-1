@@ -1,5 +1,20 @@
-# INF112 Maven template 
-Simple skeleton with libgdx. 
+# INF112 GameStoppers' RoboRally
+
+This project is built with:
+
+* Java 15.02
+* JUnit 4.11
+* Maven
+
+
+## Installing and using the project
+
+* Clone the project from this repo
+* Installing Maven:
+    * Open computer's consol
+    * Run the command "mvn clean install"
+    
+* In the project overview, go to src/main/java/inf112/skeleton/app and run Main.java
 
 ## Description
 
@@ -8,6 +23,8 @@ to navigate a figure around a 12x14 grid. The board-game will stop, and tell the
 you navigate the figure on top of a flag.
 
 ![Overview](https://github.com/inf112-v21/GameStoppers/blob/master/classDiagram/Updated_ClassDiagram.png?raw=true)
+
+
 
 ## How code runs 
 
@@ -80,4 +97,8 @@ Yassym06 https://github.com/Yassym06
 
 Jethuestad https://github.com/Jethuestad
 
-## Changelog ( Usually for programmers )
+
+## Known bugs
+
+Currently throws "WARNING: An illegal reflective access operation has occurred", 
+however the project still runs and it does not affect performance.

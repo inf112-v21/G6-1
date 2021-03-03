@@ -12,10 +12,10 @@ public class Network {
      * Method used to register all needed classes for the server and client.
      * This must be identical on both server and client.
      *
-     * @param endPoint
+     * @param
      */
-    static public void register (EndPoint endPoint) {
-        Kryo kyro = endPoint.getKryo();
+    static public void register (EndPoint endpoint) {
+        Kryo kyro = endpoint.getKryo();
 
         kyro.register(Packets.CardsPacket.class);
         kyro.register(Packets.MessagePacket.class);
@@ -27,12 +27,14 @@ public class Network {
         kyro.register(Packets.StartSignalPacket.class);
 
 
+
         kyro.register(registerName.class);
         kyro.register(updateNames.class);
         kyro.register(PacketMessage.class);
 
         kyro.register(String[].class);
         kyro.register(int[].class);
+
     }
 
 

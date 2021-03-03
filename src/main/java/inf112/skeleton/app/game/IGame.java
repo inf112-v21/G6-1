@@ -1,6 +1,7 @@
 package inf112.skeleton.app.game;
 
 
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.graphics.Graphics;
 import inf112.skeleton.app.player.HumanPlayer;
 
@@ -16,7 +17,7 @@ public interface IGame {
 
     void executeMoves();
 
-    boolean isGameOver();
+    boolean isGameOver(TiledMapTileLayer flagLayer);
 
     void setUpGame ();
 
