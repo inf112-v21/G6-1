@@ -2,6 +2,7 @@ package inf112.skeleton.app.graphics;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -23,7 +24,6 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     public OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private SpriteBatch spriteBatch;
-    private final CardMoveLogic cardMoveLogic = new CardMoveLogic();
     public HumanPlayer humanPlayer;
 
     public Texture background;
@@ -56,6 +56,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
      */
     public void cardSize(Sprite sprite){
         sprite.setSize(455,650);
+
     }
 
 
@@ -160,8 +161,8 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
 
     /**
      * Displayed on the screen.
-     * @param width of the screen
-     * @param height of the screen
+     * @param width
+     * @param height
      */
     @Override
     public void resize(int width, int height) {
@@ -180,6 +181,8 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, 1280,720);
         spriteBatch.end();
+
+        //player on display
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
