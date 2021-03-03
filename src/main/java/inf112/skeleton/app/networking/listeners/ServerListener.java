@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 // Listener class for receiving and sending data from clients to all clients.
 public class ServerListener extends Listener {
-    private final String map;
+    private String map;
     private Server server;
     private int playerNumber = 1;
     private boolean[] allPlayersReady;
@@ -29,10 +29,6 @@ public class ServerListener extends Listener {
         allPlayersReady = new boolean[6];
         ShutdownPlayer = new boolean[6];
 
-        for (int i = 1; i < 6; i++) {
-            ShutdownPlayer[i] = false;
-        }
-        allPlayersReady[]
     }
 
 
