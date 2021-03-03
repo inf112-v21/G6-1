@@ -52,7 +52,7 @@ public class Game implements IGame, InputProcessor {
     }
     public void chooseHostOrJoin () {
         Scanner HostOrJoin = new Scanner(System.in);
-        System.out.println("Host (1) or join (2) a game?");
+        System.out.println("Host (1) or join (2) a game?: ");
 
         String choice = HostOrJoin.nextLine();
         System.out.println("You choose " + choice);
