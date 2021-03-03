@@ -72,7 +72,7 @@ public class GameServer implements Runnable {
 
 
     //TODO We need this class for anything to be recieved by server from clients
-    public void received(Connection c, Object o){
+    public void received(Connection c, Object o) {
 
     }
 

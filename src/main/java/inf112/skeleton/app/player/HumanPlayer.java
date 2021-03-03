@@ -20,7 +20,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 public class HumanPlayer extends Player implements InputProcessor {
 
 
-    public HumanPlayer(Direction direction, String name, String piece) {
+    public HumanPlayer(Direction direction, int name, String piece) {
         super(direction, name, piece);
     }
 
