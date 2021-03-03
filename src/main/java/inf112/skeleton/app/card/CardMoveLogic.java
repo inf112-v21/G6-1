@@ -1,4 +1,5 @@
 package inf112.skeleton.app.card;
+
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.shared.Action;
 
@@ -8,7 +9,12 @@ import java.util.Arrays;
 public class CardMoveLogic {
     private final CardDeck cardDeck = new CardDeck();
 
-    public  ArrayList<Float> cardOnHandCoordinates(){
+    /**
+     * This method returns the initial card position to where the cards are placed
+     * on the game-board when a player gets a new deck of cards
+     * @return card coordinates for the board
+     */
+    public  ArrayList<Float> resetCardCoordinates(){
         return new ArrayList<>(
                 Arrays.asList(5555f, 3090f,
                         6080f, 3090f,
@@ -40,7 +46,6 @@ public class CardMoveLogic {
         return card.action == Action.MOVE_ONE || card.action == Action.MOVE_TWO|| card.action == Action.MOVE_THREE||card.action== Action.BACK_UP;
     }
 
-
     /**
      * Sets new position for the given card.
      * This function is used to move cards the player is holding
@@ -61,5 +66,21 @@ public class CardMoveLogic {
             player.cardCoordinates.set(cardXPositionIndex,player.cardCoordinates.get(cardXPositionIndex));
             player.cardCoordinates.set(cardYPositionIndex,player.cardCoordinates.get(cardYPositionIndex));
         }
+    }
+
+    /**
+     * This method:
+     * Moves card sprite to the programming slots on the board
+     * Add the card in question to players chosenCard list.
+     * The dummyPlayerDeck get one smaller
+     * @param playerCardDeckIndex the index of the card in players cards on hand
+     * @param cardXPositionIndex the index of the given card coordinate  X
+     * @param cardYPositionIndex the index of the given card coordinate  Y
+     * @param player the given player
+     */
+    public void moveCardWhenClicked(int playerCardDeckIndex, int cardXPositionIndex, int cardYPositionIndex, Player player){
+        player.chosenCards.add(player.playerDeck.get(playerCardDeckIndex));
+        player.dummyPlayerDeck -=1;
+        updateCardPosition(cardXPositionIndex,cardYPositionIndex,player);
     }
 }

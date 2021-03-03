@@ -19,7 +19,7 @@ public abstract class Player  {
     public float playerCurrentXPosition;
     public float playerCurrentYPosition;
     public ArrayList<Float> cardCoordinates;
-    int dummyPlayerDeck;
+    public int dummyPlayerDeck;
 
     /**
      * @param direction The direction the player is facing. Needs to be set only when a player is created

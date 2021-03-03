@@ -1,6 +1,7 @@
 package inf112.skeleton.app.player;
 
 import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
 import inf112.skeleton.app.card.Card;
@@ -108,6 +109,21 @@ public class HumanPlayer extends Player implements InputProcessor {
             setPlayerDirection(card);
         }
     }
+    public void round(){
+        if(dummyPlayerDeck == 4 && chosenCards.size() == 5){
+            updatePlayerLocation(chosenCards.get(0));
+            updatePlayerLocation(chosenCards.get(1));
+            updatePlayerLocation(chosenCards.get(2));
+            updatePlayerLocation(chosenCards.get(3));
+            updatePlayerLocation(chosenCards.get(4));
+            dummyPlayerDeck = 9;
+            chosenCards = new ArrayList<>();
+            playerDeck = new ArrayList<>();
+            playerDeck = cardLogic.playerDeck();
+            cardCoordinates = cardLogic.resetCardCoordinates();
+        }
+    }
+
 
     /**
      * This method saves mouse click coordinates (coordinates on the window that is pushed) to a vector 3 object.
@@ -127,29 +143,9 @@ public class HumanPlayer extends Player implements InputProcessor {
         }
     }
 
-    //TODO dummy method to do rounds without priority used only for development.
-    // Erlend will DELETE BEFORE DELIVERY
-    public void round(){
-        if(dummyPlayerDeck == 4 && chosenCards.size() == 5){
-            updatePlayerLocation(chosenCards.get(0));
-            updatePlayerLocation(chosenCards.get(1));
-            updatePlayerLocation(chosenCards.get(2));
-            updatePlayerLocation(chosenCards.get(3));
-            updatePlayerLocation(chosenCards.get(4));
-            dummyPlayerDeck = 9;
-            chosenCards = new ArrayList<>();
-            playerDeck = new ArrayList<>();
-            playerDeck = cardLogic.playerDeck();
-            cardCoordinates = cardLogic.cardOnHandCoordinates();
-        }
-    }
-
     /**
      * Create a click-box around the cards the player is dealt.
-     * When the card on the screen is clicked with the mouse.
-     * The card sprite moves to the programming slots on the board
-     * The card is added to players chosenCard list.
-     * The dummyPlayerDeck get one less
+     * When the card on the screen is clicked with the mouse moveCardWhenClicked is called.
      */
     @Override
     public boolean touchUp(int i, int i1, int i2, int i3) {
@@ -157,49 +153,31 @@ public class HumanPlayer extends Player implements InputProcessor {
         float y = mouseClickYCoordinate;
 
         if (x >5555 && x < 6005 && y >= 3090 && y <= 3740){
-            chosenCards.add(playerDeck.get(0));
-            dummyPlayerDeck -=1;
-            cardLogic.updateCardPosition(0,1,this);
+            cardLogic.moveCardWhenClicked(0,0,1, this);
         }
         else if(x >6080 && x < 6535 && y >= 3090 && y <= 3740){
-            chosenCards.add(playerDeck.get(1));
-            dummyPlayerDeck -= 1;
-            cardLogic.updateCardPosition(2,3,this);
+            cardLogic.moveCardWhenClicked(1,2,3, this);
         }
         else if(x >6605 && x < 7060 && y >= 3090 && y <= 3740){
-            chosenCards.add(playerDeck.get(2));
-            dummyPlayerDeck -= 1;
-            cardLogic.updateCardPosition(4,5,this);
+            cardLogic.moveCardWhenClicked(2,4,5,this);
         }
         else if(x >5555 && x < 6005 && y >= 2370 && y <= 3020){
-            chosenCards.add(playerDeck.get(3));
-            dummyPlayerDeck -=1;
-            cardLogic.updateCardPosition(6,7,this);
+            cardLogic.moveCardWhenClicked(3,6,7,this);
         }
         else if(x >6080 && x < 6535 && y >= 2370 && y <= 3020){
-            chosenCards.add(playerDeck.get(4));
-            dummyPlayerDeck -=1;
-            cardLogic.updateCardPosition(8,9,this);
+            cardLogic.moveCardWhenClicked(4,8,9,this);
         }
         else if(x >6605 && x < 7060 && y >= 2370 && y <= 3020){
-            chosenCards.add(playerDeck.get(5));
-            dummyPlayerDeck -= 1 ;
-            cardLogic.updateCardPosition(10,11,this);
+            cardLogic.moveCardWhenClicked(5,10,11,this);
         }
         else if(x >5555 && x < 6005 && y >= 1640 && y <= 2290){
-            chosenCards.add(playerDeck.get(6));
-            dummyPlayerDeck -= 1 ;
-            cardLogic.updateCardPosition(12,13,this);
+            cardLogic.moveCardWhenClicked(6,12,13,this);
         }
         else if(x >6080 && x < 6535 && y >= 1640 && y <= 2290){
-            chosenCards.add(playerDeck.get(7));
-            dummyPlayerDeck -= 1 ;
-            cardLogic.updateCardPosition(14,15,this);
+            cardLogic.moveCardWhenClicked(7,14,15,this);
         }
         else if(x >6605 && x < 7060 && y >= 1640 && y <= 2290){
-            chosenCards.add(playerDeck.get(8));
-            dummyPlayerDeck -= 1 ;
-            cardLogic.updateCardPosition(16,17,this);
+            cardLogic.moveCardWhenClicked(8,16,17,this);
         }
         return false;
     }

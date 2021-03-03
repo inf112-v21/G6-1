@@ -16,40 +16,40 @@ public class CardDeck {
      * Creates a sorted card deck ,with all 84 cards with correct priority
      */
     private void renderCardDeck() {
-        int priority = 490;
-        for(int i = 0; i<18; i++){
-            cardDeck.add(new MoveOne(priority, Action.MOVE_ONE));
-            priority += 10;
+        int cardPriority = 490;
+        for(int moveOneCard = 0; moveOneCard < 18; moveOneCard++){
+            cardDeck.add(new MoveOne(cardPriority, Action.MOVE_ONE));
+            cardPriority += 10;
         }
-        priority = 670;
+        cardPriority = 670;
         for(int i = 0; i<12; i++){
-            cardDeck.add(new MoveTwo(priority, Action.MOVE_TWO));
-            priority += 10;
+            cardDeck.add(new MoveTwo(cardPriority, Action.MOVE_TWO));
+            cardPriority += 10;
         }
-        priority = 790;
+        cardPriority = 790;
         for(int i = 0; i<6; i++){
-            cardDeck.add(new MoveThree(priority, Action.MOVE_THREE));
-            priority += 10;
+            cardDeck.add(new MoveThree(cardPriority, Action.MOVE_THREE));
+            cardPriority += 10;
         }
-        priority = 70;
+        cardPriority = 70;
         for(int i = 0; i<18; i++){
-            cardDeck.add(new RotateLeft(priority, Action.ROTATE_LEFT));
-            priority += 10;
+            cardDeck.add(new RotateLeft(cardPriority, Action.ROTATE_LEFT));
+            cardPriority += 10;
         }
-        priority = 80;
+        cardPriority = 80;
         for(int i = 0; i<18; i++){
-            cardDeck.add(new RotateRight(priority, Action.ROTATE_RIGHT));
-            priority += 10;
+            cardDeck.add(new RotateRight(cardPriority, Action.ROTATE_RIGHT));
+            cardPriority += 10;
         }
-        priority = 10;
+        cardPriority = 10;
         for(int i = 0; i<6; i++){
-            cardDeck.add(new UTurn(priority, Action.U_TURN));
-            priority += 10;
+            cardDeck.add(new UTurn(cardPriority, Action.U_TURN));
+            cardPriority += 10;
         }
-        priority = 430;
+        cardPriority = 430;
         for(int i = 0; i<6; i++) {
-            cardDeck.add(new BackUp(priority, Action.BACK_UP));
-            priority += 10;
+            cardDeck.add(new BackUp(cardPriority, Action.BACK_UP));
+            cardPriority += 10;
         }
     }
 
@@ -60,8 +60,6 @@ public class CardDeck {
     public int random(){
         return rand.nextInt(83);
     }
-
-
 
     /**
      * @return enough cards for one player one round "Shuffled"

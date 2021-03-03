@@ -19,7 +19,4 @@ public enum Action {
 
         this.action = action;
     }
-
-    //TODO should MVP actions just be move north, south, west, east
-    //  or should we implement it with rotations?
 }
