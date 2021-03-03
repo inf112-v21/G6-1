@@ -5,7 +5,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.networking.packets.Packets;
-import inf112.skeleton.app.cards.*;
+import inf112.skeleton.app.card.*;
 
 import java.nio.file.Path;
 
@@ -15,7 +15,7 @@ import java.nio.file.Path;
  * Calls methods in the game to be able to send data to game.
  */
 public class ClientListener extends Listener {
-    private Client client;
+    private Client cl;
     private Game game;
     private Packets.MessagePacket message;
     private Packets.CardsPacket cards;
