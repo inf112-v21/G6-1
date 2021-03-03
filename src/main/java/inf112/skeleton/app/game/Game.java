@@ -213,7 +213,6 @@ public class Game implements IGame, InputProcessor {
 
     }
 
-
     @Override
     public ArrayList<Player> createPlayers() {
         ArrayList <Player> playerList = new ArrayList<>();
@@ -281,4 +280,5 @@ public class Game implements IGame, InputProcessor {
     public boolean scrolled(int i) {
         return false;
     }
+
 }

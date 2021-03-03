@@ -31,7 +31,6 @@ public class ServerListener extends Listener {
         allPlayersReady = new boolean[6];
         ShutdownPlayer = new boolean[6];
 
-
     }
 
 
@@ -64,6 +63,7 @@ public class ServerListener extends Listener {
         numberOfPlayers.playerNumber = playerNumber;
         server.sendToAllTCP(numberOfPlayers);
         Packets.NamePacket namePacket = new Packets.NamePacket();
+        namePacket.name = playerNames;
         server.sendToAllTCP(namePacket);
     }
 
@@ -77,6 +77,7 @@ public class ServerListener extends Listener {
         if (object instanceof Packets.MessagePacket) {
             Packets.MessagePacket packet = (Packets.MessagePacket) object;
             server.sendToAllTCP(packet);
+
         } else if (object instanceof Packets.CardsPacket) {
             Packets.CardsPacket cards = (Packets.CardsPacket) object;
             cardsReceived.add(cards);
@@ -86,25 +87,30 @@ public class ServerListener extends Listener {
                 }
                 cardsReceived.clear();
             }
+
         } else if (object instanceof Packets.StartSignalPacket) {
             Packets.StartSignalPacket startSignalPacket = (Packets.StartSignalPacket) object;
             server.sendToAllTCP(startSignalPacket);
+
         } else if (object instanceof Packets.NamePacket) {
             Packets.NamePacket name = (Packets.NamePacket) object;
             playerNames[connection.getID()] = name.name[0];
             name.name = playerNames;
             server.sendToAllTCP(name);
+
         } else if (object instanceof Packets.ReadySignalPacket) {
             Packets.ReadySignalPacket ready = (Packets.ReadySignalPacket) object;
             allPlayersReady[connection.getID()] = ready.signal;
             ready.allReady = allPlayersReady;
             server.sendToAllTCP(ready);
+
         } else if (object instanceof Packets.ShutDownRobotPacket) {
             Packets.ShutDownRobotPacket robotShutdown = (Packets.ShutDownRobotPacket) object;
             ShutdownPlayer[connection.getID()] = true;
             robotShutdown.playersShutdown = ShutdownPlayer;
             server.sendToAllTCP(robotShutdown);
             ShutdownPlayer[connection.getID()] = false;
+
         } else if (object instanceof Packets.RemovePlayerPacket) {
             playerNumber--;
             Packets.PlayerNumberPacket numberOfPlayersConnected = new Packets.PlayerNumberPacket();
@@ -112,8 +118,4 @@ public class ServerListener extends Listener {
             server.sendToAllTCP(numberOfPlayersConnected);
         }
     }
-
-
-
-
 }

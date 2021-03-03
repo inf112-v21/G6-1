@@ -27,6 +27,7 @@ public class Network {
         kyro.register(Packets.StartSignalPacket.class);
 
 
+
         kyro.register(registerName.class);
         kyro.register(updateNames.class);
         kyro.register(PacketMessage.class);

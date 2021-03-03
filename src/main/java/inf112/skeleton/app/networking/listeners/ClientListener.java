@@ -6,6 +6,7 @@ import com.esotericsoftware.kryonet.Listener;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.networking.packets.Packets;
 import inf112.skeleton.app.card.*;
+import inf112.skeleton.app.player.Player;
 
 import java.nio.file.Path;
 
@@ -45,23 +46,21 @@ public class ClientListener extends Listener {
     }
 
 
-    /** VENTER TIL VILDE HAR LAGET FUNKSJONEN TIL DENNE
-     * Sends an array to the server which contains the cards that the
+    /** Sends an array to the server which contains the cards that the
      * player has chosen to play.
      * @param cardsToBePlayed the cards that the player wants to play
      */
-    //TODO CardsToBePlayed eller lingende bør bli laget
-/*
-    public void sendCardsToServer(CardDeck cardsToBePlayed) {
-        Packets.CardsPacket cards = new Packets.CardsPacket();
-        if (cardsToBePlayed != null) {
-            cards.playedCards = new int[cardsToBePlayed.length][4];
-            for (int i = 0; i < cardsToBePlayed.length; i++) {
 
-            }
+    public void sendCardsToServer(Player cardsToBePlayed) {
+        Packets.CardsPacket cards = new Packets.CardsPacket();
+
+        if (cardsToBePlayed.chosenCards.size() == 5) {
+            cards.playedCards = new int[cardsToBePlayed.chosenCards.size()][4];
         }
+        cards.playerId = cl.getID();
+        cl.sendTCP(cards);
     }
-*/
+
 
 
     /**
@@ -74,8 +73,17 @@ public class ClientListener extends Listener {
     }
 
 
+    /**
+     * Sends a String[] name to the sever
+     * @param name
+     */
     public void sendNameToServer(Packets.NamePacket name) {
         cl.sendTCP(name);
+    }
+
+    public void disconeccted(Connection connection) {
+        this.c = false;
+        System.out.println("Cl: You have been disconnected from the server");
     }
 
 
@@ -95,14 +103,33 @@ public class ClientListener extends Listener {
         } else if (object instanceof Packets.ReadySignalPacket) {
             Packets.ReadySignalPacket ready = (Packets.ReadySignalPacket) object;
             game.getAllReady(ready.allReady);
-        } else if (object instanceof Packets);
+        } else if (object instanceof Packets.ShutDownRobotPacket) {
+            Packets.ShutDownRobotPacket shutDownRobotPacket = (Packets.ShutDownRobotPacket) object;
+            // game.shutDownPlayer(shutDownRobotPacket.playersShutdown);
+        }
     }
 
-    public void disconnected() {
-        this.c = false;
-        System.out.println("Cl: You have been disconnected");
+    // Returnerer true hvis du er koblet til serveren
+    public boolean getConnection() {
+        return c;
+    }
+
+    // Sender en boolean verdi til serveren som forteller alle spillerene om at denne spilleren er klar
+    public void sendReadySign(Packets.ReadySignalPacket signal) {
+        cl.sendTCP(signal);
+    }
+
+    // Sender en melding om at spilleren skal skru av brikken sin
+    public void sendRobotShutdownSign() {
+        Packets.ShutDownRobotPacket shutDownRobotPacket = new Packets.ShutDownRobotPacket();
+        cl.sendTCP(shutDownRobotPacket);
     }
 
 
+    // Sletter spilleren slik at de ikke kan spille kort
+    public void removeAPlayerFromTheServer() {
+        Packets.RemovePlayerPacket removePlayerPacket = new Packets.RemovePlayerPacket();
+        cl.sendTCP(removePlayerPacket);
+    }
 
 }

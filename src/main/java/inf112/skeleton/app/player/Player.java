@@ -11,7 +11,7 @@ import java.util.Arrays;
 public abstract class Player  {
 
 
-    public final String name;
+    public final int id;
     public String piece;
     public Direction direction;
     public ArrayList<Card> chosenCards;
@@ -24,12 +24,12 @@ public abstract class Player  {
     /**
      * @param direction The direction the player is facing. Needs to be set only when a player is created
      *                  Then it will be updated automatically during the game
-     * @param name The name of the player
+     * @param id The name of the player
      * @param piece The name of chosen piece, which is matched with a Sprite in graphics
      */
-    public Player(Direction direction, String name, String piece) {
+    public Player(Direction direction, int id, String piece) {
         this.piece = piece;
-        this.name = name;
+        this.id = id;
         this.direction = direction;
         this.playerCurrentXPosition = 0;
         this.playerCurrentYPosition = 0;
