@@ -1,9 +1,6 @@
 package inf112.skeleton.app.graphics;
 
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -12,16 +9,14 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import inf112.skeleton.app.card.Card;
-import inf112.skeleton.app.card.CardMoveLogic;
-import inf112.skeleton.app.player.HumanPlayer;
-import inf112.skeleton.app.shared.Action;
+import inf112.skeleton.app.player.LocalHumanPlayer;
+import inf112.skeleton.app.screen.MainMenuScreen;
 import inf112.skeleton.app.shared.Direction;
 
 
 public class Graphics extends ScreenAdapter implements ApplicationListener{
     private TiledMap tiledMap;
-    public OrthographicCamera camera;
+    private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private SpriteBatch spriteBatch;
     public HumanPlayer humanPlayer;
@@ -67,7 +62,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         spriteBatch = new SpriteBatch();
         camera = new OrthographicCamera();
         camera.zoom = 7f; //Shows more of the board
-        camera.setToOrtho(false, h,w); //something needs adjustment here
+        camera.setToOrtho(false, h, w); //something needs adjustment here
         camera.update();
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
 
@@ -96,7 +91,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         cardSize(uTurnSprite);
         bindCardSpriteToCard();
 
-        background = new Texture("3.png");
+        background = new Texture("Background.png");
         youWin = new Texture("YouWin.jpg");
     }
 
@@ -174,12 +169,11 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     /**
      * This is where the graphics of the game get rendered.
      */
-
     @Override
     public void render() {
         //background image
         spriteBatch.begin();
-        spriteBatch.draw(background, 0, 0, 1280,720);
+        spriteBatch.draw(background, 0, 0, 1280, 720);
         spriteBatch.end();
 
         //player on display
@@ -208,7 +202,6 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
             //use timer
             //dispose(); //maybe get "you win" message up before it disposes so quickly
         }
-
     }
 
     @Override
