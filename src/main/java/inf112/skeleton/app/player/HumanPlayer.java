@@ -26,10 +26,10 @@ public class HumanPlayer extends Player implements InputProcessor {
 
     private float mouseClickXCoordinate;
     private float mouseClickYCoordinate;
-    private final CardMoveLogic cardLogic;
+    private final CardMoveLogic cardMoveLogic;
     private final Vector3 mouseClickPosition;
     {
-        cardLogic = new CardMoveLogic();
+        cardMoveLogic = new CardMoveLogic();
         mouseClickPosition = new Vector3();
     }
 
@@ -71,10 +71,14 @@ public class HumanPlayer extends Player implements InputProcessor {
         return cell!= null;
     }
 
+
     @Override
-    public boolean canPlayerMove(float xDirection, float yDirection) {
+    public boolean canPlayerMoveX(float xDirection, float yDirection) {
         return !(xDirection < 0 || xDirection > 3300 || yDirection < 0 || yDirection > 3900);
     }
+
+
+
 
     @Override
     public int normalizedCoordinates(float unNormalizedValue) {
@@ -92,23 +96,37 @@ public class HumanPlayer extends Player implements InputProcessor {
        else if (newPlayerDirection == 270) this.direction = Direction.WEST;
     }
 
+// TODO comment
+    public float movePlayerAsFarAsPossible(float position){
+        if(direction == Direction.NORTH && !canPlayerMoveX(getPlayerXPosition(),position)) return 3900;
+        else if(direction == Direction.SOUTH && !canPlayerMoveX(getPlayerXPosition(),position) ) return 0;
+        else if(direction == Direction.WEST && !canPlayerMoveX(position, getPlayerYPosition()) ) return 0;
+        else if(direction == Direction.EAST && !canPlayerMoveX(position, getPlayerYPosition()) ) return 3300;
+        return position;
+    }
+// TODO update comments
     @Override
     public void updatePlayerLocation(Card card) {
         float cardAction = card.action.getAction();
-        if (cardLogic.moveTypeCard(card)) {
-            if (this.direction == Direction.NORTH && canPlayerMove(getPlayerXPosition(), getPlayerYPosition() + cardAction)) {
-                updatePlayerYPosition(getPlayerYPosition() + cardAction);
-            } else if (this.direction == Direction.SOUTH && canPlayerMove(getPlayerXPosition(), getPlayerYPosition() - cardAction)) {
-                updatePlayerYPosition(getPlayerYPosition() - cardAction);
-            } else if (this.direction == Direction.EAST && canPlayerMove(getPlayerXPosition()+cardAction, getPlayerYPosition())) {
-                updatePlayerXPosition(getPlayerXPosition() + cardAction);
-            } else if (this.direction == Direction.WEST && canPlayerMove(getPlayerXPosition()-cardAction, getPlayerYPosition())) {
-                updatePlayerXPosition(getPlayerXPosition() - cardAction);
+
+        if (cardMoveLogic.moveTypeCard(card)) {
+            if(this.direction == Direction.NORTH){
+                updatePlayerYPosition(movePlayerAsFarAsPossible(getPlayerYPosition()+ cardAction));
             }
-        } else if (!cardLogic.moveTypeCard(card)) {
+            else if (this.direction == Direction.SOUTH){
+                updatePlayerYPosition(movePlayerAsFarAsPossible(getPlayerYPosition() - cardAction));
+            }
+             else if (this.direction == Direction.EAST) {
+                updatePlayerXPosition(movePlayerAsFarAsPossible(getPlayerXPosition() + cardAction));
+
+            } else if (this.direction == Direction.WEST) {
+                updatePlayerXPosition(movePlayerAsFarAsPossible(getPlayerXPosition() - cardAction));
+            }
+        } else if (!cardMoveLogic.moveTypeCard(card)) {
             setPlayerDirection(card);
         }
     }
+
     public void round(){
         if(dummyPlayerDeck == 4 && chosenCards.size() == 5){
             updatePlayerLocation(chosenCards.get(0));
@@ -119,11 +137,10 @@ public class HumanPlayer extends Player implements InputProcessor {
             dummyPlayerDeck = 9;
             chosenCards = new ArrayList<>();
             playerDeck = new ArrayList<>();
-            playerDeck = cardLogic.playerDeck();
-            cardCoordinates = cardLogic.resetCardCoordinates();
+            playerDeck = cardMoveLogic.playerDeck();
+            cardCoordinates = cardMoveLogic.resetCardCoordinates();
         }
     }
-
 
     /**
      * This method saves mouse click coordinates (coordinates on the window that is pushed) to a vector 3 object.
@@ -153,31 +170,31 @@ public class HumanPlayer extends Player implements InputProcessor {
         float y = mouseClickYCoordinate;
 
         if (x >5555 && x < 6005 && y >= 3090 && y <= 3740){
-            cardLogic.moveCardWhenClicked(0,0,1, this);
+            cardMoveLogic.moveCardWhenClicked(0,0,1, this);
         }
         else if(x >6080 && x < 6535 && y >= 3090 && y <= 3740){
-            cardLogic.moveCardWhenClicked(1,2,3, this);
+            cardMoveLogic.moveCardWhenClicked(1,2,3, this);
         }
         else if(x >6605 && x < 7060 && y >= 3090 && y <= 3740){
-            cardLogic.moveCardWhenClicked(2,4,5,this);
+            cardMoveLogic.moveCardWhenClicked(2,4,5,this);
         }
         else if(x >5555 && x < 6005 && y >= 2370 && y <= 3020){
-            cardLogic.moveCardWhenClicked(3,6,7,this);
+            cardMoveLogic.moveCardWhenClicked(3,6,7,this);
         }
         else if(x >6080 && x < 6535 && y >= 2370 && y <= 3020){
-            cardLogic.moveCardWhenClicked(4,8,9,this);
+            cardMoveLogic.moveCardWhenClicked(4,8,9,this);
         }
         else if(x >6605 && x < 7060 && y >= 2370 && y <= 3020){
-            cardLogic.moveCardWhenClicked(5,10,11,this);
+            cardMoveLogic.moveCardWhenClicked(5,10,11,this);
         }
         else if(x >5555 && x < 6005 && y >= 1640 && y <= 2290){
-            cardLogic.moveCardWhenClicked(6,12,13,this);
+            cardMoveLogic.moveCardWhenClicked(6,12,13,this);
         }
         else if(x >6080 && x < 6535 && y >= 1640 && y <= 2290){
-            cardLogic.moveCardWhenClicked(7,14,15,this);
+            cardMoveLogic.moveCardWhenClicked(7,14,15,this);
         }
         else if(x >6605 && x < 7060 && y >= 1640 && y <= 2290){
-            cardLogic.moveCardWhenClicked(8,16,17,this);
+            cardMoveLogic.moveCardWhenClicked(8,16,17,this);
         }
         return false;
     }
@@ -195,5 +212,4 @@ public class HumanPlayer extends Player implements InputProcessor {
     public boolean keyTyped(char c) {return false;}
     @Override
     public boolean touchDown(int i, int i1, int i2, int i3) {return false;}
-
 }

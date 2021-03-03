@@ -27,6 +27,8 @@ public abstract class Player  {
      * @param name The name of the player
      * @param piece The name of chosen piece, which is matched with a Sprite in graphics
      */
+
+    //TODO comment on the other things
     public Player(Direction direction, String name, String piece) {
         this.piece = piece;
         this.name = name;
@@ -106,7 +108,7 @@ public abstract class Player  {
      * @return boolean
      */
 
-    public abstract boolean canPlayerMove(float xDirection, float yDirection);
+    public abstract boolean canPlayerMoveX(float xDirection, float yDirection);
 
     /**
      * Calculate normalized coordinates. The tiled-map operates with

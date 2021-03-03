@@ -21,6 +21,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     private TiledMap tiledMap;
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
+
     private SpriteBatch spriteBatch;
     public HumanPlayer humanPlayer;
 
@@ -35,8 +36,9 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     public Sprite rotateRightSprite;
     public Sprite backUpSprite;
     public Sprite uTurnSprite;
-    public Sprite player;
 
+    public Sprite player;
+    public Texture test;
     private Sprite cardOne;
     private Sprite cardTwo;
     private Sprite cardThree;
@@ -62,6 +64,12 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     public void create() {
         float w = 600;
         float h = 1000;
+
+
+        test = new Texture("Cards/Move1.png");
+
+
+
         spriteBatch = new SpriteBatch();
         camera = new OrthographicCamera();
         camera.zoom = 7f; //Shows more of the board
@@ -72,7 +80,10 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         humanPlayer = new HumanPlayer(Direction.NORTH, " Erlend","Super mario");
         humanPlayer.playerDeck = cardMoveLogic.playerDeck();
+
         player = new Sprite(new Texture(("Player/OwlPlayer1.png")));
+
+
         player.setSize(300,300);
         Gdx.input.setInputProcessor(humanPlayer);
         player.setPosition(humanPlayer.setPlayerStartXPosition(0) , humanPlayer.setPlayerStartYPosition(0) );
@@ -174,6 +185,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
      */
     @Override
     public void render() {
+        //player.setTexture(test);
         //background image
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, 1280, 720);
