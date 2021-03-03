@@ -47,6 +47,8 @@ public class GameClient extends Listener {
 
     }
 
+
+
 //TODO Trenger muligens en recieved her også
 
 
