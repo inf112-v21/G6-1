@@ -4,8 +4,8 @@ package inf112.skeleton.app.game;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import inf112.skeleton.app.cards.Card;
-import inf112.skeleton.app.cards.CardDeck;
+import inf112.skeleton.app.card.Card;
+import inf112.skeleton.app.card.CardDeck;
 import inf112.skeleton.app.graphics.Graphics;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
@@ -68,7 +68,7 @@ public class Game implements IGame, InputProcessor {
                         //  at least to Player and make the signature need a plary
                         //  then remove try catch
                         try {
-                            player.updatePlayerLocation((HumanPlayer) player, move);
+                            player.updatePlayerLocation(move);
                         } catch (Exception e) {
 
                         }

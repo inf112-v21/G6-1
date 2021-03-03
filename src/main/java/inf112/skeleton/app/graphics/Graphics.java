@@ -48,7 +48,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     private Sprite cardSeven;
     private Sprite cardEight;
     private Sprite cardNine;
-
+    private CardMoveLogic cardMoveLogic = new CardMoveLogic();
 
 
     /**
