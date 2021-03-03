@@ -56,9 +56,8 @@ public class Game implements IGame, InputProcessor {
 
     public void joinNewGame(InetAddress ip) {
         client = new GameClient(ip,this);
-
-        host = false;
     }
+    
     public void chooseHostOrJoin () {
         Scanner HostOrJoin = new Scanner(System.in);
         System.out.println("Host (1) or join (2) a game?: ");
