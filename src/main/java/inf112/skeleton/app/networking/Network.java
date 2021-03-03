@@ -7,10 +7,10 @@ import inf112.skeleton.app.networking.packets.Packets;
 
 //In this class, common methods for both Server and Client will be implemented.
 public class Network {
-    static public final int udpPort = 54777, tcpPort = 54555;
 
     /**
      * Method used to register all needed classes for the server and client.
+     * This must be identical on both server and client.
      *
      * @param endPoint
      */
@@ -34,6 +34,7 @@ public class Network {
         kyro.register(String[].class);
         kyro.register(int[].class);
     }
+
 
     static public class registerName{
         public String name;
