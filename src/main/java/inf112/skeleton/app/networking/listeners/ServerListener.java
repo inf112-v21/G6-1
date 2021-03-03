@@ -3,19 +3,23 @@ package inf112.skeleton.app.networking.listeners;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
+import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.networking.packets.Packets;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 // Listener class for receiving and sending data from clients to all clients.
 public class ServerListener extends Listener {
+    public int numberOfPlayers = 2; // TODO actually handle
     private final String map;
     private Server server;
     private int playerNumber = 1;
     private boolean[] allPlayersReady;
-    private ArrayList<Packets.CardsPacket> cardsReceived;
+    private HashMap<Integer, ArrayList<Card>> cardsReceived;
     private String[] playerNames;
     public boolean[] ShutdownPlayer;
+    public final int MAX_PLAYERS = 5;
 
     /**
      *
@@ -24,15 +28,15 @@ public class ServerListener extends Listener {
     public ServerListener(Server server, String map) {
         this.server = server;
         this.map = map;
-        playerNames = new String[6];
-        cardsReceived = new ArrayList<>();
-        allPlayersReady = new boolean[6];
-        ShutdownPlayer = new boolean[6];
+        playerNames = new String[MAX_PLAYERS];
+        cardsReceived = new HashMap<Integer, ArrayList<Card>>();
+        allPlayersReady = new boolean[MAX_PLAYERS];
+        ShutdownPlayer = new boolean[MAX_PLAYERS];
 
-        for (int i = 1; i < 6; i++) {
+
+        for (int i = 0; i < MAX_PLAYERS; i++) {
             ShutdownPlayer[i] = false;
         }
-        allPlayersReady[]
     }
 
 
@@ -69,6 +73,22 @@ public class ServerListener extends Listener {
         server.sendToAllTCP(namePacket);
     }
 
+    public void sendAllMovesToClients() {
+        // Nå vet vi at vi har motatt kort
+        // Sjekk om vi har motatt alle spillerene sine kort
+        // Hvis det er tilfelle så har vi lyst til å sende roundPacket til alle
+
+        if (cardsReceived.size() != numberOfPlayers) {
+            return;
+        }
+        Packets.RoundPacket roundPacket = new Packets.RoundPacket();
+        roundPacket.playerMoves = cardsReceived;
+
+        server.sendToAllTCP(roundPacket);
+        System.out.println("card sent");
+        cardsReceived.clear();
+    }
+
     /** When something is sent to the server this method gets called and sorts
      *  out what type of message it is before it sends it all clients
      *
@@ -82,13 +102,11 @@ public class ServerListener extends Listener {
 
         } else if (object instanceof Packets.CardsPacket) {
             Packets.CardsPacket cards = (Packets.CardsPacket) object;
-            cardsReceived.add(cards);
-            if (cardsReceived.size() == playerNumber) {
-                for (Packets.CardsPacket p : cardsReceived) {
-                    server.sendToAllTCP(p);
-                }
-                cardsReceived.clear();
-            }
+            cardsReceived.put(cards.playerId, cards.playedCards);
+
+            sendAllMovesToClients();
+
+
 
         } else if (object instanceof Packets.StartSignalPacket) {
             Packets.StartSignalPacket startSignalPacket = (Packets.StartSignalPacket) object;

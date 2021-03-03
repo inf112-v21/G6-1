@@ -96,7 +96,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
 
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-        humanPlayer = new HumanPlayer(Direction.NORTH, " Erlend","Super mario");
+        humanPlayer = new HumanPlayer(Direction.NORTH, 115,"Super mario");
         humanPlayer.playerDeck = cardMoveLogic.playerDeck();
 
         player = new Sprite(new Texture(("Player/OwlPlayer1.png")));
