@@ -2,7 +2,6 @@ package inf112.skeleton.app.graphics;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,8 +11,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.math.Vector3;
-import inf112.skeleton.app.cards.Card;
+import inf112.skeleton.app.card.Card;
+import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Direction;
@@ -24,10 +23,12 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     public OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private SpriteBatch spriteBatch;
+    private final CardMoveLogic cardMoveLogic = new CardMoveLogic();
     public HumanPlayer humanPlayer;
 
     public Texture background;
-    public Texture youwin;
+    public Texture youWin;
+
 
     public Sprite moveOneSprite;
     public Sprite moveTwoSprite;
@@ -55,7 +56,6 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
      */
     public void cardSize(Sprite sprite){
         sprite.setSize(455,650);
-
     }
 
 
@@ -71,11 +71,11 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
 
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-        humanPlayer = new HumanPlayer(Direction.NORTH, " Erlend","supermario");
-        humanPlayer.playerDeck = humanPlayer.startDeckPlayer(humanPlayer);
+        humanPlayer = new HumanPlayer(Direction.NORTH, " Erlend","Super mario");
+        humanPlayer.playerDeck = cardMoveLogic.playerDeck();
         player = new Sprite(new Texture(("Player/OwlPlayer1.png")));
         player.setSize(300,300);
-        Gdx.input.setInputProcessor((InputProcessor) humanPlayer);
+        Gdx.input.setInputProcessor(humanPlayer);
         player.setPosition(humanPlayer.setPlayerStartXPosition(0) , humanPlayer.setPlayerStartYPosition(0) );
 
         //Create cardSprite to be matched whit correct backend card.
@@ -96,7 +96,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         bindCardSpriteToCard();
 
         background = new Texture("3.png");
-        youwin = new Texture("YouWin.jpg");
+        youWin = new Texture("YouWin.jpg");
     }
 
     /**
@@ -117,7 +117,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     /**
      * Help method for bindCardSpriteToCard.
      * Checks the type of card from the player card deck
-     * @param playerCard
+     * @param playerCard player card to match with sprite
      * @return Sprite
      */
     public Sprite getMatchingSpriteToPlayerCard(Card playerCard) {
@@ -153,7 +153,6 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         cardEight.draw(tiledMapRenderer.getBatch());
         cardNine.setPosition(humanPlayer.cardCoordinates.get(16),humanPlayer.cardCoordinates.get(17));
         cardNine.draw(tiledMapRenderer.getBatch());
-
     }
 
 
@@ -161,8 +160,8 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
 
     /**
      * Displayed on the screen.
-     * @param width
-     * @param height
+     * @param width of the screen
+     * @param height of the screen
      */
     @Override
     public void resize(int width, int height) {
@@ -175,32 +174,22 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
      * This is where the graphics of the game get rendered.
      */
 
-
-
-    public OrthographicCamera cam(){
-        return camera;
-    }
-
     @Override
     public void render() {
         //background image
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, 1280,720);
         spriteBatch.end();
-        humanPlayer.coordinates(camera);
-        //player on display
-        //System.out.println(humanPlayer.yhg);
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
+        humanPlayer.setMouseClickCoordinates(camera);
         tiledMapRenderer.getBatch().begin();
-        //System.out.println(humanPlayer.playerCurrentXPosition + "x");
-        //System.out.println(humanPlayer.playerCurrentYPosition +"Y");
         bindCardSpriteToCard();
         updateCardPositions();
         player.setPosition(humanPlayer.getPlayerXPosition(), humanPlayer.getPlayerYPosition());
         player.draw(tiledMapRenderer.getBatch());
-        humanPlayer.round(humanPlayer);
+        humanPlayer.round();
         tiledMapRenderer.getBatch().end();
 
 
@@ -210,7 +199,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
             System.out.println("You Won!");
             //"you win" screen pops up
             spriteBatch.begin();
-            spriteBatch.draw(youwin, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            spriteBatch.draw(youWin, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
             spriteBatch.end();
             pause();
             //use timer
@@ -237,6 +226,6 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         tiledMap.dispose();
         spriteBatch.dispose();
         background.dispose();
-        youwin.dispose();
+        youWin.dispose();
     }
 }
