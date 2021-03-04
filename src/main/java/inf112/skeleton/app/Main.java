@@ -21,5 +21,5 @@ public class Main {
         Game game = new Game();
         new Lwjgl3Application(game.startGame(), cfg);
 
-        }
     }
+}

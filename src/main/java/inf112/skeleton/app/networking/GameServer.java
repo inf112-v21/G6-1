@@ -140,7 +140,7 @@ public class GameServer implements Runnable {
     }
 
 
-    // used in testttt
+    // used in test
     public ArrayList<Card> getCardsLastUsed() {
         if (serverListener.getReceivedCards().isEmpty()) {
             return null;
