@@ -59,7 +59,7 @@ public class CardsAreSentTest {
         }
 
         for (int i = 0; i < cards.size(); i++) {
-            assertEquals(cards.get(i), );
+            //assertEquals(cards.get(i), );
         }
 
 
