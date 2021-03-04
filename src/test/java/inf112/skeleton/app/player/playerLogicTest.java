@@ -13,6 +13,12 @@ import org.junit.jupiter.api.Assertions;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class playerLogicTest {
+
+    /**
+     * In order for the test to run, a game window must be initialised.
+     * When the game window is manually closed, the tests will run as expected.
+     */
+
     Graphics graphics = new Graphics();
     Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
     HumanPlayer humanPlayer = new HumanPlayer(Direction.NORTH, 1,"Super mario");
