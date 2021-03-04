@@ -56,14 +56,15 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
 
 
 
-    public void updateCardSprite(ArrayList<Sprite> cardSprite, Player humanPlayer){
+    public void updateCardSprite(Player humanPlayer){
         int cardNumber = 0;
         int cardCoordinateX = 0;
         int cardCoordinateY = 1;
         for (Sprite card: cardSpriteList){
+            setInputProcessor(playerOne);
             card.setSize(455, 650);
             card.setPosition(humanPlayer.cardCoordinates.get(cardCoordinateX),humanPlayer.cardCoordinates.get(cardCoordinateY));
-            card.setTexture(getCardTexture.get(humanPlayer.playerDeck.get(cardNumber).action));
+            card.setTexture(cardGraphics.getCardTexture().get(humanPlayer.playerDeck.get(cardNumber).action));
             card.draw(tiledMapRenderer.getBatch());
             cardNumber++;
             cardCoordinateX +=2;
@@ -91,13 +92,13 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     }
 // TODO refactor after test
     public void playFunctions(HumanPlayer player){
-        updateCardSprite(cardSpriteList, player);
+        updateCardSprite(player);
         player.setMouseClickCoordinates(camera);
     }
 
     public void updatePlayerSprite(ArrayList<Player> players){
         HashMap<Color, Sprite> playersSprite = getPlayerSprite();
-        for (Player player : testPlayer){
+        for (Player player : players){
             playFunctions(playerOne);
             playersSprite.get(player.color).setTexture(playerGraphics.getPlayerTextures().get(player.color).get(player.direction));
             playersSprite.get(player.color).setSize(300,300);
@@ -108,7 +109,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     @Override
     public void create() {
 /*
-        playerOne = testClass.createhuman().get(0);
+       playerOne = testClass.createhuman().get(0);
         playerOneSprite = new Sprite((playerGraphics.getPlayerTextures().get(playerOne.color).get(playerOne.direction)));;
         playerOneSprite.setSize(300,300);
 
@@ -119,6 +120,8 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         testPlayer.add(playerOne);
         testPlayer.add(playerTwo);
 */
+
+
         playerSprite = getPlayerSprite();
 
         float w = 600;
@@ -132,8 +135,8 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         startTexture = new Texture("Player/OwlPlayer.png");
-        getCardTexture = cardGraphics.getCardTexture();
-        setInputProcessor(playerOne);
+        //getCardTexture = cardGraphics.getCardTexture();
+        //
         background = new Texture("Background.png");
         youWin = new Texture("YouWin.jpg");
     }
@@ -164,9 +167,13 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
+
         tiledMapRenderer.getBatch().begin();
+
+
         updatePlayerSprite(game.players);
-       // playerOne.round();
+        playerOne.round();
+
         tiledMapRenderer.getBatch().end();
 
         }

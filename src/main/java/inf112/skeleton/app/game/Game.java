@@ -43,8 +43,6 @@ public class Game implements IGame, InputProcessor {
     CardMoveLogic cardMoveLogic = new CardMoveLogic();
 
 
-
-
     @Override
     public Graphics startGame() {
         graphics = new Graphics();
