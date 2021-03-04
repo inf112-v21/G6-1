@@ -31,7 +31,7 @@ public class Game implements IGame, InputProcessor {
 
     private Graphics graphics;
     /** The number of players in this game */
-    int numberOfPlayers;
+    private int numberOfPlayers;
     /** The current players in this game */
     public ArrayList<Player> players;
     /** The card handler */
@@ -104,31 +104,11 @@ public class Game implements IGame, InputProcessor {
             System.out.println(hostIp.getHostAddress());
             joinNewGame(hostIp);
         }
-        else{
+        else {
             System.out.println("Please enter 1 or 2 when asked to");
             chooseHostOrJoin();
         }
     }
-
-    
-
-
-    @Override
-    public void setUpGame() {
-
-        // ask number of players
-        // await num of player selection
-
-        // present board choices
-        // await board selection
-
-    }
-
-
-    // 1. Setup kjøres, spillere og brett initialiseres
-    // 2. så lenge spill ikke er over playRound()
-    // => vi kan anta at brett og spillere finnes når vi kaller playRound
-    // => Anta også at klasse for å deale kort er initialisert
 
     @Override
     public void executeMoves(HashMap<Integer, ArrayList<Card>> playerMoves) {
@@ -162,9 +142,6 @@ public class Game implements IGame, InputProcessor {
     }
 
 
-    /**
-     *
-     */
     public void isReady(Packets.CardsPacket p) {
         for (Packets.CardsPacket pc : allPlayerCards) {
             if (pc.playerId == p.playerId) {
@@ -182,24 +159,16 @@ public class Game implements IGame, InputProcessor {
                 }
             }
         }
-        // når alle har sendt inn kort så starter vi runden.
-        //executeMoves();
     }
 
     public void getAllReady(boolean[] ready) {
         this.ready = ready;
     }
 
-
-
-    public void setNumberOfPlayers(int i) {
-        numberOfPlayers = i;
+    public void setNumberOfPlayers(int numberOfPlayers) {
+        this.numberOfPlayers = numberOfPlayers;
+        createPlayers();
     }
-
-    public int getNumberOfPlayers(int i) {
-        return numberOfPlayers;
-    }
-
 
     @Override
     public boolean isGameOver(TiledMapTileLayer flagLayer) {
@@ -211,15 +180,13 @@ public class Game implements IGame, InputProcessor {
         return false;
     }
 
-    public void setupPlayer() {
-
-    }
-
     @Override
     public ArrayList<Player> createPlayers() {
         ArrayList <Player> playerList = new ArrayList<>();
         for (int i = 0; i < numberOfPlayers; i++) {
-            playerList.add(new HumanPlayer(Direction.NORTH, 007, Color.GREEN));
+            // TODO map number to color and use in construtor
+            Color playerColor = Color.GREEN;
+            playerList.add(new HumanPlayer(Direction.NORTH, i, playerColor));
         }
         this.players = playerList;
         return playerList;

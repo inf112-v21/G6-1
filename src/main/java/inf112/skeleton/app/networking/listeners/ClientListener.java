@@ -3,13 +3,9 @@ package inf112.skeleton.app.networking.listeners;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import com.jcraft.jogg.Packet;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.networking.packets.Packets;
-import inf112.skeleton.app.card.*;
 import inf112.skeleton.app.player.Player;
-
-import java.nio.file.Path;
 
 
 /**
@@ -99,8 +95,8 @@ public class ClientListener extends Listener {
             game.isReady(p);
         } else if (object instanceof Packets.PlayerNumberPacket) {
             Packets.PlayerNumberPacket p = (Packets.PlayerNumberPacket) object;
-            System.out.println("Number of players" + p.playerNumber);
-            game.setNumberOfPlayers(p.playerNumber);
+            System.out.println("Received player packet with x players: " + p.numberOfPlayers);
+            game.setNumberOfPlayers(p.numberOfPlayers);
         } else if (object instanceof Packets.StartSignalPacket){
             // public boolean start;
         } else if (object instanceof Packets.NamePacket) {

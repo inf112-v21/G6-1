@@ -11,10 +11,9 @@ import java.util.HashMap;
 
 // Listener class for receiving and sending data from clients to all clients.
 public class ServerListener extends Listener {
-    public int numberOfPlayers = 2; // TODO actually handle
     private final String map;
     private Server server;
-    private int playerNumber = 1;
+    private int numberOfPlayers = 1;
     private boolean[] allPlayersReady;
     private HashMap<Integer, ArrayList<Card>> cardsReceived;
     ArrayList<Packets.CardsPacket> testCards;
@@ -49,11 +48,11 @@ public class ServerListener extends Listener {
 
     // TODO må være connected() siden metoden er fra Listener.java
     public void connected(Connection connection) {
-        System.out.println("Player number " + playerNumber + " has connected to the server");
-        playerNumber++;
-        Packets.PlayerNumberPacket numberOfPlayers = new Packets.PlayerNumberPacket();
-        numberOfPlayers.playerNumber = playerNumber;
-        server.sendToAllTCP(numberOfPlayers);
+        System.out.println("Player number " + numberOfPlayers + " has connected to the server");
+        numberOfPlayers++;
+        Packets.PlayerNumberPacket playerPacket = new Packets.PlayerNumberPacket();
+        playerPacket.numberOfPlayers = numberOfPlayers;
+        server.sendToAllTCP(playerPacket);
         server.sendToTCP(connection.getID(), map);
     }
 
@@ -64,11 +63,11 @@ public class ServerListener extends Listener {
      * @param connection
      */
     public void disconnected(Connection connection) {
-        System.out.println("Player: (" + playerNumber + ") has been disconnected");
-        playerNumber--;
+        System.out.println("Player: (" + numberOfPlayers + ") has been disconnected");
+        numberOfPlayers--;
         playerNames[connection.getID()] = null;
         Packets.PlayerNumberPacket numberOfPlayers = new Packets.PlayerNumberPacket();
-        numberOfPlayers.playerNumber = playerNumber;
+        numberOfPlayers.numberOfPlayers = this.numberOfPlayers;
         server.sendToAllTCP(numberOfPlayers);
         Packets.NamePacket namePacket = new Packets.NamePacket();
         namePacket.name = playerNames;
@@ -135,9 +134,9 @@ public class ServerListener extends Listener {
             ShutdownPlayer[connection.getID()] = false;
 
         } else if (object instanceof Packets.RemovePlayerPacket) {
-            playerNumber--;
+            numberOfPlayers--;
             Packets.PlayerNumberPacket numberOfPlayersConnected = new Packets.PlayerNumberPacket();
-            numberOfPlayersConnected.playerNumber = playerNumber;
+            numberOfPlayersConnected.numberOfPlayers = numberOfPlayers;
             server.sendToAllTCP(numberOfPlayersConnected);
         }
     }
