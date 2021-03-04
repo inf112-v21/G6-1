@@ -149,6 +149,14 @@ public class GameServer implements Runnable {
         }
     }
 
+    public void delete() {
+        try {
+            server.close();
+        } catch (Exception m) {
+
+        }
+    }
+
 }
 
 

@@ -18,6 +18,7 @@ public class playerLogicTest {
     /**
      * In order for the test to run, a game window must be initialised.
      * When the game window is manually closed, the tests will run as expected.
+     * The tests must be run individually.
      */
 
     Graphics graphics = new Graphics();
