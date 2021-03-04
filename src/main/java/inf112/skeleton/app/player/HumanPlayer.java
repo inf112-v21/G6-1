@@ -3,10 +3,10 @@ package inf112.skeleton.app.player;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
 import inf112.skeleton.app.card.Card;
 import com.badlogic.gdx.InputProcessor;
+import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
 import inf112.skeleton.app.card.CardMoveLogic;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -21,8 +21,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 public class HumanPlayer extends Player implements InputProcessor {
 
 
-    public HumanPlayer(Direction direction, int id, String piece) {
-        super(direction, id, piece);
+    public HumanPlayer(Direction direction, int id, Color color) {
+        super(direction, id, color);
     }
 
     private float mouseClickXCoordinate;
