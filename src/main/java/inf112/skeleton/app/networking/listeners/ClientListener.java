@@ -3,9 +3,12 @@ package inf112.skeleton.app.networking.listeners;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.networking.packets.Packets;
 import inf112.skeleton.app.player.Player;
+
+import java.util.ArrayList;
 
 
 /**
@@ -48,17 +51,16 @@ public class ClientListener extends Listener {
      * @param cardsToBePlayed the cards that the player wants to play
      */
 
-    public void sendCardsToServer(Player cardsToBePlayed) {
+    public void sendCardsToServer(ArrayList<Card> cards) {
         // if player sends no cards
-        if (cardsToBePlayed.chosenCards.size() != 5) {
+        if (cards.size() != 5) {
             return;
         }
 
-        Packets.CardsPacket cards = new Packets.CardsPacket();
-        cards.playedCards = cardsToBePlayed.chosenCards;
-
-        cards.playerId = cl.getID();
-        cl.sendTCP(cards);
+        Packets.CardsPacket cardPacket = new Packets.CardsPacket();
+        cardPacket.playedCards = cards;
+        cardPacket.playerId = cl.getID();
+        cl.sendTCP(cardPacket);
     }
 
 
