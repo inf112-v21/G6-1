@@ -17,6 +17,8 @@ public class ServerListener extends Listener {
     private int playerNumber = 1;
     private boolean[] allPlayersReady;
     private HashMap<Integer, ArrayList<Card>> cardsReceived;
+    ArrayList<Packets.CardsPacket> testCards;
+
     private String[] playerNames;
     public boolean[] ShutdownPlayer;
     public final int MAX_PLAYERS = 5;
@@ -89,6 +91,7 @@ public class ServerListener extends Listener {
         cardsReceived.clear();
     }
 
+
     /** When something is sent to the server this method gets called and sorts
      *  out what type of message it is before it sends it all clients
      *
@@ -138,4 +141,19 @@ public class ServerListener extends Listener {
             server.sendToAllTCP(numberOfPlayersConnected);
         }
     }
+
+    /**
+     * Used to test if the right cards are sent and received
+     * @return the cards that were sent.
+     */
+
+    public ArrayList<Packets.CardsPacket> getReceivedCards() {
+        if (testCards.size() > 4) {
+            testCards.clear();
+        }
+        return testCards;
+    }
+
+
+
 }

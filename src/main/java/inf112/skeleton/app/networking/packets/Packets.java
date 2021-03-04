@@ -50,8 +50,11 @@ public class Packets {
     public static class startGamePackage {
         public String map;
         public int playerNumber;
-
+        public int startXPosition;
+        public int startYPosition;
     }
+
+
 
 
 
