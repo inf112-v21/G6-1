@@ -16,6 +16,22 @@ This project is built with:
     
 * In the project overview, go to src/main/java/inf112/skeleton/app and run Main.java
 
+
+## Playing online
+
+Current solution is using the Hamachi software for online play.
+Hamachi can be downloaded from https://www.vpn.net , and is a software
+to create a LAN between networks connected
+
+When downloaded, you need to either log in, or create a user.
+Open the sofware and choose "Network" -> "Create network".
+Choose an IP to use, starting with 5.x.x.x, and a password to connect to
+the network you created. The other players goes to "Network" -> "Join an existing network",
+entering the same IP you chose when creating the network.
+
+If done correctly, you should be able to see each others connection in the application.
+
+The IP used to connect to the server will be the same as the host's IP given from Hamachi
 ## Description
 
 GameStoppers' project is a simple board-game interface with working movement using arrow-keys on a computer
