@@ -184,8 +184,7 @@ public class Game implements IGame, InputProcessor {
     public ArrayList<Player> createPlayers() {
         ArrayList <Player> playerList = new ArrayList<>();
         for (int i = 0; i < numberOfPlayers; i++) {
-            // TODO map number to color and use in construtor
-            Color playerColor = Color.GREEN;
+            Color playerColor = Color.getPlayerColor(i);
             playerList.add(new HumanPlayer(Direction.NORTH, i, playerColor));
         }
         this.players = playerList;
