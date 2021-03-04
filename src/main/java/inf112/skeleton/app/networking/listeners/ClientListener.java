@@ -10,6 +10,7 @@ import inf112.skeleton.app.card.*;
 import inf112.skeleton.app.player.Player;
 
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 
 /**
@@ -49,19 +50,21 @@ public class ClientListener extends Listener {
 
     /** Sends an array to the server which contains the cards that the
      * player has chosen to play.
-     * @param cardsToBePlayed the cards that the player wants to play
+     * @param player the cards that the player wants to play
      */
 
-    public void sendCardsToServer(Player cardsToBePlayed) {
+    public void sendCardsToServer(ArrayList<Card> cards) {
         // if player sends no cards
-        if (cardsToBePlayed.chosenCards.size() != 5) {
+
+
+        if (cards.size() != 5) {
             return;
         }
 
-        Packets.CardsPacket cards = new Packets.CardsPacket();
-        cards.playedCards = cardsToBePlayed.chosenCards;
+        Packets.CardsPacket cardsPacket = new Packets.CardsPacket();
+        cardsPacket.playedCards = cards;
 
-        cards.playerId = cl.getID();
+        cardsPacket.playerId = cl.getID();
         cl.sendTCP(cards);
     }
 
