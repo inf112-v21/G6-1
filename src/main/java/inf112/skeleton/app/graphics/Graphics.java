@@ -39,6 +39,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         cardGraphics = new CardGraphics();
         game = new Game();
     }
+    ArrayList<Player> gamePlayers = game.createPlayers();
     public HashMap<Action, Texture> getCardTexture;
     public Texture background;
     public Texture youWin;
@@ -48,7 +49,6 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     public ArrayList<Sprite> cardSpriteList;
     private CardMoveLogic cardMoveLogic = new CardMoveLogic();
     public testClass testClass = new testClass();;
-
 
     /**
      * test for LHP
@@ -171,7 +171,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         tiledMapRenderer.getBatch().begin();
 
 
-        updatePlayerSprite(game.players);
+        updatePlayerSprite(gamePlayers);
         playerOne.round();
 
         tiledMapRenderer.getBatch().end();
