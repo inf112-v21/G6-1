@@ -9,7 +9,7 @@ public enum Color {
 
         private float color;
 
-        public float getAction(){
+        public float getColor(){
                 return this.color;
         }
          Color(float color){
