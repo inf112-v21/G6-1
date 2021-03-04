@@ -119,7 +119,7 @@ public class ClientListener extends Listener {
     }
 
     // Returnerer true hvis du er koblet til serveren
-    public boolean getConnection() {
+    public boolean getC() {
         return c;
     }
 
