@@ -20,6 +20,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -47,7 +48,7 @@ public class Game implements IGame, InputProcessor {
     @Override
     public Graphics startGame() {
         graphics = new Graphics();
-        //chooseHostOrJoin();
+        chooseHostOrJoin();
         return graphics;
     }
 
@@ -96,9 +97,9 @@ public class Game implements IGame, InputProcessor {
             Scanner askForIpAddress = new Scanner(System.in);
             System.out.println("Please enter the server IP to join: ");
 
-            String ChoosenIP = askForIpAddress.nextLine();
+            String ChosenIP = askForIpAddress.nextLine();
             try {
-                hostIp = InetAddress.getByName(ChoosenIP);
+                hostIp = InetAddress.getByName(ChosenIP);
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             }
@@ -131,12 +132,14 @@ public class Game implements IGame, InputProcessor {
     // => Anta også at klasse for å deale kort er initialisert
 
     @Override
-    public void executeMoves() {
+    public void executeMoves(HashMap<Integer, ArrayList<Card>> playerMoves) {
         // Assume all players have chosen their moves
         for (int moveNumber = 0; moveNumber < 5; moveNumber++){
             ArrayList<Card> roundMoves = new ArrayList<Card>();
             for (Player p: players) {
-                roundMoves.add(p.chosenCards.get(moveNumber));
+                int playerId = p.id;
+                Card playerMove = playerMoves.get(playerId).get(moveNumber);
+                roundMoves.add(playerMove);
             }
             // Sort moves by priority
             Collections.sort(roundMoves);
@@ -162,7 +165,6 @@ public class Game implements IGame, InputProcessor {
 
     /**
      *
-     *
      */
     public void isReady(Packets.CardsPacket p) {
         for (Packets.CardsPacket pc : allPlayerCards) {
@@ -182,7 +184,7 @@ public class Game implements IGame, InputProcessor {
             }
         }
         // når alle har sendt inn kort så starter vi runden.
-        executeMoves();
+        //executeMoves();
     }
 
     public void getAllReady(boolean[] ready) {

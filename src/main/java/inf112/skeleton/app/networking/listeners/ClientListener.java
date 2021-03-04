@@ -3,6 +3,7 @@ package inf112.skeleton.app.networking.listeners;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import com.jcraft.jogg.Packet;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.networking.packets.Packets;
 import inf112.skeleton.app.card.*;
@@ -52,11 +53,14 @@ public class ClientListener extends Listener {
      */
 
     public void sendCardsToServer(Player cardsToBePlayed) {
-        Packets.CardsPacket cards = new Packets.CardsPacket();
-
-        if (cardsToBePlayed.chosenCards.size() == 5) {
-            cards.playedCards = new int[cardsToBePlayed.chosenCards.size()][4];
+        // if player sends no cards
+        if (cardsToBePlayed.chosenCards.size() != 5) {
+            return;
         }
+
+        Packets.CardsPacket cards = new Packets.CardsPacket();
+        cards.playedCards = cardsToBePlayed.chosenCards;
+
         cards.playerId = cl.getID();
         cl.sendTCP(cards);
     }
@@ -87,6 +91,7 @@ public class ClientListener extends Listener {
     }
 
 
+
     public void received(Connection c, Object object) {
         if (object instanceof Packets.CardsPacket) {
             Packets.CardsPacket p = (Packets.CardsPacket) object;
@@ -94,6 +99,7 @@ public class ClientListener extends Listener {
             game.isReady(p);
         } else if (object instanceof Packets.PlayerNumberPacket) {
             Packets.PlayerNumberPacket p = (Packets.PlayerNumberPacket) object;
+            System.out.println("Number of players" + p.playerNumber);
             game.setNumberOfPlayers(p.playerNumber);
         } else if (object instanceof Packets.StartSignalPacket){
             // public boolean start;
@@ -106,6 +112,9 @@ public class ClientListener extends Listener {
         } else if (object instanceof Packets.ShutDownRobotPacket) {
             Packets.ShutDownRobotPacket shutDownRobotPacket = (Packets.ShutDownRobotPacket) object;
             // game.shutDownPlayer(shutDownRobotPacket.playersShutdown);
+        } else if (object instanceof Packets.RoundPacket) {
+            Packets.RoundPacket roundPacket = (Packets.RoundPacket) object;
+            game.executeMoves(roundPacket.playerMoves);
         }
     }
 

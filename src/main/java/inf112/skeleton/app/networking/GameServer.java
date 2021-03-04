@@ -1,10 +1,8 @@
 package inf112.skeleton.app.networking;
 
-import com.badlogic.gdx.maps.Map;
-import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Connection;
-import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
+import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.networking.Network.PacketMessage;
 import inf112.skeleton.app.networking.listeners.ServerListener;
 
@@ -70,9 +68,13 @@ public class GameServer implements Runnable {
 
     }
 
+    public void stop() {
+        server.stop();
+    }
+
 
     //TODO We need this class for anything to be recieved by server from clients
-    public void received(Connection c, Object o){
+    public void received(Connection c, Object o) {
 
     }
 
@@ -135,6 +137,16 @@ public class GameServer implements Runnable {
         Network.updateNames updateNames = new Network.updateNames();
         updateNames.names = (String[])connectedNames.toArray(new String[connectedNames.size()]);
         server.sendToAllTCP(updateNames.names);
+    }
+
+
+    // used in test
+    public ArrayList<Card> getCardsLastUsed() {
+        if (serverListener.getReceivedCards().isEmpty()) {
+            return null;
+        } else {
+            return serverListener.getReceivedCards().get(serverListener.getReceivedCards().size() - 1).playedCards;
+        }
     }
 
 }

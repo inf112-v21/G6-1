@@ -1,13 +1,20 @@
 package inf112.skeleton.app.networking.packets;
 
+import inf112.skeleton.app.card.Card;
+import inf112.skeleton.app.player.Player;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Packets {
     public static class MessagePacket {
         public String message;
         public int playerID;
     }
 
+
     public static class CardsPacket{
-        public int[][] playedCards;
+        public ArrayList<Card> playedCards;
         public int playerId;
     }
     public static class PlayerNumberPacket{
@@ -35,5 +42,20 @@ public class Packets {
     public static class RemovePlayerPacket {
         public int playerId;
     }
+
+    public static class RoundPacket {
+        public HashMap<Integer, ArrayList<Card>> playerMoves;
+    }
+
+    public static class startGamePackage {
+        public String map;
+        public int playerNumber;
+        public int startXPosition;
+        public int startYPosition;
+    }
+
+
+
+
 
 }
