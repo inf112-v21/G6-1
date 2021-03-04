@@ -68,6 +68,10 @@ public class GameServer implements Runnable {
 
     }
 
+    public void stop() {
+        server.stop();
+    }
+
 
     //TODO We need this class for anything to be recieved by server from clients
     public void received(Connection c, Object o) {

@@ -1,5 +1,13 @@
 package inf112.skeleton.app.networkTest;
 
-public class CardsAreSentTest {
-    // se getReceivedCards i serverListener og getCardsLastUsed i GameServer;
+import org.junit.jupiter.api.BeforeEach;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+
+class CardsAreSentTest {
+
+    @BeforeEach
+    void setUp() {
+    }
 }
