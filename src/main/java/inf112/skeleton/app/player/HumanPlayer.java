@@ -79,7 +79,7 @@ public class HumanPlayer extends Player implements InputProcessor {
     }
 
     @Override
-    public boolean canPlayerMoveX(float xDirection, float yDirection) {
+    public boolean canPlayerMove(float xDirection, float yDirection) {
         return !(xDirection < 0 || xDirection > 3300 || yDirection < 0 || yDirection > 3900);
     }
 
@@ -101,10 +101,10 @@ public class HumanPlayer extends Player implements InputProcessor {
 
 // TODO comment
     public float movePlayerAsFarAsPossible(float position){
-        if(direction == Direction.NORTH && !canPlayerMoveX(getPlayerXPosition(),position)) return 3900;
-        else if(direction == Direction.SOUTH && !canPlayerMoveX(getPlayerXPosition(),position) ) return 0;
-        else if(direction == Direction.WEST && !canPlayerMoveX(position, getPlayerYPosition()) ) return 0;
-        else if(direction == Direction.EAST && !canPlayerMoveX(position, getPlayerYPosition()) ) return 3300;
+        if(direction == Direction.NORTH && !canPlayerMove(getPlayerXPosition(),position)) return 3900;
+        else if(direction == Direction.SOUTH && !canPlayerMove(getPlayerXPosition(),position) ) return 0;
+        else if(direction == Direction.WEST && !canPlayerMove(position, getPlayerYPosition()) ) return 0;
+        else if(direction == Direction.EAST && !canPlayerMove(position, getPlayerYPosition()) ) return 3300;
         return position;
     }
 // TODO update comments

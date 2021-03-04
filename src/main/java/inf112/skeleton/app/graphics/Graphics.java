@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import inf112.skeleton.app.card.CardMoveLogic;
+import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.shared.Action;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Graphics extends ScreenAdapter implements ApplicationListener{
-    private TiledMap tiledMap;
+    public TiledMap tiledMap;
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private SpriteBatch spriteBatch;
@@ -32,9 +33,11 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     public HumanPlayer playerThree;
     public HumanPlayer playerFour;
     public HumanPlayer playerFive;
+    public Game game;
     {
         playerGraphics = new PlayerGraphics();
         cardGraphics = new CardGraphics();
+        game = new Game();
     }
     public HashMap<Action, Texture> getCardTexture;
     public Texture background;
@@ -95,6 +98,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     public void updatePlayerSprite(ArrayList<Player> players){
         HashMap<Color, Sprite> playersSprite = getPlayerSprite();
         for (Player player : testPlayer){
+            playFunctions(playerOne);
             playersSprite.get(player.color).setTexture(playerGraphics.getPlayerTextures().get(player.color).get(player.direction));
             playersSprite.get(player.color).setSize(300,300);
             playersSprite.get(player.color).setPosition(player.getPlayerXPosition(), player.getPlayerYPosition());
@@ -103,7 +107,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     }
     @Override
     public void create() {
-
+/*
         playerOne = testClass.createhuman().get(0);
         playerOneSprite = new Sprite((playerGraphics.getPlayerTextures().get(playerOne.color).get(playerOne.direction)));;
         playerOneSprite.setSize(300,300);
@@ -114,12 +118,12 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
 
         testPlayer.add(playerOne);
         testPlayer.add(playerTwo);
-
+*/
         playerSprite = getPlayerSprite();
 
         float w = 600;
         float h = 1000;
-        cardSpriteList = cardGraphics.createCardSprite(playerOne);
+        cardSpriteList = cardGraphics.createCardSprite();
         spriteBatch = new SpriteBatch();
         camera = new OrthographicCamera();
         camera.zoom = 7f; //Shows more of the board
@@ -163,9 +167,9 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
 
         tiledMapRenderer.getBatch().begin();
 
-        playFunctions(playerOne);
-        updatePlayerSprite(testPlayer);
-        playerOne.round();
+
+        updatePlayerSprite(game.players);
+       // playerOne.round();
 
         tiledMapRenderer.getBatch().end();
 

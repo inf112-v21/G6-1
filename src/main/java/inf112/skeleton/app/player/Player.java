@@ -111,7 +111,7 @@ public abstract class Player  {
      * @return boolean
      */
 
-    public abstract boolean canPlayerMoveX(float xDirection, float yDirection);
+    public abstract boolean canPlayerMove(float xDirection, float yDirection);
 
     /**
      * Calculate normalized coordinates. The tiled-map operates with

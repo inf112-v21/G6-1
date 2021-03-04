@@ -35,19 +35,19 @@ public class CardGraphics  extends ScreenAdapter {
         cardTexture.put(Action.U_TURN, new Texture("Cards/U-turn.png"));
         return cardTexture;
     }
-    public ArrayList<Sprite> createCardSprite(Player player){
+    public ArrayList<Sprite> createCardSprite(){
 
         ArrayList<Sprite> cardSprite;
         cardSprite = new ArrayList<>(Arrays.asList(
-                new Sprite(getCardTexture().get(player.playerDeck.get(0).action)),
-                new Sprite(getCardTexture().get(player.playerDeck.get(1).action)),
-                new Sprite(getCardTexture().get(player.playerDeck.get(2).action)),
-                new Sprite(getCardTexture().get(player.playerDeck.get(3).action)),
-                new Sprite(getCardTexture().get(player.playerDeck.get(4).action)),
-                new Sprite(getCardTexture().get(player.playerDeck.get(5).action)),
-                new Sprite(getCardTexture().get(player.playerDeck.get(6).action)),
-                new Sprite(getCardTexture().get(player.playerDeck.get(7).action)),
-                new Sprite(getCardTexture().get(player.playerDeck.get(8).action))));
+                new Sprite(new Texture("Cards/U-turn.png")),
+                new Sprite(new Texture("Cards/U-turn.png")),
+                new Sprite(new Texture("Cards/U-turn.png")),
+                new Sprite(new Texture("Cards/U-turn.png")),
+                new Sprite(new Texture("Cards/U-turn.png")),
+                new Sprite(new Texture("Cards/U-turn.png")),
+                new Sprite(new Texture("Cards/U-turn.png")),
+                new Sprite(new Texture("Cards/U-turn.png")),
+                new Sprite(new Texture("Cards/U-turn.png"))));
 
         return cardSprite;
     }
