@@ -91,7 +91,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         Gdx.input.setInputProcessor((InputProcessor) player);
     }
 // TODO refactor after test
-    public void playFunctions(HumanPlayer player){
+    public void playFunctions(Player player){
         updateCardSprite(player);
         player.setMouseClickCoordinates(camera);
     }
@@ -99,7 +99,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     public void updatePlayerSprite(ArrayList<Player> players){
         HashMap<Color, Sprite> playersSprite = getPlayerSprite();
         for (Player player : players){
-            playFunctions(playerOne);
+            playFunctions(player);
             playersSprite.get(player.color).setTexture(playerGraphics.getPlayerTextures().get(player.color).get(player.direction));
             playersSprite.get(player.color).setSize(300,300);
             playersSprite.get(player.color).setPosition(player.getPlayerXPosition(), player.getPlayerYPosition());

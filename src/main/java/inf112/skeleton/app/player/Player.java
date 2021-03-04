@@ -1,6 +1,7 @@
 package inf112.skeleton.app.player;
 
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.shared.Color;
@@ -134,4 +135,5 @@ public abstract class Player  {
     public abstract void updatePlayerLocation(Card card);
 
     public abstract void round();
+    public  abstract void setMouseClickCoordinates(OrthographicCamera camera);
 }

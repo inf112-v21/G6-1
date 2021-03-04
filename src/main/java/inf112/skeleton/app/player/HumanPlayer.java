@@ -153,6 +153,7 @@ public class HumanPlayer extends Player implements InputProcessor {
      * This method has to be called in the render function to get the camera else it will provide a NPE
      * @param camera OrthographicCamera created in graphics
      */
+    @Override
     public void setMouseClickCoordinates(OrthographicCamera camera){
         if (Gdx.input.isTouched()) {
             mouseClickPosition.set(Gdx.input.getX(), Gdx.input.getY(), 0);
