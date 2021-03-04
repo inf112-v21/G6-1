@@ -5,6 +5,7 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import inf112.skeleton.app.graphics.Graphics;
+import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
 import org.junit.Test;
 import org.junit.Before;
@@ -17,11 +18,12 @@ public class playerLogicTest {
     /**
      * In order for the test to run, a game window must be initialised.
      * When the game window is manually closed, the tests will run as expected.
+     * The tests must be run individually.
      */
 
     Graphics graphics = new Graphics();
     Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
-    HumanPlayer humanPlayer = new HumanPlayer(Direction.NORTH, 1,"Super mario");
+    HumanPlayer humanPlayer = new HumanPlayer(Direction.NORTH, 1, Color.GREEN);
 
     public playerLogicTest() {
         new Lwjgl3Application(graphics, cfg);
@@ -29,17 +31,17 @@ public class playerLogicTest {
 
     @Test
     public void testGameIsOverIfPlayerStartsOnFlag() {
-        graphics.humanPlayer.updatePlayerXPosition(300);
-        graphics.humanPlayer.updatePlayerYPosition(2700);
+        humanPlayer.updatePlayerXPosition(300);
+        humanPlayer.updatePlayerYPosition(2700);
 
-        assertTrue(graphics.humanPlayer.isPlayerOnFlag((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer")));
+        assertTrue(humanPlayer.isPlayerOnFlag((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer")));
     }
 
     @Test
     public void testGameIsNotOverIfPlayerIsNotOnFlag() {
-        graphics.humanPlayer.updatePlayerXPosition(300);
-        graphics.humanPlayer.updatePlayerYPosition(300);
-        Assertions.assertFalse(graphics.humanPlayer.isPlayerOnFlag((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer")));
+        humanPlayer.updatePlayerXPosition(300);
+        humanPlayer.updatePlayerYPosition(300);
+        Assertions.assertFalse(humanPlayer.isPlayerOnFlag((TiledMapTileLayer)graphics.tiledMap.getLayers().get("flagLayer")));
     }
 
     @Test

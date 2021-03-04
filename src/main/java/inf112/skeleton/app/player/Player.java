@@ -3,6 +3,7 @@ package inf112.skeleton.app.player;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.card.Card;
+import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public abstract class Player  {
 
 
     public final int id;
-    public String piece;
+    public Color color;
     public Direction direction;
     public ArrayList<Card> chosenCards;
     public ArrayList<Card> playerDeck;
@@ -25,11 +26,15 @@ public abstract class Player  {
      * @param direction The direction the player is facing. Needs to be set only when a player is created
      *                  Then it will be updated automatically during the game
      * @param id The name of the player
-     * @param piece The name of chosen piece, which is matched with a Sprite in graphics
+     * @param color
      */
-    public Player(Direction direction, int id, String piece) {
-        this.piece = piece;
+
+
+    //TODO comment on the other things
+    public Player(Direction direction, int id, Color color) {
+
         this.id = id;
+        this.color = color;
         this.direction = direction;
         this.playerCurrentXPosition = 0;
         this.playerCurrentYPosition = 0;
@@ -128,4 +133,5 @@ public abstract class Player  {
      */
     public abstract void updatePlayerLocation(Card card);
 
+    public abstract void round();
 }

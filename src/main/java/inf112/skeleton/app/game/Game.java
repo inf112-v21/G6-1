@@ -13,6 +13,7 @@ import inf112.skeleton.app.networking.GameServer;
 import inf112.skeleton.app.networking.packets.Packets;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
+import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
 
 import java.net.InetAddress;
@@ -219,7 +220,7 @@ public class Game implements IGame, InputProcessor {
     public ArrayList<Player> createPlayers() {
         ArrayList <Player> playerList = new ArrayList<>();
         for (int i = 0; i < numberOfPlayers; i++) {
-            playerList.add(new HumanPlayer(Direction.NORTH, 115, "erlend"));
+            playerList.add(new HumanPlayer(Direction.NORTH, 007, Color.GREEN));
         }
         this.players = playerList;
         return playerList;
