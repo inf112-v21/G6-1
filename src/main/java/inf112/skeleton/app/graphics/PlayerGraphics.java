@@ -8,6 +8,7 @@ import inf112.skeleton.app.shared.Direction;
 import java.util.HashMap;
 
 public class PlayerGraphics {
+
     public HashMap<Color, HashMap<Direction, Texture>> getPlayerTextures() {
         HashMap<Direction,Texture> greenPiece = new HashMap<>();
         HashMap<Direction,Texture> greyPiece = new HashMap<>();

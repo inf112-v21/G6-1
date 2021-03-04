@@ -6,13 +6,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.shared.Action;
+import inf112.skeleton.app.shared.Color;
+import inf112.skeleton.app.shared.Direction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,38 +54,67 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
 
     public void updateCardSprite(ArrayList<Sprite> cardSprite, Player humanPlayer){
         int cardNumber = 0;
-        int cardcorX = 0;
-        int cardcorY = 1;
-        for (Sprite card2: cardSpriteList){
-            card2.setSize(455, 650);
-            card2.setPosition(humanPlayer.cardCoordinates.get(cardcorX),humanPlayer.cardCoordinates.get(cardcorY));
-            card2.setTexture(getCardTexture.get(humanPlayer.playerDeck.get(cardNumber).action));
-            card2.draw(tiledMapRenderer.getBatch());
+        int cardCoordinateX = 0;
+        int cardCoordinateY = 1;
+        for (Sprite card: cardSpriteList){
+            card.setSize(455, 650);
+            card.setPosition(humanPlayer.cardCoordinates.get(cardCoordinateX),humanPlayer.cardCoordinates.get(cardCoordinateY));
+            card.setTexture(getCardTexture.get(humanPlayer.playerDeck.get(cardNumber).action));
+            card.draw(tiledMapRenderer.getBatch());
             cardNumber++;
-            cardcorX +=2;
-            cardcorY += 2;
+            cardCoordinateX +=2;
+            cardCoordinateY += 2;
         }
     }
 
-    public void setUpPlayer(HumanPlayer humanPlayer){
-
-        playerOneSprite = new Sprite((playerGraphics.getPlayerTextures().get(humanPlayer.color).get(humanPlayer.direction)));
-        playerOneSprite.setSize(300,300);
+        ArrayList<Player> testPlayer = new ArrayList<>();
 
 
+    public HashMap<Color, Sprite> getPlayerSprite(){
+        HashMap<Color,Sprite> playerSprite = new HashMap<>();
+        playerSprite.put(Color.ORANGE,new Sprite(playerGraphics.getPlayerTextures().get(Color.ORANGE).get(Direction.NORTH)));
+        playerSprite.put(Color.GREEN,new Sprite((playerGraphics.getPlayerTextures().get(Color.GREEN).get(Direction.NORTH))));
+        playerSprite.put(Color.PURPLE,new Sprite((playerGraphics.getPlayerTextures().get(Color.PURPLE).get(Direction.NORTH))));
+        playerSprite.put(Color.PINK,new Sprite((playerGraphics.getPlayerTextures().get(Color.PINK).get(Direction.NORTH))));
+        playerSprite.put(Color.GREY,new Sprite((playerGraphics.getPlayerTextures().get(Color.GREY).get(Direction.NORTH))));
+        return playerSprite;
+    }
+
+    public  HashMap<Color, Sprite> playerSprite;
+
+    public void setInputProcessor(Player player){
+        Gdx.input.setInputProcessor((InputProcessor) player);
+    }
+// TODO refactor after test
+    public void playFunctions(HumanPlayer player){
+        updateCardSprite(cardSpriteList, player);
+        player.setMouseClickCoordinates(camera);
+    }
+
+    public void updatePlayerSprite(ArrayList<Player> players){
+        HashMap<Color, Sprite> playersSprite = getPlayerSprite();
+        for (Player player : testPlayer){
+            playersSprite.get(player.color).setTexture(playerGraphics.getPlayerTextures().get(player.color).get(player.direction));
+            playersSprite.get(player.color).setSize(300,300);
+            playersSprite.get(player.color).setPosition(player.getPlayerXPosition(), player.getPlayerYPosition());
+            playersSprite.get(player.color).draw(tiledMapRenderer.getBatch());
+        }
     }
     @Override
     public void create() {
 
-
         playerOne = testClass.createhuman().get(0);
-        playerOneSprite = new Sprite((playerGraphics.getPlayerTextures().get(playerOne.color).get(playerOne.direction)));
+        playerOneSprite = new Sprite((playerGraphics.getPlayerTextures().get(playerOne.color).get(playerOne.direction)));;
         playerOneSprite.setSize(300,300);
 
         playerTwo = testClass.createhuman().get(1);
         playerTwoSprite = new Sprite((playerGraphics.getPlayerTextures().get(playerTwo.color).get(playerTwo.direction)));
         playerTwoSprite.setSize(300,300);
 
+        testPlayer.add(playerOne);
+        testPlayer.add(playerTwo);
+
+        playerSprite = getPlayerSprite();
 
         float w = 600;
         float h = 1000;
@@ -98,16 +128,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         startTexture = new Texture("Player/OwlPlayer.png");
         getCardTexture = cardGraphics.getCardTexture();
-
-        Gdx.input.setInputProcessor(playerTwo);
-        Gdx.input.setInputProcessor(playerOne);
-
-
-
-
-        // player.setPosition(humanPlayer.setPlayerStartXPosition(0) , humanPlayer.setPlayerStartYPosition(0));
-        //createCardSprite();
-
+        setInputProcessor(playerOne);
         background = new Texture("Background.png");
         youWin = new Texture("YouWin.jpg");
     }
@@ -124,6 +145,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         camera.update();
     }
 
+
     /**
      * This is where the graphics of the game get rendered.
      */
@@ -137,35 +159,15 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
-        playerOne.setMouseClickCoordinates(camera);
-
 
         tiledMapRenderer.getBatch().begin();
-        updateCardSprite(cardSpriteList, playerOne);
 
-
-        playerOneSprite.setPosition(playerOne.getPlayerXPosition(), playerOne.getPlayerYPosition());
-        playerOneSprite.draw(tiledMapRenderer.getBatch());
-        playerOneSprite.setTexture(playerGraphics.getPlayerTextures().get(playerOne.color).get(playerOne.direction)); //greenPiece.get(humanPlayer.direction));
-
-        playerTwoSprite.setPosition(playerTwo.getPlayerXPosition(), playerTwo.getPlayerYPosition());
-        playerTwoSprite.draw(tiledMapRenderer.getBatch());
-        playerTwoSprite.setTexture(playerGraphics.getPlayerTextures().get(playerTwo.color).get(playerTwo.direction)); //greenPiece.get(humanPlayer.direction));
+        playFunctions(playerOne);
+        updatePlayerSprite(testPlayer);
         playerOne.round();
+
         tiledMapRenderer.getBatch().end();
 
-            //if the player has won, get "you win"-message up
-            if (playerOne.isPlayerOnFlag((TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"))) {
-                pause();
-                System.out.println("You Won!");
-                //"you win" screen pops up
-                spriteBatch.begin();
-                spriteBatch.draw(youWin, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-                spriteBatch.end();
-                pause();
-                //use timer
-                dispose(); //maybe get "you win" message up before it disposes so quickly
-            }
         }
 
 

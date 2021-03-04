@@ -133,4 +133,5 @@ public abstract class Player  {
      */
     public abstract void updatePlayerLocation(Card card);
 
+    public abstract void round();
 }
