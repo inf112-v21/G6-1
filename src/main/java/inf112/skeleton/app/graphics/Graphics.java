@@ -39,7 +39,6 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         cardGraphics = new CardGraphics();
         game = new Game();
     }
-    ArrayList<Player> gamePlayers = game.createPlayers();
     public HashMap<Action, Texture> getCardTexture;
     public Texture background;
     public Texture youWin;
@@ -90,26 +89,33 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     public void setInputProcessor(Player player){
         Gdx.input.setInputProcessor((InputProcessor) player);
     }
-// TODO refactor after test
+    // TODO refactor after test
     public void playFunctions(Player player){
         updateCardSprite(player);
         player.setMouseClickCoordinates(camera);
     }
 
     public void updatePlayerSprite(ArrayList<Player> players){
+        if (players == null || players.isEmpty()) {
+            // No players created yet, don't render any
+            return;
+        }
+
         HashMap<Color, Sprite> playersSprite = getPlayerSprite();
         for (Player player : players){
             playFunctions(player);
-            playersSprite.get(player.color).setTexture(playerGraphics.getPlayerTextures().get(player.color).get(player.direction));
-            playersSprite.get(player.color).setSize(300,300);
-            playersSprite.get(player.color).setPosition(player.getPlayerXPosition(), player.getPlayerYPosition());
-            playersSprite.get(player.color).draw(tiledMapRenderer.getBatch());
+            Sprite playerSprite = playersSprite.get(player.color);
+            playerSprite.setTexture(playerGraphics.getPlayerTextures().get(player.color).get(player.direction));
+            playerSprite.setSize(300,300);
+            playerSprite.setPosition(player.getPlayerXPosition(), player.getPlayerYPosition());
+            playerSprite.draw(tiledMapRenderer.getBatch());
         }
     }
+
     @Override
     public void create() {
-/*
-       playerOne = testClass.createhuman().get(0);
+        /*
+        playerOne = testClass.createhuman().get(0);
         playerOneSprite = new Sprite((playerGraphics.getPlayerTextures().get(playerOne.color).get(playerOne.direction)));;
         playerOneSprite.setSize(300,300);
 
@@ -119,7 +125,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
 
         testPlayer.add(playerOne);
         testPlayer.add(playerTwo);
-*/
+        */
 
 
         playerSprite = getPlayerSprite();
@@ -169,9 +175,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         tiledMapRenderer.render();
 
         tiledMapRenderer.getBatch().begin();
-
-
-        updatePlayerSprite(gamePlayers);
+        updatePlayerSprite(game.players);
         playerOne.round();
 
         tiledMapRenderer.getBatch().end();

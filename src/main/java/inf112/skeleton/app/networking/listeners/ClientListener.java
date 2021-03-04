@@ -3,14 +3,9 @@ package inf112.skeleton.app.networking.listeners;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import com.jcraft.jogg.Packet;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.networking.packets.Packets;
-import inf112.skeleton.app.card.*;
 import inf112.skeleton.app.player.Player;
-
-import java.nio.file.Path;
-import java.util.ArrayList;
 
 
 /**
@@ -50,21 +45,19 @@ public class ClientListener extends Listener {
 
     /** Sends an array to the server which contains the cards that the
      * player has chosen to play.
-     * @param player the cards that the player wants to play
+     * @param cardsToBePlayed the cards that the player wants to play
      */
 
-    public void sendCardsToServer(ArrayList<Card> cards) {
+    public void sendCardsToServer(Player cardsToBePlayed) {
         // if player sends no cards
-
-
-        if (cards.size() != 5) {
+        if (cardsToBePlayed.chosenCards.size() != 5) {
             return;
         }
 
-        Packets.CardsPacket cardsPacket = new Packets.CardsPacket();
-        cardsPacket.playedCards = cards;
+        Packets.CardsPacket cards = new Packets.CardsPacket();
+        cards.playedCards = cardsToBePlayed.chosenCards;
 
-        cardsPacket.playerId = cl.getID();
+        cards.playerId = cl.getID();
         cl.sendTCP(cards);
     }
 
@@ -102,8 +95,8 @@ public class ClientListener extends Listener {
             game.isReady(p);
         } else if (object instanceof Packets.PlayerNumberPacket) {
             Packets.PlayerNumberPacket p = (Packets.PlayerNumberPacket) object;
-            System.out.println("Number of players" + p.playerNumber);
-            game.setNumberOfPlayers(p.playerNumber);
+            System.out.println("Received player packet with x players: " + p.numberOfPlayers);
+            game.setNumberOfPlayers(p.numberOfPlayers);
         } else if (object instanceof Packets.StartSignalPacket){
             // public boolean start;
         } else if (object instanceof Packets.NamePacket) {

@@ -18,7 +18,7 @@ public class Packets {
         public int playerId;
     }
     public static class PlayerNumberPacket{
-        public int playerNumber;
+        public int numberOfPlayers;
     }
 
     public static class StartSignalPacket{
