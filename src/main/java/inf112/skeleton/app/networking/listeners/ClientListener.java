@@ -99,6 +99,7 @@ public class ClientListener extends Listener {
             game.isReady(p);
         } else if (object instanceof Packets.PlayerNumberPacket) {
             Packets.PlayerNumberPacket p = (Packets.PlayerNumberPacket) object;
+            System.out.println("Number of players" + p.playerNumber);
             game.setNumberOfPlayers(p.playerNumber);
         } else if (object instanceof Packets.StartSignalPacket){
             // public boolean start;

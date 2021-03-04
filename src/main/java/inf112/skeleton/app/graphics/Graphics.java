@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -16,42 +17,63 @@ import inf112.skeleton.app.screen.MainMenuScreen;
 import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Direction;
 
+import java.util.HashMap;
+
+
+// Directions N, E, S, W
+// Colors Green, Orange, Gray, ...
+
+enum Colors {
+    GREEN,
+    ORANGE,
+    PINK,
+    GREY,
+    PURPLE,
+}
+
+
+
+
+
 
 public class Graphics extends ScreenAdapter implements ApplicationListener{
-    private TiledMap tiledMap;
+    public TiledMap tiledMap;
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private SpriteBatch spriteBatch;
+    /** The local human player. There can only be 1 human per client */
     public HumanPlayer humanPlayer;
 
     public Texture background;
     public Texture youWin;
+    //HashMap<Color, HashMap<Direction, Texture>> playerTextures;
+
 
     //Texture for 5 different players
-    public Texture playerGreenEast;
-    public Texture playerGreenNorth;
-    public Texture playerGreenSouth;
-    public Texture playerGreenWest;
+    private Texture playerGreenEast;
+    private Texture playerGreenNorth;
+    private Texture playerGreenSouth;
+    private Texture playerGreenWest;
 
-    public Texture playerGreyEast;
-    public Texture playerGreyNorth;
-    public Texture playerGreySouth;
-    public Texture playerGreyWest;
+    private Texture playerGreyEast;
+    private Texture playerGreyNorth;
+    private Texture playerGreySouth;
+    private Texture playerGreyWest;
 
-    public Texture playerOrangeEast;
-    public Texture playerOrangeNorth;
-    public Texture playerOrangeSouth;
-    public Texture playerOrangeWest;
+    private Texture playerOrangeEast;
+    private Texture playerOrangeNorth;
+    private Texture playerOrangeSouth;
+    private Texture playerOrangeWest;
 
-    public Texture playerPinkEast;
-    public Texture playerPinkNorth;
-    public Texture playerPinkSouth;
-    public Texture playerPinkWest;
+    private Texture playerPinkEast;
+    private Texture playerPinkNorth;
+    private Texture playerPinkSouth;
+    private Texture playerPinkWest;
 
-    public Texture playerPurpleEast;
-    public Texture playerPurpleNorth;
-    public Texture playerPurpleSouth;
-    public Texture playerPurpleWest;
+    private Texture playerPurpleEast;
+    private Texture playerPurpleNorth;
+    private Texture playerPurpleSouth;
+    private Texture playerPurpleWest;
 
     public Sprite moveOneSprite;
     public Sprite moveTwoSprite;
@@ -96,7 +118,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
 
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-        humanPlayer = new HumanPlayer(Direction.NORTH, 115,"Super mario");
+        humanPlayer = new HumanPlayer(Direction.NORTH, 1,"Super mario");
         humanPlayer.playerDeck = cardMoveLogic.playerDeck();
 
         player = new Sprite(new Texture(("Player/OwlPlayer1.png")));

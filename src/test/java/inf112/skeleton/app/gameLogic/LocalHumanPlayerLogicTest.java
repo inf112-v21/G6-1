@@ -12,7 +12,6 @@ import static org.junit.Assert.*;
 
 public class LocalHumanPlayerLogicTest {
 
-/*
     Graphics graphics = new Graphics();
     Lwjgl3ApplicationConfiguration cfg;
 
@@ -27,10 +26,14 @@ public class LocalHumanPlayerLogicTest {
         float flagY = 2700;
         cfg = new Lwjgl3ApplicationConfiguration();
         new Lwjgl3Application(graphics, cfg);
-        graphics.localHumanPlayer.setPosition(graphics.localHumanPlayer.updateX = 300, graphics.localHumanPlayer.updateY = 2700);
-        assertTrue(graphics.localHumanPlayer.isGameOver(graphics.localHumanPlayer.flagLayer));
+        graphics.humanPlayer.updatePlayerXPosition(flagX);
+        graphics.humanPlayer.updatePlayerYPosition(flagY);
+        assertTrue(false);
+
+//        assertTrue(graphics.humanPlayer.isGameOver(graphics.humanPlayer.flagLayer));
     }
 
+    /*
     @Test
     public void testGameIsNotOverIfPlayerIsNotOnFlag() throws Exception {
         cfg = new Lwjgl3ApplicationConfiguration();
@@ -60,5 +63,7 @@ public class LocalHumanPlayerLogicTest {
         graphics.localHumanPlayer.updatePlayerLocation(graphics.localHumanPlayer.updateX = 0, graphics.localHumanPlayer.updateY = yNegativeDirection);
         Assertions.assertNotEquals(graphics.localHumanPlayer.getY(),yPositiveDirection);
 
-    }*/
+    }
+
+ */
 }
