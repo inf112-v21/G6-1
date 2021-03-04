@@ -2,12 +2,15 @@ package inf112.skeleton.app.networking;
 
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Listener;
+import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.networking.listeners.ClientListener;
+import inf112.skeleton.app.player.Player;
 
 import javax.swing.*;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.ArrayList;
 
 public class GameClient extends Listener {
     static com.esotericsoftware.kryonet.Client client;
@@ -52,6 +55,11 @@ public class GameClient extends Listener {
         } catch (Exception m) {
 
         }
+    }
+
+    // TODO hvordan kaller jeg inn
+    public void sendCardsToServer(ArrayList<Card> cards) {
+        cListener.sendCardsToServer(cards);
     }
 
 
