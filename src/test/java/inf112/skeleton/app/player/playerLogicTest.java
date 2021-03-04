@@ -27,8 +27,6 @@ public class playerLogicTest {
         graphics.humanPlayer.updatePlayerYPosition(2700);
 
         assertTrue(graphics.humanPlayer.isPlayerOnFlag((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer")));
-
-
     }
 
     @Test
@@ -50,7 +48,5 @@ public class playerLogicTest {
         Assertions.assertFalse(humanPlayer.canPlayerMove(0, yPositiveDirection));
         Assertions.assertFalse(humanPlayer.canPlayerMove(0, yNegativeDirection));
     }
-
-
 
 }
