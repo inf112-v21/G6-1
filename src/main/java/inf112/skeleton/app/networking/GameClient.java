@@ -1,12 +1,7 @@
 package inf112.skeleton.app.networking;
 
 import com.esotericsoftware.kryonet.Client;
-import com.esotericsoftware.kryonet.EndPoint;
 import com.esotericsoftware.kryonet.Listener;
-import com.esotericsoftware.kryonet.Connection;
-import com.jcraft.jogg.Packet;
-import inf112.skeleton.app.networking.Network;
-import inf112.skeleton.app.networking.Network.PacketMessage;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.networking.listeners.ClientListener;
 
@@ -18,6 +13,7 @@ public class GameClient extends Listener {
     static com.esotericsoftware.kryonet.Client client;
     static int udpPort = 54777, tcpPort = 54555;
 
+    public Client cl;
     private ClientListener cListener;
 
 
@@ -46,6 +42,17 @@ public class GameClient extends Listener {
         System.out.println("IP Address: "+ ip.getHostAddress());
     }
 
+    public boolean getC() {
+        return cListener.getC();
+    }
+
+    public void delete() {
+        try {
+            cl.close();
+        } catch (Exception m) {
+
+        }
+    }
 
 
 //TODO Trenger muligens en recieved her også
