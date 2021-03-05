@@ -88,3 +88,6 @@ however the project still runs and it does not affect performance.
 
 * When selecting cards, if you attempt selecting an empty slot of an already used card the program will think there is a card there. Then move the card already in the playing
 slots one to the right, leaving an empty spot where it was moved from
+
+* When one person hosts a game, two game-pieces appear on the board. When a new player joins, one more appears.
+Only one game-piece should appear per player joined
