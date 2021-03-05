@@ -4,6 +4,7 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.graphics.Graphics;
 import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
@@ -20,8 +21,7 @@ public class playerLogicTest {
      * When the game window is manually closed, the tests will run as expected.
      * The tests must be run individually.
      */
-
-    Graphics graphics = new Graphics();
+    Graphics graphics = new Graphics(new Game());
     Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
     HumanPlayer humanPlayer = new HumanPlayer(Direction.NORTH, 1, Color.GREEN);
 
