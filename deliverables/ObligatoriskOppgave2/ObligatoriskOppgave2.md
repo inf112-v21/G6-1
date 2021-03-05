@@ -44,6 +44,10 @@ Vi ønsker å fortsette med samme rutiner som vi har hatt så langt i prosjektar
 
 Under denne innleveringen har vi prioritert å få ferdig MVP kravene som omhandler å spille fra flere maskiner, dele ut kort, velge 5 kort og bevege robot ut fra valgte kort. Vi har ikke gjort noen endringer på MVP kravene Før vi startet på MVP kravene ønsket vi å rydde i eksisterende kode for å gjøre den mer oversiktlig og lettere å jobbe videre på. Mye av spill logikken var bundet opp i graphics og GUI, og vi ønsket å refaktorere slik at dette ikke lengre var tilfelle.
 
+###Klassediagram
+
+Klassediagram finner du: [her](https://github.com/inf112-v21/GameStoppers/blob/master/classDiagram/UML-diagram2.png).
+
 ###Brukerhistorier
 
 **1) As a user, I want to be able to host a game, so that I can invite others to play**   
