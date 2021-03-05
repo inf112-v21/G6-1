@@ -106,7 +106,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         for (Player player : players){
             playFunctions(player);
             //humanPlayer = player;
-            updateCardSprite(player);
+            updateCardSprite(testPlayerList.get(0));
             Sprite playerSprite = playersSprite.get(player.color);
             playerSprite.setTexture(playerGraphics.getPlayerTextures().get(player.color).get(player.direction));
             playerSprite.setSize(300,300);
@@ -151,7 +151,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         background = new Texture("Background.png");
         youWin = new Texture("YouWin.jpg");
 
-        testPlayerList = testClass.createhuman();
+        testPlayerList =testClass.createhuman();
     }
 
     /**
@@ -193,11 +193,17 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         playerSprite.draw(tiledMapRenderer.getBatch());
            */
         //Player testThisPlayer = testPlayerList.get(0);//testClass.createhuman().get(0);
-        updatePlayerSprite(game.players);
-        //playFunctions(testThisPlayer);
 
+        //System.out.println(testPlayerList.size());
+        //System.out.println("rendering players" + game.players);
+        //playFunctions(testThisPlayer);
+/*
+
+*/
+        updatePlayerSprite(game.players);
+        
         tiledMapRenderer.getBatch().end();
-        //testThisPlayer.round();
+
     }
 
 
