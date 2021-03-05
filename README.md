@@ -13,9 +13,11 @@ This project is built with:
 * Installing Maven:
     * Open computer's consol
     * Run the command "mvn clean install"
-    * Run the command "mvn -Dexec.mainClass=inf112.skeleton.app
+    * Run the command "mvn -Dexec.mainClass=inf112.skeleton.app.Main
     
 * In the project overview, go to src/main/java/inf112/skeleton/app and run Main.java
+
+* If you use a Mac, go to "Run" -> "Edit configuration" -> "VM Options" and enter "-XstartOnFirstThread" in that field
 
 
 ## Playing online
