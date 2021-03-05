@@ -46,7 +46,7 @@ Under denne innleveringen har vi prioritert å få ferdig MVP kravene som omhand
 
 ###Klassediagram
 
-Klassediagram finner du: [her](https://github.com/inf112-v21/GameStoppers/blob/master/classDiagram/UML-diagram2.png).
+Klassediagram finner du: [her](https://github.com/inf112-v21/GameStoppers/blob/master/classDiagram/UML-diagram_oblig2.png).
 
 ###Brukerhistorier
 
