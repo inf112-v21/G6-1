@@ -144,7 +144,7 @@ Klassediagram finner du: [her](https://github.com/inf112-v21/GameStoppers/blob/m
 ###Kjente bugs
 
 Vi har oppdaget et par bugs i koden vår.
-1) Vi får av og til feilkode når vi kjører main, men denne blir fikset ved å edit configurations og legge til “-XstartOnFirstThread” i VM options for at koden skal kjøre.
+1) De som har mac får feilkode når man kjører main, men denne blir fikset ved å edit configurations og legge til “-XstartOnFirstThread” i VM options for at koden skal kjøre.
 2) Det er mulig å velge samme spillkort flere ganger.
 3) For å få kjørt testene for playerLogic må man i edit configurations for hver test legger inn “-ea -XstartOnFirstThread” i VM options. I testene for playerLogic må et spillbrett opprettes og lukkes for at testene kan kjøres. Testene for playerLogic må også kjøres individuelt. 
 4) Det blir registrert en spiller for mye når du velger multiplayer.
