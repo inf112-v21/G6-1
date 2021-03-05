@@ -143,8 +143,19 @@ Vi har oppdaget et par bugs i koden vår.
 1) Vi får av og til feilkode når vi kjører main, men denne blir fikset ved å edit configurations og legge til “-XstartOnFirstThread” i VM options for at koden skal kjøre.
 2) Det er mulig å velge samme spillkort flere ganger.
 3) For å få kjørt testene for playerLogic må man i edit configurations for hver test legger inn “-ea -XstartOnFirstThread” i VM options. I testene for playerLogic må et spillbrett opprettes og lukkes for at testene kan kjøres. Testene for playerLogic må også kjøres individuelt. 
+4) Det blir registrert en spiller for mye når du velger multiplayer.
 
 ##Sprint retrospective
+Under denne sprinten har teamarbeidet fungert veldig godt. Daily scrum har fungert godt, og alle har bidratt. Vi har jobbet jevnt med koden siden innlevering av oppgave 1, men innså dessverre litt for sent at nettverksfunksjonaliteten var mer utfordrende å implementere enn forventet. Derfor fikk vi ikke til å få multiplayer til å fungere optimalt. Vi lå derfor inn et alternativ for single player hvor kortlogikken fungerer og vi kan bevege spiller. 
+
+Vi var klar over at nettverksdelen av koden var det som var mest tidkrevende denne innleveringen her og derfor startet vi tidlig på denne. Likevel ble den ikke korrekt implementert i tide til innlevering, så her burde vi ha satt inn flere ressurser. I retrospekt burde vi ha fått implementert nettverk først før vi begynte på de andre kravene istedenfor å jobbe parallelt. 
+
+Vi har vært flinkere på å bruke prosjektbrettet under denne sprinten, men vi har fortsatt forbedringspotensiale her for at det skal bli enda mer effektivt.
+
+Det er et par bugs i koden vi ikke har fått fikset før innlevering grunnet tidsbruk på å få nettverk til å fungere optimalt. Disse er nevnt kort over og i readme. 
+
+Vi har også litt forskjell i commits da vi har brukt mye tid på å mobprogrammere og på codewithme. 
+
 
 
 ##Møtereferat
