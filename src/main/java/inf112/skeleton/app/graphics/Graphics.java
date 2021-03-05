@@ -43,15 +43,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     public HashMap<Color, Sprite> playersSprite;
     public ArrayList<Player> testPlayerList;
 
-    public Sprite cardSpriteOne;
-    public Sprite cardSpriteTwo;
-    public Sprite cardSpriteThree;
-    public Sprite cardSpriteFore;
-    public Sprite cardSpriteFive;
-    public Sprite cardSpriteSix;
-    public Sprite cardSpriteSeven;
-    public Sprite cardSpriteEight;
-    public Sprite cardSpriteNine;
+
     /**
      * test for LHP
      */
@@ -77,10 +69,6 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
             cardCoordinateY += 2;
         }
     }
-
-        ArrayList<Player> testPlayer = new ArrayList<>();
-
-
     public HashMap<Color, Sprite> getPlayerSprite(){
         HashMap<Color,Sprite> playerSprite = new HashMap<>();
         playerSprite.put(Color.ORANGE,new Sprite(playerGraphics.getPlayerTextures().get(Color.ORANGE).get(Direction.NORTH)));
