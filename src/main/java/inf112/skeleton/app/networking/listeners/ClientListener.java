@@ -6,7 +6,6 @@ import com.esotericsoftware.kryonet.Listener;
 import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.networking.packets.Packets;
-import inf112.skeleton.app.player.Player;
 
 import java.util.ArrayList;
 
@@ -116,6 +115,10 @@ public class ClientListener extends Listener {
         }
     }
 
+    public Packets.CardsPacket getReceivedCards() {
+        return cards;
+    }
+
     // Returnerer true hvis du er koblet til serveren
     public boolean getC() {
         return c;
@@ -138,5 +141,7 @@ public class ClientListener extends Listener {
         Packets.RemovePlayerPacket removePlayerPacket = new Packets.RemovePlayerPacket();
         cl.sendTCP(removePlayerPacket);
     }
+
+
 
 }

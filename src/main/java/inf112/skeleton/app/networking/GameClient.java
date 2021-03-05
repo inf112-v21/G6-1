@@ -60,4 +60,12 @@ public class GameClient extends Listener {
     public void sendCardsToServer(ArrayList<Card> cards) {
         cListener.sendCardsToServer(cards);
     }
+
+    public ArrayList<Card> getLastCardsSent() {
+        ArrayList<Card> cards = new ArrayList<>();
+        for (int i = 0; i < cListener.getReceivedCards().playedCards.size(); i++) {
+            cards.add(cListener.getReceivedCards().playedCards.get(i));
+        }
+        return cards;
+    }
 }
