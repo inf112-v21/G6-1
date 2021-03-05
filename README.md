@@ -111,4 +111,4 @@ Jethuestad https://github.com/Jethuestad
 however the project still runs and it does not affect performance.
 
 * When selecting cards, if you attempt selecting an empty slot of an already used card the program will think there is a card there. Then move the card already in the playing
-* slots one to the right, leaving an empty spot where it was moved from
+slots one to the right, leaving an empty spot where it was moved from
