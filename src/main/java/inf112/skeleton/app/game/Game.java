@@ -183,6 +183,7 @@ public class Game implements IGame, InputProcessor {
 
     @Override
     public ArrayList<Player> createPlayers() {
+        System.out.println("Creating players" + numberOfPlayers);
         ArrayList <Player> playerList = new ArrayList<>();
         for (int i = 0; i < numberOfPlayers; i++) {
             Color playerColor = Color.getPlayerColor(i);
