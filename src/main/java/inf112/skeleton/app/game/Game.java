@@ -38,6 +38,7 @@ public class Game implements IGame, InputProcessor {
     CardDeck cardDeck;
     GameServer server;
     GameClient client;
+    String typeOfGameStarted;
     private ArrayList<Packets.CardsPacket> allPlayerCards;
     private boolean[] ready;
     CardMoveLogic cardMoveLogic = new CardMoveLogic();
@@ -90,6 +91,7 @@ public class Game implements IGame, InputProcessor {
 
         if(choice.equals("1")){
             hostNewGame("RiskyExchange");
+            typeOfGameStarted = "host";
         }
         else if(choice.equals("2")){
             InetAddress hostIp = null;
@@ -103,10 +105,13 @@ public class Game implements IGame, InputProcessor {
                 e.printStackTrace();
             }
             System.out.println(hostIp.getHostAddress());
+            typeOfGameStarted = "join";
             joinNewGame(hostIp);
+
         }
         else if(choice.equals("3")){
             System.out.println("Single player selected");
+            typeOfGameStarted = "single player";
         }
         else {
             System.out.println("Please enter 1 or 2 when asked to");
