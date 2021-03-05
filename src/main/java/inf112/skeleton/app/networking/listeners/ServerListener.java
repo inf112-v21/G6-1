@@ -83,9 +83,6 @@ public class ServerListener extends Listener {
     }
 
     public void sendAllMovesToClients() {
-        // Nå vet vi at vi har motatt kort
-        // Sjekk om vi har motatt alle spillerene sine kort
-        // Hvis det er tilfelle så har vi lyst til å sende roundPacket til alle
         if (cardsReceived.size() != numberOfPlayers) {
             return;
         }

@@ -54,10 +54,6 @@ public class Packets {
 
     /** Package instructing all clients to start the game */
     public static class StartGamePackage {
-        //public String map;
-        //public int playerNumber;
-        //public int startXPosition;
-        //public int startYPosition;
     }
 
 

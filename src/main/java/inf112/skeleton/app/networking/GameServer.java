@@ -69,43 +69,6 @@ public class GameServer implements Runnable {
         server.stop();
     }
 
-
-    //TODO We need this class for anything to be recieved by server from clients
-    public void received(Connection c, Object o) {
-
-    }
-
-    /**
-     * Method to be used to tell server a new connection has been made, sending a simple respons to server and
-     * updating names in the names-variable.
-     *
-     * @param c - Connection object used to identify user
-     */
-    public void isConnected(Connection c){
-        System.out.println("Received connection from "+ c.getRemoteAddressTCP().getHostString());
-        PacketMessage packetMessage = new PacketMessage();
-        packetMessage.message = "Heisann!";
-        c.sendTCP(packetMessage);
-        updateNames();
-    }
-
-    /**
-     * Method to be used to tell server a user has disconnected, sending a simple respons to server, and updates the new
-     * names-list, removing the given user;)
-     *
-     * @param c - Connection object used to identify user
-     */
-    public void isDisconnected(Connection c){
-        playerConnected Connection = (playerConnected) c;
-        if(Connection.name != null) {
-            PacketMessage packetMessage = new PacketMessage();
-            packetMessage.message = Connection.name + " has disconnected...";
-            server.sendToAllTCP(packetMessage);
-            updateNames();
-        }
-        System.out.println("Player disconnected");
-    }
-
     public InetAddress getAddress() {
         return address;
     }
