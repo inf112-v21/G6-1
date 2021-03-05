@@ -43,31 +43,6 @@ you navigate the figure on top of a flag.
 
 
 
-## How code runs 
-
-**Game-class:**
-* Creates new game, and is used in Main to run the game.
-  
-* More will be implemented in this class in the future
-
-**GameLogic-class:**
-* Used to update, move, and check if localHumanPlayer can move. 
-  
-* Method to check if localHumanPlayer reaches flag
-    
-* Method to update position of localHumanPlayer and draw localHumanPlayer
-    
-* Method to normalize from pixels to tiles for movement and checking certain tiles. Will be used in other classes
-
-**Graphics-class:**
-    
-* Initializes GUI settings
-    
-* Shows the board and localHumanPlayer
-    
-* Is in control of the game's graphics
-
-
 **Shared-package**
 * Currently unused, will be used for future development
 
