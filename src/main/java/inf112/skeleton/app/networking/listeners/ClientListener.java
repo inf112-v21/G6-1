@@ -47,7 +47,7 @@ public class ClientListener extends Listener {
 
     /** Sends an array to the server which contains the cards that the
      * player has chosen to play.
-     * @param cardsToBePlayed the cards that the player wants to play
+     * @param cards the cards that the player wants to play
      */
 
     public void sendCardsToServer(ArrayList<Card> cards) {
@@ -98,7 +98,12 @@ public class ClientListener extends Listener {
             Packets.PlayerNumberPacket p = (Packets.PlayerNumberPacket) object;
             System.out.println("Received player packet with x players: " + p.numberOfPlayers);
             game.setNumberOfPlayers(p.numberOfPlayers);
-        } else if (object instanceof Packets.StartSignalPacket){
+        } else if (object instanceof Packets.StartGamePackage) {
+            System.out.println("Starting game");
+            Packets.StartGamePackage p = (Packets.StartGamePackage) object;
+            game.dealPlayerDecks();
+        }
+        else if (object instanceof Packets.StartSignalPacket){
             // public boolean start;
         } else if (object instanceof Packets.NamePacket) {
             Packets.NamePacket name = (Packets.NamePacket) object;

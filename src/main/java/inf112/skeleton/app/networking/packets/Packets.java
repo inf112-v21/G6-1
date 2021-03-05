@@ -13,10 +13,6 @@ public class Packets {
     }
 
 
-    public static class CardsPacket{
-        public ArrayList<Card> playedCards;
-        public int playerId;
-    }
     public static class PlayerNumberPacket{
         public int numberOfPlayers;
     }
@@ -43,15 +39,25 @@ public class Packets {
         public int playerId;
     }
 
+
+    /** Packet containing a players moves, to be sent to the server */
+    public static class CardsPacket {
+        public ArrayList<Card> playedCards;
+        public int playerId;
+    }
+
+    /** A packet containing all player moves for a round so that clients may execute them */
     public static class RoundPacket {
         public HashMap<Integer, ArrayList<Card>> playerMoves;
     }
 
-    public static class startGamePackage {
-        public String map;
-        public int playerNumber;
-        public int startXPosition;
-        public int startYPosition;
+
+    /** Package instructing all clients to start the game */
+    public static class StartGamePackage {
+        //public String map;
+        //public int playerNumber;
+        //public int startXPosition;
+        //public int startYPosition;
     }
 
 

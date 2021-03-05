@@ -54,6 +54,14 @@ public class ServerListener extends Listener {
         playerPacket.numberOfPlayers = numberOfPlayers;
         server.sendToAllTCP(playerPacket);
         server.sendToTCP(connection.getID(), map);
+
+
+        // TODO we automatically start the game when we have 3 players
+        // TODO add a start button to the gui of the host
+        //  which should trigger starting the game
+        if (numberOfPlayers >= 2) {
+            this.startGame();
+        }
     }
 
 
@@ -78,7 +86,6 @@ public class ServerListener extends Listener {
         // Nå vet vi at vi har motatt kort
         // Sjekk om vi har motatt alle spillerene sine kort
         // Hvis det er tilfelle så har vi lyst til å sende roundPacket til alle
-
         if (cardsReceived.size() != numberOfPlayers) {
             return;
         }
@@ -89,6 +96,14 @@ public class ServerListener extends Listener {
         System.out.println("card sent");
         cardsReceived.clear();
     }
+
+    public void startGame() {
+        System.out.println("Instructing all clients to start the game");
+        Packets.StartGamePackage p = new Packets.StartGamePackage();
+        server.sendToAllTCP(p);
+    }
+
+
 
 
     /** When something is sent to the server this method gets called and sorts
@@ -105,10 +120,7 @@ public class ServerListener extends Listener {
         } else if (object instanceof Packets.CardsPacket) {
             Packets.CardsPacket cards = (Packets.CardsPacket) object;
             cardsReceived.put(cards.playerId, cards.playedCards);
-
             sendAllMovesToClients();
-
-
 
         } else if (object instanceof Packets.StartSignalPacket) {
             Packets.StartSignalPacket startSignalPacket = (Packets.StartSignalPacket) object;

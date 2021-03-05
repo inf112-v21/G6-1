@@ -135,13 +135,16 @@ public class Game implements IGame, InputProcessor {
                 }
             }
         }
+        dealPlayerDecks();
+    }
+
+    public void dealPlayerDecks() {
         for (Player player: players) {
             player.cardCoordinates = cardMoveLogic.resetCardCoordinates();
             player.chosenCards = new ArrayList<>();
             player.playerDeck = cardMoveLogic.playerDeck();
         }
     }
-
 
     public void isReady(Packets.CardsPacket p) {
         for (Packets.CardsPacket pc : allPlayerCards) {
