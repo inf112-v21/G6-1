@@ -57,13 +57,7 @@ public class GameClient extends Listener {
         }
     }
 
-    // TODO hvordan kaller jeg inn
     public void sendCardsToServer(ArrayList<Card> cards) {
         cListener.sendCardsToServer(cards);
     }
-
-
-//TODO Trenger muligens en recieved her også
-
-
 }

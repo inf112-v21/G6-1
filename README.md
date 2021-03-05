@@ -86,15 +86,6 @@ The code runs using mainly libgdx and tiledmap to both generate the graphics of 
     they match the coordinates of the flag. When this is the case, a method isGameOver() will become true,
     and tell graphics to end the game.
 
-## Configuration instructions
-
-## Operating instructions
-
-* Run the Main-class from inf112.skeleton.app package, and a GUI will open.
-
-* Move the character by using your arrow-keys (UP, DOWN, LEFT, RIGHT)
-
-* Win the game by navigating the displayed character to one of the three black flags on the board.
 
 
 ## Credits
@@ -116,5 +107,8 @@ Jethuestad https://github.com/Jethuestad
 
 ## Known bugs
 
-Currently throws "WARNING: An illegal reflective access operation has occurred", 
+* Currently throws "WARNING: An illegal reflective access operation has occurred", 
 however the project still runs and it does not affect performance.
+
+* When selecting cards, if you attempt selecting an empty slot of an already used card the program will think there is a card there. Then move the card already in the playing
+slots one to the right, leaving an empty spot where it was moved from
