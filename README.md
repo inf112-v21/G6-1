@@ -91,11 +91,13 @@ however the project still runs and it does not affect performance.
  slots one to the right, leaving an empty spot where it was moved from.
   
 * When playing single player you have to be patient when selecting cards, because of the error mentioned above.
- This is caused by poor optimization, and if cards are selected too quickly the graphics struggle to keep up.
+ This is caused by poor optimization, and if cards are selected too quickly the graphics struggle to keep up, 
+ and the wrong card will be selected.
   
 * When one person hosts a game, two game-pieces appear on the board. When a new player joins, one more appears.
-Only one game-piece should appear per player joined
+Only one game-piece should appear per player joined.
   
 * Sometimes, when selecting host game, cards will appear in the slots when selected.
-Ignore this
+Ignore this.
+
   
