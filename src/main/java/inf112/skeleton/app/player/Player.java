@@ -134,6 +134,6 @@ public abstract class Player  {
      */
     public abstract void updatePlayerLocation(Card card);
 
-    public abstract void round();
+    public abstract void singlePlayerRound();
     public  abstract void setMouseClickCoordinates(OrthographicCamera camera);
 }

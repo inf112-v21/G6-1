@@ -131,7 +131,7 @@ public class Graphics  implements ApplicationListener{
         playerOneSprite.setPosition(playerOne.getPlayerXPosition(), playerOne.getPlayerYPosition());
         playerOneSprite.setTexture(playerGraphics.getPlayerTextures().get(playerOne.color).get(playerOne.direction)); //greenPiece.get(humanPlayer.direction))
         playerOneSprite.draw(tiledMapRenderer.getBatch());
-        playerOne.round();
+        playerOne.singlePlayerRound();
 
     }
     /**

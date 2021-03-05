@@ -131,7 +131,7 @@ public class HumanPlayer extends Player implements InputProcessor {
     }
 
     @Override
-    public void round(){
+    public void singlePlayerRound(){
         if(dummyPlayerDeck == 4 && chosenCards.size() == 5){
             updatePlayerLocation(chosenCards.get(0));
             updatePlayerLocation(chosenCards.get(1));
