@@ -51,7 +51,7 @@ Vi ønsker å fortsette med samme rutiner som vi har hatt så langt i prosjektar
     Work task:
 - Create a class to host a server
 
-**2)As a user, I want to be able to connect to the game over the internet, so that I can join a game I was invited to**
+**2) As a user, I want to be able to connect to the game over the internet, so that I can join a game I was invited to**
 
     Acceptance criteria:
 - I can connect to the game server
@@ -60,7 +60,7 @@ Vi ønsker å fortsette med samme rutiner som vi har hatt så langt i prosjektar
     Work task:
 - Set up client connection
 
-**3)As a user, I need cards, to be able to move my robot**
+**3) As a user, I need cards, to be able to move my robot**
 
     Acceptance criteria:
 - CardObject is created
@@ -69,11 +69,77 @@ Vi ønsker å fortsette med samme rutiner som vi har hatt så langt i prosjektar
     Work task:
 - Create card objects 
 
-**3)As a user, I want cards to be distributed to me, because I don’t want to pull the cards myself**
-Acceptance criteria:
-cards is connected to the player object
-Work task:
-distribute cards to players
+**4) As a user, I want cards to be distributed to me, because I don’t want to pull the cards myself**
+
+    Acceptance criteria:
+- Cards is connected to the player object
+
+    
+    Work task:
+- Distribute cards to players
+
+**5) As a user, I want to be able to see see my cards, so that I know what options I have for movement**
+
+
+    Acceptance criteria:
+- Cards are shown on the screen
+
+
+    Work task: 
+- Create method to show cards on the screen 
+
+**6) As a user, I want my cards to be private for me, so that the other users do not know what options I have**
+
+    Acceptance criteria:
+- My cards are only shown to me on my own screen
+
+
+    Work task: 
+- Create method for showing cards to one player only 
+
+**7) As a user, I want to be able to interact with my card, so that I can choose what cards I want to play**
+
+    Acceptance criteria:
+- I can move the cards on the screen
+
+
+    Work task:
+- Create method to interact with the cards
+
+**8) As a user, I want to be able to put my card into the slots, so that I know what cards I have chosen, and in which order they are being played**
+
+    Acceptance criteria:
+- Cards can be moved into slots
+
+
+    Work task:
+- Create a method for putting the cards in the slots
+
+**9) As a user, I want my piece to act according to the card, so that the chosen move happens as planned**
+
+    Acceptance criteria:
+- My piece moves according to the card in the slots
+
+
+    Work task:  
+- Create methods that use cards from the slot
+
+**10) As a user, I want the turns to play out according to the priority of the cards so that the order of moves is correct.**
+
+    Acceptance criteria:
+- The piece for different players moves according to the priority on the cards
+
+
+    Work task:
+- Create method for using the cards in the right order
+
+
+
+
+
+
+
+
 
 
 
