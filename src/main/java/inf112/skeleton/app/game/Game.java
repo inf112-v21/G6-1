@@ -188,9 +188,12 @@ public class Game implements IGame, InputProcessor {
     public ArrayList<Player> createPlayers() {
         System.out.println("Creating players " + numberOfPlayers);
         ArrayList <Player> playerList = new ArrayList<>();
+        float startPositionX = 0;
         for (int i = 0; i < numberOfPlayers; i++) {
             Color playerColor = Color.getPlayerColor(i);
             playerList.add(new HumanPlayer(Direction.NORTH, i, playerColor));
+            playerList.get(i).setPlayerStartXPosition(startPositionX);
+            startPositionX += 300;
         }
         this.players = playerList;
         return playerList;
