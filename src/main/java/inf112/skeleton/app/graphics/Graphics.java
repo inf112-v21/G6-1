@@ -27,12 +27,9 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     private SpriteBatch spriteBatch;
     public PlayerGraphics playerGraphics;
     public CardGraphics cardGraphics;
-    public Player humanPlayer;
-    public HumanPlayer playerOne;
-    public HumanPlayer playerTwo;
-    public HumanPlayer playerThree;
-    public HumanPlayer playerFour;
-    public HumanPlayer playerFive;
+
+    public Player playerOne = new HumanPlayer(Direction.NORTH,69,Color.GREEN);
+
     public Game game;
     public HashMap<Action, Texture> getCardTexture;
     public Texture background;
@@ -45,6 +42,16 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     public testClass testClass = new testClass();
     public HashMap<Color, Sprite> playersSprite;
     public ArrayList<Player> testPlayerList;
+
+    public Sprite cardSpriteOne;
+    public Sprite cardSpriteTwo;
+    public Sprite cardSpriteThree;
+    public Sprite cardSpriteFore;
+    public Sprite cardSpriteFive;
+    public Sprite cardSpriteSix;
+    public Sprite cardSpriteSeven;
+    public Sprite cardSpriteEight;
+    public Sprite cardSpriteNine;
     /**
      * test for LHP
      */
@@ -118,20 +125,11 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     @Override
     public void create() {
         //TODO create start position for all players
-        /*
-        playerOne = testClass.createhuman().get(0);
-        playerOneSprite = new Sprite((playerGraphics.getPlayerTextures().get(playerOne.color).get(playerOne.direction)));;
+
+        playerOne.playerDeck = cardMoveLogic.playerDeck();
+        //playerOne = testClass.createhuman().get(0);
+        playerOneSprite = new Sprite((playerGraphics.getPlayerTextures().get(playerOne.color).get(playerOne.direction)));
         playerOneSprite.setSize(300,300);
-
-        playerTwo = testClass.createhuman().get(1);
-        playerTwoSprite = new Sprite((playerGraphics.getPlayerTextures().get(playerTwo.color).get(playerTwo.direction)));
-        playerTwoSprite.setSize(300,300);
-
-        testPlayer.add(playerOne);
-        testPlayer.add(playerTwo);
-        */
-
-
         playerSprite = getPlayerSprite();
 
         float w = 600;
@@ -145,8 +143,6 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         startTexture = new Texture("Player/OwlPlayer.png");
-        //getCardTexture = cardGraphics.getCardTexture();
-        //
         playersSprite = getPlayerSprite();
         background = new Texture("Background.png");
         youWin = new Texture("YouWin.jpg");
@@ -154,6 +150,15 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         testPlayerList =testClass.createhuman();
     }
 
+    public void singlePlayer(){
+        playerOne.setMouseClickCoordinates(camera);
+        updateCardSprite(playerOne);
+        playerOneSprite.setPosition(playerOne.getPlayerXPosition(), playerOne.getPlayerYPosition());
+        playerOneSprite.setTexture(playerGraphics.getPlayerTextures().get(playerOne.color).get(playerOne.direction)); //greenPiece.get(humanPlayer.direction))
+        playerOneSprite.draw(tiledMapRenderer.getBatch());
+        playerOne.round();
+
+    }
     /**
      * Displayed on the screen.
      * @param width
@@ -183,25 +188,16 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
-
+        Gdx.input.setInputProcessor((InputProcessor) playerOne);
         tiledMapRenderer.getBatch().begin();
-        System.out.println(game.players.size());
-        /*
-        Sprite playerSprite = playersSprite.get(testThisPlayer.color);
-        playerSprite.setTexture(playerGraphics.getPlayerTextures().get(testThisPlayer.color).get(testThisPlayer.direction));
-        playerSprite.setSize(300,300);
-        playerSprite.setPosition(testThisPlayer.getPlayerXPosition(), testThisPlayer.getPlayerYPosition());
-        playerSprite.draw(tiledMapRenderer.getBatch());
-           */
-        //Player testThisPlayer = testPlayerList.get(0);//testClass.createhuman().get(0);
 
-        //System.out.println(testPlayerList.size());
-        //System.out.println("rendering players" + game.players);
-        //playFunctions(testThisPlayer);
-/*
 
-*/
-        updatePlayerSprite(game.players);
+
+        
+        singlePlayer();
+
+        // Multiplayer
+        //updatePlayerSprite(game.players);
         
         tiledMapRenderer.getBatch().end();
 
