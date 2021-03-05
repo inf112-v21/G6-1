@@ -91,7 +91,7 @@ public class Graphics  implements ApplicationListener{
         for (Player player : players){
             playFunctions(player);
             setInputProcessor(player);
-            updateCardSprite(testPlayerList.get(0));
+            updateCardSprite(player);
             Sprite playerSprite = playersSprite.get(player.color);
             playerSprite.setTexture(playerGraphics.getPlayerTextures().get(player.color).get(player.direction));
             playerSprite.setSize(300,300);
