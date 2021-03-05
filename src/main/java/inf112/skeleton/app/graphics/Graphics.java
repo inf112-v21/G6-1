@@ -27,7 +27,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     private SpriteBatch spriteBatch;
     public PlayerGraphics playerGraphics;
     public CardGraphics cardGraphics;
-    //public HumanPlayer humanPlayer;
+    public Player humanPlayer;
     public HumanPlayer playerOne;
     public HumanPlayer playerTwo;
     public HumanPlayer playerThree;
@@ -104,6 +104,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         HashMap<Color, Sprite> playersSprite = getPlayerSprite();
         for (Player player : players){
             playFunctions(player);
+            humanPlayer = player;
             Sprite playerSprite = playersSprite.get(player.color);
             playerSprite.setTexture(playerGraphics.getPlayerTextures().get(player.color).get(player.direction));
             playerSprite.setSize(300,300);
@@ -114,6 +115,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
 
     @Override
     public void create() {
+        //TODO create start position for all players
         /*
         playerOne = testClass.createhuman().get(0);
         playerOneSprite = new Sprite((playerGraphics.getPlayerTextures().get(playerOne.color).get(playerOne.direction)));;
@@ -173,7 +175,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
-
+        updateCardSprite(humanPlayer);
         tiledMapRenderer.getBatch().begin();
         updatePlayerSprite(game.players);
         tiledMapRenderer.getBatch().end();
