@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import inf112.skeleton.app.card.CardMoveLogic;
@@ -20,33 +20,28 @@ import inf112.skeleton.app.shared.Direction;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Graphics extends ScreenAdapter implements ApplicationListener{
+public class Graphics  implements ApplicationListener{
     public TiledMap tiledMap;
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private SpriteBatch spriteBatch;
     public PlayerGraphics playerGraphics;
     public CardGraphics cardGraphics;
-
     public Player playerOne = new HumanPlayer(Direction.NORTH,69,Color.GREEN);
-
     public Game game;
     public HashMap<Action, Texture> getCardTexture;
     public Texture background;
     public Texture youWin;
     public Texture startTexture;
     public Sprite playerOneSprite;
-    public Sprite playerTwoSprite;
     public ArrayList<Sprite> cardSpriteList;
     private CardMoveLogic cardMoveLogic = new CardMoveLogic();
     public testClass testClass = new testClass();
     public HashMap<Color, Sprite> playersSprite;
     public ArrayList<Player> testPlayerList;
+    public  HashMap<Color, Sprite> playerSprite;
 
 
-    /**
-     * test for LHP
-     */
 
     public Graphics(Game game) {
         playerGraphics = new PlayerGraphics();
@@ -59,7 +54,6 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         int cardCoordinateX = 0;
         int cardCoordinateY = 1;
         for (Sprite card: cardSpriteList){
-
             card.setSize(455, 650);
             card.setPosition(humanPlayer.cardCoordinates.get(cardCoordinateX),humanPlayer.cardCoordinates.get(cardCoordinateY));
             card.setTexture(cardGraphics.getCardTexture().get(humanPlayer.playerDeck.get(cardNumber).action));
@@ -69,6 +63,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
             cardCoordinateY += 2;
         }
     }
+
     public HashMap<Color, Sprite> getPlayerSprite(){
         HashMap<Color,Sprite> playerSprite = new HashMap<>();
         playerSprite.put(Color.ORANGE,new Sprite(playerGraphics.getPlayerTextures().get(Color.ORANGE).get(Direction.NORTH)));
@@ -79,14 +74,11 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         return playerSprite;
     }
 
-    public  HashMap<Color, Sprite> playerSprite;
-
     public void setInputProcessor(Player player){
         Gdx.input.setInputProcessor((InputProcessor) player);
     }
-    // TODO refactor after test
+
     public void playFunctions(Player player){
-        //updateCardSprite(player);
         player.setMouseClickCoordinates(camera);
     }
 
@@ -99,7 +91,6 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         HashMap<Color, Sprite> playersSprite = getPlayerSprite();
         for (Player player : players){
             playFunctions(player);
-            //humanPlayer = player;
             setInputProcessor(player);
             updateCardSprite(testPlayerList.get(0));
             Sprite playerSprite = playersSprite.get(player.color);
@@ -115,7 +106,6 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         //TODO create start position for all players
 
         playerOne.playerDeck = cardMoveLogic.playerDeck();
-        //playerOne = testClass.createhuman().get(0);
         playerOneSprite = new Sprite((playerGraphics.getPlayerTextures().get(playerOne.color).get(playerOne.direction)));
         playerOneSprite.setSize(300,300);
         playerSprite = getPlayerSprite();
@@ -134,7 +124,6 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         playersSprite = getPlayerSprite();
         background = new Texture("Background.png");
         youWin = new Texture("YouWin.jpg");
-
         testPlayerList =testClass.createhuman();
     }
 
@@ -159,35 +148,41 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         camera.update();
     }
 
-
-
     /**
      * This is where the graphics of the game get rendered.
      */
     @Override
 
     public void render() {
-        //background image
+
+
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, 1280, 720);
         spriteBatch.end();
-        //player on display
-
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
         Gdx.input.setInputProcessor((InputProcessor) playerOne);
+
         tiledMapRenderer.getBatch().begin();
-
-
         if(game.typeOfGameStarted == "single player"){
             singlePlayer();
         } else{
             updatePlayerSprite(game.players);
         }
-
-        
         tiledMapRenderer.getBatch().end();
+
+        if (playerOne.isPlayerOnFlag((TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"))) {
+            pause();
+            System.out.println("You Won!");
+            spriteBatch.begin();
+            spriteBatch.draw(youWin, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            spriteBatch.end();
+            pause();
+            dispose();
+        }
+
+
 
     }
 
