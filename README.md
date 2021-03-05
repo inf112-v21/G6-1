@@ -107,5 +107,8 @@ Jethuestad https://github.com/Jethuestad
 
 ## Known bugs
 
-Currently throws "WARNING: An illegal reflective access operation has occurred", 
+* Currently throws "WARNING: An illegal reflective access operation has occurred", 
 however the project still runs and it does not affect performance.
+
+* When selecting cards, if you attempt selecting an empty slot of an already used card the program will think there is a card there. Then move the card already in the playing
+* slots one to the right, leaving an empty spot where it was moved from
