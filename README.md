@@ -13,6 +13,7 @@ This project is built with:
 * Installing Maven:
     * Open computer's consol
     * Run the command "mvn clean install"
+    * Run the command "mvn -Dexec.mainClass=inf112.skeleton.app
     
 * In the project overview, go to src/main/java/inf112/skeleton/app and run Main.java
 
