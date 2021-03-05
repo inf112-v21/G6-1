@@ -38,7 +38,7 @@ public class Game implements IGame, InputProcessor {
     CardDeck cardDeck;
     GameServer server;
     GameClient client;
-    String typeOfGameStarted;
+    public String typeOfGameStarted;
     private ArrayList<Packets.CardsPacket> allPlayerCards;
     private boolean[] ready;
     CardMoveLogic cardMoveLogic = new CardMoveLogic();
