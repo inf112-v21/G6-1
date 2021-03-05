@@ -41,7 +41,7 @@ GameStoppers' project is a simple board-game interface with working movement usi
 to navigate a figure around a 12x14 grid. The board-game will stop, and tell the localHumanPlayer they won, if
 you navigate the figure on top of a flag.
 
-![Overview](https://github.com/inf112-v21/GameStoppers/blob/master/classDiagram/Updated_ClassDiagram.png?raw=true)
+![Overview](https://github.com/inf112-v21/GameStoppers/blob/master/classDiagram/UML-diagram_oblig2.png?raw=true)
 
 
 
