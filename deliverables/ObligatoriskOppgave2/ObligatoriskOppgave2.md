@@ -73,7 +73,7 @@ Under denne innleveringen har vi prioritert å få ferdig MVP kravene som omhand
     Work task:
 - Create card objects 
 
-**4) As a user, I want cards to be distributed to me, because I don’t want to pull the cards myself**
+**4) As a user, I want 9 random cards to be distributed to me, because I don’t want to pull the cards myself**
 
     Acceptance criteria:
 - Cards is connected to the player object
@@ -82,7 +82,7 @@ Under denne innleveringen har vi prioritert å få ferdig MVP kravene som omhand
     Work task:
 - Distribute cards to players
 
-**5) As a user, I want to be able to see see my cards, so that I know what options I have for movement**
+**5) As a user, I want to be able to see my cards, so that I know what options I have for movement**
 
 
     Acceptance criteria:
