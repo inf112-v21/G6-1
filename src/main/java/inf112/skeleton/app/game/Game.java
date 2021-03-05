@@ -46,7 +46,6 @@ public class Game implements IGame, InputProcessor {
     @Override
     public Graphics startGame() {
         graphics = new Graphics();
-        chooseHostOrJoin();
         return graphics;
     }
 
@@ -57,6 +56,7 @@ public class Game implements IGame, InputProcessor {
      * @param map - What map to be used in the hosted game.
      * @return
      */
+
     public InetAddress hostNewGame(String map) {
         server = new GameServer(map);
         server.run();
