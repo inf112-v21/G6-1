@@ -36,7 +36,6 @@ public class Graphics  implements ApplicationListener{
     public Sprite playerOneSprite;
     public ArrayList<Sprite> cardSpriteList;
     private CardMoveLogic cardMoveLogic = new CardMoveLogic();
-    public testClass testClass = new testClass();
     public HashMap<Color, Sprite> playersSprite;
     public ArrayList<Player> testPlayerList;
     public  HashMap<Color, Sprite> playerSprite;
@@ -124,7 +123,6 @@ public class Graphics  implements ApplicationListener{
         playersSprite = getPlayerSprite();
         background = new Texture("Background.png");
         youWin = new Texture("YouWin.jpg");
-        testPlayerList =testClass.createhuman();
     }
 
     public void singlePlayer(){
@@ -154,8 +152,6 @@ public class Graphics  implements ApplicationListener{
     @Override
 
     public void render() {
-
-
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, 1280, 720);
         spriteBatch.end();
@@ -181,9 +177,6 @@ public class Graphics  implements ApplicationListener{
             pause();
             dispose();
         }
-
-
-
     }
 
 
