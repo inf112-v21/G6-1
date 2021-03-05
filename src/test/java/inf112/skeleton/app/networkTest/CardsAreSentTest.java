@@ -8,7 +8,6 @@ import inf112.skeleton.app.shared.Action;
 import org.junit.AfterClass;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
-import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -26,7 +25,6 @@ public class CardsAreSentTest {
 
     @BeforeEach
     public static void ServerSetUp() {
-        gameTest = mock(Game.class);
         serverTest = new GameServer("RiskyExchange.tmx");
         serverTest.run();
         clientTest = new GameClient(serverTest.getAddress(), gameTest);
