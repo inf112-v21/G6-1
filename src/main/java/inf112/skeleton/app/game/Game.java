@@ -24,9 +24,6 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.concurrent.ThreadPoolExecutor;
 
-// Game is the centerpiece, it sends information to the
-// GameClient which in turn send information to the GameServer
-
 public class Game implements IGame, InputProcessor {
 
     private Graphics graphics;
@@ -209,26 +206,7 @@ public class Game implements IGame, InputProcessor {
 
 
     @Override
-    public boolean keyDown(int i) {
-        if (i == Input.Keys.NUM_1) {
-            numberOfPlayers = 1;
-        } else if (i == Input.Keys.NUM_2) {
-            numberOfPlayers = 2;
-        } else if (i == Input.Keys.NUM_3) {
-            numberOfPlayers = 3;
-        } else if (i == Input.Keys.NUM_4) {
-            numberOfPlayers = 4;
-        } else if (i == Input.Keys.NUM_5) {
-            numberOfPlayers = 5;
-        } else if (i == Input.Keys.NUM_6) {
-            numberOfPlayers = 6;
-        } else if (i == Input.Keys.NUM_7) {
-            numberOfPlayers = 7;
-        } else if (i == Input.Keys.NUM_8) {
-            numberOfPlayers = 8;
-        }
-        return true;
-    }
+    public boolean keyDown(int i) { return true; }
 
     @Override
     public boolean keyUp(int i) {

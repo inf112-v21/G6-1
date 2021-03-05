@@ -20,6 +20,7 @@ public class playerLogicTest {
      * In order for the test to run, a game window must be initialised.
      * When the game window is manually closed, the tests will run as expected.
      * The tests must be run individually.
+     * If you get error "ExceptionInInitializerError", run the JVM with -XstartOnFirstThread.
      */
     Graphics graphics = new Graphics(new Game());
     Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
