@@ -33,7 +33,7 @@ public class Game implements IGame, InputProcessor {
     /** The number of players in this game */
     private int numberOfPlayers;
     /** The current players in this game */
-    public ArrayList<Player> players;
+    public ArrayList<Player> players = new ArrayList<Player>();
     /** The card handler */
     CardDeck cardDeck;
     GameServer server;
@@ -46,6 +46,7 @@ public class Game implements IGame, InputProcessor {
     @Override
     public Graphics startGame() {
         graphics = new Graphics();
+        chooseHostOrJoin();
         return graphics;
     }
 

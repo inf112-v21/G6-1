@@ -2,6 +2,7 @@ package inf112.skeleton.app.graphics;
 
 import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.player.HumanPlayer;
+import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
 
@@ -12,8 +13,8 @@ public class testClass {
     public HumanPlayer humanPlayer1;
     public HumanPlayer humanPlayer2;
 
-    public ArrayList<HumanPlayer> createhuman(){
-        ArrayList<HumanPlayer>players = new ArrayList<>();
+    public ArrayList<Player> createhuman(){
+        ArrayList<Player>players = new ArrayList<>();
         humanPlayer1 = new HumanPlayer(Direction.NORTH, 6969,Color.ORANGE);
         humanPlayer1.playerDeck = cardMoveLogic.playerDeck();
         humanPlayer2 = new HumanPlayer(Direction.NORTH, 6969,Color.GREEN);
