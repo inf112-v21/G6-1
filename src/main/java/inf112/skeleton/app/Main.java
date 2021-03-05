@@ -19,7 +19,9 @@ public class Main {
         cfg.setTitle("GameStopper's RoboRally");
         cfg.setWindowedMode(1280, 720);
         Game game = new Game();
-        game.chooseHostOrJoin();
+        while (game.players == null) {
+            game.chooseHostOrJoin();
+        }
         if(game.players != null) {
             new Lwjgl3Application(game.startGame(), cfg);
         }

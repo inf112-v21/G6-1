@@ -178,6 +178,8 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         updateCardSprite(humanPlayer);
         tiledMapRenderer.getBatch().begin();
         updatePlayerSprite(game.players);
+        //playerOne.round();
+
         tiledMapRenderer.getBatch().end();
     }
 

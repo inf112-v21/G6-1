@@ -46,14 +46,13 @@ public class GameServer implements Runnable {
         System.out.println("Creating the server...");
 
         server.addListener(serverListener);
-        Network.register(server);
 
         try {
             server.bind(tcpPort, udpPort);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        Network.register(server);
         server.start();
 
         try {
@@ -64,8 +63,6 @@ public class GameServer implements Runnable {
         }
 
         System.out.println("Server has started:O");
-
-
     }
 
     public void stop() {
