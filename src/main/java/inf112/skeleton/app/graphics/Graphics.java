@@ -172,7 +172,7 @@ public class Graphics  implements ApplicationListener{
             pause();
             System.out.println("You Won!");
             spriteBatch.begin();
-            spriteBatch.draw(youWin, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            spriteBatch.draw(youWin, 0, 0, 1280, 720);
             spriteBatch.end();
             pause();
             dispose();
