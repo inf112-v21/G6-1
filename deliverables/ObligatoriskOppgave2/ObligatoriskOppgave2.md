@@ -144,6 +144,9 @@ Vi har oppdaget et par bugs i koden vår.
 2) Det er mulig å velge samme spillkort flere ganger.
 3) For å få kjørt testene for playerLogic må man i edit configurations for hver test legger inn “-ea -XstartOnFirstThread” i VM options. I testene for playerLogic må et spillbrett opprettes og lukkes for at testene kan kjøres. Testene for playerLogic må også kjøres individuelt. 
 
+##Sprint retrospective
+
+
 ##Møtereferat
 
 ###Tirsdag 16.02.21
