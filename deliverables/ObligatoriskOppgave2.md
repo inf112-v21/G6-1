@@ -42,6 +42,10 @@ Vi ønsker å fortsette med samme rutiner som vi har hatt så langt i prosjektar
 
 ##Krav og brukerhistorier
 
+Under denne innleveringen har vi prioritert å få ferdig MVP kravene som omhandler å spille fra flere maskiner, dele ut kort, velge 5 kort og bevege robot ut fra valgte kort. Vi har ikke gjort noen endringer på MVP kravene Før vi startet på MVP kravene ønsket vi å rydde i eksisterende kode for å gjøre den mer oversiktlig og lettere å jobbe videre på. Mye av spill logikken var bundet opp i graphics og GUI, og vi ønsket å refaktorere slik at dette ikke lengre var tilfelle.
+
+###Brukerhistorier
+
 **1) As a user, I want to be able to host a game, so that I can invite others to play**   
 
     Acceptance criteria:
@@ -133,13 +137,75 @@ Vi ønsker å fortsette med samme rutiner som vi har hatt så langt i prosjektar
     Work task:
 - Create method for using the cards in the right order
 
+###Kjente bugs
 
+Vi har oppdaget et par bugs i koden vår.
+1) Vi får av og til feilkode når vi kjører main, men denne blir fikset ved å edit configurations og legge til “-XstartOnFirstThread” i VM options for at koden skal kjøre.
+2) Det er mulig å velge samme spillkort flere ganger.
+3) For å få kjørt testene for playerLogic må man i edit configurations for hver test legger inn “-ea -XstartOnFirstThread” i VM options. I testene for playerLogic må et spillbrett opprettes og lukkes for at testene kan kjøres. Testene for playerLogic må også kjøres individuelt. 
 
+##Møtereferat
 
+###Tirsdag 16.02.21
 
+Tilstede på møte: Alle  
 
+Vi bestemte oss for å ha et kort møte for å planlegge neste sprint. Vi lagde en TODO liste over arbeidsoppgaver som gjenstår før vi starter på de neste MVP kravene. Først på prioriteringslisten stod det å fikse testene som vi ikke fikk til å passere før første innlevering, også ønsket vi å dele opp og rydde koden slik at den er oversiktlig og dermed lettere å jobbe videre med. Vi fordelte ut arbeidsoppgavene og bestemte oss for å fortsette med korte daily scrum og å ha et nytt møte torsdag kl. 16.00
 
+###Torsdag 18.02.21  kl 16.00
 
+Tilstede på møte: Erlend, Thomas, Hossein
+
+Yasmin og Vilde kunne dessverre ikke delta grunnet sykdom, så Erlend, Hossein og Thomas startet med å sette opp enkle Users stories for å kunne starte videre programmering slik at sprinten kan komme i gang. I første omgang ble det satt opp user-stories for kort, og online spilling. User stories ble fullført, og lagt inn til Git klar for å velge medlemmer som skal jobbe med forskjellige tasks. Mangler fortsatt godkjenning av user stories angående GUI.
+
+### Fredag 19.02.21  kl 10.15, seminar
+
+Tilstede på møte: Alle
+
+Vi jobbet videre med koden. 
+
+###Mandag 22.02.21 kl 15.00
+
+Tilstede på møte: Alle
+
+Vi gikk igjennom hva vi hadde fått gjort i løpet av helgen, og planlagte hva som trengtes å gjøre videre. 
+
+###Onsdag 24.02.21 kl. 14.30
+
+Tilstede på møte: Alle
+
+Et kort møte hvor vi hadde daily scrum. 
+
+###Fredag 26.02.21 kl. 10.15
+
+Tilstede på møte: Alle
+
+Vi hadde vår daily scrum, også jobbet vi i fellesskap med å merge fra branches til master for å være sikker på at alle endringer kom med. Vi jobbet med skaleringer for å sjekke om det var likt for alle gruppemedlemmene. Dette viste seg å ikke være tilfelle, så vi brukte tid på å finne ut hvordan brettet skulle bli lik størrelse for alle, slik at x og y koordinatene på brettet stemte. Dette for at funksjonen for å klikke på kort skal fungere skikkelig. 
+
+###Tirsdag 02.03.21 12.15
+
+Tilstede på møte: Alle
+
+Vi har delt oss opp i mindre grupper og jobbet i forskjellige branches de siste dagene, så på dette møtet måtte vi oppdatere hverandre på hva som har blitt gjort. Erlend og Vilde har jobbet med kortfunksjonalitet, Thomas og Hossein har jobbet med implementering av nettverk og Yasmin har jobbet med GUI. Vi ble enige om at koden måtte i stor grad bli ferdig i løpet av dagen slik at vi har de neste dagene før innlevering til testskriving og dokumentasjon. På slutten av møtet delte vi oss inn i breakout rooms, hvor Hossein og Thomas jobbet videre med nettverk, og Erlend, Vilde og Yasmin jobbet med skalering av brett slik at kort kan fungere riktig.
+
+Vi avtalte å møtes på nytt onsdag kl 08.00.
+
+###Onsdag 03.03.21 kl 08.00
+
+Tilstede på møte: Alle
+
+Vi startet med å ta en daily scrum, hvor vi så jobbet med å merge de forskjellige branchene til master.
+Vi hadde som mål å være ferdig med MVP til idag, men det klarte vi dessverre ikke da det var større utfordringer med den siste implementeringen av nettverk enn hva vi hadde forutsett. Siste del av game logikken er avhengig av nettverk så vi har bestemt oss for å få dette til i løpet av dagen. I tillegg dukket det opp flere problemstillinger i forhold til å vise retning til robot, så dette har vi fokus på å få fikset idag. Vi har alle mulighet til å bruke store deler av dagen til oppgaven, så vi har en zoom med forskjellige breakoutrooms slik at vi kan samarbeide når det er behov for det. 
+
+###Torsdag 04.03.21
+
+Vi mobprogrammerte og parprogrammerte store deler av dagen for å få fullført implementeringen av multiplayer. Vi hadde problemer med at kortfunksjonaliteten fungerte slik den skulle i multiplayer. 
+
+###Fredag 05.03.21 Seminar
+
+Tilstede på møte: Alle
+
+Vi jobbet med å få fullført alle MVP kravene. Vi innså at det ikke var mulig å få kortfunksjonaliteten til å fungere i multiplayer, men vi får opp de forskjellige spillerene. Vi bestemte oss derfor for å legge inn metode for å velge mellom multiplayer og singleplayer. I singleplayer kan vi få spillet og kortene til å fungere etter MVP kravene. Her får vi muligheten til å velge 5 kort av 9 tilfeldige, og roboten beveger seg etter valgte kort. Roboten snur seg også etter hvilken retning den står i. 
 
 
 
