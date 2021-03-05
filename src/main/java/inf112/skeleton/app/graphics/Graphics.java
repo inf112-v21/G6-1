@@ -192,12 +192,12 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         tiledMapRenderer.getBatch().begin();
 
 
+        if(game.typeOfGameStarted == "single player"){
+            singlePlayer();
+        } else{
+            updatePlayerSprite(game.players);
+        }
 
-        
-        singlePlayer();
-
-        // Multiplayer
-        //updatePlayerSprite(game.players);
         
         tiledMapRenderer.getBatch().end();
 
