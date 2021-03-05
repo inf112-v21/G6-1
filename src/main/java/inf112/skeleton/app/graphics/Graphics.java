@@ -52,17 +52,15 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     public Graphics(Game game) {
         playerGraphics = new PlayerGraphics();
         cardGraphics = new CardGraphics();
-        game = game;
+        this.game = game;
     }
-
-
 
     public void updateCardSprite(Player humanPlayer){
         int cardNumber = 0;
         int cardCoordinateX = 0;
         int cardCoordinateY = 1;
         for (Sprite card: cardSpriteList){
-            setInputProcessor(humanPlayer);
+
             card.setSize(455, 650);
             card.setPosition(humanPlayer.cardCoordinates.get(cardCoordinateX),humanPlayer.cardCoordinates.get(cardCoordinateY));
             card.setTexture(cardGraphics.getCardTexture().get(humanPlayer.playerDeck.get(cardNumber).action));
@@ -107,6 +105,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
         for (Player player : players){
             playFunctions(player);
             //humanPlayer = player;
+            setInputProcessor(player);
             updateCardSprite(testPlayerList.get(0));
             Sprite playerSprite = playersSprite.get(player.color);
             playerSprite.setTexture(playerGraphics.getPlayerTextures().get(player.color).get(player.direction));

@@ -25,6 +25,7 @@ public class Network {
         kyro.register(Packets.RemovePlayerPacket.class);
         kyro.register(Packets.ShutDownRobotPacket.class);
         kyro.register(Packets.StartSignalPacket.class);
+        kyro.register(Packets.StartGamePackage.class);
 
 
 
