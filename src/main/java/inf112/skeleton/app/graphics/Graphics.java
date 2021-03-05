@@ -52,10 +52,8 @@ public class Graphics extends ScreenAdapter implements ApplicationListener{
     public Graphics(Game game) {
         playerGraphics = new PlayerGraphics();
         cardGraphics = new CardGraphics();
-        game = game;
+        this.game = game;
     }
-
-
 
     public void updateCardSprite(Player humanPlayer){
         int cardNumber = 0;
