@@ -100,4 +100,5 @@ Only one game-piece should appear per player joined.
 * Sometimes, when selecting host game, cards will appear in the slots when selected.
 Ignore this.
 
+* Server is not currently stopped propperly when winning a game. This will be fixed ASAP.
   
