@@ -80,7 +80,7 @@ public class CardMoveLogic {
      */
     public void moveCardWhenClicked(int playerCardDeckIndex, int cardXPositionIndex, int cardYPositionIndex, Player player){
         player.chosenCards.add(player.playerDeck.get(playerCardDeckIndex));
-        player.dummyPlayerDeck -=1;
+        player.movedCards.add(playerCardDeckIndex);
         updateCardPosition(cardXPositionIndex,cardYPositionIndex,player);
     }
 }

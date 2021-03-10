@@ -21,7 +21,7 @@ public abstract class Player  {
     public float playerCurrentXPosition;
     public float playerCurrentYPosition;
     public ArrayList<Float> cardCoordinates;
-    public int dummyPlayerDeck;
+    public ArrayList<Integer> movedCards;
 
     /**
      * @param direction The direction the player is facing. Needs to be set only when a player is created
@@ -39,7 +39,7 @@ public abstract class Player  {
         this.direction = direction;
         this.playerCurrentXPosition = 0;
         this.playerCurrentYPosition = 0;
-        this.dummyPlayerDeck = 9;
+        this.movedCards = new ArrayList<>();
         this.chosenCards  =  new ArrayList<>();
         this.playerDeck = new ArrayList<>();
         this.cardCoordinates = new ArrayList<>(
@@ -136,4 +136,6 @@ public abstract class Player  {
 
     public abstract void singlePlayerRound();
     public  abstract void setMouseClickCoordinates(OrthographicCamera camera);
+
+
 }

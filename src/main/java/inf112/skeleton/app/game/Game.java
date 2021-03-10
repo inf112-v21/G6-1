@@ -146,7 +146,7 @@ public class Game implements IGame, InputProcessor {
     public void dealPlayerDecks() {
         for (Player player: players) {
             player.cardCoordinates = cardMoveLogic.resetCardCoordinates();
-            player.chosenCards = new ArrayList<>();
+            //player.chosenCards = new ArrayList<>();
             player.playerDeck = cardMoveLogic.playerDeck();
         }
     }

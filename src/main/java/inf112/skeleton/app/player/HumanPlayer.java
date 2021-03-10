@@ -34,12 +34,6 @@ public class HumanPlayer extends Player implements InputProcessor {
         mouseClickPosition = new Vector3();
     }
 
-
-
-
-
-
-
     @Override
     public float setPlayerStartXPosition(float playerStartXPosition){
         this.playerCurrentXPosition = playerStartXPosition;
@@ -72,6 +66,7 @@ public class HumanPlayer extends Player implements InputProcessor {
         return this.playerCurrentYPosition;
     }
 
+
     @Override
     public boolean isPlayerOnFlag(TiledMapTileLayer flagLayer) {
         TiledMapTileLayer.Cell cell = flagLayer.getCell(normalizedCoordinates(playerCurrentXPosition),normalizedCoordinates(playerCurrentYPosition));
@@ -93,6 +88,7 @@ public class HumanPlayer extends Player implements InputProcessor {
        float newPlayerDirection = this.direction.getDirection() + card.action.getAction();
        if(newPlayerDirection > 270) newPlayerDirection = newPlayerDirection - 360;
        if(newPlayerDirection < 0) newPlayerDirection = 270;
+
        if(newPlayerDirection == 0) this.direction = Direction.NORTH;
        else if (newPlayerDirection == 90) this.direction = Direction.EAST;
        else if (newPlayerDirection == 180) this.direction = Direction.SOUTH;
@@ -132,18 +128,19 @@ public class HumanPlayer extends Player implements InputProcessor {
 
     @Override
     public void singlePlayerRound(){
-        if(dummyPlayerDeck == 4 && chosenCards.size() == 5){
+        if(movedCards.size() == 5){
             updatePlayerLocation(chosenCards.get(0));
             updatePlayerLocation(chosenCards.get(1));
             updatePlayerLocation(chosenCards.get(2));
             updatePlayerLocation(chosenCards.get(3));
             updatePlayerLocation(chosenCards.get(4));
-            dummyPlayerDeck = 9;
+            movedCards = new ArrayList<>();
             chosenCards = new ArrayList<>();
             playerDeck = new ArrayList<>();
             playerDeck = cardMoveLogic.playerDeck();
             cardCoordinates = cardMoveLogic.resetCardCoordinates();
         }
+        //else System.out.println("tass");
     }
 
     /**
@@ -174,31 +171,36 @@ public class HumanPlayer extends Player implements InputProcessor {
         float x  = mouseClickXCoordinate;
         float y = mouseClickYCoordinate;
 
-        if (x >5555 && x < 6005 && y >= 3090 && y <= 3740){
+/**
+ *  and if choosen !contains
+ *
+  */
+
+        if (x >5555 && x < 6005 && y >= 3090 && y <= 3740 && !movedCards.contains(0)){
             cardMoveLogic.moveCardWhenClicked(0,0,1, this);
         }
-        else if(x >6080 && x < 6535 && y >= 3090 && y <= 3740){
+        else if(x >6080 && x < 6535 && y >= 3090 && y <= 3740 && !movedCards.contains(1)){
             cardMoveLogic.moveCardWhenClicked(1,2,3, this);
         }
-        else if(x >6605 && x < 7060 && y >= 3090 && y <= 3740){
+        else if(x >6605 && x < 7060 && y >= 3090 && y <= 3740 && !movedCards.contains(2)){
             cardMoveLogic.moveCardWhenClicked(2,4,5,this);
         }
-        else if(x >5555 && x < 6005 && y >= 2370 && y <= 3020){
+        else if(x >5555 && x < 6005 && y >= 2370 && y <= 3020 && !movedCards.contains(3)){
             cardMoveLogic.moveCardWhenClicked(3,6,7,this);
         }
-        else if(x >6080 && x < 6535 && y >= 2370 && y <= 3020){
+        else if(x >6080 && x < 6535 && y >= 2370 && y <= 3020 && !movedCards.contains(4)){
             cardMoveLogic.moveCardWhenClicked(4,8,9,this);
         }
-        else if(x >6605 && x < 7060 && y >= 2370 && y <= 3020){
+        else if(x >6605 && x < 7060 && y >= 2370 && y <= 3020 && !movedCards.contains(5)){
             cardMoveLogic.moveCardWhenClicked(5,10,11,this);
         }
-        else if(x >5555 && x < 6005 && y >= 1640 && y <= 2290){
+        else if(x >5555 && x < 6005 && y >= 1640 && y <= 2290 && !movedCards.contains(6)){
             cardMoveLogic.moveCardWhenClicked(6,12,13,this);
         }
-        else if(x >6080 && x < 6535 && y >= 1640 && y <= 2290){
+        else if(x >6080 && x < 6535 && y >= 1640 && y <= 2290 && !movedCards.contains(7)){
             cardMoveLogic.moveCardWhenClicked(7,14,15,this);
         }
-        else if(x >6605 && x < 7060 && y >= 1640 && y <= 2290){
+        else if(x >6605 && x < 7060 && y >= 1640 && y <= 2290 && !movedCards.contains(8)){
             cardMoveLogic.moveCardWhenClicked(8,16,17,this);
         }
 

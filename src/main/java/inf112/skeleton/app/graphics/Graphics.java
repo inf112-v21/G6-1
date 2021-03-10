@@ -155,7 +155,7 @@ public class Graphics  implements ApplicationListener{
      * This is where the graphics of the game get rendered.
      */
     @Override
-
+//TODO input prosessor må være en egenklasse eller i hver skjermklasse som blir kalt for hver skjerm
     public void render() {
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, 1280, 720);
