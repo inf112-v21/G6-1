@@ -67,7 +67,6 @@ public class Graphics  implements ApplicationListener{
     }
 
 
-
     public void setInputProcessor(Player player){
         Gdx.input.setInputProcessor((InputProcessor) player);
     }

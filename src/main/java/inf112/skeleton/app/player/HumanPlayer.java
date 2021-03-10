@@ -27,6 +27,7 @@ public class HumanPlayer extends Player implements InputProcessor {
 
     private float mouseClickXCoordinate;
     private float mouseClickYCoordinate;
+
     private final CardMoveLogic cardMoveLogic;
     private final Vector3 mouseClickPosition;
     {
@@ -150,6 +151,7 @@ public class HumanPlayer extends Player implements InputProcessor {
      * This method has to be called in the render function to get the camera else it will provide a NPE
      * @param camera OrthographicCamera created in graphics
      */
+
     @Override
     public void setMouseClickCoordinates(OrthographicCamera camera){
         if (Gdx.input.isTouched()) {
@@ -166,41 +168,38 @@ public class HumanPlayer extends Player implements InputProcessor {
      * Create a click-box around the cards the player is dealt.
      * When the card on the screen is clicked with the mouse moveCardWhenClicked is called.
      */
+
     @Override
     public boolean touchUp(int i, int i1, int i2, int i3) {
         float x  = mouseClickXCoordinate;
         float y = mouseClickYCoordinate;
 
-/**
- *  and if choosen !contains
- *
-  */
 
-        if (x >5555 && x < 6005 && y >= 3090 && y <= 3740 && !movedCards.contains(0)){
+        if (x >5555 && x < 6005 && y >= 3090 && y <= 3740){
             cardMoveLogic.moveCardWhenClicked(0,0,1, this);
         }
-        else if(x >6080 && x < 6535 && y >= 3090 && y <= 3740 && !movedCards.contains(1)){
+        else if(x >6080 && x < 6535 && y >= 3090 && y <= 3740){
             cardMoveLogic.moveCardWhenClicked(1,2,3, this);
         }
-        else if(x >6605 && x < 7060 && y >= 3090 && y <= 3740 && !movedCards.contains(2)){
+        else if(x >6605 && x < 7060 && y >= 3090 && y <= 3740){
             cardMoveLogic.moveCardWhenClicked(2,4,5,this);
         }
-        else if(x >5555 && x < 6005 && y >= 2370 && y <= 3020 && !movedCards.contains(3)){
+        else if(x >5555 && x < 6005 && y >= 2370 && y <= 3020){
             cardMoveLogic.moveCardWhenClicked(3,6,7,this);
         }
-        else if(x >6080 && x < 6535 && y >= 2370 && y <= 3020 && !movedCards.contains(4)){
+        else if(x >6080 && x < 6535 && y >= 2370 && y <= 3020){
             cardMoveLogic.moveCardWhenClicked(4,8,9,this);
         }
-        else if(x >6605 && x < 7060 && y >= 2370 && y <= 3020 && !movedCards.contains(5)){
+        else if(x >6605 && x < 7060 && y >= 2370){
             cardMoveLogic.moveCardWhenClicked(5,10,11,this);
         }
-        else if(x >5555 && x < 6005 && y >= 1640 && y <= 2290 && !movedCards.contains(6)){
+        else if(x >5555 && x < 6005 && y >= 1640){
             cardMoveLogic.moveCardWhenClicked(6,12,13,this);
         }
-        else if(x >6080 && x < 6535 && y >= 1640 && y <= 2290 && !movedCards.contains(7)){
+        else if(x >6080 && x < 6535 && y >= 1640){
             cardMoveLogic.moveCardWhenClicked(7,14,15,this);
         }
-        else if(x >6605 && x < 7060 && y >= 1640 && y <= 2290 && !movedCards.contains(8)){
+        else if(x >6605 && x < 7060 && y >= 1640){
             cardMoveLogic.moveCardWhenClicked(8,16,17,this);
         }
 

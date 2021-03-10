@@ -78,9 +78,12 @@ public class CardMoveLogic {
      * @param cardYPositionIndex the index of the given card coordinate  Y
      * @param player the given player
      */
+
     public void moveCardWhenClicked(int playerCardDeckIndex, int cardXPositionIndex, int cardYPositionIndex, Player player){
-        player.chosenCards.add(player.playerDeck.get(playerCardDeckIndex));
-        player.movedCards.add(playerCardDeckIndex);
-        updateCardPosition(cardXPositionIndex,cardYPositionIndex,player);
+        if (!player.movedCards.contains(playerCardDeckIndex)){
+            player.chosenCards.add(player.playerDeck.get(playerCardDeckIndex));
+            player.movedCards.add(playerCardDeckIndex);
+            updateCardPosition(cardXPositionIndex, cardYPositionIndex, player);
+        }
     }
 }
