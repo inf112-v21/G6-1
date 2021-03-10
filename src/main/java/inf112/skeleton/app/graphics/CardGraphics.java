@@ -24,6 +24,8 @@ import java.util.HashMap;
 public class CardGraphics  extends ScreenAdapter {
 
 
+
+    //TODO create map outside the method
     public HashMap<Action, Texture> getCardTexture() {
         HashMap<Action, Texture> cardTexture = new HashMap<>();
         cardTexture.put(Action.MOVE_ONE, new Texture("Cards/Move1.png"));
@@ -35,8 +37,9 @@ public class CardGraphics  extends ScreenAdapter {
         cardTexture.put(Action.U_TURN, new Texture("Cards/U-turn.png"));
         return cardTexture;
     }
-    public ArrayList<Sprite> createCardSprite(){
 
+    //TODO add start picture
+    public ArrayList<Sprite> createCardSprite(){
         ArrayList<Sprite> cardSprite;
         cardSprite = new ArrayList<>(Arrays.asList(
                 new Sprite(new Texture("Cards/U-turn.png")),

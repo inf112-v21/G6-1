@@ -36,6 +36,7 @@ public class Graphics  implements ApplicationListener{
     public Sprite playerOneSprite;
     public ArrayList<Sprite> cardSpriteList;
     private CardMoveLogic cardMoveLogic = new CardMoveLogic();
+    private HashMap<Action, Texture> cardTextures;
     public HashMap<Color, Sprite> playersSprite;
     public ArrayList<Player> testPlayerList;
     public  HashMap<Color, Sprite> playerSprite;
@@ -55,7 +56,7 @@ public class Graphics  implements ApplicationListener{
         for (Sprite card: cardSpriteList){
             card.setSize(455, 650);
             card.setPosition(humanPlayer.cardCoordinates.get(cardCoordinateX),humanPlayer.cardCoordinates.get(cardCoordinateY));
-            card.setTexture(cardGraphics.getCardTexture().get(humanPlayer.playerDeck.get(cardNumber).action));
+            card.setTexture(cardTextures.get(humanPlayer.playerDeck.get(cardNumber).action));
             card.draw(tiledMapRenderer.getBatch());
             cardNumber++;
             cardCoordinateX +=2;
@@ -111,7 +112,11 @@ public class Graphics  implements ApplicationListener{
 
         float w = 600;
         float h = 1000;
+
+        // Creates a list of sprites
         cardSpriteList = cardGraphics.createCardSprite();
+        cardTextures = cardGraphics.getCardTexture();
+
         spriteBatch = new SpriteBatch();
         camera = new OrthographicCamera();
         camera.zoom = 7f; //Shows more of the board
