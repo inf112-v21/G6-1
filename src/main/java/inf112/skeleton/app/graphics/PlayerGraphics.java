@@ -2,6 +2,7 @@ package inf112.skeleton.app.graphics;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
 
@@ -49,5 +50,13 @@ public class PlayerGraphics {
 
         return playerTextures;
     }
-
+    public HashMap<Color, Sprite> getPlayerSprite(){
+        HashMap<Color,Sprite> playerSprite = new HashMap<>();
+        playerSprite.put(Color.ORANGE,new Sprite(getPlayerTextures().get(Color.ORANGE).get(Direction.NORTH)));
+        playerSprite.put(Color.GREEN,new Sprite((getPlayerTextures().get(Color.GREEN).get(Direction.NORTH))));
+        playerSprite.put(Color.PURPLE,new Sprite((getPlayerTextures().get(Color.PURPLE).get(Direction.NORTH))));
+        playerSprite.put(Color.PINK,new Sprite((getPlayerTextures().get(Color.PINK).get(Direction.NORTH))));
+        playerSprite.put(Color.GREY,new Sprite((getPlayerTextures().get(Color.GREY).get(Direction.NORTH))));
+        return playerSprite;
+    }
 }

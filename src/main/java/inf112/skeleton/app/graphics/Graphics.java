@@ -25,21 +25,23 @@ public class Graphics  implements ApplicationListener{
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private SpriteBatch spriteBatch;
-    public PlayerGraphics playerGraphics;
-    public CardGraphics cardGraphics;
-    public Player playerOne = new HumanPlayer(Direction.NORTH,69,Color.GREEN);
-    public Game game;
-    public HashMap<Action, Texture> getCardTexture;
     public Texture background;
     public Texture youWin;
-    public Texture startTexture;
-    public Sprite playerOneSprite;
+
+    public PlayerGraphics playerGraphics;
+    public CardGraphics cardGraphics;
+    public HashMap<Color, Sprite> playersSprite;
+    public Player singlePlayer = new HumanPlayer(Direction.NORTH,69,Color.GREEN);
+    public Sprite singlePlayerSprite;
     public ArrayList<Sprite> cardSpriteList;
     private CardMoveLogic cardMoveLogic = new CardMoveLogic();
     private HashMap<Action, Texture> cardTextures;
-    public HashMap<Color, Sprite> playersSprite;
-    public ArrayList<Player> testPlayerList;
-    public  HashMap<Color, Sprite> playerSprite;
+    public Game game;
+
+
+
+
+
 
 
 
@@ -64,15 +66,7 @@ public class Graphics  implements ApplicationListener{
         }
     }
 
-    public HashMap<Color, Sprite> getPlayerSprite(){
-        HashMap<Color,Sprite> playerSprite = new HashMap<>();
-        playerSprite.put(Color.ORANGE,new Sprite(playerGraphics.getPlayerTextures().get(Color.ORANGE).get(Direction.NORTH)));
-        playerSprite.put(Color.GREEN,new Sprite((playerGraphics.getPlayerTextures().get(Color.GREEN).get(Direction.NORTH))));
-        playerSprite.put(Color.PURPLE,new Sprite((playerGraphics.getPlayerTextures().get(Color.PURPLE).get(Direction.NORTH))));
-        playerSprite.put(Color.PINK,new Sprite((playerGraphics.getPlayerTextures().get(Color.PINK).get(Direction.NORTH))));
-        playerSprite.put(Color.GREY,new Sprite((playerGraphics.getPlayerTextures().get(Color.GREY).get(Direction.NORTH))));
-        return playerSprite;
-    }
+
 
     public void setInputProcessor(Player player){
         Gdx.input.setInputProcessor((InputProcessor) player);
@@ -88,7 +82,7 @@ public class Graphics  implements ApplicationListener{
             return;
         }
 
-        HashMap<Color, Sprite> playersSprite = getPlayerSprite();
+
         for (Player player : players){
             playFunctions(player);
             setInputProcessor(player);
@@ -103,20 +97,18 @@ public class Graphics  implements ApplicationListener{
 
     @Override
     public void create() {
-        //TODO create start position for all players
 
-        playerOne.playerDeck = cardMoveLogic.playerDeck();
-        playerOneSprite = new Sprite((playerGraphics.getPlayerTextures().get(playerOne.color).get(playerOne.direction)));
-        playerOneSprite.setSize(300,300);
-        playerSprite = getPlayerSprite();
-
-        float w = 600;
-        float h = 1000;
+        singlePlayer.playerDeck = cardMoveLogic.playerDeck();
+        singlePlayerSprite = new Sprite((playerGraphics.getPlayerTextures().get(singlePlayer.color).get(singlePlayer.direction)));
+        singlePlayerSprite.setSize(300,300);
 
         // Creates a list of sprites
         cardSpriteList = cardGraphics.createCardSprite();
         cardTextures = cardGraphics.getCardTexture();
+        playersSprite = playerGraphics.getPlayerSprite();
 
+        float w = 600;
+        float h = 1000;
         spriteBatch = new SpriteBatch();
         camera = new OrthographicCamera();
         camera.zoom = 7f; //Shows more of the board
@@ -124,19 +116,17 @@ public class Graphics  implements ApplicationListener{
         camera.update();
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-        startTexture = new Texture("Player/OwlPlayer.png");
-        playersSprite = getPlayerSprite();
         background = new Texture("Background.png");
         youWin = new Texture("YouWin.jpg");
     }
 
     public void singlePlayer(){
-        playerOne.setMouseClickCoordinates(camera);
-        updateCardSprite(playerOne);
-        playerOneSprite.setPosition(playerOne.getPlayerXPosition(), playerOne.getPlayerYPosition());
-        playerOneSprite.setTexture(playerGraphics.getPlayerTextures().get(playerOne.color).get(playerOne.direction)); //greenPiece.get(humanPlayer.direction))
-        playerOneSprite.draw(tiledMapRenderer.getBatch());
-        playerOne.singlePlayerRound();
+        singlePlayer.setMouseClickCoordinates(camera);
+        updateCardSprite(singlePlayer);
+        singlePlayerSprite.setPosition(singlePlayer.getPlayerXPosition(), singlePlayer.getPlayerYPosition());
+        singlePlayerSprite.setTexture(playerGraphics.getPlayerTextures().get(singlePlayer.color).get(singlePlayer.direction)); //greenPiece.get(humanPlayer.direction))
+        singlePlayerSprite.draw(tiledMapRenderer.getBatch());
+        singlePlayer.singlePlayerRound();
 
     }
     /**
@@ -163,7 +153,8 @@ public class Graphics  implements ApplicationListener{
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
-        Gdx.input.setInputProcessor((InputProcessor) playerOne);
+        Gdx.input.setInputProcessor((InputProcessor) singlePlayer);
+
 
         tiledMapRenderer.getBatch().begin();
         if(game.typeOfGameStarted == "single player"){
@@ -173,7 +164,7 @@ public class Graphics  implements ApplicationListener{
         }
         tiledMapRenderer.getBatch().end();
 
-        if (playerOne.isPlayerOnFlag((TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"))) {
+        if (singlePlayer.isPlayerOnFlag((TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"))) {
             pause();
             System.out.println("You Won!");
             spriteBatch.begin();
