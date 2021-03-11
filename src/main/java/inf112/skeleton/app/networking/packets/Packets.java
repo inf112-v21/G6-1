@@ -15,6 +15,7 @@ public class Packets {
 
     public static class PlayerNumberPacket{
         public int numberOfPlayers;
+
     }
 
     public static class StartSignalPacket{

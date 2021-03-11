@@ -13,10 +13,10 @@ import java.util.HashMap;
 public class ServerListener extends Listener {
     private final String map;
     private Server server;
-    private int numberOfPlayers = 1;
     private boolean[] allPlayersReady;
     private HashMap<Integer, ArrayList<Card>> cardsReceived;
     ArrayList<Packets.CardsPacket> testCards;
+    private int numberOfPlayers = 0;
 
     private String[] playerNames;
     public boolean[] ShutdownPlayer;

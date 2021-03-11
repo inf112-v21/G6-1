@@ -94,6 +94,9 @@ public class ClientListener extends Listener {
             Packets.CardsPacket p = (Packets.CardsPacket) object;
             cards = p;
             game.isReady(p);
+        } else if (object instanceof Packets.RoundPacket) {
+            Packets.RoundPacket roundPacket = (Packets.RoundPacket) object;
+            game.executeMoves(roundPacket.playerMoves);
         } else if (object instanceof Packets.PlayerNumberPacket) {
             Packets.PlayerNumberPacket p = (Packets.PlayerNumberPacket) object;
             System.out.println("Received player packet with x players: " + p.numberOfPlayers);
@@ -114,9 +117,6 @@ public class ClientListener extends Listener {
         } else if (object instanceof Packets.ShutDownRobotPacket) {
             Packets.ShutDownRobotPacket shutDownRobotPacket = (Packets.ShutDownRobotPacket) object;
             // game.shutDownPlayer(shutDownRobotPacket.playersShutdown);
-        } else if (object instanceof Packets.RoundPacket) {
-            Packets.RoundPacket roundPacket = (Packets.RoundPacket) object;
-            game.executeMoves(roundPacket.playerMoves);
         }
     }
 

@@ -62,7 +62,7 @@ public class GameServer implements Runnable {
             e.printStackTrace();
         }
 
-        System.out.println("Server has started:O");
+        System.out.println("Server has started:");
     }
 
     public void stop() {

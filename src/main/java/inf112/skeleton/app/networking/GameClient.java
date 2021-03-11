@@ -45,6 +45,10 @@ public class GameClient extends Listener {
         System.out.println("IP Address: "+ ip.getHostAddress());
     }
 
+    public int getId() {
+        return client.getID();
+    }
+
     public boolean getC() {
         return cListener.getC();
     }

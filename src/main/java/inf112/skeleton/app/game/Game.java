@@ -1,7 +1,6 @@
 package inf112.skeleton.app.game;
 
 
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.card.Card;
@@ -22,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.concurrent.ThreadPoolExecutor;
 
 public class Game implements IGame, InputProcessor {
 
@@ -30,6 +28,8 @@ public class Game implements IGame, InputProcessor {
     /** The number of players in this game */
     private int numberOfPlayers;
     /** The current players in this game */
+    public HashMap<Integer, HumanPlayer> idPlayerHashMap;
+    public HumanPlayer myHumanPlayer;
     public ArrayList<Player> players = new ArrayList<Player>();
     /** The card handler */
     CardDeck cardDeck;
@@ -174,10 +174,20 @@ public class Game implements IGame, InputProcessor {
         this.ready = ready;
     }
 
+    // numberOfPlayers
     public void setNumberOfPlayers(int numberOfPlayers) {
-        this.numberOfPlayers = numberOfPlayers -1;
+        this.numberOfPlayers = numberOfPlayers;
         createPlayers();
     }
+
+    // Returns the number of players currently in the game
+    public int getNumberOfPlayers() {
+        return numberOfPlayers;
+    }
+
+    // public void deleteDisconnectedPlayers() {}
+
+
 
     @Override
     public boolean isGameOver(TiledMapTileLayer flagLayer) {
@@ -189,6 +199,8 @@ public class Game implements IGame, InputProcessor {
         return false;
     }
 
+    // Initializes idPlayerHashMap,
+    // Creates the number of players needed and puts them into the idPlayerHashMap.
     @Override
     public ArrayList<Player> createPlayers() {
         System.out.println("Creating players " + numberOfPlayers);
@@ -196,13 +208,31 @@ public class Game implements IGame, InputProcessor {
         float startPositionX = 0;
         for (int i = 0; i < numberOfPlayers; i++) {
             Color playerColor = Color.getPlayerColor(i);
-            playerList.add(new HumanPlayer(Direction.NORTH, i, playerColor));
+            HumanPlayer humanPlayer = new HumanPlayer(Direction.NORTH, i, playerColor);
+            playerList.add(humanPlayer);
             playerList.get(i).setPlayerStartXPosition(startPositionX);
             startPositionX += 300;
+            idPlayerHashMap.put(i, humanPlayer);
         }
+        setMyHumanPlayer(idPlayerHashMap.get(client.getId()));
         this.players = playerList;
         return playerList;
     }
+
+    public int getId() {
+        return client.getId();
+    }
+
+
+    public void setMyHumanPlayer(HumanPlayer humanPlayer) {
+        myHumanPlayer = humanPlayer;
+    }
+
+    // idPlayerHashMap
+    public HashMap<Integer, HumanPlayer> getIdPlayerHashMap() {
+        return idPlayerHashMap;
+    }
+
 
 
     @Override
