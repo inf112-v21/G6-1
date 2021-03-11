@@ -71,7 +71,7 @@ public class HumanPlayer extends Player implements InputProcessor {
     }
 
     @Override
-    public boolean canPlayerMove(float xDirection, float yDirection) {
+    public boolean keepPlayerOnBoard(float xDirection, float yDirection) {
         return !(xDirection < 0 || xDirection > 3300 || yDirection < 0 || yDirection > 3900);
     }
 
@@ -92,19 +92,18 @@ public class HumanPlayer extends Player implements InputProcessor {
        else if (newPlayerDirection == 270) this.direction = Direction.WEST;
     }
 
-// TODO comment og override
+    @Override
     public float movePlayerAsFarAsPossible(float position){
-        if(direction == Direction.NORTH && !canPlayerMove(getPlayerXPosition(),position)) return 3900;
-        else if(direction == Direction.SOUTH && !canPlayerMove(getPlayerXPosition(),position) ) return 0;
-        else if(direction == Direction.WEST && !canPlayerMove(position, getPlayerYPosition()) ) return 0;
-        else if(direction == Direction.EAST && !canPlayerMove(position, getPlayerYPosition()) ) return 3300;
+        if(direction == Direction.NORTH && !keepPlayerOnBoard(getPlayerXPosition(),position)) return 3900;
+        else if(direction == Direction.SOUTH && !keepPlayerOnBoard(getPlayerXPosition(),position) ) return 0;
+        else if(direction == Direction.WEST && !keepPlayerOnBoard(position, getPlayerYPosition()) ) return 0;
+        else if(direction == Direction.EAST && !keepPlayerOnBoard(position, getPlayerYPosition()) ) return 3300;
         return position;
     }
 // TODO update comments
     @Override
     public void updatePlayerLocation(Card card) {
         float cardAction = card.action.getAction();
-
         if (cardMoveLogic.moveTypeCard(card)) {
             if(this.direction == Direction.NORTH){
                 updatePlayerYPosition(movePlayerAsFarAsPossible(getPlayerYPosition()+ cardAction));
@@ -190,7 +189,6 @@ public class HumanPlayer extends Player implements InputProcessor {
         } else if(x >6605 && x < 7060 && y >= 1640 && y <= 2260){
             cardMoveLogic.moveCardWhenClicked(8,this);
         } else if(x >3950 && x < 4385 && y <= 1160 && y >= 545) {
-            System.out.println("reset");
             cardMoveLogic.resetCard(this);
         }
         if (chosenCards.size() == 5) {
