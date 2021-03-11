@@ -100,7 +100,7 @@ public class HumanPlayer extends Player implements InputProcessor {
         else if(direction == Direction.EAST && !keepPlayerOnBoard(position, getPlayerYPosition()) ) return 3300;
         return position;
     }
-// TODO update comments
+
     @Override
     public void updatePlayerLocation(Card card) {
         float cardAction = card.action.getAction();
