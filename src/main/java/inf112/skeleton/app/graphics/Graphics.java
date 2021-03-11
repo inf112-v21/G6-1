@@ -88,6 +88,15 @@ public class Graphics  implements ApplicationListener{
      * Vi får opp kortene til grønn under våre kort og hverken grønn eller grå sine kort er like for begge som spiller.
      *
      *
+     * Vi ønsker å rendre kortene til this.player
+     * Vi ønsker å sette inp PRo til this. player
+     * Vi ønsker å sette setMouseClickCoordinates til this.player
+     *
+     * Vi ønaker å rendre og oppdatere alle spillbrikkene til alle players
+     *
+     * Virker ikke som vi får tildelt en spesifikk player over nett, men tar en (første?) fra listen.
+     *
+     *
      */
     public void updatePlayerSprite(ArrayList<Player> players){
         if (players == null || players.isEmpty()) {
@@ -98,7 +107,8 @@ public class Graphics  implements ApplicationListener{
         for (Player player : players){
             playFunctions(player);
             setInputProcessor(player);
-            updateCardSprite(player);/*
+            updateCardSprite(player);
+            /*
             System.out.println("Player of color " +player.color);
             System.out.println("Start");
             for(Card playerdeckcard : player.playerDeck){

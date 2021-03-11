@@ -58,19 +58,15 @@ public class HumanPlayer extends Player implements InputProcessor {
     }
 
     @Override
-    public float getPlayerXPosition() {
-        return this.playerCurrentXPosition;
-    }
+    public float getPlayerXPosition() { return this.playerCurrentXPosition; }
 
     @Override
-    public float getPlayerYPosition() {
-        return this.playerCurrentYPosition;
-    }
-
+    public float getPlayerYPosition() { return this.playerCurrentYPosition; }
 
     @Override
     public boolean isPlayerOnFlag(TiledMapTileLayer flagLayer) {
-        TiledMapTileLayer.Cell cell = flagLayer.getCell(normalizedCoordinates(playerCurrentXPosition),normalizedCoordinates(playerCurrentYPosition));
+        TiledMapTileLayer.Cell cell = flagLayer.getCell(normalizedCoordinates(playerCurrentXPosition),
+                                      normalizedCoordinates(playerCurrentYPosition));
         return cell!= null;
     }
 
@@ -96,7 +92,7 @@ public class HumanPlayer extends Player implements InputProcessor {
        else if (newPlayerDirection == 270) this.direction = Direction.WEST;
     }
 
-// TODO comment
+// TODO comment og override
     public float movePlayerAsFarAsPossible(float position){
         if(direction == Direction.NORTH && !canPlayerMove(getPlayerXPosition(),position)) return 3900;
         else if(direction == Direction.SOUTH && !canPlayerMove(getPlayerXPosition(),position) ) return 0;
@@ -172,51 +168,36 @@ public class HumanPlayer extends Player implements InputProcessor {
     public boolean touchUp(int i, int i1, int i2, int i3) {
         float x  = mouseClickXCoordinate;
         float y = mouseClickYCoordinate;
+        System.out.println(" X " +x);
+        System.out.println(" Y " +y);
 
-        
         if (x >5555 && x < 6005 && y >= 3090 && y <= 3740){
-            cardMoveLogic.moveCardWhenClicked(0,0,1, this);
+            cardMoveLogic.moveCardWhenClicked(0, this);
         } else if(x >6080 && x < 6535 && y >= 3090 && y <= 3740){
-            cardMoveLogic.moveCardWhenClicked(1,2,3, this);
+            cardMoveLogic.moveCardWhenClicked(1, this);
         } else if(x >6605 && x < 7060 && y >= 3090 && y <= 3740){
-            cardMoveLogic.moveCardWhenClicked(2,4,5,this);
+            cardMoveLogic.moveCardWhenClicked(2,this);
         } else if(x >5555 && x < 6005 && y >= 2370 && y <= 3020){
-            cardMoveLogic.moveCardWhenClicked(3,6,7,this);
+            cardMoveLogic.moveCardWhenClicked(3,this);
         } else if(x >6080 && x < 6535 && y >= 2370 && y <= 3020){
-            cardMoveLogic.moveCardWhenClicked(4,8,9,this);
+            cardMoveLogic.moveCardWhenClicked(4,this);
         } else if(x >6605 && x < 7060 && y >= 2370 && y <= 3020){
-            cardMoveLogic.moveCardWhenClicked(5,10,11,this);
+            cardMoveLogic.moveCardWhenClicked(5,this);
         } else if(x >5555 && x < 6005 && y >= 1640 && y <= 2260){
-            cardMoveLogic.moveCardWhenClicked(6,12,13,this);
+            cardMoveLogic.moveCardWhenClicked(6,this);
         } else if(x >6080 && x < 6535 && y >= 1640 && y <= 2260){
-            cardMoveLogic.moveCardWhenClicked(7,14,15,this);
+            cardMoveLogic.moveCardWhenClicked(7,this);
         } else if(x >6605 && x < 7060 && y >= 1640 && y <= 2260){
-            cardMoveLogic.moveCardWhenClicked(8,16,17,this);
-        } // angre trekk
-        /*
-        else if(x >3950 && x < 4385 && y >= 1640){
-
-        } else if(x >4495 && x < 4930 && y >= 1640){
-
-        } else if(x >5035 && x < 5460 && y >= 1640){
-
-        } else if(x >5560 && x < 5990 && y >= 1640){
-
-        } else if(x >6080 && x < 6530 && y >= 1640){
-
+            cardMoveLogic.moveCardWhenClicked(8,this);
+        } else if(x >3950 && x < 4385 && y <= 1160 && y >= 545) {
+            System.out.println("reset");
+            cardMoveLogic.resetCard(this);
         }
-*/
         if (chosenCards.size() == 5) {
             // TODO tell game you@re done choosing cards
         }
         return false;
     }
-    /*
-    public void goBackInTime (int cardpos, float xpos){
-        float cardCorY = 535f;
-        this.cardCoordinates.set(cardpos, cardCorY);
-    }*/
-
     @Override
     public boolean touchDragged(int i, int i1, int i2) {return false;}
     @Override

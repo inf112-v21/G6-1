@@ -12,9 +12,12 @@ public class CardMoveLogic {
     /**
      * This method returns the initial card position to where the cards are placed
      * on the game-board when a player gets a new deck of cards
+     * The cardCoordinates is indexed as follows
+     * 0 is x pos and 1 is y pos for the first card in the playerDeck and so on.
+     *
      * @return card coordinates for the board
      */
-    public  ArrayList<Float> resetCardCoordinates(){
+    public ArrayList<Float> resetCardCoordinates(){
         return new ArrayList<>(
                 Arrays.asList(5555f, 3090f,
                         6080f, 3090f,
@@ -28,14 +31,13 @@ public class CardMoveLogic {
     }
 
     /**
-     * Get the first player deck og card. This deck is automatically updated
-     * by other methods and needs to be used only when starting the game.
-     * @return new sorted player deck
+     * This method gives a randomized deck of nine cards.
+     * @return new randomized playerDeck
      */
     public ArrayList<Card> playerDeck(){
         return this.cardDeck.dealNineCards();
-
     }
+
     /**
      *  Checks if a card is a card that changes the position of a player
      *  and not the direction.
@@ -48,43 +50,54 @@ public class CardMoveLogic {
 
     /**
      * Sets new position for the given card.
-     * This function is used to move cards the player is holding
+     * This function is used to move cards the player is holding,
      * to the programming slots on the board in the correct order.
-     * @param cardXPositionIndex X index of the card from cardCoordinates list
-     * @param cardYPositionIndex Y index of the card from cardCoordinates list
+     * The list movedCards holds the position of the moved cards from the player deck.
+     * The card coordinates for the card sprites in the list cardCoordinates is indexed as follows
+     * 0 is x pos and 1 is y pos for the first card in the playerDeck and so on.
+     * Therefore the x coordinate for a card in the a position n in playerDeck
+     * will be playerDeck index*2 and the y coordinate the same +1.
+     * @param player the player
      */
-    public void updateCardPosition(int cardXPositionIndex, int cardYPositionIndex, Player player){
+    public void updateCardPosition(Player player){
         int chosenCardListSize = player.chosenCards.size();
+        ArrayList<Float> cardYPos = new ArrayList<>(Arrays.asList(3945f,4490f,5020f,5550f,6090f));
         if (chosenCardListSize < 6){
-            player.cardCoordinates.set(cardYPositionIndex, 520f);
-            if (chosenCardListSize == 1) player.cardCoordinates.set(cardXPositionIndex, 3945f);
-            if (chosenCardListSize == 2) player.cardCoordinates.set(cardXPositionIndex, 4490f);
-            if (chosenCardListSize == 3) player.cardCoordinates.set(cardXPositionIndex, 5020f);
-            if (chosenCardListSize == 4) player.cardCoordinates.set(cardXPositionIndex, 5550f);
-            if (chosenCardListSize == 5) player.cardCoordinates.set(cardXPositionIndex, 6090f);
-        }else{
-            player.cardCoordinates.set(cardXPositionIndex,player.cardCoordinates.get(cardXPositionIndex));
-            player.cardCoordinates.set(cardYPositionIndex,player.cardCoordinates.get(cardYPositionIndex));
+            int i = 0;
+            for(int playerCard : player.movedCards){
+                player.cardCoordinates.set(playerCard*2+1, 520f);
+                player.cardCoordinates.set(playerCard*2, cardYPos.get(i));
+                i++;
+            }
         }
     }
 
+    /**
+     * This method is used to give å player a way to regret the choice of cards to the programming slots.
+     * It reset the cards from the programming slots on the board to the initial card position on the board.
+     * It does not give the player a new deck of card but keeps the old one.
+     *
+     * @param player the player who want to reset the card.
+     */
+    public void resetCard(Player player){
+        player.movedCards = new ArrayList<>();
+        player.chosenCards = new ArrayList<>();
+        player.cardCoordinates = resetCardCoordinates();
+    }
 
     /**
      * This method:
-     * Moves card sprite to the programming slots on the board
+     * Moves card sprite when clicked to the programming slots on the board.
      * Add the card in question to players chosenCard list.
-     * The dummyPlayerDeck get one smaller
+     * Add the playerCardDeck index to the movedCards list.
      * @param playerCardDeckIndex the index of the card in players cards on hand
-     * @param cardXPositionIndex the index of the given card coordinate  X
-     * @param cardYPositionIndex the index of the given card coordinate  Y
      * @param player the given player
      */
-
-    public void moveCardWhenClicked(int playerCardDeckIndex, int cardXPositionIndex, int cardYPositionIndex, Player player){
+    public void moveCardWhenClicked(int playerCardDeckIndex, Player player){
         if (!player.movedCards.contains(playerCardDeckIndex)){
             player.chosenCards.add(player.playerDeck.get(playerCardDeckIndex));
             player.movedCards.add(playerCardDeckIndex);
-            updateCardPosition(cardXPositionIndex, cardYPositionIndex, player);
+            updateCardPosition(player);
         }
     }
 }
