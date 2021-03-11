@@ -1,32 +1,23 @@
 package inf112.skeleton.app.graphics;
 
-import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import inf112.skeleton.app.player.HumanPlayer;
-import inf112.skeleton.app.player.Player;
-import inf112.skeleton.app.shared.Action;
-import inf112.skeleton.app.shared.Color;
-import inf112.skeleton.app.shared.Direction;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import inf112.skeleton.app.shared.Action;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 
 
-public class CardGraphics  extends ScreenAdapter {
+public class CardGraphics {
 
-
-
-    //TODO create map outside the method
-    public HashMap<Action, Texture> getCardTexture() {
+    /**
+     * Creates a hashmap of textures for all nine types of cards.
+     * This makes it possible to reuse the card textures during the game
+     * instead of creating a new texture everytime a player gets a new card
+     * @return hash map key is the action type value is a card texture
+     */
+    public HashMap<Action, Texture> createCardTexture() {
         HashMap<Action, Texture> cardTexture = new HashMap<>();
         cardTexture.put(Action.MOVE_ONE, new Texture("Cards/Move1.png"));
         cardTexture.put(Action.MOVE_TWO, new Texture("Cards/Move2.png"));
@@ -38,22 +29,17 @@ public class CardGraphics  extends ScreenAdapter {
         return cardTexture;
     }
 
-    //TODO add start picture
+    /**
+     * Creates a list of nine sprites to be used as the sprites needed for each players cards.
+     * A sprite needs a texture to be created, but since this texture will be updated before it is
+     * shown to the player. These sprites get a random texture (doesn't matter which)
+     * @return List of nine sprite objects
+     */
     public ArrayList<Sprite> createCardSprite(){
-        ArrayList<Sprite> cardSprite;
-        cardSprite = new ArrayList<>(Arrays.asList(
-                new Sprite(new Texture("Cards/U-turn.png")),
-                new Sprite(new Texture("Cards/U-turn.png")),
-                new Sprite(new Texture("Cards/U-turn.png")),
-                new Sprite(new Texture("Cards/U-turn.png")),
-                new Sprite(new Texture("Cards/U-turn.png")),
-                new Sprite(new Texture("Cards/U-turn.png")),
-                new Sprite(new Texture("Cards/U-turn.png")),
-                new Sprite(new Texture("Cards/U-turn.png")),
-                new Sprite(new Texture("Cards/U-turn.png"))));
-
+        ArrayList<Sprite> cardSprite = new ArrayList<>();
+        for(int i = 0; i < 9; i++){
+            cardSprite.add( new Sprite(new Texture("Cards/U-turn.png")));
+        }
         return cardSprite;
     }
-
-
 }

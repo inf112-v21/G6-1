@@ -1,6 +1,5 @@
 package inf112.skeleton.app.graphics;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import inf112.skeleton.app.shared.Color;
@@ -9,6 +8,7 @@ import inf112.skeleton.app.shared.Direction;
 import java.util.HashMap;
 
 public class PlayerGraphics {
+
 
     public HashMap<Color, HashMap<Direction, Texture>> getPlayerTextures() {
         HashMap<Direction,Texture> greenPiece = new HashMap<>();
@@ -42,6 +42,7 @@ public class PlayerGraphics {
         purplePiece.put(Direction.WEST, new Texture("Player/RobotPurpleWest.png"));
         purplePiece.put(Direction.NORTH, new Texture("Player/RobotPurpleNorth.png"));
         purplePiece.put(Direction.SOUTH, new Texture("Player/RobotPurpleSouth.png"));
+
         playerTextures.put(Color.GREEN,greenPiece);
         playerTextures.put(Color.ORANGE,orangePiece);
         playerTextures.put(Color.GREY,greyPiece);

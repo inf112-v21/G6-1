@@ -122,7 +122,7 @@ public class HumanPlayer extends Player implements InputProcessor {
             } else if (this.direction == Direction.WEST) {
                 updatePlayerXPosition(movePlayerAsFarAsPossible(getPlayerXPosition() - cardAction));
             }
-        } else if (!cardMoveLogic.moveTypeCard(card)) {
+        }else if (!cardMoveLogic.moveTypeCard(card)) {
             setPlayerDirection(card);
         }
     }
@@ -141,7 +141,6 @@ public class HumanPlayer extends Player implements InputProcessor {
             playerDeck = cardMoveLogic.playerDeck();
             cardCoordinates = cardMoveLogic.resetCardCoordinates();
         }
-        //else System.out.println("tass");
     }
 
     /**
@@ -174,40 +173,50 @@ public class HumanPlayer extends Player implements InputProcessor {
         float x  = mouseClickXCoordinate;
         float y = mouseClickYCoordinate;
 
-
+        System.out.println(y);
         if (x >5555 && x < 6005 && y >= 3090 && y <= 3740){
             cardMoveLogic.moveCardWhenClicked(0,0,1, this);
-        }
-        else if(x >6080 && x < 6535 && y >= 3090 && y <= 3740){
+        } else if(x >6080 && x < 6535 && y >= 3090 && y <= 3740){
             cardMoveLogic.moveCardWhenClicked(1,2,3, this);
-        }
-        else if(x >6605 && x < 7060 && y >= 3090 && y <= 3740){
+        } else if(x >6605 && x < 7060 && y >= 3090 && y <= 3740){
             cardMoveLogic.moveCardWhenClicked(2,4,5,this);
-        }
-        else if(x >5555 && x < 6005 && y >= 2370 && y <= 3020){
+        } else if(x >5555 && x < 6005 && y >= 2370 && y <= 3020){
             cardMoveLogic.moveCardWhenClicked(3,6,7,this);
-        }
-        else if(x >6080 && x < 6535 && y >= 2370 && y <= 3020){
+        } else if(x >6080 && x < 6535 && y >= 2370 && y <= 3020){
             cardMoveLogic.moveCardWhenClicked(4,8,9,this);
-        }
-        else if(x >6605 && x < 7060 && y >= 2370){
+        } else if(x >6605 && x < 7060 && y >= 2370 && y <= 3020){
             cardMoveLogic.moveCardWhenClicked(5,10,11,this);
-        }
-        else if(x >5555 && x < 6005 && y >= 1640){
+        } else if(x >5555 && x < 6005 && y >= 1640 && y <= 2260){
             cardMoveLogic.moveCardWhenClicked(6,12,13,this);
-        }
-        else if(x >6080 && x < 6535 && y >= 1640){
+        } else if(x >6080 && x < 6535 && y >= 1640 && y <= 2260){
             cardMoveLogic.moveCardWhenClicked(7,14,15,this);
-        }
-        else if(x >6605 && x < 7060 && y >= 1640){
+        } else if(x >6605 && x < 7060 && y >= 1640 && y <= 2260){
             cardMoveLogic.moveCardWhenClicked(8,16,17,this);
-        }
+        } // angre trekk
+        /*
+        else if(x >3950 && x < 4385 && y >= 1640){
 
+        } else if(x >4495 && x < 4930 && y >= 1640){
+
+        } else if(x >5035 && x < 5460 && y >= 1640){
+
+        } else if(x >5560 && x < 5990 && y >= 1640){
+
+        } else if(x >6080 && x < 6530 && y >= 1640){
+
+        }
+*/
         if (chosenCards.size() == 5) {
             // TODO tell game you@re done choosing cards
         }
         return false;
     }
+    /*
+    public void goBackInTime (int cardpos, float xpos){
+        float cardCorY = 535f;
+        this.cardCoordinates.set(cardpos, cardCorY);
+    }*/
+
     @Override
     public boolean touchDragged(int i, int i1, int i2) {return false;}
     @Override

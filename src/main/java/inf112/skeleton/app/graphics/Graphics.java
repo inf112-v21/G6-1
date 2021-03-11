@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.player.HumanPlayer;
@@ -37,12 +38,6 @@ public class Graphics  implements ApplicationListener{
     private CardMoveLogic cardMoveLogic = new CardMoveLogic();
     private HashMap<Action, Texture> cardTextures;
     public Game game;
-
-
-
-
-
-
 
 
     public Graphics(Game game) {
@@ -75,17 +70,42 @@ public class Graphics  implements ApplicationListener{
         player.setMouseClickCoordinates(camera);
     }
 
+
+    /**
+     * Det som ser ut til å skje er at vi renderer alle spillere sine kort itillegg til alle spillere.
+     * Det er mulig at vi kunne hatt en screen til en spiller og rendret egene kort på denne og alle spillere.
+     *
+     * Hvorfor lager vi en for mye spiller i multiplayer??
+     *
+     * Om vi setter this.numberOfPlayers = numberOfPlayers -1; i Game setnumofplayers får vi bare en spiller opp.
+     * Ting ser da ut til å fungere bortsett fra at vi ikke utfører trekkene.
+     * Men vi legger kortene i chosencard og de flyttes som de skal.
+     *
+     * MÅ SJEKKE om vi spiller to stykker trykker vi på kort for forskjellig spiller???
+     * Rendrer vi egene kort øverst??
+     *
+     *
+     *
+     */
     public void updatePlayerSprite(ArrayList<Player> players){
         if (players == null || players.isEmpty()) {
             // No players created yet, don't render any
             return;
         }
-
-
         for (Player player : players){
             playFunctions(player);
             setInputProcessor(player);
             updateCardSprite(player);
+            System.out.println("Player of color " +player.color);
+            System.out.println("Start");
+            for(Card playerdeckcard : player.playerDeck){
+                System.out.println(playerdeckcard.action);
+            }
+            System.out.println("chosenCard");
+            for(Card playerchosencard : player.chosenCards){
+                System.out.println(playerchosencard.action);
+            }
+
             Sprite playerSprite = playersSprite.get(player.color);
             playerSprite.setTexture(playerGraphics.getPlayerTextures().get(player.color).get(player.direction));
             playerSprite.setSize(300,300);
@@ -103,7 +123,7 @@ public class Graphics  implements ApplicationListener{
 
         // Creates a list of sprites
         cardSpriteList = cardGraphics.createCardSprite();
-        cardTextures = cardGraphics.getCardTexture();
+        cardTextures = cardGraphics.createCardTexture();
         playersSprite = playerGraphics.getPlayerSprite();
 
         float w = 600;
@@ -152,11 +172,13 @@ public class Graphics  implements ApplicationListener{
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
-        Gdx.input.setInputProcessor((InputProcessor) singlePlayer);
+        //Gdx.input.setInputProcessor((InputProcessor) singlePlayer);
+
 
 
         tiledMapRenderer.getBatch().begin();
         if(game.typeOfGameStarted == "single player"){
+            Gdx.input.setInputProcessor((InputProcessor) singlePlayer);
             singlePlayer();
         } else{
             updatePlayerSprite(game.players);
