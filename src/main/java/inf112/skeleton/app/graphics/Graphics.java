@@ -84,6 +84,8 @@ public class Graphics  implements ApplicationListener{
      * MÅ SJEKKE om vi spiller to stykker trykker vi på kort for forskjellig spiller???
      * Rendrer vi egene kort øverst??
      *
+     * Når vi spiller to stk får vi opp to helt forskjellige sett med kort. vi er begge spiller går og ikke grønn.
+     * Vi får opp kortene til grønn under våre kort og hverken grønn eller grå sine kort er like for begge som spiller.
      *
      *
      */
@@ -92,10 +94,11 @@ public class Graphics  implements ApplicationListener{
             // No players created yet, don't render any
             return;
         }
+
         for (Player player : players){
             playFunctions(player);
             setInputProcessor(player);
-            updateCardSprite(player);
+            updateCardSprite(player);/*
             System.out.println("Player of color " +player.color);
             System.out.println("Start");
             for(Card playerdeckcard : player.playerDeck){
@@ -104,7 +107,7 @@ public class Graphics  implements ApplicationListener{
             System.out.println("chosenCard");
             for(Card playerchosencard : player.chosenCards){
                 System.out.println(playerchosencard.action);
-            }
+            }*/
 
             Sprite playerSprite = playersSprite.get(player.color);
             playerSprite.setTexture(playerGraphics.getPlayerTextures().get(player.color).get(player.direction));

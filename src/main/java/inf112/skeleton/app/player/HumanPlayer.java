@@ -173,7 +173,7 @@ public class HumanPlayer extends Player implements InputProcessor {
         float x  = mouseClickXCoordinate;
         float y = mouseClickYCoordinate;
 
-        System.out.println(y);
+        
         if (x >5555 && x < 6005 && y >= 3090 && y <= 3740){
             cardMoveLogic.moveCardWhenClicked(0,0,1, this);
         } else if(x >6080 && x < 6535 && y >= 3090 && y <= 3740){
