@@ -123,14 +123,13 @@ public class HumanPlayer extends Player implements InputProcessor {
         }
     }
 
+    //TODO move this to game and improve
     @Override
     public void singlePlayerRound(){
         if(movedCards.size() == 5){
-            updatePlayerLocation(chosenCards.get(0));
-            updatePlayerLocation(chosenCards.get(1));
-            updatePlayerLocation(chosenCards.get(2));
-            updatePlayerLocation(chosenCards.get(3));
-            updatePlayerLocation(chosenCards.get(4));
+            for(int round = 0; round < 5; round ++) {
+                updatePlayerLocation(chosenCards.get(round));
+            }
             movedCards = new ArrayList<>();
             chosenCards = new ArrayList<>();
             playerDeck = new ArrayList<>();
@@ -162,6 +161,7 @@ public class HumanPlayer extends Player implements InputProcessor {
     /**
      * Create a click-box around the cards the player is dealt.
      * When the card on the screen is clicked with the mouse moveCardWhenClicked is called.
+     * If the reset button is clicked resetCard is called
      */
 
     @Override
