@@ -64,7 +64,7 @@ public class HumanPlayer extends Player implements InputProcessor {
             this.damageTaken = 0;
         }
     }
-    
+
     @Override
     public boolean isPlayerAlive(){
         return this.healthToken > 0;
@@ -106,7 +106,7 @@ public class HumanPlayer extends Player implements InputProcessor {
     public boolean isPlayerOnFlag(TiledMapTileLayer flagLayer) {
         TiledMapTileLayer.Cell cell = flagLayer.getCell(normalizedCoordinates(playerCurrentXPosition),
                                       normalizedCoordinates(playerCurrentYPosition));
-        System.out.println(cell);
+
         return cell!= null;
     }
 
@@ -211,8 +211,8 @@ public class HumanPlayer extends Player implements InputProcessor {
     public boolean touchUp(int i, int i1, int i2, int i3) {
         float x  = mouseClickXCoordinate;
         float y = mouseClickYCoordinate;
-        System.out.println(" X " +x);
-        System.out.println(" Y " +y);
+        //System.out.println(" X " +x);
+        //System.out.println(" Y " +y);
 
         if (x >5555 && x < 6005 && y >= 3090 && y <= 3740){
             cardMoveLogic.moveCardWhenClicked(0, this);
