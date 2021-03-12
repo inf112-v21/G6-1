@@ -12,8 +12,10 @@ import java.util.Arrays;
 
 public abstract class Player  {
 
-
+//TODO color final
     public final int id;
+    public int damageTaken;
+    public int healthToken;
     public Color color;
     public Direction direction;
     public ArrayList<Card> chosenCards;
@@ -35,6 +37,8 @@ public abstract class Player  {
     public Player(Direction direction, int id, Color color) {
         this.id = id;
         this.color = color;
+        this.healthToken = 3;
+        this.damageTaken = 0;
         this.direction = direction;
         this.playerCurrentXPosition = 0;
         this.playerCurrentYPosition = 0;
@@ -138,6 +142,39 @@ public abstract class Player  {
      * @param card  given card
      */
     public abstract void updatePlayerLocation(Card card);
+
+    /**
+     * @return This method returns the players health token
+     */
+    public abstract int getPlayerHealth();
+
+    /**
+     * @return The amount of damage the player has
+     */
+    public abstract int getPlayerDamageTaken();
+
+    /**
+     * Set the players health Token to full (3)
+     * Set the players damageTaken to zero
+     */
+    public abstract void restorePlayerHealthAndDamage();
+
+    /**
+     * Increase players damageTaken by one.
+     * If damageTaken is 10, players healthToken is reduced by one
+     * and damageTaken is set to zero
+     */
+    public abstract void dealDamageToPlayer();
+
+    /**
+     * If the players healthToken is more than zero the player is alive
+     * and the function will return true.
+     * If the players healtToken in zero the player is dead
+     * and the function will return false.
+     * @return boolean
+     */
+    public abstract boolean isPlayerAlive();
+
 
     /**
      * runs a simple single player round
