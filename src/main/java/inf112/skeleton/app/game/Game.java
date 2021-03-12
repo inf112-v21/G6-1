@@ -174,6 +174,8 @@ public class Game implements IGame, InputProcessor {
         this.ready = ready;
     }
 
+
+
     // numberOfPlayers
     public void setNumberOfPlayers(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
@@ -187,6 +189,11 @@ public class Game implements IGame, InputProcessor {
 
     // public void deleteDisconnectedPlayers() {}
 
+
+    // The host sends out start signal to alert other players that the game is starting.
+    public void sendStartSignal() {
+        client.sendStartSignal();
+    }
 
 
     @Override

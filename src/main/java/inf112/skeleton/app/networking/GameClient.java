@@ -5,7 +5,7 @@ import com.esotericsoftware.kryonet.Listener;
 import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.networking.listeners.ClientListener;
-import inf112.skeleton.app.player.Player;
+import inf112.skeleton.app.networking.packets.Packets;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -61,6 +61,15 @@ public class GameClient extends Listener {
         }
     }
 
+    // Server alerts all clients to start the game
+    public void sendStartSignal() {
+        cListener.sendStartSignal();
+    }
+
+    public void sendReady(Packets.ReadySignalPacket signal) {
+        cListener.sendReady(signal);
+    }
+
     public void sendCardsToServer(ArrayList<Card> cards) {
         cListener.sendCardsToServer(cards);
     }
@@ -72,4 +81,6 @@ public class GameClient extends Listener {
         }
         return cards;
     }
+
+
 }

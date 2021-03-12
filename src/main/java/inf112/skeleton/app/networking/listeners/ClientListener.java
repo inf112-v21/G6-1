@@ -99,8 +99,8 @@ public class ClientListener extends Listener {
             game.executeMoves(roundPacket.playerMoves);
         } else if (object instanceof Packets.PlayerNumberPacket) {
             Packets.PlayerNumberPacket p = (Packets.PlayerNumberPacket) object;
-            System.out.println("Received player packet with x players: " + p.numberOfPlayers);
-            game.setNumberOfPlayers(p.numberOfPlayers);
+            game.setNumberOfPlayers(p.numberOfPlayersConnected);
+            System.out.println("Received player packet with x players: " + p.numberOfPlayersConnected);
         } else if (object instanceof Packets.StartGamePackage) {
             System.out.println("Starting game");
             Packets.StartGamePackage p = (Packets.StartGamePackage) object;
@@ -130,7 +130,13 @@ public class ClientListener extends Listener {
     }
 
     // Sender en boolean verdi til serveren som forteller alle spillerene om at denne spilleren er klar
-    public void sendReadySign(Packets.ReadySignalPacket signal) {
+    public void sendStartSignal() {
+        Packets.ReadySignalPacket signal = new Packets.ReadySignalPacket();
+        signal.signal = true;
+        cl.sendTCP(signal);
+    }
+
+    public void sendReady(Packets.ReadySignalPacket signal) {
         cl.sendTCP(signal);
     }
 
