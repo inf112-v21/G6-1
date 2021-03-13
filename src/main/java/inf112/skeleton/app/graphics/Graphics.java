@@ -181,7 +181,7 @@ public class Graphics  implements ApplicationListener{
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
-        laser.ShootLaser(singelPlayerList);
+        laser.shootLaser(singelPlayerList);
         //System.out.println(singlePlayer.healthToken+ " HealthToken");
         //System.out.println(singlePlayer.damageTaken +" DamageTaken");
         tiledMapRenderer.getBatch().begin();
