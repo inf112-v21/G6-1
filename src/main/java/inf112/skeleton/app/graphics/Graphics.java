@@ -103,7 +103,7 @@ public class Graphics  implements ApplicationListener{
             player.setMouseClickCoordinates(camera);
             setInputProcessor(player);
             updateCardSprite(player);
-            /*
+
             System.out.println("Player of color " +player.color);
             System.out.println("Start");
             for(Card playerdeckcard : player.playerDeck){
@@ -112,7 +112,7 @@ public class Graphics  implements ApplicationListener{
             System.out.println("chosenCard");
             for(Card playerchosencard : player.chosenCards){
                 System.out.println(playerchosencard.action);
-            }*/
+            }
 
             Sprite playerSprite = playersSprite.get(player.color);
             playerSprite.setTexture(playerGraphics.createPlayerTextures().get(player.color).get(player.direction));
@@ -191,6 +191,7 @@ public class Graphics  implements ApplicationListener{
             singlePlayer();
         } else{
             updatePlayerSprite(game.players);
+
         }
         tiledMapRenderer.getBatch().end();
 
