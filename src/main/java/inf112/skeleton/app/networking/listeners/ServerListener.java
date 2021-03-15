@@ -4,6 +4,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import inf112.skeleton.app.card.Card;
+import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.networking.packets.Packets;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class ServerListener extends Listener {
     private String[] playerNames;
     public boolean[] ShutdownPlayer;
     public final int MAX_PLAYERS = 5;
+    private Game game;
 
     /**
      *
@@ -52,6 +54,7 @@ public class ServerListener extends Listener {
         numberOfPlayers++;
         Packets.PlayerNumberPacket playerPacket = new Packets.PlayerNumberPacket();
         playerPacket.numberOfPlayersConnected = numberOfPlayers;
+        game.setNumberOfPlayers(playerPacket.numberOfPlayersConnected);
         server.sendToAllTCP(playerPacket);
         server.sendToTCP(connection.getID(), map);
 

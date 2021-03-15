@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import inf112.skeleton.app.BoardItems.Laser;
+import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.player.HumanPlayer;
@@ -144,7 +145,7 @@ public class Graphics  implements ApplicationListener{
         cardSpriteList = cardGraphics.createCardSprite();
         cardTextures = cardGraphics.createCardTexture();
         playersSprite = playerGraphics.createPlayerSprite();
-        singelPlayerList.add(singlePlayer);
+
         float w = 600;
         float h = 1000;
         spriteBatch = new SpriteBatch();

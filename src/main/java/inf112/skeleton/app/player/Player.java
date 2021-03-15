@@ -12,8 +12,9 @@ import java.util.Arrays;
 
 public abstract class Player  {
 
+
+    public int id;
 //TODO color final
-    public final int id;
     public int damageTaken;
     public int healthToken;
     public Color color;

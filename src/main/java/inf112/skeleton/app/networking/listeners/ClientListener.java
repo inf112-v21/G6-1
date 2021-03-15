@@ -82,7 +82,7 @@ public class ClientListener extends Listener {
         cl.sendTCP(name);
     }
 
-    public void disconeccted(Connection connection) {
+    public void disconnected(Connection connection) {
         this.c = false;
         System.out.println("Cl: You have been disconnected from the server");
     }
@@ -97,11 +97,12 @@ public class ClientListener extends Listener {
         } else if (object instanceof Packets.RoundPacket) {
             Packets.RoundPacket roundPacket = (Packets.RoundPacket) object;
             game.executeMoves(roundPacket.playerMoves);
-        } else if (object instanceof Packets.PlayerNumberPacket) {
+        } /*else if (object instanceof Packets.PlayerNumberPacket) {
             Packets.PlayerNumberPacket p = (Packets.PlayerNumberPacket) object;
-            game.setNumberOfPlayers(p.numberOfPlayersConnected);
             System.out.println("Received player packet with x players: " + p.numberOfPlayersConnected);
-        } else if (object instanceof Packets.StartGamePackage) {
+            game.setNumberOfPlayers(p.numberOfPlayersConnected);
+
+        }*/ else if (object instanceof Packets.StartGamePackage) {
             System.out.println("Starting game");
             Packets.StartGamePackage p = (Packets.StartGamePackage) object;
             game.dealPlayerDecks();

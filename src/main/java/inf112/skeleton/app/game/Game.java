@@ -151,6 +151,7 @@ public class Game implements IGame, InputProcessor {
         }
     }
 
+
     public void isReady(Packets.CardsPacket p) {
         for (Packets.CardsPacket pc : allPlayerCards) {
             if (pc.playerId == p.playerId) {
@@ -215,6 +216,7 @@ public class Game implements IGame, InputProcessor {
         for (int i = 0; i < numberOfPlayers; i++) {
             Color playerColor = Color.getPlayerColor(i);
             HumanPlayer humanPlayer = new HumanPlayer(Direction.NORTH, i, playerColor);
+            humanPlayer.setId(i);
             playerList.add(humanPlayer);
             playerList.get(i).setPlayerStartXPosition(startPositionX);
             startPositionX += 300;

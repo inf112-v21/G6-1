@@ -55,6 +55,7 @@ public class Packets {
 
     /** Package instructing all clients to start the game */
     public static class StartGamePackage {
+
     }
 
 
