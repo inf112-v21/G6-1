@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="2021.01.13" orientation="orthogonal" renderorder="right-down" width="12" height="14" tilewidth="300" tileheight="300" infinite="0" nextlayerid="16" nextobjectid="1">
+<map version="1.4" tiledversion="2021.01.13" orientation="orthogonal" renderorder="right-down" width="12" height="14" tilewidth="300" tileheight="300" infinite="0" nextlayerid="22" nextobjectid="1">
  <properties>
   <property name="Flag" value="Flag"/>
  </properties>
@@ -24,7 +24,9 @@
  </layer>
  <layer id="12" name="flagLayer" width="12" height="14">
   <properties>
-   <property name="Flag" value="Flag"/>
+   <property name="Flag1" type="int" value="55"/>
+   <property name="Flag2" type="int" value="63"/>
+   <property name="Flag3" type="int" value="71"/>
   </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,
@@ -43,10 +45,50 @@
 0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="15" name="Player" width="12" height="14">
+ <layer id="20" name="Laser" width="12" height="14">
   <properties>
-   <property name="Player" value="Player"/>
+   <property name="Laser" type="int" value="39"/>
   </properties>
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,39,39,39,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="21" name="LaserWall" width="12" height="14">
+  <properties>
+   <property name="LaserWallLeft" type="int" value="38"/>
+   <property name="LaserWallRight" type="int" value="46"/>
+  </properties>
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,38,0,46,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <layer id="15" name="Player" width="12" height="14">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
@@ -65,6 +107,12 @@
 </data>
  </layer>
  <layer id="2" name="YellowConveyor" width="12" height="14">
+  <properties>
+   <property name="yConveyorDown" type="int" value="50"/>
+   <property name="yConveyorLeft" type="int" value="51"/>
+   <property name="yConveyorRight" type="int" value="52"/>
+   <property name="yConveyorUp" type="int" value="49"/>
+  </properties>
   <data encoding="csv">
 0,0,0,49,0,50,49,0,50,0,49,0,
 51,0,0,49,0,50,49,0,50,0,0,51,
@@ -83,6 +131,10 @@
 </data>
  </layer>
  <layer id="4" name="BlueConveyor" width="12" height="14">
+  <properties>
+   <property name="bConveyorDown" type="int" value="21"/>
+   <property name="bConveyorRight" type="int" value="14"/>
+  </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
@@ -101,6 +153,9 @@
 </data>
  </layer>
  <layer id="5" name="Hole" width="12" height="14">
+  <properties>
+   <property name="Hole" type="int" value="6"/>
+  </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,6,0,0,0,0,0,0,0,0,0,
@@ -191,6 +246,16 @@
 </data>
  </layer>
  <layer id="3" name="Walls" width="12" height="14">
+  <properties>
+   <property name="TwoWallsLeftDown" type="int" value="32"/>
+   <property name="TwoWallsLeftUp" type="int" value="24"/>
+   <property name="TwoWallsRightDown" type="int" value="8"/>
+   <property name="TwoWallsRightUp" type="int" value="16"/>
+   <property name="WallDown" type="int" value="29"/>
+   <property name="WallLeft" type="int" value="30"/>
+   <property name="WallRight" type="int" value="23"/>
+   <property name="WallUp" type="int" value="31"/>
+  </properties>
   <data encoding="csv">
 0,0,31,0,31,0,0,31,0,31,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
