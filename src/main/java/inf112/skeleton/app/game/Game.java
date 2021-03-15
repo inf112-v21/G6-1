@@ -1,7 +1,6 @@
 package inf112.skeleton.app.game;
 
 
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.card.Card;
@@ -22,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.concurrent.ThreadPoolExecutor;
 
 public class Game implements IGame, InputProcessor {
 
@@ -182,7 +180,7 @@ public class Game implements IGame, InputProcessor {
     @Override
     public boolean isGameOver(TiledMapTileLayer flagLayer) {
         for (Player p: players) {
-            if (p.isPlayerOnFlag(flagLayer)){
+            if (p.hasPlayerVisitedAllFlags(flagLayer)){
                 return true;
             }
         }

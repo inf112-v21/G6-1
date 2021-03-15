@@ -195,8 +195,8 @@ public class Graphics  implements ApplicationListener{
             updatePlayerSprite(game.players);
         }
         tiledMapRenderer.getBatch().end();
-/*
-        if (singlePlayer.isPlayerOnFlag((TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"))) {
+
+        if (singlePlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"))) {
             pause();
             System.out.println("You Won!");
             spriteBatch.begin();
@@ -204,7 +204,7 @@ public class Graphics  implements ApplicationListener{
             spriteBatch.end();
             pause();
             dispose();
-        }*/
+        }
     }
 
 
