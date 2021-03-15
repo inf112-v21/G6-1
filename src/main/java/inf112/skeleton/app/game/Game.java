@@ -156,8 +156,8 @@ public class Game implements IGame, InputProcessor {
             if (pc.playerId == p.playerId) {
                 return;
             }
-            allPlayerCards.add(p);
         }
+        allPlayerCards.add(p);
 
         if (allPlayerCards.size() == numberOfPlayers) {
             boolean contains = false;
@@ -194,7 +194,6 @@ public class Game implements IGame, InputProcessor {
     public void sendStartSignal() {
         client.sendStartSignal();
     }
-
 
     @Override
     public boolean isGameOver(TiledMapTileLayer flagLayer) {
