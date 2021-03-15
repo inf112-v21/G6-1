@@ -25,15 +25,14 @@ public abstract class Player  {
 
     /**
      * @param direction The direction the player is facing. Needs to be set only when a player is created
-     *                  Then it will be updated automatically during the game
+     * Then it will be updated automatically during the game
      * @param id The name of the player
-     * @param color
+     * @param color Color of the player
      */
 
 
-    //TODO comment on the other things
-    public Player(Direction direction, int id, Color color) {
 
+    public Player(Direction direction, int id, Color color) {
         this.id = id;
         this.color = color;
         this.direction = direction;
@@ -52,15 +51,13 @@ public abstract class Player  {
                         5555f, 1640f,
                         6080f, 1640f,
                         6605f, 1640f));
-
-
     }
 
     /**
      * Needed to mach Sprite positions with the player when starting a game.
      * Pass this method in as X parameter in set player position sprite-built-in method.
      *
-     * @param playerStartXPosition The wanted start position X for player
+     * @param playerStartXPosition The desired start position X for player
      * @return playerStartXPosition, to set player sprite
      */
     public abstract float setPlayerStartXPosition(float playerStartXPosition);
@@ -69,7 +66,7 @@ public abstract class Player  {
      * Needed to mach Sprite positions with the player when starting a game.
      * Pass this method in as Y parameter in set player position sprite-built-in method.
      *
-     * @param playerStartYPosition the wanted start position Y for player
+     * @param playerStartYPosition the desired start position Y for player
      * @return playerStartYPosition to set player sprite
      */
     public abstract float setPlayerStartYPosition(float playerStartYPosition);
@@ -97,28 +94,27 @@ public abstract class Player  {
     public abstract float getPlayerYPosition();
 
     /**
-     * Check if the player is on a flag.
-     * The flag layer is common for all players.
+     * Check if the player is on a flag. by comparing player position
+     * with the flag layer content in that position
      * @param flagLayer The TiledMapTileLayer that contains flags
      * @return true if player location mach flag location else false
      */
     public abstract boolean isPlayerOnFlag(TiledMapTileLayer flagLayer);
 
     /**
-     * Check if the player can move to the given X and Y position.
-     * For the time the player can move if the player keeps within the board.
+     * Check if the player can move to the given X and Y position,
+     * without going outside the board
      * @param xDirection to check
      * @param yDirection to check
      * @return boolean
      */
-
-    public abstract boolean canPlayerMove(float xDirection, float yDirection);
+    public abstract boolean keepPlayerOnBoard(float xDirection, float yDirection);
 
     /**
      * Calculate normalized coordinates. The tiled-map operates with
      * tile-size of 300 by 300. While the layers operates with tile-size of 1 by 1.
      * @param unNormalizedValue tiled- map value to normalise
-     * @return int
+     * @return normalized coordinates
      */
     public abstract int normalizedCoordinates(float unNormalizedValue);
 
@@ -129,12 +125,26 @@ public abstract class Player  {
     public abstract void setPlayerDirection(Card card);
 
     /**
+     * If the players card wil move the player outside the game board
+     * this function will move the player to the edge of the board instead
+     * @param position position to move to
+     * @return new position always inside the board
+     */
+    public abstract float movePlayerAsFarAsPossible(float position);
+
+
+    /**
      * Update player location or direction from given card
      * @param card  given card
      */
     public abstract void updatePlayerLocation(Card card);
 
+    /**
+     * runs a simple single player round
+     */
     public abstract void singlePlayerRound();
+
+
     public  abstract void setMouseClickCoordinates(OrthographicCamera camera);
 
 

@@ -3,13 +3,11 @@ package inf112.skeleton.app.player;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.graphics.Graphics;
 import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
 import org.junit.Test;
-import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -52,10 +50,10 @@ public class playerLogicTest {
         float yPositiveDirection = 3901;
         float yNegativeDirection = -1;
 
-        Assertions.assertFalse(humanPlayer.canPlayerMove(xPositiveDirection, 0));
-        Assertions.assertFalse(humanPlayer.canPlayerMove(xNegativeDirection, 0));
-        Assertions.assertFalse(humanPlayer.canPlayerMove(0, yPositiveDirection));
-        Assertions.assertFalse(humanPlayer.canPlayerMove(0, yNegativeDirection));
+        Assertions.assertFalse(humanPlayer.keepPlayerOnBoard(xPositiveDirection, 0));
+        Assertions.assertFalse(humanPlayer.keepPlayerOnBoard(xNegativeDirection, 0));
+        Assertions.assertFalse(humanPlayer.keepPlayerOnBoard(0, yPositiveDirection));
+        Assertions.assertFalse(humanPlayer.keepPlayerOnBoard(0, yNegativeDirection));
     }
 
 }

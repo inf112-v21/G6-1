@@ -9,7 +9,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.player.HumanPlayer;
@@ -66,11 +65,6 @@ public class Graphics  implements ApplicationListener{
         Gdx.input.setInputProcessor((InputProcessor) player);
     }
 
-    public void playFunctions(Player player){
-        player.setMouseClickCoordinates(camera);
-    }
-
-
     /**
      * Det som ser ut til å skje er at vi renderer alle spillere sine kort itillegg til alle spillere.
      * Det er mulig at vi kunne hatt en screen til en spiller og rendret egene kort på denne og alle spillere.
@@ -88,17 +82,26 @@ public class Graphics  implements ApplicationListener{
      * Vi får opp kortene til grønn under våre kort og hverken grønn eller grå sine kort er like for begge som spiller.
      *
      *
+     * Vi ønsker å rendre kortene til this.player
+     * Vi ønsker å sette inp PRo til this. player
+     * Vi ønsker å sette setMouseClickCoordinates til this.player
+     *
+     * Vi ønaker å rendre og oppdatere alle spillbrikkene til alle players
+     *
+     * Virker ikke som vi får tildelt en spesifikk player over nett, men tar en (første?) fra listen.
+     *
+     *Flytte inp pro når vi har fått ting til å virke
      */
     public void updatePlayerSprite(ArrayList<Player> players){
         if (players == null || players.isEmpty()) {
             // No players created yet, don't render any
             return;
         }
-
         for (Player player : players){
-            playFunctions(player);
+            player.setMouseClickCoordinates(camera);
             setInputProcessor(player);
-            updateCardSprite(player);/*
+            updateCardSprite(player);
+            /*
             System.out.println("Player of color " +player.color);
             System.out.println("Start");
             for(Card playerdeckcard : player.playerDeck){
@@ -110,24 +113,36 @@ public class Graphics  implements ApplicationListener{
             }*/
 
             Sprite playerSprite = playersSprite.get(player.color);
-            playerSprite.setTexture(playerGraphics.getPlayerTextures().get(player.color).get(player.direction));
+            playerSprite.setTexture(playerGraphics.createPlayerTextures().get(player.color).get(player.direction));
             playerSprite.setSize(300,300);
             playerSprite.setPosition(player.getPlayerXPosition(), player.getPlayerYPosition());
             playerSprite.draw(tiledMapRenderer.getBatch());
         }
     }
 
+    /**
+     * temp runs a singel-player gui
+     */
+    public void singlePlayer(){
+        singlePlayer.setMouseClickCoordinates(camera);
+        updateCardSprite(singlePlayer);
+        singlePlayerSprite.setPosition(singlePlayer.getPlayerXPosition(), singlePlayer.getPlayerYPosition());
+        singlePlayerSprite.setTexture(playerGraphics.createPlayerTextures().get(singlePlayer.color).get(singlePlayer.direction)); //greenPiece.get(humanPlayer.direction))
+        singlePlayerSprite.draw(tiledMapRenderer.getBatch());
+        singlePlayer.singlePlayerRound();
+    }
+
     @Override
     public void create() {
 
         singlePlayer.playerDeck = cardMoveLogic.playerDeck();
-        singlePlayerSprite = new Sprite((playerGraphics.getPlayerTextures().get(singlePlayer.color).get(singlePlayer.direction)));
+        singlePlayerSprite = new Sprite((playerGraphics.createPlayerTextures().get(singlePlayer.color).get(singlePlayer.direction)));
         singlePlayerSprite.setSize(300,300);
 
         // Creates a list of sprites
         cardSpriteList = cardGraphics.createCardSprite();
         cardTextures = cardGraphics.createCardTexture();
-        playersSprite = playerGraphics.getPlayerSprite();
+        playersSprite = playerGraphics.createPlayerSprite();
 
         float w = 600;
         float h = 1000;
@@ -142,15 +157,6 @@ public class Graphics  implements ApplicationListener{
         youWin = new Texture("YouWin.jpg");
     }
 
-    public void singlePlayer(){
-        singlePlayer.setMouseClickCoordinates(camera);
-        updateCardSprite(singlePlayer);
-        singlePlayerSprite.setPosition(singlePlayer.getPlayerXPosition(), singlePlayer.getPlayerYPosition());
-        singlePlayerSprite.setTexture(playerGraphics.getPlayerTextures().get(singlePlayer.color).get(singlePlayer.direction)); //greenPiece.get(humanPlayer.direction))
-        singlePlayerSprite.draw(tiledMapRenderer.getBatch());
-        singlePlayer.singlePlayerRound();
-
-    }
     /**
      * Displayed on the screen.
      * @param width
@@ -167,7 +173,6 @@ public class Graphics  implements ApplicationListener{
      * This is where the graphics of the game get rendered.
      */
     @Override
-//TODO input prosessor må være en egenklasse eller i hver skjermklasse som blir kalt for hver skjerm
     public void render() {
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, 1280, 720);
@@ -175,9 +180,6 @@ public class Graphics  implements ApplicationListener{
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
-        //Gdx.input.setInputProcessor((InputProcessor) singlePlayer);
-
-
 
         tiledMapRenderer.getBatch().begin();
         if(game.typeOfGameStarted == "single player"){

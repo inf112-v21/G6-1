@@ -9,8 +9,12 @@ import java.util.HashMap;
 
 public class PlayerGraphics {
 
-
-    public HashMap<Color, HashMap<Direction, Texture>> getPlayerTextures() {
+    /**
+     * Creates a hashmap with all player textures (all colors and all directions)
+     * Get the texture by the player color and direction.
+     * @return Hashmap of player textures
+     */
+    public HashMap<Color, HashMap<Direction, Texture>> createPlayerTextures() {
         HashMap<Direction,Texture> greenPiece = new HashMap<>();
         HashMap<Direction,Texture> greyPiece = new HashMap<>();
         HashMap<Direction,Texture> orangePiece = new HashMap<>();
@@ -51,13 +55,19 @@ public class PlayerGraphics {
 
         return playerTextures;
     }
-    public HashMap<Color, Sprite> getPlayerSprite(){
+
+    /**
+     * Creates a hashmap of player sprites.
+     * Get the sprite by the players color
+     * @return Hashmap of player sprites 
+     */
+    public HashMap<Color, Sprite> createPlayerSprite(){
         HashMap<Color,Sprite> playerSprite = new HashMap<>();
-        playerSprite.put(Color.ORANGE,new Sprite(getPlayerTextures().get(Color.ORANGE).get(Direction.NORTH)));
-        playerSprite.put(Color.GREEN,new Sprite((getPlayerTextures().get(Color.GREEN).get(Direction.NORTH))));
-        playerSprite.put(Color.PURPLE,new Sprite((getPlayerTextures().get(Color.PURPLE).get(Direction.NORTH))));
-        playerSprite.put(Color.PINK,new Sprite((getPlayerTextures().get(Color.PINK).get(Direction.NORTH))));
-        playerSprite.put(Color.GREY,new Sprite((getPlayerTextures().get(Color.GREY).get(Direction.NORTH))));
+        playerSprite.put(Color.ORANGE,new Sprite(createPlayerTextures().get(Color.ORANGE).get(Direction.NORTH)));
+        playerSprite.put(Color.GREEN,new Sprite((createPlayerTextures().get(Color.GREEN).get(Direction.NORTH))));
+        playerSprite.put(Color.PURPLE,new Sprite((createPlayerTextures().get(Color.PURPLE).get(Direction.NORTH))));
+        playerSprite.put(Color.PINK,new Sprite((createPlayerTextures().get(Color.PINK).get(Direction.NORTH))));
+        playerSprite.put(Color.GREY,new Sprite((createPlayerTextures().get(Color.GREY).get(Direction.NORTH))));
         return playerSprite;
     }
 }
