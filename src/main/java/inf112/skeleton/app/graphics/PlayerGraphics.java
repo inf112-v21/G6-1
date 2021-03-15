@@ -59,7 +59,7 @@ public class PlayerGraphics {
     /**
      * Creates a hashmap of player sprites.
      * Get the sprite by the players color
-     * @return Hashmap of player sprites 
+     * @return Hashmap of player sprites
      */
     public HashMap<Color, Sprite> createPlayerSprite(){
         HashMap<Color,Sprite> playerSprite = new HashMap<>();

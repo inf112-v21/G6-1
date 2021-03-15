@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import inf112.skeleton.app.BoardItems.Laser;
 import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.player.HumanPlayer;
@@ -37,8 +38,8 @@ public class Graphics  implements ApplicationListener{
     private CardMoveLogic cardMoveLogic = new CardMoveLogic();
     private HashMap<Action, Texture> cardTextures;
     public Game game;
-
-
+    public Laser laser = new Laser(Direction.WEST,600f);
+    public ArrayList<Player> singelPlayerList =new ArrayList<>();
     public Graphics(Game game) {
         playerGraphics = new PlayerGraphics();
         cardGraphics = new CardGraphics();
@@ -143,7 +144,7 @@ public class Graphics  implements ApplicationListener{
         cardSpriteList = cardGraphics.createCardSprite();
         cardTextures = cardGraphics.createCardTexture();
         playersSprite = playerGraphics.createPlayerSprite();
-
+        singelPlayerList.add(singlePlayer);
         float w = 600;
         float h = 1000;
         spriteBatch = new SpriteBatch();
@@ -180,7 +181,9 @@ public class Graphics  implements ApplicationListener{
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
-
+        laser.shootLaser(singelPlayerList);
+        //System.out.println(singlePlayer.healthToken+ " HealthToken");
+        //System.out.println(singlePlayer.damageTaken +" DamageTaken");
         tiledMapRenderer.getBatch().begin();
         if(game.typeOfGameStarted == "single player"){
             Gdx.input.setInputProcessor((InputProcessor) singlePlayer);

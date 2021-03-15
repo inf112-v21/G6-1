@@ -1,6 +1,7 @@
 package inf112.skeleton.app.player;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
@@ -20,6 +21,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 public class HumanPlayer extends Player implements InputProcessor {
 
+//TODO consider a player move class for player movement
 
     public HumanPlayer(Direction direction, int id, Color color) {
         super(direction, id, color);
@@ -34,6 +36,43 @@ public class HumanPlayer extends Player implements InputProcessor {
         cardMoveLogic = new CardMoveLogic();
         mouseClickPosition = new Vector3();
     }
+
+    /**
+     * startet on player health and damage functions
+     *
+     */
+
+    @Override
+    public int getPlayerHealth(){
+        return this.healthToken;
+    }
+
+    @Override
+    public int getPlayerDamageTaken(){
+        return this.damageTaken;
+    }
+    @Override
+    public void restorePlayerHealthAndDamage(){
+        this.damageTaken = 0;
+        this.healthToken = 3;
+    }
+    @Override
+    public void dealDamageToPlayer(){
+        this.damageTaken++;
+        if (this.damageTaken >= 10){
+            this.healthToken --;
+            this.damageTaken = 0;
+        }
+    }
+
+    @Override
+    public boolean isPlayerAlive(){
+        return this.healthToken > 0;
+    }
+
+    /**
+     *
+     */
 
     @Override
     public float setPlayerStartXPosition(float playerStartXPosition){
@@ -67,6 +106,7 @@ public class HumanPlayer extends Player implements InputProcessor {
     public boolean isPlayerOnFlag(TiledMapTileLayer flagLayer) {
         TiledMapTileLayer.Cell cell = flagLayer.getCell(normalizedCoordinates(playerCurrentXPosition),
                                       normalizedCoordinates(playerCurrentYPosition));
+
         return cell!= null;
     }
 
@@ -80,6 +120,7 @@ public class HumanPlayer extends Player implements InputProcessor {
         return (int) unNormalizedValue/300;
     }
 
+    //TODO Refactor setPlayerDirection, movePlayerAsFarAsPossible and updatePlayerLocation when the rest of the board pieces are used
     @Override
     public void setPlayerDirection(Card card){
        float newPlayerDirection = this.direction.getDirection() + card.action.getAction();
@@ -95,6 +136,7 @@ public class HumanPlayer extends Player implements InputProcessor {
     @Override
     public float movePlayerAsFarAsPossible(float position){
         if(direction == Direction.NORTH && !keepPlayerOnBoard(getPlayerXPosition(),position)) return 3900;
+
         else if(direction == Direction.SOUTH && !keepPlayerOnBoard(getPlayerXPosition(),position) ) return 0;
         else if(direction == Direction.WEST && !keepPlayerOnBoard(position, getPlayerYPosition()) ) return 0;
         else if(direction == Direction.EAST && !keepPlayerOnBoard(position, getPlayerYPosition()) ) return 3300;
@@ -111,7 +153,7 @@ public class HumanPlayer extends Player implements InputProcessor {
             else if (this.direction == Direction.SOUTH){
                 updatePlayerYPosition(movePlayerAsFarAsPossible(getPlayerYPosition() - cardAction));
             }
-             else if (this.direction == Direction.EAST) {
+            else if (this.direction == Direction.EAST) {
                 updatePlayerXPosition(movePlayerAsFarAsPossible(getPlayerXPosition() + cardAction));
 
             } else if (this.direction == Direction.WEST) {
@@ -136,6 +178,8 @@ public class HumanPlayer extends Player implements InputProcessor {
             cardCoordinates = cardMoveLogic.resetCardCoordinates();
         }
     }
+
+    // TODO when multiplayer works move everything below to a InputProcessor class
 
     /**
      * This method saves mouse click coordinates (coordinates on the window that is pushed) to a vector 3 object.
@@ -167,8 +211,8 @@ public class HumanPlayer extends Player implements InputProcessor {
     public boolean touchUp(int i, int i1, int i2, int i3) {
         float x  = mouseClickXCoordinate;
         float y = mouseClickYCoordinate;
-        System.out.println(" X " +x);
-        System.out.println(" Y " +y);
+        //System.out.println(" X " +x);
+        //System.out.println(" Y " +y);
 
         if (x >5555 && x < 6005 && y >= 3090 && y <= 3740){
             cardMoveLogic.moveCardWhenClicked(0, this);
@@ -192,6 +236,7 @@ public class HumanPlayer extends Player implements InputProcessor {
             cardMoveLogic.resetCard(this);
         }
         if (chosenCards.size() == 5) {
+
             // TODO tell game you@re done choosing cards
         }
         return false;
