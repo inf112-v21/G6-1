@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.math.Vector3;
 import inf112.skeleton.app.card.Card;
 import com.badlogic.gdx.InputProcessor;
@@ -106,6 +108,7 @@ public class HumanPlayer extends Player implements InputProcessor {
     public boolean isPlayerOnFlag(TiledMapTileLayer flagLayer) {
         TiledMapTileLayer.Cell cell = flagLayer.getCell(normalizedCoordinates(playerCurrentXPosition),
                                       normalizedCoordinates(playerCurrentYPosition));
+        if (cell!=null) System.out.println(cell.getTile().getProperties().getValues().toString());
 
         return cell!= null;
     }
@@ -250,7 +253,13 @@ public class HumanPlayer extends Player implements InputProcessor {
     @Override
     public boolean keyDown(int keyPressed) {return false;}
     @Override
-    public boolean keyUp(int keyPressed) {return false;}
+    public boolean keyUp(int keyPressed) {
+        if(keyPressed == Input.Keys.UP) updatePlayerYPosition(getPlayerYPosition()+300);
+        if(keyPressed == Input.Keys.DOWN) updatePlayerYPosition(getPlayerYPosition()-300);
+        if(keyPressed == Input.Keys.RIGHT) updatePlayerXPosition(getPlayerXPosition()+300);
+        if(keyPressed == Input.Keys.LEFT) updatePlayerXPosition(getPlayerXPosition()-300);
+        return false;}
+
     @Override
     public boolean keyTyped(char c) {return false;}
     @Override

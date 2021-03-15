@@ -4,6 +4,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import inf112.skeleton.app.card.Card;
+import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.networking.packets.Packets;
 
 import java.util.ArrayList;
@@ -13,14 +14,15 @@ import java.util.HashMap;
 public class ServerListener extends Listener {
     private final String map;
     private Server server;
-    private int numberOfPlayers = 1;
     private boolean[] allPlayersReady;
     private HashMap<Integer, ArrayList<Card>> cardsReceived;
     ArrayList<Packets.CardsPacket> testCards;
+    private int numberOfPlayers = 0;
 
     private String[] playerNames;
     public boolean[] ShutdownPlayer;
     public final int MAX_PLAYERS = 5;
+    private Game game;
 
     /**
      *
@@ -48,19 +50,19 @@ public class ServerListener extends Listener {
 
     // TODO må være connected() siden metoden er fra Listener.java
     public void connected(Connection connection) {
-        System.out.println("Player number " + numberOfPlayers + " has connected to the server");
+        System.out.println("Player " + numberOfPlayers + " has connected to the server");
         numberOfPlayers++;
         Packets.PlayerNumberPacket playerPacket = new Packets.PlayerNumberPacket();
-        playerPacket.numberOfPlayers = numberOfPlayers;
+        playerPacket.numberOfPlayersConnected = numberOfPlayers;
+        game.setNumberOfPlayers(playerPacket.numberOfPlayersConnected);
         server.sendToAllTCP(playerPacket);
         server.sendToTCP(connection.getID(), map);
-
 
         // TODO we automatically start the game when we have 3 players
         // TODO add a start button to the gui of the host
         //  which should trigger starting the game
         if (numberOfPlayers >= 2) {
-            this.startGame();
+            this.startGameSession();
         }
     }
 
@@ -75,7 +77,7 @@ public class ServerListener extends Listener {
         numberOfPlayers--;
         playerNames[connection.getID()] = null;
         Packets.PlayerNumberPacket numberOfPlayers = new Packets.PlayerNumberPacket();
-        numberOfPlayers.numberOfPlayers = this.numberOfPlayers;
+        numberOfPlayers.numberOfPlayersConnected = this.numberOfPlayers;
         server.sendToAllTCP(numberOfPlayers);
         Packets.NamePacket namePacket = new Packets.NamePacket();
         namePacket.name = playerNames;
@@ -94,14 +96,11 @@ public class ServerListener extends Listener {
         cardsReceived.clear();
     }
 
-    public void startGame() {
+    public void startGameSession() {
         System.out.println("Instructing all clients to start the game");
         Packets.StartGamePackage p = new Packets.StartGamePackage();
         server.sendToAllTCP(p);
     }
-
-
-
 
     /** When something is sent to the server this method gets called and sorts
      *  out what type of message it is before it sends it all clients
@@ -145,7 +144,7 @@ public class ServerListener extends Listener {
         } else if (object instanceof Packets.RemovePlayerPacket) {
             numberOfPlayers--;
             Packets.PlayerNumberPacket numberOfPlayersConnected = new Packets.PlayerNumberPacket();
-            numberOfPlayersConnected.numberOfPlayers = numberOfPlayers;
+            numberOfPlayersConnected.numberOfPlayersConnected = numberOfPlayers;
             server.sendToAllTCP(numberOfPlayersConnected);
         }
     }

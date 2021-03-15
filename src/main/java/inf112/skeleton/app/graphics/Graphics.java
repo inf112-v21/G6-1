@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import inf112.skeleton.app.BoardItems.Laser;
@@ -184,6 +185,8 @@ public class Graphics  implements ApplicationListener{
         laser.shootLaser(singelPlayerList);
         //System.out.println(singlePlayer.healthToken+ " HealthToken");
         //System.out.println(singlePlayer.damageTaken +" DamageTaken");
+        TiledMapTileSet tileset =  tiledMap.getTileSets().getTileSet("Flag1");
+        //System.out.println(tileset);
         tiledMapRenderer.getBatch().begin();
         if(game.typeOfGameStarted == "single player"){
             Gdx.input.setInputProcessor((InputProcessor) singlePlayer);
@@ -192,7 +195,7 @@ public class Graphics  implements ApplicationListener{
             updatePlayerSprite(game.players);
         }
         tiledMapRenderer.getBatch().end();
-
+/*
         if (singlePlayer.isPlayerOnFlag((TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"))) {
             pause();
             System.out.println("You Won!");
@@ -201,7 +204,7 @@ public class Graphics  implements ApplicationListener{
             spriteBatch.end();
             pause();
             dispose();
-        }
+        }*/
     }
 
 
