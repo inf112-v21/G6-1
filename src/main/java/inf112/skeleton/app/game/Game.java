@@ -59,7 +59,7 @@ public class Game implements IGame, InputProcessor {
     public InetAddress hostNewGame(String map) {
         server = new GameServer(map);
         server.run();
-        client = new GameClient(server.getAddress(),this);
+        client = new GameClient(server.getAddress(), this);
 
         return server.getAddress();
     }
@@ -68,10 +68,18 @@ public class Game implements IGame, InputProcessor {
      * Creates client object for user. Might need more in this method.
      *
      * @param ip InetAddress object, is being called properly in @chooseHostOrJoin()
+     * @return
      */
-    public void joinNewGame(InetAddress ip) {
-        client = new GameClient(ip,this);
+    public boolean joinNewGame(String ip) {
+        client = new GameClient(this);
+        if (!client.connect(ip))
+            return false;
 
+        return true;
+    }
+
+    public void joinNewGame(InetAddress ip) {
+        client = new GameClient(ip, this);
     }
 
     /**
@@ -195,6 +203,8 @@ public class Game implements IGame, InputProcessor {
     public void sendStartSignal() {
         client.sendStartSignal();
     }
+
+
 
     @Override
     public boolean isGameOver(TiledMapTileLayer flagLayer) {

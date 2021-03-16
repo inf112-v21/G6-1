@@ -97,17 +97,11 @@ public class ClientListener extends Listener {
         } else if (object instanceof Packets.RoundPacket) {
             Packets.RoundPacket roundPacket = (Packets.RoundPacket) object;
             game.executeMoves(roundPacket.playerMoves);
-        } /*else if (object instanceof Packets.PlayerNumberPacket) {
-            Packets.PlayerNumberPacket p = (Packets.PlayerNumberPacket) object;
-            System.out.println("Received player packet with x players: " + p.numberOfPlayersConnected);
-            game.setNumberOfPlayers(p.numberOfPlayersConnected);
-
-        }*/ else if (object instanceof Packets.StartGamePackage) {
+        } else if (object instanceof Packets.StartGamePackage) {
             System.out.println("Starting game");
             Packets.StartGamePackage p = (Packets.StartGamePackage) object;
             game.dealPlayerDecks();
-        }
-        else if (object instanceof Packets.StartSignalPacket){
+        } else if (object instanceof Packets.StartSignalPacket){
             // public boolean start;
         } else if (object instanceof Packets.NamePacket) {
             Packets.NamePacket name = (Packets.NamePacket) object;
