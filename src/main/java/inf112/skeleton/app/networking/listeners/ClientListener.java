@@ -21,7 +21,6 @@ public class ClientListener extends Listener {
     private Packets.CardsPacket cards;
     private boolean c = false;
 
-
     /**
      *
      * @param cl the client that is connected to the server.
@@ -34,22 +33,11 @@ public class ClientListener extends Listener {
         cards = new Packets.CardsPacket();
     }
 
-    /**
-     * Called by the client, if connected,
-     * send a message to the server and set the connection to true.
-     * @param connection
-     */
-    public void connected(Connection connection) {
-        System.out.println("Cl: Established connection");
-        this.c = true;
-    }
-
 
     /** Sends an array to the server which contains the cards that the
      * player has chosen to play.
      * @param cards the cards that the player wants to play
      */
-
     public void sendCardsToServer(ArrayList<Card> cards) {
         // if player sends no cards
         if (cards.size() != 5) {
@@ -62,8 +50,6 @@ public class ClientListener extends Listener {
         cl.sendTCP(cardPacket);
     }
 
-
-
     /**
      * Alerts all the clients by sending the start signal to the server.
      */
@@ -73,7 +59,6 @@ public class ClientListener extends Listener {
         cl.sendTCP(startSignalPacket);
     }
 
-
     /**
      * Sends a String[] name to the sever
      * @param name
@@ -81,13 +66,6 @@ public class ClientListener extends Listener {
     public void sendNameToServer(Packets.NamePacket name) {
         cl.sendTCP(name);
     }
-
-    public void disconeccted(Connection connection) {
-        this.c = false;
-        System.out.println("Cl: You have been disconnected from the server");
-    }
-
-
 
     public void received(Connection c, Object object) {
         if (object instanceof Packets.CardsPacket) {
