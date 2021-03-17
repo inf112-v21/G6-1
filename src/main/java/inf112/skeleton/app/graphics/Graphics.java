@@ -182,12 +182,11 @@ public class Graphics  implements ApplicationListener{
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
-        laser.shootLaser(singelPlayerList);
+        //laser.shootLaser(singelPlayerList);
         //System.out.println(singlePlayer.healthToken+ " HealthToken");
         //System.out.println(singlePlayer.damageTaken +" DamageTaken");
-        TiledMapTileSet tileset =  tiledMap.getTileSets().getTileSet("Flag1");
-        //System.out.println(tileset);
         tiledMapRenderer.getBatch().begin();
+
         if(game.typeOfGameStarted == "single player"){
             Gdx.input.setInputProcessor((InputProcessor) singlePlayer);
             singlePlayer();

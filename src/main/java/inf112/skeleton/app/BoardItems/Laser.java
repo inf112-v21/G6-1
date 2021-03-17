@@ -1,5 +1,6 @@
 package inf112.skeleton.app.BoardItems;
 
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.shared.Direction;
 
@@ -19,6 +20,26 @@ public class Laser {
 
     private HashMap<Direction,Integer> endPositions = getLocationEndPositions();
 
+
+    public HashMap<String,ArrayList> getLevelLasersDirectionAndPosition(TiledMapTileLayer laserLayer){
+        HashMap<String, ArrayList> laserDirectionAndPosition = new HashMap<>();
+        ArrayList<Integer> xPositions = new ArrayList<>();
+        ArrayList<Integer> yPositions = new ArrayList<>();
+        for(int x = 0; x<=3300; x+=300){
+            for(int y = 0; y <= 3900; y += 300){
+                TiledMapTileLayer.Cell laserTile = laserLayer.getCell(x/300,y/300);
+                if (laserTile != null ||laserTile.getTile().getId() == 180 || laserTile.getTile().getId() == 360){
+                    xPositions.add(x*300);
+                }
+                if (laserTile != null ||laserTile.getTile().getId() == 90 || laserTile.getTile().getId() == 270){
+                    yPositions.add(y*300);
+                }laserDirectionAndPosition.put("X",xPositions);
+                laserDirectionAndPosition.put("Y",yPositions);
+            }
+        }
+        return laserDirectionAndPosition;
+    }
+
     /**
      * Creates a Hashmap with directions as key and end coordinates for positions as value
      * @return HashMap<Direction, Integer>
@@ -37,7 +58,7 @@ public class Laser {
      * Then "fire" the laser.
      * @param players the list of players
      */
-    public void shootLaser(ArrayList<Player> players){
+    public void shootLaser(ArrayList<Player> players, HashMap<String,Integer> laserDirectionAndPosition){
         int checkFromPosition = (int) this.position +300;
         int checkToPosition = endPositions.get(this.direction);
         String laserDirection = "Y";
@@ -45,6 +66,10 @@ public class Laser {
             checkFromPosition = endPositions.get(this.direction);
             checkToPosition = (int) this.position -300;
             laserDirection = "X";
+        }
+
+        for(int i = 0; i <= laserDirectionAndPosition.size(); i++){
+
         }
         for(int tile = checkFromPosition; tile <= checkToPosition; tile+=300){
             if( laserDirection == "X"){
