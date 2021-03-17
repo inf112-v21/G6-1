@@ -28,6 +28,8 @@ public class Game implements IGame, InputProcessor {
     /** The number of players in this game */
     private int numberOfPlayers;
     /** The current players in this game */
+    public HashMap<Integer, HumanPlayer> idPlayerHashMap;
+    public HumanPlayer myHumanPlayer;
     public ArrayList<Player> players = new ArrayList<Player>();
     /** The card handler */
     CardDeck cardDeck;
@@ -37,6 +39,7 @@ public class Game implements IGame, InputProcessor {
     private ArrayList<Packets.CardsPacket> allPlayerCards;
     private boolean[] ready;
     CardMoveLogic cardMoveLogic = new CardMoveLogic();
+    private boolean shutdown = true;
 
 
     @Override
@@ -64,10 +67,18 @@ public class Game implements IGame, InputProcessor {
      * Creates client object for user. Might need more in this method.
      *
      * @param ip InetAddress object, is being called properly in @chooseHostOrJoin()
+     * @return
      */
-    public void joinNewGame(InetAddress ip) {
-        client = new GameClient(ip,this);
+    public boolean joinNewGame(String ip) {
+        client = new GameClient(this);
+        if (!client.connect(ip))
+            return false;
 
+        return true;
+    }
+
+    public void joinNewGame(InetAddress ip) {
+        client = new GameClient(ip, this);
     }
 
     /**
@@ -145,13 +156,14 @@ public class Game implements IGame, InputProcessor {
         }
     }
 
+
     public void isReady(Packets.CardsPacket p) {
         for (Packets.CardsPacket pc : allPlayerCards) {
             if (pc.playerId == p.playerId) {
                 return;
             }
-            allPlayerCards.add(p);
         }
+        allPlayerCards.add(p);
 
         if (allPlayerCards.size() == numberOfPlayers) {
             boolean contains = false;
@@ -168,9 +180,36 @@ public class Game implements IGame, InputProcessor {
         this.ready = ready;
     }
 
+
+
+    // numberOfPlayers
     public void setNumberOfPlayers(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
         createPlayers();
+    }
+
+    // Returns the number of players currently in the game
+    public int getNumberOfPlayers() {
+        return numberOfPlayers;
+    }
+
+    // public void deleteDisconnectedPlayers() {}
+
+
+    /**
+     * Calling this when needed to shut down a player (robot)
+     */
+    public void shutDownPlayer() {
+        client.sendPlayerShutDown();
+    }
+
+    public void setShutDown(boolean bool) {
+        shutdown = bool;
+    }
+
+    // The host sends out start signal to alert other players that the game is starting.
+    public void sendStartSignal() {
+        client.sendStartSignal();
     }
 
     @Override
@@ -183,6 +222,8 @@ public class Game implements IGame, InputProcessor {
         return false;
     }
 
+    // Initializes idPlayerHashMap,
+    // Creates the number of players needed and puts them into the idPlayerHashMap.
     @Override
     public ArrayList<Player> createPlayers() {
         System.out.println("Creating players " + numberOfPlayers);
@@ -190,13 +231,32 @@ public class Game implements IGame, InputProcessor {
         float startPositionX = 0;
         for (int i = 0; i < numberOfPlayers; i++) {
             Color playerColor = Color.getPlayerColor(i);
-            playerList.add(new HumanPlayer(Direction.NORTH, i, playerColor));
+            HumanPlayer humanPlayer = new HumanPlayer(Direction.NORTH, i, playerColor);
+            humanPlayer.setId(i);
+            playerList.add(humanPlayer);
             playerList.get(i).setPlayerStartXPosition(startPositionX);
             startPositionX += 300;
+            idPlayerHashMap.put(i, humanPlayer);
         }
+        setMyHumanPlayer(idPlayerHashMap.get(client.getId()));
         this.players = playerList;
         return playerList;
     }
+
+    public int getId() {
+        return client.getId();
+    }
+
+
+    public void setMyHumanPlayer(HumanPlayer humanPlayer) {
+        myHumanPlayer = humanPlayer;
+    }
+
+    // idPlayerHashMap
+    public HashMap<Integer, HumanPlayer> getIdPlayerHashMap() {
+        return idPlayerHashMap;
+    }
+
 
 
     @Override

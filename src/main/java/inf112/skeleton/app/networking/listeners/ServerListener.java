@@ -56,6 +56,7 @@ public class ServerListener extends Listener {
         // Send updated number of players to all players
         Packets.PlayerNumberPacket playerPacket = new Packets.PlayerNumberPacket();
         playerPacket.numberOfPlayers = numberOfPlayers;
+        game.setNumberOfPlayers(playerPacket.numberOfPlayers);
         server.sendToAllTCP(playerPacket);
 
         // Tell the new player their player number
@@ -67,6 +68,7 @@ public class ServerListener extends Listener {
         // Send map name to player
         // TODO make into packet, since it is easier to handle
         server.sendToTCP(connection.getID(), map);
+
 
         // TODO we automatically start the game when we have 3 players
         // TODO add a start button to the gui of the host

@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import inf112.skeleton.app.BoardItems.Laser;
+import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.game.GameType;
@@ -104,7 +105,7 @@ public class Graphics  implements ApplicationListener{
             player.setMouseClickCoordinates(camera);
             setInputProcessor(player);
             updateCardSprite(player);
-            /*
+
             System.out.println("Player of color " +player.color);
             System.out.println("Start");
             for(Card playerdeckcard : player.playerDeck){
@@ -113,7 +114,7 @@ public class Graphics  implements ApplicationListener{
             System.out.println("chosenCard");
             for(Card playerchosencard : player.chosenCards){
                 System.out.println(playerchosencard.action);
-            }*/
+            }
 
             Sprite playerSprite = playersSprite.get(player.color);
             playerSprite.setTexture(playerGraphics.createPlayerTextures().get(player.color).get(player.direction));
@@ -146,7 +147,7 @@ public class Graphics  implements ApplicationListener{
         cardSpriteList = cardGraphics.createCardSprite();
         cardTextures = cardGraphics.createCardTexture();
         playersSprite = playerGraphics.createPlayerSprite();
-        singelPlayerList.add(singlePlayer);
+
         float w = 600;
         float h = 1000;
         spriteBatch = new SpriteBatch();
@@ -194,6 +195,7 @@ public class Graphics  implements ApplicationListener{
             singlePlayer();
         } else{
             updatePlayerSprite(game.players);
+
         }
         tiledMapRenderer.getBatch().end();
 

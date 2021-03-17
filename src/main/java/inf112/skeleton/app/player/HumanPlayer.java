@@ -74,6 +74,14 @@ public class HumanPlayer extends Player implements InputProcessor {
      *
      */
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return this.id;
+    }
+
     @Override
     public float setPlayerStartXPosition(float playerStartXPosition){
         this.playerCurrentXPosition = playerStartXPosition;
@@ -205,7 +213,6 @@ public class HumanPlayer extends Player implements InputProcessor {
     /**
      * Create a click-box around the cards the player is dealt.
      * When the card on the screen is clicked with the mouse moveCardWhenClicked is called.
-     * If the reset button is clicked resetCard is called
      */
 
     @Override

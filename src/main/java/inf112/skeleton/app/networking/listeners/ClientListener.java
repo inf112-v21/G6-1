@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * Calls methods in the game to be able to send data to game.
  */
 public class ClientListener extends Listener {
-    private Client cl;
+    private Client client;
     private Game game;
     private Packets.MessagePacket message;
     private Packets.CardsPacket cards;
@@ -23,11 +23,11 @@ public class ClientListener extends Listener {
 
     /**
      *
-     * @param cl the client that is connected to the server.
+     * @param client the client that is connected to the server.
      * @param game is whats played
      */
-    public void initialize(Client cl, Game game) {
-        this.cl = cl;
+    public void initialize(Client client, Game game) {
+        this.client = client;
         this.game = game;
         message = new Packets.MessagePacket();
         cards = new Packets.CardsPacket();
@@ -46,17 +46,17 @@ public class ClientListener extends Listener {
 
         Packets.CardsPacket cardPacket = new Packets.CardsPacket();
         cardPacket.playedCards = cards;
-        cardPacket.playerId = cl.getID();
-        cl.sendTCP(cardPacket);
+        cardPacket.playerId = client.getID();
+        client.sendTCP(cardPacket);
     }
 
     /**
      * Alerts all the clients by sending the start signal to the server.
      */
-    public void sendStartSignalToServer() {
+    public void sendStartSignal() {
         Packets.StartSignalPacket startSignalPacket = new Packets.StartSignalPacket();
         startSignalPacket.start = true;
-        cl.sendTCP(startSignalPacket);
+        client.sendTCP(startSignalPacket);
     }
 
     /**
@@ -64,7 +64,7 @@ public class ClientListener extends Listener {
      * @param name
      */
     public void sendNameToServer(Packets.NamePacket name) {
-        cl.sendTCP(name);
+        client.sendTCP(name);
     }
 
     public void received(Connection c, Object object) {
@@ -72,16 +72,14 @@ public class ClientListener extends Listener {
             Packets.CardsPacket p = (Packets.CardsPacket) object;
             cards = p;
             game.isReady(p);
-        } else if (object instanceof Packets.PlayerNumberPacket) {
-            Packets.PlayerNumberPacket p = (Packets.PlayerNumberPacket) object;
-            System.out.println("Received player packet with x players: " + p.numberOfPlayers);
-            game.setNumberOfPlayers(p.numberOfPlayers);
+        } else if (object instanceof Packets.RoundPacket) {
+            Packets.RoundPacket roundPacket = (Packets.RoundPacket) object;
+            game.executeMoves(roundPacket.playerMoves);
         } else if (object instanceof Packets.StartGamePackage) {
             System.out.println("Starting game");
             Packets.StartGamePackage p = (Packets.StartGamePackage) object;
             game.dealPlayerDecks();
-        }
-        else if (object instanceof Packets.StartSignalPacket){
+        } else if (object instanceof Packets.StartSignalPacket){
             // public boolean start;
         } else if (object instanceof Packets.NamePacket) {
             Packets.NamePacket name = (Packets.NamePacket) object;
@@ -92,9 +90,6 @@ public class ClientListener extends Listener {
         } else if (object instanceof Packets.ShutDownRobotPacket) {
             Packets.ShutDownRobotPacket shutDownRobotPacket = (Packets.ShutDownRobotPacket) object;
             // game.shutDownPlayer(shutDownRobotPacket.playersShutdown);
-        } else if (object instanceof Packets.RoundPacket) {
-            Packets.RoundPacket roundPacket = (Packets.RoundPacket) object;
-            game.executeMoves(roundPacket.playerMoves);
         }
     }
 
@@ -107,22 +102,22 @@ public class ClientListener extends Listener {
         return c;
     }
 
-    // Sender en boolean verdi til serveren som forteller alle spillerene om at denne spilleren er klar
-    public void sendReadySign(Packets.ReadySignalPacket signal) {
-        cl.sendTCP(signal);
+
+    public void sendReady(Packets.ReadySignalPacket signal) {
+        client.sendTCP(signal);
     }
 
     // Sender en melding om at spilleren skal skru av brikken sin
     public void sendRobotShutdownSign() {
         Packets.ShutDownRobotPacket shutDownRobotPacket = new Packets.ShutDownRobotPacket();
-        cl.sendTCP(shutDownRobotPacket);
+        client.sendTCP(shutDownRobotPacket);
     }
 
 
     // Sletter spilleren slik at de ikke kan spille kort
     public void removeAPlayerFromTheServer() {
         Packets.RemovePlayerPacket removePlayerPacket = new Packets.RemovePlayerPacket();
-        cl.sendTCP(removePlayerPacket);
+        client.sendTCP(removePlayerPacket);
     }
 
 
