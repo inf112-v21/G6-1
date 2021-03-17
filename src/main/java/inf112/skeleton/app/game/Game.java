@@ -28,15 +28,18 @@ public class Game implements IGame, InputProcessor {
     /** The number of players in this game */
     private int numberOfPlayers;
     /** The current players in this game */
+    public HashMap<Integer, HumanPlayer> idPlayerHashMap;
+    public HumanPlayer myHumanPlayer;
     public ArrayList<Player> players = new ArrayList<Player>();
     /** The card handler */
     CardDeck cardDeck;
     GameServer server;
     GameClient client;
-    public String typeOfGameStarted;
+    public GameType typeOfGameStarted;
     private ArrayList<Packets.CardsPacket> allPlayerCards;
     private boolean[] ready;
     CardMoveLogic cardMoveLogic = new CardMoveLogic();
+    private boolean shutdown = true;
 
 
     @Override
@@ -53,12 +56,10 @@ public class Game implements IGame, InputProcessor {
      * @param map - What map to be used in the hosted game.
      * @return
      */
-
     public InetAddress hostNewGame(String map) {
         server = new GameServer(map);
         server.run();
         client = new GameClient(server.getAddress(),this);
-
         return server.getAddress();
     }
 
@@ -66,47 +67,53 @@ public class Game implements IGame, InputProcessor {
      * Creates client object for user. Might need more in this method.
      *
      * @param ip InetAddress object, is being called properly in @chooseHostOrJoin()
+     * @return
      */
-    public void joinNewGame(InetAddress ip) {
-        client = new GameClient(ip,this);
+    public boolean joinNewGame(String ip) {
+        client = new GameClient(this);
+        if (!client.connect(ip))
+            return false;
 
+        return true;
+    }
+
+    public void joinNewGame(InetAddress ip) {
+        client = new GameClient(ip, this);
     }
 
     /**
-     * Method to prompt if user is hosting a game or joining a game. In this method, a proper InetAddress object is
-     * created for @joinNewGame()
-     *
+     * Method to prompt if user is hosting a game or joining a game.
+     * In this method, a proper InetAddress object is created for @joinNewGame()
      */
-    public void chooseHostOrJoin () {
+    public void chooseHostOrJoin() {
         Scanner HostOrJoin = new Scanner(System.in);
         System.out.println("Host (1), join (2) or start single player (3)?: ");
 
         String choice = HostOrJoin.nextLine();
-        System.out.println("You choose " + choice);
+        System.out.println("You chose " + choice);
 
-        if(choice.equals("1")){
+        if(choice.equals(GameType.NETWORK_HOST.value)){
+            typeOfGameStarted = GameType.NETWORK_HOST;
             hostNewGame("RiskyExchange");
-            typeOfGameStarted = "host";
         }
-        else if(choice.equals("2")){
+        else if(choice.equals(GameType.NETWORK_JOIN.value)){
+            typeOfGameStarted = GameType.NETWORK_JOIN;
             InetAddress hostIp = null;
             Scanner askForIpAddress = new Scanner(System.in);
             System.out.println("Please enter the server IP to join: ");
 
-            String ChosenIP = askForIpAddress.nextLine();
+            String chosenIP = askForIpAddress.nextLine();
             try {
-                hostIp = InetAddress.getByName(ChosenIP);
+                hostIp = InetAddress.getByName(chosenIP);
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             }
             System.out.println(hostIp.getHostAddress());
-            typeOfGameStarted = "join";
             joinNewGame(hostIp);
-
         }
-        else if(choice.equals("3")){
+        else if(choice.equals(GameType.SINGLE_PLAYER.value)){
+            typeOfGameStarted = GameType.SINGLE_PLAYER;
             System.out.println("Single player selected");
-            typeOfGameStarted = "single player";
         }
         else {
             System.out.println("Please enter 1 or 2 when asked to");
@@ -149,13 +156,14 @@ public class Game implements IGame, InputProcessor {
         }
     }
 
+
     public void isReady(Packets.CardsPacket p) {
         for (Packets.CardsPacket pc : allPlayerCards) {
             if (pc.playerId == p.playerId) {
                 return;
             }
-            allPlayerCards.add(p);
         }
+        allPlayerCards.add(p);
 
         if (allPlayerCards.size() == numberOfPlayers) {
             boolean contains = false;
@@ -172,9 +180,36 @@ public class Game implements IGame, InputProcessor {
         this.ready = ready;
     }
 
+
+
+    // numberOfPlayers
     public void setNumberOfPlayers(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
         createPlayers();
+    }
+
+    // Returns the number of players currently in the game
+    public int getNumberOfPlayers() {
+        return numberOfPlayers;
+    }
+
+    // public void deleteDisconnectedPlayers() {}
+
+
+    /**
+     * Calling this when needed to shut down a player (robot)
+     */
+    public void shutDownPlayer() {
+        client.sendPlayerShutDown();
+    }
+
+    public void setShutDown(boolean bool) {
+        shutdown = bool;
+    }
+
+    // The host sends out start signal to alert other players that the game is starting.
+    public void sendStartSignal() {
+        client.sendStartSignal();
     }
 
     @Override
@@ -187,6 +222,8 @@ public class Game implements IGame, InputProcessor {
         return false;
     }
 
+    // Initializes idPlayerHashMap,
+    // Creates the number of players needed and puts them into the idPlayerHashMap.
     @Override
     public ArrayList<Player> createPlayers() {
         System.out.println("Creating players " + numberOfPlayers);
@@ -194,13 +231,32 @@ public class Game implements IGame, InputProcessor {
         float startPositionX = 0;
         for (int i = 0; i < numberOfPlayers; i++) {
             Color playerColor = Color.getPlayerColor(i);
-            playerList.add(new HumanPlayer(Direction.NORTH, i, playerColor));
+            HumanPlayer humanPlayer = new HumanPlayer(Direction.NORTH, i, playerColor);
+            humanPlayer.setId(i);
+            playerList.add(humanPlayer);
             playerList.get(i).setPlayerStartXPosition(startPositionX);
             startPositionX += 300;
+            idPlayerHashMap.put(i, humanPlayer);
         }
+        setMyHumanPlayer(idPlayerHashMap.get(client.getId()));
         this.players = playerList;
         return playerList;
     }
+
+    public int getId() {
+        return client.getId();
+    }
+
+
+    public void setMyHumanPlayer(HumanPlayer humanPlayer) {
+        myHumanPlayer = humanPlayer;
+    }
+
+    // idPlayerHashMap
+    public HashMap<Integer, HumanPlayer> getIdPlayerHashMap() {
+        return idPlayerHashMap;
+    }
+
 
 
     @Override
