@@ -33,14 +33,14 @@ public class playerLogicTest {
         humanPlayer.updatePlayerXPosition(300);
         humanPlayer.updatePlayerYPosition(2700);
 
-        assertTrue(humanPlayer.isPlayerOnFlag((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer")));
+        assertTrue(humanPlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer")));
     }
 
     @Test
     public void testGameIsNotOverIfPlayerIsNotOnFlag() {
         humanPlayer.updatePlayerXPosition(300);
         humanPlayer.updatePlayerYPosition(300);
-        Assertions.assertFalse(humanPlayer.isPlayerOnFlag((TiledMapTileLayer)graphics.tiledMap.getLayers().get("flagLayer")));
+        Assertions.assertFalse(humanPlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer)graphics.tiledMap.getLayers().get("flagLayer")));
     }
 
     @Test

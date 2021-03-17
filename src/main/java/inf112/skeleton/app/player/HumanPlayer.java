@@ -1,9 +1,9 @@
 package inf112.skeleton.app.player;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
 import inf112.skeleton.app.card.Card;
 import com.badlogic.gdx.InputProcessor;
@@ -111,11 +111,12 @@ public class HumanPlayer extends Player implements InputProcessor {
     public float getPlayerYPosition() { return this.playerCurrentYPosition; }
 
     @Override
-    public boolean isPlayerOnFlag(TiledMapTileLayer flagLayer) {
-        TiledMapTileLayer.Cell cell = flagLayer.getCell(normalizedCoordinates(playerCurrentXPosition),
+    public boolean hasPlayerVisitedAllFlags(TiledMapTileLayer flagLayer) {
+        TiledMapTileLayer.Cell flagTile = flagLayer.getCell(normalizedCoordinates(playerCurrentXPosition),
                                       normalizedCoordinates(playerCurrentYPosition));
-
-        return cell!= null;
+        if(flagTile!=null && !this.flagsToVisit.isEmpty() && this.flagsToVisit.get(0) == flagTile.getTile().getId())
+            this.flagsToVisit.remove(0);
+        return this.flagsToVisit.isEmpty();
     }
 
     @Override
@@ -257,7 +258,13 @@ public class HumanPlayer extends Player implements InputProcessor {
     @Override
     public boolean keyDown(int keyPressed) {return false;}
     @Override
-    public boolean keyUp(int keyPressed) {return false;}
+    public boolean keyUp(int keyPressed) {
+        if(keyPressed == Input.Keys.UP) updatePlayerYPosition(getPlayerYPosition()+300);
+        if(keyPressed == Input.Keys.DOWN) updatePlayerYPosition(getPlayerYPosition()-300);
+        if(keyPressed == Input.Keys.RIGHT) updatePlayerXPosition(getPlayerXPosition()+300);
+        if(keyPressed == Input.Keys.LEFT) updatePlayerXPosition(getPlayerXPosition()-300);
+        return false;}
+
     @Override
     public boolean keyTyped(char c) {return false;}
     @Override

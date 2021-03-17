@@ -14,8 +14,8 @@ public class Packets {
 
 
     public static class PlayerNumberPacket{
+        public int numberOfPlayers;
         public int numberOfPlayersConnected;
-
     }
 
     public static class StartSignalPacket{
@@ -55,7 +55,6 @@ public class Packets {
 
     /** Package instructing all clients to start the game */
     public static class StartGamePackage {
-
     }
 
 

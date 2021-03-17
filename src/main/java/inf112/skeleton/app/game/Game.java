@@ -219,7 +219,7 @@ public class Game implements IGame, InputProcessor {
     @Override
     public boolean isGameOver(TiledMapTileLayer flagLayer) {
         for (Player p: players) {
-            if (p.isPlayerOnFlag(flagLayer)){
+            if (p.hasPlayerVisitedAllFlags(flagLayer)){
                 return true;
             }
         }

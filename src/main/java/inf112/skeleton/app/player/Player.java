@@ -25,6 +25,7 @@ public abstract class Player  {
     public float playerCurrentYPosition;
     public ArrayList<Float> cardCoordinates;
     public ArrayList<Integer> movedCards;
+    public ArrayList<Integer> flagsToVisit;
 
     /**
      * @param direction The direction the player is facing. Needs to be set only when a player is created
@@ -46,6 +47,7 @@ public abstract class Player  {
         this.movedCards = new ArrayList<>();
         this.chosenCards  =  new ArrayList<>();
         this.playerDeck = new ArrayList<>();
+        this.flagsToVisit = new ArrayList<>(Arrays.asList(55,63,71));
         this.cardCoordinates = new ArrayList<>(
                 Arrays.asList(5555f, 3090f,
                         6080f, 3090f,
@@ -99,12 +101,15 @@ public abstract class Player  {
     public abstract float getPlayerYPosition();
 
     /**
-     * Check if the player is on a flag. by comparing player position
-     * with the flag layer content in that position
+     * The player needs to visit the flags in the correct order, to win.
+     * This method checks if the player is on the correct flag by comparing
+     * player position with the flag id on the flag in that position.
+     * If its the correct flag the flag is removed from players flagsToVisit.
+     *
      * @param flagLayer The TiledMapTileLayer that contains flags
-     * @return true if player location mach flag location else false
+     * @return true player has visited all flags in the correct order.
      */
-    public abstract boolean isPlayerOnFlag(TiledMapTileLayer flagLayer);
+    public abstract boolean hasPlayerVisitedAllFlags(TiledMapTileLayer flagLayer);
 
     /**
      * Check if the player can move to the given X and Y position,
