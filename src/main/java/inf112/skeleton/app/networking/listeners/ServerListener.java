@@ -52,10 +52,20 @@ public class ServerListener extends Listener {
     public void connected(Connection connection) {
         System.out.println("Player " + numberOfPlayers + " has connected to the server");
         numberOfPlayers++;
+
+        // Send updated number of players to all players
         Packets.PlayerNumberPacket playerPacket = new Packets.PlayerNumberPacket();
-        playerPacket.numberOfPlayersConnected = numberOfPlayers;
-        game.setNumberOfPlayers(playerPacket.numberOfPlayersConnected);
+        playerPacket.numberOfPlayers = numberOfPlayers;
         server.sendToAllTCP(playerPacket);
+
+        // Tell the new player their player number
+        Packets.PlayerIdPacket playerIdPacket = new Packets.PlayerIdPacket();
+        playerIdPacket.playerNumber = numberOfPlayers;
+        connection.sendTCP(playerIdPacket);
+
+
+        // Send map name to player
+        // TODO make into packet, since it is easier to handle
         server.sendToTCP(connection.getID(), map);
 
         // TODO we automatically start the game when we have 3 players
@@ -77,7 +87,7 @@ public class ServerListener extends Listener {
         numberOfPlayers--;
         playerNames[connection.getID()] = null;
         Packets.PlayerNumberPacket numberOfPlayers = new Packets.PlayerNumberPacket();
-        numberOfPlayers.numberOfPlayersConnected = this.numberOfPlayers;
+        numberOfPlayers.numberOfPlayers = this.numberOfPlayers;
         server.sendToAllTCP(numberOfPlayers);
         Packets.NamePacket namePacket = new Packets.NamePacket();
         namePacket.name = playerNames;
@@ -144,7 +154,7 @@ public class ServerListener extends Listener {
         } else if (object instanceof Packets.RemovePlayerPacket) {
             numberOfPlayers--;
             Packets.PlayerNumberPacket numberOfPlayersConnected = new Packets.PlayerNumberPacket();
-            numberOfPlayersConnected.numberOfPlayersConnected = numberOfPlayers;
+            numberOfPlayersConnected.numberOfPlayers = numberOfPlayers;
             server.sendToAllTCP(numberOfPlayersConnected);
         }
     }

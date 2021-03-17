@@ -13,18 +13,9 @@ public class Packets {
     }
 
 
-    public static class PlayerNumberPacket{
-        public int numberOfPlayers;
-        public int numberOfPlayersConnected;
-    }
 
     public static class StartSignalPacket{
         public boolean start;
-    }
-
-    public static class NamePacket{
-        public String[] name;
-        public int playerId;
     }
 
     public static class ReadySignalPacket{
@@ -34,10 +25,6 @@ public class Packets {
 
     public static class ShutDownRobotPacket{
         public boolean[] playersShutdown;
-    }
-
-    public static class RemovePlayerPacket {
-        public int playerId;
     }
 
 
@@ -52,13 +39,42 @@ public class Packets {
         public HashMap<Integer, ArrayList<Card>> playerMoves;
     }
 
-
     /** Package instructing all clients to start the game */
     public static class StartGamePackage {
     }
 
 
 
+    ////
+    // Player packets
+    ////
 
+    /**
+     * Packet sent to clients to remove a player with some player id
+     */
+    public static class RemovePlayerPacket {
+        /** The player number to remove */
+        public int playerId;
+    }
 
+    /**
+     * Packet sent to players to denote which player number they are
+     */
+    public static class PlayerIdPacket {
+        /** Your player number */
+        public int playerNumber;
+    }
+
+    /**
+     * Is this the same as PlayerIdPacket?
+     * TODO figure out usage
+     */
+    public static class NamePacket{
+        public String[] name;
+        public int playerId;
+    }
+
+    public static class PlayerNumberPacket {
+        public int numberOfPlayers;
+    }
 }
