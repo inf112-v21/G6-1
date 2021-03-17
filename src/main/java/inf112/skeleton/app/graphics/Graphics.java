@@ -13,6 +13,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import inf112.skeleton.app.BoardItems.Laser;
 import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.game.Game;
+import inf112.skeleton.app.game.GameType;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.shared.Action;
@@ -188,7 +189,7 @@ public class Graphics  implements ApplicationListener{
         TiledMapTileSet tileset =  tiledMap.getTileSets().getTileSet("Flag1");
         //System.out.println(tileset);
         tiledMapRenderer.getBatch().begin();
-        if(game.typeOfGameStarted == "single player"){
+        if(game.typeOfGameStarted == GameType.SINGLE_PLAYER){
             Gdx.input.setInputProcessor((InputProcessor) singlePlayer);
             singlePlayer();
         } else{
@@ -206,6 +207,7 @@ public class Graphics  implements ApplicationListener{
             dispose();
         }
     }
+
 
 
     @Override

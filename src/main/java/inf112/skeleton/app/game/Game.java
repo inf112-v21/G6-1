@@ -33,7 +33,7 @@ public class Game implements IGame, InputProcessor {
     CardDeck cardDeck;
     GameServer server;
     GameClient client;
-    public String typeOfGameStarted;
+    public GameType typeOfGameStarted;
     private ArrayList<Packets.CardsPacket> allPlayerCards;
     private boolean[] ready;
     CardMoveLogic cardMoveLogic = new CardMoveLogic();
@@ -53,12 +53,10 @@ public class Game implements IGame, InputProcessor {
      * @param map - What map to be used in the hosted game.
      * @return
      */
-
     public InetAddress hostNewGame(String map) {
         server = new GameServer(map);
         server.run();
         client = new GameClient(server.getAddress(),this);
-
         return server.getAddress();
     }
 
@@ -73,40 +71,38 @@ public class Game implements IGame, InputProcessor {
     }
 
     /**
-     * Method to prompt if user is hosting a game or joining a game. In this method, a proper InetAddress object is
-     * created for @joinNewGame()
-     *
+     * Method to prompt if user is hosting a game or joining a game.
+     * In this method, a proper InetAddress object is created for @joinNewGame()
      */
-    public void chooseHostOrJoin () {
+    public void chooseHostOrJoin() {
         Scanner HostOrJoin = new Scanner(System.in);
         System.out.println("Host (1), join (2) or start single player (3)?: ");
 
         String choice = HostOrJoin.nextLine();
-        System.out.println("You choose " + choice);
+        System.out.println("You chose " + choice);
 
-        if(choice.equals("1")){
+        if(choice.equals(GameType.NETWORK_HOST.value)){
+            typeOfGameStarted = GameType.NETWORK_HOST;
             hostNewGame("RiskyExchange");
-            typeOfGameStarted = "host";
         }
-        else if(choice.equals("2")){
+        else if(choice.equals(GameType.NETWORK_JOIN.value)){
+            typeOfGameStarted = GameType.NETWORK_JOIN;
             InetAddress hostIp = null;
             Scanner askForIpAddress = new Scanner(System.in);
             System.out.println("Please enter the server IP to join: ");
 
-            String ChosenIP = askForIpAddress.nextLine();
+            String chosenIP = askForIpAddress.nextLine();
             try {
-                hostIp = InetAddress.getByName(ChosenIP);
+                hostIp = InetAddress.getByName(chosenIP);
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             }
             System.out.println(hostIp.getHostAddress());
-            typeOfGameStarted = "join";
             joinNewGame(hostIp);
-
         }
-        else if(choice.equals("3")){
+        else if(choice.equals(GameType.SINGLE_PLAYER.value)){
+            typeOfGameStarted = GameType.SINGLE_PLAYER;
             System.out.println("Single player selected");
-            typeOfGameStarted = "single player";
         }
         else {
             System.out.println("Please enter 1 or 2 when asked to");
