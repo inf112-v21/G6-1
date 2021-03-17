@@ -89,21 +89,26 @@ public class GameClient extends Listener {
         return cListener.getC();
     }
 
-    public void delete() {
-        try {
-            cl.close();
-        } catch (Exception m) {
-
-        }
-    }
-
     // Server alerts all clients to start the game
     public void sendStartSignal() {
         cListener.sendStartSignal();
     }
 
+
+    public void delete() {
+        try {
+            client.close();
+        } catch (Exception m) {
+
+        }
+    }
+
     public void sendReady(Packets.ReadySignalPacket signal) {
         cListener.sendReady(signal);
+    }
+
+    public void sendPlayerShutDown() {
+        cListener.sendRobotShutdownSign();
     }
 
     public void sendCardsToServer(ArrayList<Card> cards) {

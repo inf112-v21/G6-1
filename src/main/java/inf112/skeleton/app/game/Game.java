@@ -39,6 +39,7 @@ public class Game implements IGame, InputProcessor {
     private ArrayList<Packets.CardsPacket> allPlayerCards;
     private boolean[] ready;
     CardMoveLogic cardMoveLogic = new CardMoveLogic();
+    private boolean shutdown = true;
 
 
     @Override
@@ -199,12 +200,21 @@ public class Game implements IGame, InputProcessor {
     // public void deleteDisconnectedPlayers() {}
 
 
+    /**
+     * Calling this when needed to shut down a player (robot)
+     */
+    public void shutDownPlayer() {
+        client.sendPlayerShutDown();
+    }
+
+    public void setShutDown(boolean bool) {
+        shutdown = bool;
+    }
+
     // The host sends out start signal to alert other players that the game is starting.
     public void sendStartSignal() {
         client.sendStartSignal();
     }
-
-
 
     @Override
     public boolean isGameOver(TiledMapTileLayer flagLayer) {

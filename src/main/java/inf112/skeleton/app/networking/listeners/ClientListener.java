@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * Calls methods in the game to be able to send data to game.
  */
 public class ClientListener extends Listener {
-    private Client cl;
+    private Client client;
     private Game game;
     private Packets.MessagePacket message;
     private Packets.CardsPacket cards;
@@ -24,11 +24,11 @@ public class ClientListener extends Listener {
 
     /**
      *
-     * @param cl the client that is connected to the server.
+     * @param client the client that is connected to the server.
      * @param game is whats played
      */
-    public void initialize(Client cl, Game game) {
-        this.cl = cl;
+    public void initialize(Client client, Game game) {
+        this.client = client;
         this.game = game;
         message = new Packets.MessagePacket();
         cards = new Packets.CardsPacket();
@@ -58,8 +58,8 @@ public class ClientListener extends Listener {
 
         Packets.CardsPacket cardPacket = new Packets.CardsPacket();
         cardPacket.playedCards = cards;
-        cardPacket.playerId = cl.getID();
-        cl.sendTCP(cardPacket);
+        cardPacket.playerId = client.getID();
+        client.sendTCP(cardPacket);
     }
 
 
@@ -67,10 +67,10 @@ public class ClientListener extends Listener {
     /**
      * Alerts all the clients by sending the start signal to the server.
      */
-    public void sendStartSignalToServer() {
+    public void sendStartSignal() {
         Packets.StartSignalPacket startSignalPacket = new Packets.StartSignalPacket();
         startSignalPacket.start = true;
-        cl.sendTCP(startSignalPacket);
+        client.sendTCP(startSignalPacket);
     }
 
 
@@ -79,7 +79,7 @@ public class ClientListener extends Listener {
      * @param name
      */
     public void sendNameToServer(Packets.NamePacket name) {
-        cl.sendTCP(name);
+        client.sendTCP(name);
     }
 
     public void disconnected(Connection connection) {
@@ -124,28 +124,22 @@ public class ClientListener extends Listener {
         return c;
     }
 
-    // Sender en boolean verdi til serveren som forteller alle spillerene om at denne spilleren er klar
-    public void sendStartSignal() {
-        Packets.ReadySignalPacket signal = new Packets.ReadySignalPacket();
-        signal.signal = true;
-        cl.sendTCP(signal);
-    }
 
     public void sendReady(Packets.ReadySignalPacket signal) {
-        cl.sendTCP(signal);
+        client.sendTCP(signal);
     }
 
     // Sender en melding om at spilleren skal skru av brikken sin
     public void sendRobotShutdownSign() {
         Packets.ShutDownRobotPacket shutDownRobotPacket = new Packets.ShutDownRobotPacket();
-        cl.sendTCP(shutDownRobotPacket);
+        client.sendTCP(shutDownRobotPacket);
     }
 
 
     // Sletter spilleren slik at de ikke kan spille kort
     public void removeAPlayerFromTheServer() {
         Packets.RemovePlayerPacket removePlayerPacket = new Packets.RemovePlayerPacket();
-        cl.sendTCP(removePlayerPacket);
+        client.sendTCP(removePlayerPacket);
     }
 
 
