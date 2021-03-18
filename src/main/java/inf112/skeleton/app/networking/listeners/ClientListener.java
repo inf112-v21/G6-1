@@ -68,26 +68,58 @@ public class ClientListener extends Listener {
     }
 
     public void received(Connection c, Object object) {
-        if (object instanceof Packets.CardsPacket) {
-            Packets.CardsPacket p = (Packets.CardsPacket) object;
-            cards = p;
-            game.isReady(p);
-        } else if (object instanceof Packets.RoundPacket) {
+        // Player connection handling
+        if (object instanceof Packets.PlayerNumberPacket)
+        {
+            Packets.PlayerNumberPacket p = (Packets.PlayerNumberPacket) object;
+            game.setNumberOfPlayers(p.numberOfPlayers);
+        }
+        else if (object instanceof Packets.PlayerIdPacket)
+        {
+            Packets.PlayerIdPacket p = (Packets.PlayerIdPacket) object;
+            int yourPlayerNumber = p.playerNumber;
+            // TODO ask Erlend set your player number to yourPlayerNumber
+        }
+
+        // Game start / end
+        else if (object instanceof Packets.StartGamePackage)
+        {
+            System.out.println("Starting game");
+            // TODO we only need to deal the players player deck - not all players
+            game.dealPlayerDecks();
+        }
+
+        // Round handling
+        else if (object instanceof Packets.RoundPacket)
+        {
             Packets.RoundPacket roundPacket = (Packets.RoundPacket) object;
             game.executeMoves(roundPacket.playerMoves);
-        } else if (object instanceof Packets.StartGamePackage) {
-            System.out.println("Starting game");
-            Packets.StartGamePackage p = (Packets.StartGamePackage) object;
-            game.dealPlayerDecks();
-        } else if (object instanceof Packets.StartSignalPacket){
+
+            // TODO after all moves are done we either start a new round or end the game.
+            //  exectureMoves currently deals cards to everyone, but that doesn't work for MP
+            // We probably want the server to send each player a packet of cards they may choose
+            //  other possiblity which is quicker: deal cards to your own player in this else if
+        }
+
+        // Ready signal handling
+        else if (object instanceof Packets.StartSignalPacket){
+            // TODO implement once basic network works
             // public boolean start;
-        } else if (object instanceof Packets.NamePacket) {
-            Packets.NamePacket name = (Packets.NamePacket) object;
-            // game.receivesNames(names);
-        } else if (object instanceof Packets.ReadySignalPacket) {
+        }
+        else if (object instanceof Packets.ReadySignalPacket) {
+            // TODO implement once basic network works
             Packets.ReadySignalPacket ready = (Packets.ReadySignalPacket) object;
             game.getAllReady(ready.allReady);
-        } else if (object instanceof Packets.ShutDownRobotPacket) {
+        }
+
+
+        // TODO clean this up after we've fixed network and basic rounds
+        else if (object instanceof Packets.NamePacket) {
+            // TODO what is the intended usage of this packet?
+            Packets.NamePacket name = (Packets.NamePacket) object;
+            // game.receivesNames(names);
+        }  else if (object instanceof Packets.ShutDownRobotPacket) {
+            // TODO what is the intended usage of this packet?
             Packets.ShutDownRobotPacket shutDownRobotPacket = (Packets.ShutDownRobotPacket) object;
             // game.shutDownPlayer(shutDownRobotPacket.playersShutdown);
         }
