@@ -173,7 +173,4 @@ public class ServerListener extends Listener {
         }
         return testCards;
     }
-
-
-
 }
