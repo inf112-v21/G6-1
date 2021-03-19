@@ -7,12 +7,16 @@ public enum Direction {
     WEST(270, 0);
 
     private float direction;
+    private int boundaryCoordinate;
 
     public float getDirection(){
         return this.direction;
     }
 
-    private Direction(float direction, float boundaryCoordinate){
+    public int getBoundaryCoordinate(){return this.boundaryCoordinate; }
+
+
+    private Direction(float direction, int boundaryCoordinate){
         this.direction = direction;
     }
 }
