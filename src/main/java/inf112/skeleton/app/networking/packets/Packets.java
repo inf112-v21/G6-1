@@ -39,7 +39,13 @@ public class Packets {
     public static class RemovePlayerPacket {
         public int playerId;
     }
+    public static class SendMapNameToPlayer {
+        public Object map;
+    }
 
+    public static class PlayerIdPacket {
+        public int playerNumber;
+    }
 
     /** Packet containing a players moves, to be sent to the server */
     public static class CardsPacket {
