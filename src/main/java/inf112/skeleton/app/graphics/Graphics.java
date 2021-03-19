@@ -67,33 +67,7 @@ public class Graphics  implements ApplicationListener{
         Gdx.input.setInputProcessor((InputProcessor) player);
     }
 
-    /**
-     * Det som ser ut til å skje er at vi renderer alle spillere sine kort itillegg til alle spillere.
-     * Det er mulig at vi kunne hatt en screen til en spiller og rendret egene kort på denne og alle spillere.
-     *
-     * Hvorfor lager vi en for mye spiller i multiplayer??
-     *
-     * Om vi setter this.numberOfPlayers = numberOfPlayers -1; i Game setnumofplayers får vi bare en spiller opp.
-     * Ting ser da ut til å fungere bortsett fra at vi ikke utfører trekkene.
-     * Men vi legger kortene i chosencard og de flyttes som de skal.
-     *
-     * MÅ SJEKKE om vi spiller to stykker trykker vi på kort for forskjellig spiller???
-     * Rendrer vi egene kort øverst??
-     *
-     * Når vi spiller to stk får vi opp to helt forskjellige sett med kort. vi er begge spiller går og ikke grønn.
-     * Vi får opp kortene til grønn under våre kort og hverken grønn eller grå sine kort er like for begge som spiller.
-     *
-     *
-     * Vi ønsker å rendre kortene til this.player
-     * Vi ønsker å sette inp PRo til this. player
-     * Vi ønsker å sette setMouseClickCoordinates til this.player
-     *
-     * Vi ønaker å rendre og oppdatere alle spillbrikkene til alle players
-     *
-     * Virker ikke som vi får tildelt en spesifikk player over nett, men tar en (første?) fra listen.
-     *
-     *Flytte inp pro når vi har fått ting til å virke
-     */
+
     public void updatePlayerSprite(ArrayList<Player> players){
         if (players == null || players.isEmpty()) {
             // No players created yet, don't render any
@@ -183,9 +157,9 @@ public class Graphics  implements ApplicationListener{
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
 
-        System.out.println(singlePlayer.healthToken+ " HealthToken");
+        System.out.println(singlePlayer.healthToken + " HealthToken");
         System.out.println(singlePlayer.damageTaken +" DamageTaken");
-        laser.findLasersAndFire(singelPlayerList,(TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"));
+        //laser.findLasersAndFire(singelPlayerList,(TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"));
         tiledMapRenderer.getBatch().begin();
         if(game.typeOfGameStarted == GameType.SINGLE_PLAYER){
             Gdx.input.setInputProcessor((InputProcessor) singlePlayer);

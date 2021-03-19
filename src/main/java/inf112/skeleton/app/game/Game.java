@@ -114,6 +114,7 @@ public class Game implements IGame, InputProcessor {
         else if(choice.equals(GameType.SINGLE_PLAYER.value)){
             typeOfGameStarted = GameType.SINGLE_PLAYER;
             System.out.println("Single player selected");
+
         }
         else {
             System.out.println("Please enter 1 or 2 when asked to");
