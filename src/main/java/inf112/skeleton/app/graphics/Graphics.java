@@ -30,7 +30,7 @@ public class Graphics  implements ApplicationListener{
     private SpriteBatch spriteBatch;
     public Texture background;
     public Texture youWin;
-
+    public Laser laser = new Laser();
     public PlayerGraphics playerGraphics;
     public CardGraphics cardGraphics;
     public HashMap<Color, Sprite> playersSprite;
@@ -182,9 +182,12 @@ public class Graphics  implements ApplicationListener{
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
-        tiledMapRenderer.getBatch().begin();
 
-        if(game.typeOfGameStarted == GameType.SINGLE_PLAYER ){
+        System.out.println(singlePlayer.healthToken+ " HealthToken");
+        System.out.println(singlePlayer.damageTaken +" DamageTaken");
+        laser.findLasersAndFire(singelPlayerList,(TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"));
+        tiledMapRenderer.getBatch().begin();
+        if(game.typeOfGameStarted == GameType.SINGLE_PLAYER){
             Gdx.input.setInputProcessor((InputProcessor) singlePlayer);
             singlePlayer();
         } else{
@@ -192,7 +195,6 @@ public class Graphics  implements ApplicationListener{
         }
         tiledMapRenderer.getBatch().end();
 
-        //singlePlayer();
         if (singlePlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"))) {
             pause();
             System.out.println("You Won!");
