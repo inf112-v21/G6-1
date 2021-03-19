@@ -73,7 +73,7 @@ public class ServerListener extends Listener {
         // TODO we automatically start the game when we have 3 players
         // TODO add a start button to the gui of the host
         //  which should trigger starting the game
-        if (numberOfPlayers >= 2) {
+        if (numberOfPlayers >= 3) {
             this.startGameSession();
         }
     }
