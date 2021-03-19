@@ -20,21 +20,22 @@ public class Laser {
 
     private HashMap<Direction,Integer> endPositions = getLocationEndPositions();
 
+//TODO Lasers are to be indexed 0(360),90,180,270
 
-    public HashMap<String,ArrayList> getLevelLasersDirectionAndPosition(TiledMapTileLayer laserLayer){
-        HashMap<String, ArrayList> laserDirectionAndPosition = new HashMap<>();
-        ArrayList<Integer> xPositions = new ArrayList<>();
-        ArrayList<Integer> yPositions = new ArrayList<>();
+    public HashMap<Direction,Integer> getLevelLasersDirectionAndPosition(ArrayList<Player> players,TiledMapTileLayer laserLayer){
+        HashMap<Direction, Integer> laserDirectionAndPosition = new HashMap<>();
         for(int x = 0; x<=3300; x+=300){
             for(int y = 0; y <= 3900; y += 300){
                 TiledMapTileLayer.Cell laserTile = laserLayer.getCell(x/300,y/300);
-                if (laserTile != null ||laserTile.getTile().getId() == 180 || laserTile.getTile().getId() == 360){
-                    xPositions.add(x*300);
+                if (laserTile != null ||laserTile.getTile().getId() == 180){
+                    shootLaser(players, y, Direction.SOUTH);
+                }else if(laserTile != null && laserTile.getTile().getId() == 360){
+                    shootLaser(players, y, Direction.NORTH);
+                }else if(laserTile != null && laserTile.getTile().getId() == 46){
+                    shootLaser(players, y, Direction.EAST);
+                }else if(laserTile != null && laserTile.getTile().getId() == 38){
+                    shootLaser(players, y, Direction.WEST);
                 }
-                if (laserTile != null ||laserTile.getTile().getId() == 90 || laserTile.getTile().getId() == 270){
-                    yPositions.add(y*300);
-                }laserDirectionAndPosition.put("X",xPositions);
-                laserDirectionAndPosition.put("Y",yPositions);
             }
         }
         return laserDirectionAndPosition;
@@ -58,23 +59,17 @@ public class Laser {
      * Then "fire" the laser.
      * @param players the list of players
      */
-    public void shootLaser(ArrayList<Player> players, HashMap<String,Integer> laserDirectionAndPosition){
-        int checkFromPosition = (int) this.position +300;
-        int checkToPosition = endPositions.get(this.direction);
-        String laserDirection = "Y";
-        if(this.direction == Direction.SOUTH || this.direction == Direction.WEST){
-            checkFromPosition = endPositions.get(this.direction);
-            checkToPosition = (int) this.position -300;
-            laserDirection = "X";
-        }
-
-        for(int i = 0; i <= laserDirectionAndPosition.size(); i++){
-
+    public void shootLaser(ArrayList<Player> players ,int position, Direction laserDirection){
+        int checkFromPosition = position + 300;
+        int checkToPosition = endPositions.get(laserDirection);
+        if(laserDirection == Direction.SOUTH || laserDirection == Direction.WEST){
+            checkFromPosition = endPositions.get(laserDirection);
+            checkToPosition = position -300;
         }
         for(int tile = checkFromPosition; tile <= checkToPosition; tile+=300){
-            if( laserDirection == "X"){
+            if( laserDirection == Direction.WEST || laserDirection == Direction.EAST){
                 shootPlayersXDirection(players,tile);
-            }else if(laserDirection == "Y"){
+            }else if(laserDirection == Direction.NORTH || laserDirection == Direction.SOUTH){
                 shootPlayersYDirection(players,tile);
             }
         }

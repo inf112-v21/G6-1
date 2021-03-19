@@ -65,21 +65,19 @@ public class HumanPlayer extends Player implements InputProcessor {
         }
     }
 
-    @Override
-    public boolean isPlayerAlive(){
-        return this.healthToken > 0;
-    }
-
-    /**
-     *
-     */
-
+    //TODO Hossein will check if he needs this before delivery
     public void setId(int id) {
         this.id = id;
     }
 
+    //TODO Hossein will check if he needs this before delivery
     public int getId() {
         return this.id;
+    }
+
+    @Override
+    public boolean isPlayerAlive(){
+        return this.healthToken > 0;
     }
 
     @Override
@@ -145,7 +143,6 @@ public class HumanPlayer extends Player implements InputProcessor {
     @Override
     public float movePlayerAsFarAsPossible(float position){
         if(direction == Direction.NORTH && !keepPlayerOnBoard(getPlayerXPosition(),position)) return 3900;
-
         else if(direction == Direction.SOUTH && !keepPlayerOnBoard(getPlayerXPosition(),position) ) return 0;
         else if(direction == Direction.WEST && !keepPlayerOnBoard(position, getPlayerYPosition()) ) return 0;
         else if(direction == Direction.EAST && !keepPlayerOnBoard(position, getPlayerYPosition()) ) return 3300;
