@@ -150,6 +150,7 @@ public class Graphics  implements ApplicationListener{
      */
     @Override
     public void render() {
+
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, 1280, 720);
         spriteBatch.end();
@@ -164,6 +165,7 @@ public class Graphics  implements ApplicationListener{
         if(game.typeOfGameStarted == GameType.SINGLE_PLAYER){
             Gdx.input.setInputProcessor((InputProcessor) singlePlayer);
             singlePlayer();
+
         } else{
             updatePlayerSprite(game.players);
         }
