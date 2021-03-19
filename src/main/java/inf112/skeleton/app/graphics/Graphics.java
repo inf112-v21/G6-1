@@ -40,7 +40,6 @@ public class Graphics  implements ApplicationListener{
     private CardMoveLogic cardMoveLogic = new CardMoveLogic();
     private HashMap<Action, Texture> cardTextures;
     public Game game;
-    public Laser laser = new Laser(Direction.WEST,600f);
     public ArrayList<Player> singelPlayerList =new ArrayList<>();
     public Graphics(Game game) {
         playerGraphics = new PlayerGraphics();

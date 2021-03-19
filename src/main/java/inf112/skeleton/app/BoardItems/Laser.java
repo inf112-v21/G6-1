@@ -8,31 +8,25 @@ import java.util.ArrayList;
 
 public class Laser {
 
-    private final Direction direction;
-    private final float position;
-
-
-    public Laser(Direction direction, float position){
-        this.direction = direction;
-        this.position = position;
-    }
-
-
 
 //TODO Lasers are to be indexed 0,90,180,270
+// Make normalizedCoordinates in Player/HumanPlayer static instead of abstract
+// Most of this i common for all board entities split into classes and rename methods 
 
     public void findLasersAndFire(ArrayList<Player> players, TiledMapTileLayer laserLayer){
-        for(int xDirectionTiles = 0; xDirectionTiles<=3300; xDirectionTiles+=300){
-            for(int yDirectionTiles = 0; yDirectionTiles <= 3900; yDirectionTiles += 300){
-                TiledMapTileLayer.Cell laserTile = laserLayer.getCell(xDirectionTiles/300,yDirectionTiles/300);
-                if (laserTile != null ||laserTile.getTile().getId() == Direction.SOUTH.getDirection()){
-                    getTilesHitByLaser(players, Direction.SOUTH.getBoundaryCoordinate(), yDirectionTiles-300, Direction.SOUTH);
-                }else if(laserTile != null && laserTile.getTile().getId() == Direction.NORTH.getDirection()){
-                    getTilesHitByLaser(players, yDirectionTiles + 300, Direction.NORTH.getBoundaryCoordinate(), Direction.NORTH);
-                }else if(laserTile != null && laserTile.getTile().getId() == 46){
-                    getTilesHitByLaser(players, xDirectionTiles +300, Direction.EAST.getBoundaryCoordinate(), Direction.EAST);
-                }else if(laserTile != null && laserTile.getTile().getId() == 38){
-                    getTilesHitByLaser(players, Direction.WEST.getBoundaryCoordinate(), xDirectionTiles -300, Direction.WEST);
+        for(int xDirectionTiles = Direction.WEST.getBoundaryCoordinate(); xDirectionTiles <= Direction.EAST.getDirectionDegree(); xDirectionTiles+=300){
+            for(int yDirectionTiles = Direction.SOUTH.getBoundaryCoordinate(); yDirectionTiles <= Direction.NORTH.getDirectionDegree(); yDirectionTiles += 300) {
+                TiledMapTileLayer.Cell laserTile = laserLayer.getCell(xDirectionTiles / 300, yDirectionTiles / 300);
+                if (laserTile != null) {
+                    if (laserTile.getTile().getId() == Direction.SOUTH.getDirectionDegree()) {
+                        getTilesHitByLaser(players, Direction.SOUTH.getBoundaryCoordinate(), yDirectionTiles - 300, Direction.SOUTH);
+                    } else if (laserTile.getTile().getId() == Direction.NORTH.getDirectionDegree()) {
+                        getTilesHitByLaser(players, yDirectionTiles + 300, Direction.NORTH.getBoundaryCoordinate(), Direction.NORTH);
+                    } else if (laserTile.getTile().getId() == 46) {
+                        getTilesHitByLaser(players, xDirectionTiles + 300, Direction.EAST.getBoundaryCoordinate(), Direction.EAST);
+                    } else if (laserTile.getTile().getId() == 38) {
+                        getTilesHitByLaser(players, Direction.WEST.getBoundaryCoordinate(), xDirectionTiles - 300, Direction.WEST);
+                    }
                 }
             }
         }
