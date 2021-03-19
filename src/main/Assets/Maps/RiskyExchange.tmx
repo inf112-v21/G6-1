@@ -47,7 +47,7 @@
  </layer>
  <layer id="20" name="Laser" width="12" height="14">
   <properties>
-   <property name="Laser" type="int" value="39"/>
+   <property name="Laser" value="laser"/>
   </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,
@@ -68,8 +68,8 @@
  </layer>
  <layer id="21" name="LaserWall" width="12" height="14">
   <properties>
-   <property name="LaserWallWest" type="int" value="270"/>
    <property name="LaserWallEast" type="int" value="90"/>
+   <property name="LaserWallWest" type="int" value="270"/>
   </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,
@@ -132,8 +132,8 @@
  </layer>
  <layer id="4" name="BlueConveyor" width="12" height="14">
   <properties>
-   <property name="bConveyorSouth" type="int" value="180"/>
    <property name="bConveyorEast" type="int" value="90"/>
+   <property name="bConveyorSouth" type="int" value="180"/>
   </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,
