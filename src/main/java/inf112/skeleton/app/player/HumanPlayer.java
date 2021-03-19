@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
+import inf112.skeleton.app.BoardItems.Laser;
 import inf112.skeleton.app.card.Card;
 import com.badlogic.gdx.InputProcessor;
 import inf112.skeleton.app.shared.Color;
@@ -27,6 +28,7 @@ public class HumanPlayer extends Player implements InputProcessor {
         super(direction, id, color);
     }
 
+    public Laser laser = new Laser();
     private float mouseClickXCoordinate;
     private float mouseClickYCoordinate;
 
@@ -112,8 +114,11 @@ public class HumanPlayer extends Player implements InputProcessor {
     public boolean hasPlayerVisitedAllFlags(TiledMapTileLayer flagLayer) {
         TiledMapTileLayer.Cell flagTile = flagLayer.getCell(normalizedCoordinates(playerCurrentXPosition),
                                       normalizedCoordinates(playerCurrentYPosition));
-        if(flagTile!=null && !this.flagsToVisit.isEmpty() && this.flagsToVisit.get(0) == flagTile.getTile().getId())
+
+        if(flagTile!=null && !this.flagsToVisit.isEmpty() && this.flagsToVisit.get(0) == flagTile.getTile().getId()){
             this.flagsToVisit.remove(0);
+        }
+
         return this.flagsToVisit.isEmpty();
     }
 
@@ -171,12 +176,13 @@ public class HumanPlayer extends Player implements InputProcessor {
     }
 
     //TODO move this to game and improve
-    @Override
-    public void singlePlayerRound(){
+
+    public void singlePlayerRound(ArrayList<Player> players, TiledMapTileLayer laserLayer){
         if(movedCards.size() == 5){
             for(int round = 0; round < 5; round ++) {
                 updatePlayerLocation(chosenCards.get(round));
             }
+            laser.findLasersAndFire(players,laserLayer);
             movedCards = new ArrayList<>();
             chosenCards = new ArrayList<>();
             playerDeck = new ArrayList<>();

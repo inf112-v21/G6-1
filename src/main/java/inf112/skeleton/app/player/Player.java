@@ -182,10 +182,6 @@ public abstract class Player  {
     public abstract boolean isPlayerAlive();
 
 
-    /**
-     * runs a simple single player round
-     */
-    public abstract void singlePlayerRound();
 
 
     public  abstract void setMouseClickCoordinates(OrthographicCamera camera);

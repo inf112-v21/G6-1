@@ -8,66 +8,35 @@ import java.util.ArrayList;
 
 public class Laser {
 
-
-//TODO Lasers are to be indexed 0,90,180,270
-// Make normalizedCoordinates in Player/HumanPlayer static instead of abstract
-// Most of this i common for all board entities split into classes and rename methods 
-
+    /**
+     * This method iterates over the game board and findes tiles containing lasers.
+     * Then calls the shoot player to deal damage to players standing harms way
+     * @param players list of all the players in the game
+     * @param laserLayer tiledMapTileLayer containing lasers
+     */
     public void findLasersAndFire(ArrayList<Player> players, TiledMapTileLayer laserLayer){
-        for(int xDirectionTiles = Direction.WEST.getBoundaryCoordinate(); xDirectionTiles <= Direction.EAST.getDirectionDegree(); xDirectionTiles+=300){
-            for(int yDirectionTiles = Direction.SOUTH.getBoundaryCoordinate(); yDirectionTiles <= Direction.NORTH.getDirectionDegree(); yDirectionTiles += 300) {
+        for(int xDirectionTiles = Direction.WEST.getBoundaryCoordinate(); xDirectionTiles <= Direction.NORTH.getBoundaryCoordinate(); xDirectionTiles+=300) {
+            for (int yDirectionTiles = Direction.SOUTH.getBoundaryCoordinate(); yDirectionTiles <= Direction.EAST.getBoundaryCoordinate(); yDirectionTiles += 300) {
                 TiledMapTileLayer.Cell laserTile = laserLayer.getCell(xDirectionTiles / 300, yDirectionTiles / 300);
                 if (laserTile != null) {
-                    if (laserTile.getTile().getId() == Direction.SOUTH.getDirectionDegree()) {
-                        getTilesHitByLaser(players, Direction.SOUTH.getBoundaryCoordinate(), yDirectionTiles - 300, Direction.SOUTH);
-                    } else if (laserTile.getTile().getId() == Direction.NORTH.getDirectionDegree()) {
-                        getTilesHitByLaser(players, yDirectionTiles + 300, Direction.NORTH.getBoundaryCoordinate(), Direction.NORTH);
-                    } else if (laserTile.getTile().getId() == 46) {
-                        getTilesHitByLaser(players, xDirectionTiles + 300, Direction.EAST.getBoundaryCoordinate(), Direction.EAST);
-                    } else if (laserTile.getTile().getId() == 38) {
-                        getTilesHitByLaser(players, Direction.WEST.getBoundaryCoordinate(), xDirectionTiles - 300, Direction.WEST);
-                    }
+                    shootPlayers(players,xDirectionTiles,yDirectionTiles);
                 }
             }
         }
     }
 
     /**
-     * This method finds the tiles and direction to where the the laser is to fire.
-     * Then "fire" the laser.
-     * @param players the list of players
+     * Compare players position agains the lasers positions
+     * and deals damage to players whose positions mach the laser.
+     * @param players list of player
+     * @param xTile x position of tile the laser is located in
+     * @param yTile y position of tile the laser is located in
      */
-    public void getTilesHitByLaser(ArrayList<Player> players , int checkTileFrom, int checkTileTo, Direction laserDirection){
-        for(int tile = checkTileFrom; tile <= checkTileTo; tile+=300){
-            if( laserDirection == Direction.WEST || laserDirection == Direction.EAST){
-                shootPlayersXDirection(players,tile);
-            }else if(laserDirection == Direction.NORTH || laserDirection == Direction.SOUTH){
-                shootPlayersYDirection(players,tile);
+    public void shootPlayers(ArrayList<Player> players, int xTile, int yTile){
+        for(Player player: players){
+            if(player.getPlayerXPosition() == (float) xTile && player.getPlayerYPosition() == (float) yTile){
+                player.dealDamageToPlayer();
             }
-        }
-    }
-
-    /**
-     * Deal damage to the players in x direction if player position mache the tile
-     * the laser shoots at.
-     * @param players list of players on the board
-     * @param tile tile the laser shoots at
-     */
-    public void shootPlayersXDirection(ArrayList<Player> players, int tile){
-        for(Player player: players){
-            if(player.getPlayerXPosition() == (float) tile) player.dealDamageToPlayer();
-        }
-    }
-
-    /**
-     * Deal damage to the players in Y direction if player position mache the tile
-     * the laser shoots at.
-     * @param players list of players on the board
-     * @param tile tile the laser shoots at
-     */
-    public void shootPlayersYDirection(ArrayList<Player> players, int tile){
-        for(Player player: players){
-            if(player.getPlayerYPosition() == (float) tile) player.dealDamageToPlayer();
         }
     }
 }

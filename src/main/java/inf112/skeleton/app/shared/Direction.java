@@ -13,10 +13,12 @@ public enum Direction {
         return this.directionDegree;
     }
 
-    public int getBoundaryCoordinate(){return this.boundaryCoordinate; }
+    public int getBoundaryCoordinate(){
+        return this.boundaryCoordinate; }
 
 
     private Direction(float directionDegree, int boundaryCoordinate){
         this.directionDegree = directionDegree;
+        this.boundaryCoordinate = boundaryCoordinate;
     }
 }

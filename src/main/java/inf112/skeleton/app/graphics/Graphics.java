@@ -30,11 +30,11 @@ public class Graphics  implements ApplicationListener{
     private SpriteBatch spriteBatch;
     public Texture background;
     public Texture youWin;
-    public Laser laser = new Laser();
+
     public PlayerGraphics playerGraphics;
     public CardGraphics cardGraphics;
     public HashMap<Color, Sprite> playersSprite;
-    public Player singlePlayer = new HumanPlayer(Direction.NORTH,69,Color.GREEN);
+    public HumanPlayer singlePlayer = new HumanPlayer(Direction.NORTH,69,Color.GREEN);
     public Sprite singlePlayerSprite;
     public ArrayList<Sprite> cardSpriteList;
     private CardMoveLogic cardMoveLogic = new CardMoveLogic();
@@ -105,7 +105,7 @@ public class Graphics  implements ApplicationListener{
         singlePlayerSprite.setPosition(singlePlayer.getPlayerXPosition(), singlePlayer.getPlayerYPosition());
         singlePlayerSprite.setTexture(playerGraphics.createPlayerTextures().get(singlePlayer.color).get(singlePlayer.direction)); //greenPiece.get(humanPlayer.direction))
         singlePlayerSprite.draw(tiledMapRenderer.getBatch());
-        singlePlayer.singlePlayerRound();
+        singlePlayer.singlePlayerRound(singelPlayerList,(TiledMapTileLayer) tiledMap.getLayers().get("Laser"));
     }
 
     @Override
@@ -160,7 +160,7 @@ public class Graphics  implements ApplicationListener{
 
         System.out.println(singlePlayer.healthToken + " HealthToken");
         System.out.println(singlePlayer.damageTaken +" DamageTaken");
-        //laser.findLasersAndFire(singelPlayerList,(TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"));
+
         tiledMapRenderer.getBatch().begin();
         if(game.typeOfGameStarted == GameType.SINGLE_PLAYER){
             Gdx.input.setInputProcessor((InputProcessor) singlePlayer);
