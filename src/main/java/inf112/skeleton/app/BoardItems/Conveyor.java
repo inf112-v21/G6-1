@@ -19,6 +19,7 @@ public class Conveyor {
                 TiledMapTileLayer.Cell yellowConveyorTile = yellowConveyor.getCell(xDirectionTiles / 300, yDirectionTiles / 300);
                 TiledMapTileLayer.Cell blueConveyorTile = blueConveyor.getCell(xDirectionTiles / 300, yDirectionTiles / 300);
                 if (yellowConveyorTile != null) {
+                    System.out.println(yellowConveyorTile.getTile().getProperties()); //getProperties().get("bConveyorSouth"));
                     locatePlayersOnConveyor(players,xDirectionTiles,yDirectionTiles, yellowConveyorTile.getTile().getId(),ConveyorType.COMMON.getNumberOfMoves());
                 }
                 if(blueConveyorTile != null) {

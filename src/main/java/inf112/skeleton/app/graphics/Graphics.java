@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import inf112.skeleton.app.BoardItems.Conveyor;
 import inf112.skeleton.app.BoardItems.Laser;
 import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.game.Game;
@@ -147,7 +148,7 @@ public class Graphics  implements ApplicationListener{
         camera.viewportHeight = 720;
         camera.update();
     }
-
+    Conveyor conveyor = new Conveyor();
     /**
      * This is where the graphics of the game get rendered.
      */
@@ -161,9 +162,9 @@ public class Graphics  implements ApplicationListener{
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
 
-        System.out.println(singlePlayer.healthToken + " HealthToken");
-        System.out.println(singlePlayer.damageTaken +" DamageTaken");
 
+        conveyor.findAndRunConveyor(singelPlayerList, (TiledMapTileLayer) tiledMap.getLayers().get("YellowConveyor"),
+                (TiledMapTileLayer) tiledMap.getLayers().get("BlueConveyor"));
         tiledMapRenderer.getBatch().begin();
         if(game.typeOfGameStarted == GameType.SINGLE_PLAYER){
             Gdx.input.setInputProcessor((InputProcessor) singlePlayer);
