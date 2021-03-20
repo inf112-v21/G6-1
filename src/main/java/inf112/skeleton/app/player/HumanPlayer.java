@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
+import inf112.skeleton.app.BoardItems.Conveyor;
 import inf112.skeleton.app.BoardItems.Laser;
 import inf112.skeleton.app.card.Card;
 import com.badlogic.gdx.InputProcessor;
@@ -29,6 +30,7 @@ public class HumanPlayer extends Player implements InputProcessor {
     }
 
     public Laser laser = new Laser();
+    public Conveyor conveyor = new Conveyor();
     private float mouseClickXCoordinate;
     private float mouseClickYCoordinate;
 
@@ -177,12 +179,13 @@ public class HumanPlayer extends Player implements InputProcessor {
 
     //TODO move this to game and improve
 
-    public void singlePlayerRound(ArrayList<Player> players, TiledMapTileLayer laserLayer){
+    public void singlePlayerRound(ArrayList<Player> players, TiledMapTileLayer laserLayer,TiledMapTileLayer blueConveyorLayer,TiledMapTileLayer yellowConveyorLayer){
         if(movedCards.size() == 5){
             for(int round = 0; round < 5; round ++) {
                 updatePlayerLocation(chosenCards.get(round));
             }
             laser.findLasersAndFire(players,laserLayer);
+            conveyor.findAndRunConveyor(players,blueConveyorLayer, yellowConveyorLayer);
             movedCards = new ArrayList<>();
             chosenCards = new ArrayList<>();
             playerDeck = new ArrayList<>();

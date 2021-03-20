@@ -105,7 +105,10 @@ public class Graphics  implements ApplicationListener{
         singlePlayerSprite.setPosition(singlePlayer.getPlayerXPosition(), singlePlayer.getPlayerYPosition());
         singlePlayerSprite.setTexture(playerGraphics.createPlayerTextures().get(singlePlayer.color).get(singlePlayer.direction)); //greenPiece.get(humanPlayer.direction))
         singlePlayerSprite.draw(tiledMapRenderer.getBatch());
-        singlePlayer.singlePlayerRound(singelPlayerList,(TiledMapTileLayer) tiledMap.getLayers().get("Laser"));
+        singlePlayer.singlePlayerRound(singelPlayerList,
+                (TiledMapTileLayer) tiledMap.getLayers().get("Laser"),
+                (TiledMapTileLayer) tiledMap.getLayers().get("BlueConveyor"),
+                (TiledMapTileLayer) tiledMap.getLayers().get("YellowConveyor"));
     }
 
     @Override
