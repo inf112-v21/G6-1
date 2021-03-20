@@ -138,9 +138,10 @@ public abstract class Player  {
      * If the players card wil move the player outside the game board
      * this function will move the player to the edge of the board instead
      * @param position position to move to
+     * @param moveDirection
      * @return new position always inside the board
      */
-    public abstract float movePlayerAsFarAsPossible(float position);
+    public abstract float movePlayerAsFarAsPossible(float position, Direction moveDirection);
 
 
     /**

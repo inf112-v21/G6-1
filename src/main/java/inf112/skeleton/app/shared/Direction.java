@@ -17,7 +17,7 @@ public enum Direction {
         return this.boundaryCoordinate; }
 
 
-    private Direction(float directionDegree, int boundaryCoordinate){
+    Direction(float directionDegree, int boundaryCoordinate){
         this.directionDegree = directionDegree;
         this.boundaryCoordinate = boundaryCoordinate;
     }

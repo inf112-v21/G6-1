@@ -146,11 +146,11 @@ public class HumanPlayer extends Player implements InputProcessor {
     }
 
     @Override
-    public float movePlayerAsFarAsPossible(float position){
-        if(direction == Direction.NORTH && !keepPlayerOnBoard(getPlayerXPosition(),position)) return 3900;
-        else if(direction == Direction.SOUTH && !keepPlayerOnBoard(getPlayerXPosition(),position) ) return 0;
-        else if(direction == Direction.WEST && !keepPlayerOnBoard(position, getPlayerYPosition()) ) return 0;
-        else if(direction == Direction.EAST && !keepPlayerOnBoard(position, getPlayerYPosition()) ) return 3300;
+    public float movePlayerAsFarAsPossible(float position, Direction moveDirection){
+        if(moveDirection == Direction.NORTH && !keepPlayerOnBoard(getPlayerXPosition(),position)) return 3900;
+        else if(moveDirection == Direction.SOUTH && !keepPlayerOnBoard(getPlayerXPosition(),position) ) return 0;
+        else if(moveDirection == Direction.WEST && !keepPlayerOnBoard(position, getPlayerYPosition()) ) return 0;
+        else if(moveDirection == Direction.EAST && !keepPlayerOnBoard(position, getPlayerYPosition()) ) return 3300;
         return position;
     }
 
@@ -159,16 +159,16 @@ public class HumanPlayer extends Player implements InputProcessor {
         float cardAction = card.action.getAction();
         if (cardMoveLogic.moveTypeCard(card)) {
             if(this.direction == Direction.NORTH){
-                updatePlayerYPosition(movePlayerAsFarAsPossible(getPlayerYPosition()+ cardAction));
+                updatePlayerYPosition(movePlayerAsFarAsPossible(getPlayerYPosition()+ cardAction, this.direction ));
             }
             else if (this.direction == Direction.SOUTH){
-                updatePlayerYPosition(movePlayerAsFarAsPossible(getPlayerYPosition() - cardAction));
+                updatePlayerYPosition(movePlayerAsFarAsPossible(getPlayerYPosition() - cardAction, this.direction));
             }
             else if (this.direction == Direction.EAST) {
-                updatePlayerXPosition(movePlayerAsFarAsPossible(getPlayerXPosition() + cardAction));
+                updatePlayerXPosition(movePlayerAsFarAsPossible(getPlayerXPosition() + cardAction, this.direction));
 
             } else if (this.direction == Direction.WEST) {
-                updatePlayerXPosition(movePlayerAsFarAsPossible(getPlayerXPosition() - cardAction));
+                updatePlayerXPosition(movePlayerAsFarAsPossible(getPlayerXPosition() - cardAction, this.direction));
             }
         }else if (!cardMoveLogic.moveTypeCard(card)) {
             setPlayerDirection(card);
