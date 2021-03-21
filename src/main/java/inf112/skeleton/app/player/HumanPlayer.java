@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
 import inf112.skeleton.app.BoardItems.Conveyor;
+import inf112.skeleton.app.BoardItems.Gear;
 import inf112.skeleton.app.BoardItems.Laser;
 import inf112.skeleton.app.card.Card;
 import com.badlogic.gdx.InputProcessor;
@@ -31,6 +32,7 @@ public class HumanPlayer extends Player implements InputProcessor {
 
     public Laser laser = new Laser();
     public Conveyor conveyor = new Conveyor();
+    public Gear gear = new Gear();
     private float mouseClickXCoordinate;
     private float mouseClickYCoordinate;
 
@@ -200,7 +202,8 @@ public class HumanPlayer extends Player implements InputProcessor {
                 updatePlayerLocation(chosenCards.get(round));
             }
             laser.findLasersAndFire(players,laserLayer);
-            conveyor.findAndRunConveyor(players, yellowConveyorLayer,blueConveyorLayer,redGear,greenGear);
+            gear.findAndRunConveyor(players,redGear,greenGear);
+            conveyor.findAndRunConveyor(players, yellowConveyorLayer,blueConveyorLayer);
             movedCards = new ArrayList<>();
             chosenCards = new ArrayList<>();
             playerDeck = new ArrayList<>();
