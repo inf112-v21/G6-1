@@ -109,7 +109,9 @@ public class Graphics  implements ApplicationListener{
         singlePlayer.singlePlayerRound(singelPlayerList,
                 (TiledMapTileLayer) tiledMap.getLayers().get("Laser"),
                 (TiledMapTileLayer) tiledMap.getLayers().get("BlueConveyor"),
-                (TiledMapTileLayer) tiledMap.getLayers().get("YellowConveyor"));
+                (TiledMapTileLayer) tiledMap.getLayers().get("YellowConveyor"),
+                (TiledMapTileLayer) tiledMap.getLayers().get("RedGear"),
+                (TiledMapTileLayer) tiledMap.getLayers().get("GreenGear"));
     }
 
     @Override

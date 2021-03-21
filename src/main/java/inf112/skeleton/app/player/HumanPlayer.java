@@ -189,13 +189,18 @@ public class HumanPlayer extends Player implements InputProcessor {
 
     //TODO move this to game and improve
 
-    public void singlePlayerRound(ArrayList<Player> players, TiledMapTileLayer laserLayer,TiledMapTileLayer blueConveyorLayer,TiledMapTileLayer yellowConveyorLayer){
+    public void singlePlayerRound(ArrayList<Player> players,
+                                  TiledMapTileLayer laserLayer,
+                                  TiledMapTileLayer blueConveyorLayer,
+                                  TiledMapTileLayer yellowConveyorLayer,
+                                  TiledMapTileLayer greenGear,
+                                  TiledMapTileLayer redGear){
         if(movedCards.size() == 5){
             for(int round = 0; round < 5; round ++) {
                 updatePlayerLocation(chosenCards.get(round));
             }
             laser.findLasersAndFire(players,laserLayer);
-            conveyor.findAndRunConveyor(players, yellowConveyorLayer,blueConveyorLayer);
+            conveyor.findAndRunConveyor(players, yellowConveyorLayer,blueConveyorLayer,redGear,greenGear);
             movedCards = new ArrayList<>();
             chosenCards = new ArrayList<>();
             playerDeck = new ArrayList<>();

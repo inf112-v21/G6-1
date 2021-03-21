@@ -2,7 +2,8 @@ package inf112.skeleton.app.BoardItems;
 
 public enum ConveyorType {
     COMMON(300),
-    EXPRESS(600);
+    EXPRESS(600),
+    GEAR(0);
 
     private int numberOfMoves;
 
