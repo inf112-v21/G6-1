@@ -129,18 +129,19 @@ public abstract class Player  {
     public abstract int normalizedCoordinates(float unNormalizedValue);
 
     /**
-     * Set new direction of the player related to the given card
-     * @param card given card
+     * Set new direction of the player related to the given move degree
+     * @param moveDegree amount of movement
      */
-    public abstract void setPlayerDirection(Card card);
+    public abstract void setPlayerDirection(int moveDegree);
 
     /**
      * If the players card wil move the player outside the game board
      * this function will move the player to the edge of the board instead
      * @param position position to move to
+     * @param moveDirection
      * @return new position always inside the board
      */
-    public abstract float movePlayerAsFarAsPossible(float position);
+    public abstract float movePlayerAsFarAsPossible(float position, Direction moveDirection);
 
 
     /**

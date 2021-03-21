@@ -7,6 +7,7 @@ import inf112.skeleton.app.shared.Direction;
 import java.util.ArrayList;
 
 public class Laser {
+    
 
     /**
      * This method iterates over the game board and findes tiles containing lasers.

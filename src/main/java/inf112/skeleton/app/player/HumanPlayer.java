@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
+import inf112.skeleton.app.BoardItems.Conveyor;
+import inf112.skeleton.app.BoardItems.Gear;
 import inf112.skeleton.app.BoardItems.Laser;
 import inf112.skeleton.app.card.Card;
 import com.badlogic.gdx.InputProcessor;
@@ -29,6 +31,8 @@ public class HumanPlayer extends Player implements InputProcessor {
     }
 
     public Laser laser = new Laser();
+    public Conveyor conveyor = new Conveyor();
+    public Gear gear = new Gear();
     private float mouseClickXCoordinate;
     private float mouseClickYCoordinate;
 
@@ -134,23 +138,33 @@ public class HumanPlayer extends Player implements InputProcessor {
 
     //TODO Refactor setPlayerDirection, movePlayerAsFarAsPossible and updatePlayerLocation when the rest of the board pieces are used
     @Override
-    public void setPlayerDirection(Card card){
-       float newPlayerDirection = this.direction.getDirectionDegree() + card.action.getAction();
+    public void setPlayerDirection(int moveDegree){
+       int newPlayerDirection = this.direction.getDirectionDegree() + moveDegree;
        if(newPlayerDirection > 270) newPlayerDirection = newPlayerDirection - 360;
        if(newPlayerDirection < 0) newPlayerDirection = 270;
 
-       if(newPlayerDirection == 0) this.direction = Direction.NORTH;
-       else if (newPlayerDirection == 90) this.direction = Direction.EAST;
-       else if (newPlayerDirection == 180) this.direction = Direction.SOUTH;
-       else if (newPlayerDirection == 270) this.direction = Direction.WEST;
+       switch (newPlayerDirection){
+           case 0:
+               this.direction = Direction.NORTH;
+               break;
+           case 90:
+               this.direction = Direction.EAST;
+               break;
+           case 180:
+               this.direction = Direction.SOUTH;
+               break;
+           case 270:
+               this.direction = Direction.WEST;
+
+       }
     }
 
     @Override
-    public float movePlayerAsFarAsPossible(float position){
-        if(direction == Direction.NORTH && !keepPlayerOnBoard(getPlayerXPosition(),position)) return 3900;
-        else if(direction == Direction.SOUTH && !keepPlayerOnBoard(getPlayerXPosition(),position) ) return 0;
-        else if(direction == Direction.WEST && !keepPlayerOnBoard(position, getPlayerYPosition()) ) return 0;
-        else if(direction == Direction.EAST && !keepPlayerOnBoard(position, getPlayerYPosition()) ) return 3300;
+    public float movePlayerAsFarAsPossible(float position, Direction moveDirection){
+        if(moveDirection == Direction.NORTH && !keepPlayerOnBoard(getPlayerXPosition(),position)) return 3900;
+        else if(moveDirection == Direction.SOUTH && !keepPlayerOnBoard(getPlayerXPosition(),position) ) return 0;
+        else if(moveDirection == Direction.WEST && !keepPlayerOnBoard(position, getPlayerYPosition()) ) return 0;
+        else if(moveDirection == Direction.EAST && !keepPlayerOnBoard(position, getPlayerYPosition()) ) return 3300;
         return position;
     }
 
@@ -159,30 +173,38 @@ public class HumanPlayer extends Player implements InputProcessor {
         float cardAction = card.action.getAction();
         if (cardMoveLogic.moveTypeCard(card)) {
             if(this.direction == Direction.NORTH){
-                updatePlayerYPosition(movePlayerAsFarAsPossible(getPlayerYPosition()+ cardAction));
+                updatePlayerYPosition(movePlayerAsFarAsPossible(getPlayerYPosition()+ cardAction, this.direction ));
             }
             else if (this.direction == Direction.SOUTH){
-                updatePlayerYPosition(movePlayerAsFarAsPossible(getPlayerYPosition() - cardAction));
+                updatePlayerYPosition(movePlayerAsFarAsPossible(getPlayerYPosition() - cardAction, this.direction));
             }
             else if (this.direction == Direction.EAST) {
-                updatePlayerXPosition(movePlayerAsFarAsPossible(getPlayerXPosition() + cardAction));
+                updatePlayerXPosition(movePlayerAsFarAsPossible(getPlayerXPosition() + cardAction, this.direction));
 
             } else if (this.direction == Direction.WEST) {
-                updatePlayerXPosition(movePlayerAsFarAsPossible(getPlayerXPosition() - cardAction));
+                updatePlayerXPosition(movePlayerAsFarAsPossible(getPlayerXPosition() - cardAction, this.direction));
             }
         }else if (!cardMoveLogic.moveTypeCard(card)) {
-            setPlayerDirection(card);
+            setPlayerDirection((int)card.action.getAction());
         }
     }
 
     //TODO move this to game and improve
 
-    public void singlePlayerRound(ArrayList<Player> players, TiledMapTileLayer laserLayer){
+    public void singlePlayerRound(ArrayList<Player> players,
+                                  TiledMapTileLayer laserLayer,
+                                  TiledMapTileLayer blueConveyorLayer,
+                                  TiledMapTileLayer yellowConveyorLayer,
+                                  TiledMapTileLayer redGear,
+                                  TiledMapTileLayer greenGear)
+                                  {
         if(movedCards.size() == 5){
             for(int round = 0; round < 5; round ++) {
                 updatePlayerLocation(chosenCards.get(round));
             }
             laser.findLasersAndFire(players,laserLayer);
+            gear.findAndRunConveyor(players,redGear,greenGear);
+            conveyor.findAndRunConveyor(players, yellowConveyorLayer,blueConveyorLayer);
             movedCards = new ArrayList<>();
             chosenCards = new ArrayList<>();
             playerDeck = new ArrayList<>();
@@ -262,10 +284,12 @@ public class HumanPlayer extends Player implements InputProcessor {
     public boolean keyDown(int keyPressed) {return false;}
     @Override
     public boolean keyUp(int keyPressed) {
+        //System.out.println(getPlayerYPosition()+ " Ystart" + getPlayerXPosition() +" Xstart");
         if(keyPressed == Input.Keys.UP) updatePlayerYPosition(getPlayerYPosition()+300);
         if(keyPressed == Input.Keys.DOWN) updatePlayerYPosition(getPlayerYPosition()-300);
         if(keyPressed == Input.Keys.RIGHT) updatePlayerXPosition(getPlayerXPosition()+300);
         if(keyPressed == Input.Keys.LEFT) updatePlayerXPosition(getPlayerXPosition()-300);
+        //System.out.println(getPlayerYPosition()+ " Yend" + getPlayerXPosition() +" Xend");
         return false;}
 
     @Override
