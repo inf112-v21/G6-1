@@ -19,7 +19,11 @@ public class Conveyor {
                 TiledMapTileLayer.Cell yellowConveyorTile = yellowConveyor.getCell(xDirectionTiles / 300, yDirectionTiles / 300);
                 TiledMapTileLayer.Cell blueConveyorTile = blueConveyor.getCell(xDirectionTiles / 300, yDirectionTiles / 300);
                 if (yellowConveyorTile != null) {
-                    System.out.println(yellowConveyorTile.getTile().getProperties()); //getProperties().get("bConveyorSouth"));
+                    //System.out.println(yellowConveyorTile.getTile().getId());
+                   //System.out.println(yellowConveyorTile.getTile().getProperties().get("yConveyorNorth"));
+                    //System.out.println(yellowConveyorTile.getTile().getProperties().get("yConveyorSouth"));
+                    //System.out.println(yellowConveyorTile.getTile().getProperties().get("yConveyorWest"));
+                    //System.out.println(yellowConveyorTile.getTile().getProperties().get("yConveyorEast"));
                     locatePlayersOnConveyor(players,xDirectionTiles,yDirectionTiles, yellowConveyorTile.getTile().getId(),ConveyorType.COMMON.getNumberOfMoves());
                 }
                 if(blueConveyorTile != null) {
@@ -36,6 +40,7 @@ public class Conveyor {
             }
         }
     }
+
     public void movePlayerOnConveyor(Player player, int conveyorDirection, int numberOfMoves){
         if(conveyorDirection == Direction.NORTH.getDirectionDegree()) {
             player.updatePlayerXPosition(player.movePlayerAsFarAsPossible(player.getPlayerXPosition()+numberOfMoves, Direction.NORTH ));
@@ -49,8 +54,15 @@ public class Conveyor {
         if(conveyorDirection == Direction.WEST.getDirectionDegree()) {
             player.updatePlayerYPosition(player.movePlayerAsFarAsPossible(player.getPlayerYPosition()-numberOfMoves,Direction.WEST));
         }
-
     }
+
+    public void rotatePlayerOnGear(Player player, String gearDirection) {
+        if (gearDirection == "clockwise") {
+            //player.direction == player.direction +90;
+
+        }
+    }
+
 
 
 }

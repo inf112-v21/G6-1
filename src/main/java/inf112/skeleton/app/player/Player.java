@@ -130,9 +130,9 @@ public abstract class Player  {
 
     /**
      * Set new direction of the player related to the given card
-     * @param card given card
+     * @param moveAction given card
      */
-    public abstract void setPlayerDirection(Card card);
+    public abstract void setPlayerDirection(int moveAction);
 
     /**
      * If the players card wil move the player outside the game board

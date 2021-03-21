@@ -136,15 +136,25 @@ public class HumanPlayer extends Player implements InputProcessor {
 
     //TODO Refactor setPlayerDirection, movePlayerAsFarAsPossible and updatePlayerLocation when the rest of the board pieces are used
     @Override
-    public void setPlayerDirection(Card card){
-       float newPlayerDirection = this.direction.getDirectionDegree() + card.action.getAction();
+    public void setPlayerDirection(int moveAction){
+       int newPlayerDirection =(int) this.direction.getDirectionDegree() + moveAction;
        if(newPlayerDirection > 270) newPlayerDirection = newPlayerDirection - 360;
        if(newPlayerDirection < 0) newPlayerDirection = 270;
 
-       if(newPlayerDirection == 0) this.direction = Direction.NORTH;
-       else if (newPlayerDirection == 90) this.direction = Direction.EAST;
-       else if (newPlayerDirection == 180) this.direction = Direction.SOUTH;
-       else if (newPlayerDirection == 270) this.direction = Direction.WEST;
+       switch (newPlayerDirection){
+           case 0:
+               this.direction = Direction.NORTH;
+               break;
+           case 90:
+               this.direction = Direction.EAST;
+               break;
+           case 180:
+               this.direction = Direction.SOUTH;
+               break;
+           case 270:
+               this.direction = Direction.WEST;
+
+       }
     }
 
     @Override
@@ -173,7 +183,7 @@ public class HumanPlayer extends Player implements InputProcessor {
                 updatePlayerXPosition(movePlayerAsFarAsPossible(getPlayerXPosition() - cardAction, this.direction));
             }
         }else if (!cardMoveLogic.moveTypeCard(card)) {
-            setPlayerDirection(card);
+            setPlayerDirection((int)card.action.getAction());
         }
     }
 
