@@ -6,10 +6,10 @@ public enum Direction {
     SOUTH(180, 0),
     WEST(270, 0);
 
-    private float directionDegree;
+    private int directionDegree;
     private int boundaryCoordinate;
 
-    public float getDirectionDegree(){
+    public int getDirectionDegree(){
         return this.directionDegree;
     }
 
@@ -17,7 +17,7 @@ public enum Direction {
         return this.boundaryCoordinate; }
 
 
-    Direction(float directionDegree, int boundaryCoordinate){
+    Direction(int directionDegree, int boundaryCoordinate){
         this.directionDegree = directionDegree;
         this.boundaryCoordinate = boundaryCoordinate;
     }

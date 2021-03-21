@@ -136,8 +136,8 @@ public class HumanPlayer extends Player implements InputProcessor {
 
     //TODO Refactor setPlayerDirection, movePlayerAsFarAsPossible and updatePlayerLocation when the rest of the board pieces are used
     @Override
-    public void setPlayerDirection(int moveAction){
-       int newPlayerDirection =(int) this.direction.getDirectionDegree() + moveAction;
+    public void setPlayerDirection(int moveDegree){
+       int newPlayerDirection = this.direction.getDirectionDegree() + moveDegree;
        if(newPlayerDirection > 270) newPlayerDirection = newPlayerDirection - 360;
        if(newPlayerDirection < 0) newPlayerDirection = 270;
 
@@ -195,7 +195,7 @@ public class HumanPlayer extends Player implements InputProcessor {
                 updatePlayerLocation(chosenCards.get(round));
             }
             laser.findLasersAndFire(players,laserLayer);
-            //conveyor.findAndRunConveyor(players,blueConveyorLayer, yellowConveyorLayer);
+            conveyor.findAndRunConveyor(players, yellowConveyorLayer,blueConveyorLayer);
             movedCards = new ArrayList<>();
             chosenCards = new ArrayList<>();
             playerDeck = new ArrayList<>();
