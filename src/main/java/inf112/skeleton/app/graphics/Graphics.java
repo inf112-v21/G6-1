@@ -30,6 +30,8 @@ public class Graphics  implements ApplicationListener{
     private SpriteBatch spriteBatch;
     public Texture background;
     public Texture youWin;
+    public Texture reset;
+    public Texture ready;
 
     public PlayerGraphics playerGraphics;
     public CardGraphics cardGraphics;
@@ -131,6 +133,8 @@ public class Graphics  implements ApplicationListener{
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         background = new Texture("Background.png");
         youWin = new Texture("YouWin.jpg");
+        reset = new Texture("Buttons/RESET.png");
+        ready = new Texture("Buttons/READY.png");
     }
 
     /**
@@ -154,6 +158,24 @@ public class Graphics  implements ApplicationListener{
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, 1280, 720);
         spriteBatch.end();
+
+        spriteBatch.begin();
+        spriteBatch.draw(ready, 1050, 139, 158, 85);
+        spriteBatch.end();
+
+        /*the code under shows the ready-button and reset-button displayed on the board,
+         only use this if reset-button is going to be used instead of doble-click to
+         remove the cards from cardslot*/
+
+        //spriteBatch.begin();
+        //spriteBatch.draw(ready, 1053, 175, 125, 55);
+        //spriteBatch.end();
+
+        //spriteBatch.begin();
+        //spriteBatch.draw(reset, 1053, 129, 125, 55);
+        //spriteBatch.end();
+
+
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
