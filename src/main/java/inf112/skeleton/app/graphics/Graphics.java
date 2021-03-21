@@ -163,10 +163,6 @@ public class Graphics  implements ApplicationListener{
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
-
-
-       // conveyor.findAndRunConveyor(singelPlayerList, (TiledMapTileLayer) tiledMap.getLayers().get("YellowConveyor"),
-         //       (TiledMapTileLayer) tiledMap.getLayers().get("BlueConveyor"));
         tiledMapRenderer.getBatch().begin();
         if(game.typeOfGameStarted == GameType.SINGLE_PLAYER){
             Gdx.input.setInputProcessor((InputProcessor) singlePlayer);

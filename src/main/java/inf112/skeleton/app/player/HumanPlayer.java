@@ -195,8 +195,9 @@ public class HumanPlayer extends Player implements InputProcessor {
                                   TiledMapTileLayer laserLayer,
                                   TiledMapTileLayer blueConveyorLayer,
                                   TiledMapTileLayer yellowConveyorLayer,
-                                  TiledMapTileLayer greenGear,
-                                  TiledMapTileLayer redGear){
+                                  TiledMapTileLayer redGear,
+                                  TiledMapTileLayer greenGear)
+                                  {
         if(movedCards.size() == 5){
             for(int round = 0; round < 5; round ++) {
                 updatePlayerLocation(chosenCards.get(round));
@@ -283,10 +284,12 @@ public class HumanPlayer extends Player implements InputProcessor {
     public boolean keyDown(int keyPressed) {return false;}
     @Override
     public boolean keyUp(int keyPressed) {
+        //System.out.println(getPlayerYPosition()+ " Ystart" + getPlayerXPosition() +" Xstart");
         if(keyPressed == Input.Keys.UP) updatePlayerYPosition(getPlayerYPosition()+300);
         if(keyPressed == Input.Keys.DOWN) updatePlayerYPosition(getPlayerYPosition()-300);
         if(keyPressed == Input.Keys.RIGHT) updatePlayerXPosition(getPlayerXPosition()+300);
         if(keyPressed == Input.Keys.LEFT) updatePlayerXPosition(getPlayerXPosition()-300);
+        //System.out.println(getPlayerYPosition()+ " Yend" + getPlayerXPosition() +" Xend");
         return false;}
 
     @Override

@@ -13,15 +13,15 @@ public class Gear {
 
    public void findAndRunConveyor(ArrayList<Player> players, TiledMapTileLayer redGear, TiledMapTileLayer greenGear){
 
-        for(int xDirectionTiles = Direction.WEST.getBoundaryCoordinate(); xDirectionTiles <= Direction.NORTH.getBoundaryCoordinate(); xDirectionTiles+=300) {
-            for (int yDirectionTiles = Direction.SOUTH.getBoundaryCoordinate(); yDirectionTiles <= Direction.EAST.getBoundaryCoordinate(); yDirectionTiles += 300) {
+        for(int xDirectionTiles = Direction.WEST.getBoundaryCoordinate(); xDirectionTiles <= Direction.EAST.getBoundaryCoordinate(); xDirectionTiles+=300) {
+            for (int yDirectionTiles = Direction.SOUTH.getBoundaryCoordinate(); yDirectionTiles <= Direction.NORTH.getBoundaryCoordinate(); yDirectionTiles += 300) {
                 TiledMapTileLayer.Cell redGearTile = redGear.getCell(xDirectionTiles / 300, yDirectionTiles / 300);
                 TiledMapTileLayer.Cell greenGearTile = greenGear.getCell(xDirectionTiles / 300, yDirectionTiles / 300);
                 if (redGearTile != null) {
-                    locatePlayersOnConveyor(players,xDirectionTiles,yDirectionTiles, (int) Action.ROTATE_RIGHT.getAction());
+                    locatePlayersOnConveyor(players,xDirectionTiles,yDirectionTiles, (int) Action.ROTATE_LEFT.getAction());
                 }
                 if(greenGearTile != null) {
-                    locatePlayersOnConveyor(players,xDirectionTiles,yDirectionTiles, (int) Action.ROTATE_LEFT.getAction());
+                    locatePlayersOnConveyor(players,xDirectionTiles,yDirectionTiles, (int) Action.ROTATE_RIGHT.getAction());
                 }
             }
         }
@@ -30,9 +30,7 @@ public class Gear {
     public void locatePlayersOnConveyor(ArrayList<Player> players, int xTile, int yTile, int rotationDirection){
         for(Player player: players){
             if(player.getPlayerXPosition() == (float) xTile && player.getPlayerYPosition() == (float) yTile){
-                System.out.println(player.direction);
                 player.setPlayerDirection(rotationDirection);
-                System.out.println(player.direction);
             }
         }
     }
