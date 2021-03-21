@@ -26,7 +26,7 @@ public abstract class Player  {
     public ArrayList<Float> cardCoordinates;
     public ArrayList<Integer> movedCards;
     public ArrayList<Integer> flagsToVisit;
-
+    public boolean ready;
     /**
      * @param direction The direction the player is facing. Needs to be set only when a player is created
      * Then it will be updated automatically during the game
@@ -39,6 +39,7 @@ public abstract class Player  {
     public Player(Direction direction, int id, Color color) {
         this.id = id;
         this.color = color;
+        this.ready = false;
         this.healthToken = 3;
         this.damageTaken = 0;
         this.direction = direction;

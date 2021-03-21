@@ -165,21 +165,23 @@ public class Graphics  implements ApplicationListener{
         spriteBatch.draw(background, 0, 0, 1280, 720);
         spriteBatch.end();
 
-        spriteBatch.begin();
-        spriteBatch.draw(ready, 1050, 139, 158, 85);
-        spriteBatch.end();
+        //spriteBatch.begin();
+        //spriteBatch.draw(ready, 1050, 139, 158, 85);
+        //spriteBatch.end();
 
         /*the code under shows the ready-button and reset-button displayed on the board,
          only use this if reset-button is going to be used instead of doble-click to
          remove the cards from cardslot*/
 
-        //spriteBatch.begin();
-        //spriteBatch.draw(ready, 1053, 175, 125, 55);
-        //spriteBatch.end();
+        // TODO funker bra med begge to! 
 
-        //spriteBatch.begin();
-        //spriteBatch.draw(reset, 1053, 129, 125, 55);
-        //spriteBatch.end();
+        spriteBatch.begin();
+        spriteBatch.draw(ready, 1053, 175, 125, 55);
+        spriteBatch.end();
+
+        spriteBatch.begin();
+        spriteBatch.draw(reset, 1053, 129, 125, 55);
+        spriteBatch.end();
 
 
         camera.update();

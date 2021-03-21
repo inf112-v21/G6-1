@@ -198,18 +198,19 @@ public class HumanPlayer extends Player implements InputProcessor {
                                   TiledMapTileLayer redGear,
                                   TiledMapTileLayer greenGear)
                                   {
-        if(movedCards.size() == 5){
+        if(this.ready){
             for(int round = 0; round < 5; round ++) {
                 updatePlayerLocation(chosenCards.get(round));
             }
             laser.findLasersAndFire(players,laserLayer);
             gear.findAndRunConveyor(players,redGear,greenGear);
             conveyor.findAndRunConveyor(players, yellowConveyorLayer,blueConveyorLayer);
-            movedCards = new ArrayList<>();
-            chosenCards = new ArrayList<>();
-            playerDeck = new ArrayList<>();
-            playerDeck = cardMoveLogic.playerDeck();
-            cardCoordinates = cardMoveLogic.resetCardCoordinates();
+            this.movedCards = new ArrayList<>();
+            this.chosenCards = new ArrayList<>();
+            this.playerDeck = new ArrayList<>();
+            this.ready = false;
+            this.playerDeck = cardMoveLogic.playerDeck();
+            this.cardCoordinates = cardMoveLogic.resetCardCoordinates();
         }
     }
 
@@ -244,8 +245,8 @@ public class HumanPlayer extends Player implements InputProcessor {
     public boolean touchUp(int i, int i1, int i2, int i3) {
         float x  = mouseClickXCoordinate;
         float y = mouseClickYCoordinate;
-        //System.out.println(" X " +x);
-        //System.out.println(" Y " +y);
+        System.out.println(" X " +x);
+        System.out.println(" Y " +y);
 
         if (x >5555 && x < 6005 && y >= 3090 && y <= 3740){
             cardMoveLogic.moveCardWhenClicked(0, this);
@@ -265,12 +266,11 @@ public class HumanPlayer extends Player implements InputProcessor {
             cardMoveLogic.moveCardWhenClicked(7,this);
         } else if(x >6605 && x < 7060 && y >= 1640 && y <= 2260){
             cardMoveLogic.moveCardWhenClicked(8,this);
-        } else if(x >3950 && x < 4385 && y <= 1160 && y >= 545) {
+        } else if(x >6590 && x < 7070 && y <= 825 && y >= 520) {
             cardMoveLogic.resetCard(this);
         }
-        if (chosenCards.size() == 5) {
-
-            // TODO tell game you@re done choosing cards
+        if (this.chosenCards.size() == 5 && x >6590 && x < 7070 && y <= 1155 && y >= 850) {
+            this.ready = true;
         }
         return false;
     }
@@ -284,12 +284,10 @@ public class HumanPlayer extends Player implements InputProcessor {
     public boolean keyDown(int keyPressed) {return false;}
     @Override
     public boolean keyUp(int keyPressed) {
-        //System.out.println(getPlayerYPosition()+ " Ystart" + getPlayerXPosition() +" Xstart");
         if(keyPressed == Input.Keys.UP) updatePlayerYPosition(getPlayerYPosition()+300);
         if(keyPressed == Input.Keys.DOWN) updatePlayerYPosition(getPlayerYPosition()-300);
         if(keyPressed == Input.Keys.RIGHT) updatePlayerXPosition(getPlayerXPosition()+300);
         if(keyPressed == Input.Keys.LEFT) updatePlayerXPosition(getPlayerXPosition()-300);
-        //System.out.println(getPlayerYPosition()+ " Yend" + getPlayerXPosition() +" Xend");
         return false;}
 
     @Override
