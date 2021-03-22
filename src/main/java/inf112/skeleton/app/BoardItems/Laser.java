@@ -41,7 +41,9 @@ public class Laser {
     public void damagePlayerInHarmsWay(ArrayList<Player> players, float tileXPosition, float tileYPosition){
         for(Player player: players){
             if(player.getPlayerXPosition() == tileXPosition && player.getPlayerYPosition() == tileYPosition){
+                System.out.println(player.damageTaken);
                 player.dealDamageToPlayer();
+                System.out.println(player.damageTaken);
             }
         }
     }

@@ -4,23 +4,25 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.shared.Direction;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 
 
 public class BoardElements {
 
 
-
+    Set<Player> playersToMove;
     HashMap<String,ArrayList> boardElementsPositions = new HashMap<>();
     ArrayList<Integer> laserPositions = new ArrayList<>();
     ArrayList<Integer> blueConveyorPositions = new ArrayList<>();
     ArrayList<Integer> yellowConveyorPositions = new ArrayList<>();
     ArrayList<Integer> greenGearPositions = new ArrayList<>();
     ArrayList<Integer> redGearPositions = new ArrayList<>();
-    Conveyor conveyor;
-    Laser laser;
+    ArrayList<Integer> blueConveyorDirections = new ArrayList<>();
+    ArrayList<Integer> yellowConveyorDirections = new ArrayList<>();
+
+    Conveyor conveyor = new Conveyor();
+    Laser laser = new Laser();
+    Gear gear = new Gear();
 
 
     public void getBoardElementPositions(ArrayList<Player> players,
@@ -53,10 +55,13 @@ public class BoardElements {
                 if (laserTile != null) {
                     laserPositions.add(tileXPositions);
                     laserPositions.add(tileYPositions);
+
                 }
                 if (yellowConveyorTile != null) {
                     yellowConveyorPositions.add(tileXPositions);
                     yellowConveyorPositions.add(tileYPositions);
+                    yellowConveyorDirections.add(yellowConveyorTile.getTile().getId());
+
                 }
                 if (blueConveyorTile != null) {
                     blueConveyorPositions.add(tileXPositions);
@@ -79,6 +84,7 @@ public class BoardElements {
         boardElementsPositions.put("blueConveyor", blueConveyorPositions);
         boardElementsPositions.put("redGear", redGearPositions);
         boardElementsPositions.put("greenGear", greenGearPositions);
+        boardElementsPositions.put("yellowConveyorDirection", yellowConveyorDirections);
         /*
         System.out.println("Laser " + boardElementsPositions.get("laser"));
         System.out.println("yellowConveyor " + boardElementsPositions.get("yellowConveyor"));
@@ -91,35 +97,25 @@ public class BoardElements {
     }
 
 
-    public void damagePlayerInHarmsWay(ArrayList<Player> players, float tileXPosition, float tileYPosition){
-        for(Player player: players){
-            if(player.getPlayerXPosition() == tileXPosition && player.getPlayerYPosition() == tileYPosition){
-                player.dealDamageToPlayer();
-            }
-        }
-    }
+
     ArrayList<String> boardItems = new ArrayList<>(Arrays.asList("laser","yellowConveyor","blueConveyor","redGear","greenGear"));
     public void locatePlayers(ArrayList<Player> players){
-
+        playersToMove = new HashSet<>();
         for(String Items: boardItems){
             ArrayList<Integer> boardPiecePositions = boardElementsPositions.get(Items);
-            for(Player player: players) {
+            //System.out.println(Items);
                 int index = 0;
                 for (int i = 0; i < boardPiecePositions.size() / 2; i++) {
-                    //System.out.println(boardPiecePositions.get(index) + " X");
-                    //System.out.println(boardPiecePositions.get(index + 1) + " Y");
-
                     switch (Items) {
                         case "laser":
-                            //System.out.println("laser");
-                            if(player.getPlayerXPosition() == boardPiecePositions.get(index) && player.getPlayerYPosition() == boardPiecePositions.get(index + 1)){
-                                System.out.println(player.damageTaken);
-                                player.dealDamageToPlayer();
-                                System.out.println(player.damageTaken);
-                            }
+                           laser.damagePlayerInHarmsWay(players,300,300);
                             break;
                         case "yellowConveyor":
-                            //System.out.println("yellowConveyor");
+                            //System.out.println(boardPiecePositions.get(index));
+                            //System.out.println(boardPiecePositions.get(index+1));
+                            int test = (int) boardElementsPositions.get("yellowConveyorDirection").get(index/2);
+                            conveyor.locatePlayersOnConveyor(players,boardPiecePositions.get(index),boardPiecePositions.get(index+1),test
+                                    ,ConveyorType.COMMON.getNumberOfMoves());
                             break;
                         case "blueConveyor":
                             //System.out.println("blueConveyor");
@@ -134,7 +130,7 @@ public class BoardElements {
                     index += 2;
                 }
             }
-        }
+
 
 
     }

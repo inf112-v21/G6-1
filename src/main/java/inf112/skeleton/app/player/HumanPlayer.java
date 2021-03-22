@@ -204,7 +204,7 @@ public class HumanPlayer extends Player implements InputProcessor {
             for(int round = 0; round < 5; round ++) {
                 updatePlayerLocation(chosenCards.get(round));
             }
-            conveyor.findAndRunConveyor(players, yellowConveyorLayer, blueConveyorLayer);
+            //conveyor.findAndRunConveyor(players, yellowConveyorLayer, blueConveyorLayer);
             gear.findAndRunGear(players,redGear,greenGear);
             laser.fireAllLasers(players,laserLayer);
             boardElements.getBoardElementPositions(players,laserLayer,redGear,greenGear,yellowConveyorLayer,blueConveyorLayer);
