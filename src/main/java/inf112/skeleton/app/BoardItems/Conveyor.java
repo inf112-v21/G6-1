@@ -29,43 +29,66 @@ Set<Player> playersToMove;
 // da skal spilleren som blir flyttet stoppe opp siden en spiller ikkje kan pushe andre spillere
 
 //TODO vil noen av rullebåndene ha svinger??
-    public void findAndRunConveyor(ArrayList<Player> players, TiledMapTileLayer yellowConveyor, TiledMapTileLayer blueConveyor){
+
+
+
+    public void findAndRunConveyor(ArrayList<Player> players,
+           TiledMapTileLayer yellowConveyor, TiledMapTileLayer blueConveyor){
+        int xStart = Direction.WEST.getBoundaryCoordinate();
+        int xEnd = Direction.EAST.getBoundaryCoordinate();
+        int yStart = Direction.SOUTH.getBoundaryCoordinate();
+        int yEnd = Direction.NORTH.getBoundaryCoordinate();
+        TiledMapTileLayer.Cell yellowConveyorTile;
+        TiledMapTileLayer.Cell blueConveyorTile;
         playersToMove  = new HashSet<>();
-        for(int xDirectionTiles = Direction.WEST.getBoundaryCoordinate(); xDirectionTiles <= Direction.NORTH.getBoundaryCoordinate(); xDirectionTiles+=300) {
-            for (int yDirectionTiles = Direction.SOUTH.getBoundaryCoordinate(); yDirectionTiles <= Direction.EAST.getBoundaryCoordinate(); yDirectionTiles += 300) {
-                TiledMapTileLayer.Cell yellowConveyorTile = yellowConveyor.getCell(xDirectionTiles / 300, yDirectionTiles / 300);
-                TiledMapTileLayer.Cell blueConveyorTile = blueConveyor.getCell(xDirectionTiles / 300, yDirectionTiles / 300);
+
+        for(int tileXPosition = xStart; tileXPosition <= xEnd; tileXPosition += 300) {
+            for (int tileYPosition = yStart; tileYPosition <= yEnd; tileYPosition += 300) {
+                yellowConveyorTile = yellowConveyor.getCell(tileXPosition / 300, tileYPosition / 300);
+                blueConveyorTile = blueConveyor.getCell(tileXPosition / 300, tileYPosition / 300);
+
                 if (yellowConveyorTile != null) {
-                    locatePlayersOnConveyor(players,xDirectionTiles,yDirectionTiles, yellowConveyorDirection.get(yellowConveyorTile.getTile().getId()),ConveyorType.COMMON.getNumberOfMoves());
+                    int conveyorDirection = yellowConveyorDirection.get(yellowConveyorTile.getTile().getId());
+                    int conveyorMovement = ConveyorType.COMMON.getNumberOfMoves();
+                    locatePlayersOnConveyor(players, tileXPosition, tileYPosition, conveyorDirection ,conveyorMovement);
                 }
                 if(blueConveyorTile != null) {
-                    locatePlayersOnConveyor(players,xDirectionTiles,yDirectionTiles, blueConveyorDirection.get(blueConveyorTile.getTile().getId()),ConveyorType.EXPRESS.getNumberOfMoves());
+                    int conveyorDirection = blueConveyorDirection.get(blueConveyorTile.getTile().getId());
+                    int conveyorMovement = ConveyorType.EXPRESS.getNumberOfMoves();
+                    locatePlayersOnConveyor(players, tileXPosition, tileYPosition, conveyorDirection,conveyorMovement);
                 }
             }
         }
     }
 
-    public void locatePlayersOnConveyor(ArrayList<Player> players, int xTile, int yTile, int conveyorDirection, int numberOfMoves){
+    public void locatePlayersOnConveyor(ArrayList<Player> players, int tileXPosition, int tileYPositions,
+           int conveyorDirection, int numberOfMoves){
         for(Player player: players){
-            if(!playersToMove.contains(player) && player.getPlayerXPosition() == (float) xTile && player.getPlayerYPosition() == (float) yTile){
+            if(!playersToMove.contains(player)
+                        && player.getPlayerXPosition() == (float) tileXPosition
+                        && player.getPlayerYPosition() == (float) tileYPositions){
                     playersToMove.add(player);
                     movePlayerOnConveyor(player, conveyorDirection, numberOfMoves);
             }
         }
     }
 
-    public void movePlayerOnConveyor(Player player, int conveyorDirection, int numberOfMoves){
+    public void movePlayerOnConveyor(Player player, int conveyorDirection, int conveyorMovement){
         if(conveyorDirection == Direction.NORTH.getDirectionDegree()) {
-            player.updatePlayerYPosition(player.movePlayerAsFarAsPossible(player.getPlayerYPosition()+numberOfMoves, Direction.NORTH ));
+            player.updatePlayerYPosition(player.movePlayerAsFarAsPossible(
+                    player.getPlayerYPosition() + conveyorMovement, Direction.NORTH ));
         }
         if(conveyorDirection == Direction.SOUTH.getDirectionDegree()) {
-            player.updatePlayerYPosition(player.movePlayerAsFarAsPossible(player.getPlayerYPosition()-numberOfMoves,Direction.SOUTH));
+            player.updatePlayerYPosition(player.movePlayerAsFarAsPossible(
+                    player.getPlayerYPosition() - conveyorMovement, Direction.SOUTH));
         }
         if(conveyorDirection == Direction.EAST.getDirectionDegree()) {
-            player.updatePlayerXPosition(player.movePlayerAsFarAsPossible(player.getPlayerXPosition()+numberOfMoves,Direction.EAST));
+            player.updatePlayerXPosition(player.movePlayerAsFarAsPossible(
+                    player.getPlayerXPosition() + conveyorMovement, Direction.EAST));
         }
         if(conveyorDirection == Direction.WEST.getDirectionDegree()) {
-            player.updatePlayerXPosition(player.movePlayerAsFarAsPossible(player.getPlayerXPosition()-numberOfMoves,Direction.WEST));
+            player.updatePlayerXPosition(player.movePlayerAsFarAsPossible(
+                    player.getPlayerXPosition() - conveyorMovement, Direction.WEST));
         }
     }
 

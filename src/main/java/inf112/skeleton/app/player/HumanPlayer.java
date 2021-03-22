@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
+import inf112.skeleton.app.BoardItems.BoardElements;
 import inf112.skeleton.app.BoardItems.Conveyor;
 import inf112.skeleton.app.BoardItems.Gear;
 import inf112.skeleton.app.BoardItems.Laser;
@@ -33,6 +34,7 @@ public class HumanPlayer extends Player implements InputProcessor {
     public Laser laser = new Laser();
     public Conveyor conveyor = new Conveyor();
     public Gear gear = new Gear();
+    public BoardElements boardElements = new BoardElements();
     private float mouseClickXCoordinate;
     private float mouseClickYCoordinate;
 
@@ -202,9 +204,11 @@ public class HumanPlayer extends Player implements InputProcessor {
             for(int round = 0; round < 5; round ++) {
                 updatePlayerLocation(chosenCards.get(round));
             }
-            laser.findLasersAndFire(players,laserLayer);
-            gear.findAndRunConveyor(players,redGear,greenGear);
-            conveyor.findAndRunConveyor(players, yellowConveyorLayer,blueConveyorLayer);
+            conveyor.findAndRunConveyor(players, yellowConveyorLayer, blueConveyorLayer);
+            gear.findAndRunGear(players,redGear,greenGear);
+            laser.fireAllLasers(players,laserLayer);
+            boardElements.getBoardElementPositions(players,laserLayer,redGear,greenGear,yellowConveyorLayer,blueConveyorLayer);
+            boardElements.locatePlayers(players);
             this.movedCards = new ArrayList<>();
             this.chosenCards = new ArrayList<>();
             this.playerDeck = new ArrayList<>();
@@ -245,8 +249,8 @@ public class HumanPlayer extends Player implements InputProcessor {
     public boolean touchUp(int i, int i1, int i2, int i3) {
         float x  = mouseClickXCoordinate;
         float y = mouseClickYCoordinate;
-        System.out.println(" X " +x);
-        System.out.println(" Y " +y);
+        //System.out.println(" X " +x);
+        //System.out.println(" Y " +y);
 
         if (x >5555 && x < 6005 && y >= 3090 && y <= 3740){
             cardMoveLogic.moveCardWhenClicked(0, this);
@@ -268,8 +272,7 @@ public class HumanPlayer extends Player implements InputProcessor {
             cardMoveLogic.moveCardWhenClicked(8,this);
         } else if(x >6590 && x < 7070 && y <= 825 && y >= 520) {
             cardMoveLogic.resetCard(this);
-        }
-        if (this.chosenCards.size() == 5 && x >6590 && x < 7070 && y <= 1155 && y >= 850) {
+        } else if (this.chosenCards.size() == 5 && x >6590 && x < 7070 && y <= 1155 && y >= 850) {
             this.ready = true;
         }
         return false;
