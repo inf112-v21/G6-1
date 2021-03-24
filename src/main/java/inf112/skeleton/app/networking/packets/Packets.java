@@ -40,7 +40,8 @@ public class Packets {
 
     /** Package instructing all clients to start the game */
     public static class StartGamePackage {
-
+        public boolean signal;
+        public boolean[] allReady;
     }
 
 
@@ -65,14 +66,6 @@ public class Packets {
         public int playerNumber;
     }
 
-    /**
-     * Is this the same as PlayerIdPacket?
-     * TODO figure out usage
-     */
-    public static class NamePacket{
-        public String[] name;
-        public int playerId;
-    }
 
     public static class PlayerNumberPacket {
         public int numberOfPlayers;

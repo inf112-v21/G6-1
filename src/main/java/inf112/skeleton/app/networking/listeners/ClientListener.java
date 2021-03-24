@@ -59,14 +59,6 @@ public class ClientListener extends Listener {
         client.sendTCP(startSignalPacket);
     }
 
-    /**
-     * Sends a String[] name to the sever
-     * @param name
-     */
-    public void sendNameToServer(Packets.NamePacket name) {
-        client.sendTCP(name);
-    }
-
     public void received(Connection c, Object object) {
         // Player connection handling
         if (object instanceof Packets.PlayerNumberPacket)
@@ -111,14 +103,7 @@ public class ClientListener extends Listener {
             Packets.ReadySignalPacket ready = (Packets.ReadySignalPacket) object;
             game.getAllReady(ready.allReady);
         }
-
-
-        // TODO clean this up after we've fixed network and basic rounds
-        else if (object instanceof Packets.NamePacket) {
-            // TODO what is the intended usage of this packet?
-            Packets.NamePacket name = (Packets.NamePacket) object;
-            // game.receivesNames(names);
-        }  else if (object instanceof Packets.ShutDownRobotPacket) {
+        else if (object instanceof Packets.ShutDownRobotPacket) {
             // TODO what is the intended usage of this packet?
             Packets.ShutDownRobotPacket shutDownRobotPacket = (Packets.ShutDownRobotPacket) object;
             // game.shutDownPlayer(shutDownRobotPacket.playersShutdown);
@@ -129,7 +114,7 @@ public class ClientListener extends Listener {
         return cards;
     }
 
-    // Returnerer true hvis du er koblet til serveren
+    // Returns true if connected to the server
     public boolean getC() {
         return c;
     }
@@ -139,7 +124,7 @@ public class ClientListener extends Listener {
         client.sendTCP(signal);
     }
 
-    // Sender en melding om at spilleren skal skru av brikken sin
+    // Notifies the player to shut down their board piece
     public void sendRobotShutdownSign() {
         Packets.ShutDownRobotPacket shutDownRobotPacket = new Packets.ShutDownRobotPacket();
         client.sendTCP(shutDownRobotPacket);
