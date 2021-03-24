@@ -5,9 +5,10 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.game.Game;
-import inf112.skeleton.app.networking.packets.Packets;
+import inf112.skeleton.app.networking.packets.*;
 
 import java.util.ArrayList;
+
 
 
 /**
@@ -17,8 +18,9 @@ import java.util.ArrayList;
 public class ClientListener extends Listener {
     private Client client;
     private Game game;
-    private Packets.MessagePacket message;
-    private Packets.CardsPacket cards;
+    public Packets.MessagePacket message;
+    public Packets.CardsPacket cards;
+    public Packets.NamePacket name;
     private boolean c = false;
 
 
@@ -39,7 +41,7 @@ public class ClientListener extends Listener {
      * send a message to the server and set the connection to true.
      * @param connection
      */
-    public void connected(Connection connection) {
+    public void connected(Connection connection  ) {
         System.out.println("Cl: Established connection");
         this.c = true;
     }
@@ -71,9 +73,8 @@ public class ClientListener extends Listener {
         Packets.StartSignalPacket startSignalPacket = new Packets.StartSignalPacket();
         startSignalPacket.start = true;
         client.sendTCP(startSignalPacket);
+
     }
-
-
     /**
      * Sends a String[] name to the sever
      * @param name
@@ -82,7 +83,7 @@ public class ClientListener extends Listener {
         client.sendTCP(name);
     }
 
-    public void disconnected(Connection connection) {
+    public void disconnected(Connection connection ) {
         this.c = false;
         System.out.println("Cl: You have been disconnected from the server");
     }

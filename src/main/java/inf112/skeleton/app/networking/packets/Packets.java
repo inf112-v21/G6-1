@@ -24,7 +24,6 @@ public class Packets {
 
     public static class NamePacket{
         public String[] name;
-        public int playerId;
     }
 
     public static class ReadySignalPacket{
