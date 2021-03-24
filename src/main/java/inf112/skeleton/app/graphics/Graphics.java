@@ -7,11 +7,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import inf112.skeleton.app.BoardItems.Conveyor;
-import inf112.skeleton.app.BoardItems.Laser;
 import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.game.GameType;
@@ -33,6 +30,8 @@ public class Graphics  implements ApplicationListener{
     public Texture youWin;
     public Texture reset;
     public Texture ready;
+    public Texture damagetoken;
+    public Texture lifetoken;
 
     public PlayerGraphics playerGraphics;
     public CardGraphics cardGraphics;
@@ -141,6 +140,9 @@ public class Graphics  implements ApplicationListener{
         youWin = new Texture("YouWin.jpg");
         reset = new Texture("Buttons/RESET.png");
         ready = new Texture("Buttons/READY.png");
+
+        damagetoken = new Texture("emptyDamageToken.png");
+        lifetoken = new Texture("LifeToken.png");
     }
 
     /**
@@ -182,6 +184,24 @@ public class Graphics  implements ApplicationListener{
         spriteBatch.draw(reset, 1053, 129, 125, 55);
         spriteBatch.end();
 
+        spriteBatch.begin();
+        spriteBatch.draw(damagetoken, 830, 400, 50, 27);
+        spriteBatch.draw(damagetoken, 800, 400, 50, 27);
+        spriteBatch.draw(damagetoken, 770, 400, 50, 27);
+        spriteBatch.draw(damagetoken, 740, 400, 50, 27);
+        spriteBatch.draw(damagetoken, 710, 400, 50, 27);
+        spriteBatch.draw(damagetoken, 830, 350, 50, 27);
+        spriteBatch.draw(damagetoken, 800, 350, 50, 27);
+        spriteBatch.draw(damagetoken, 770, 350, 50, 27);
+        spriteBatch.draw(damagetoken, 740, 350, 50, 27);
+        spriteBatch.draw(damagetoken, 710, 350, 50, 27);
+        spriteBatch.end();
+
+        spriteBatch.begin();
+        spriteBatch.draw(lifetoken, 800, 535, 75, 40);
+        spriteBatch.draw(lifetoken, 760, 535, 75, 40);
+        spriteBatch.draw(lifetoken, 720, 535, 75, 40);
+        spriteBatch.end();
 
         camera.update();
         tiledMapRenderer.setView(camera);
