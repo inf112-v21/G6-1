@@ -1,7 +1,7 @@
 package inf112.skeleton.app.networking.packets;
 
 import inf112.skeleton.app.card.Card;
-import inf112.skeleton.app.player.Player;
+import inf112.skeleton.app.player.HumanPlayer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
