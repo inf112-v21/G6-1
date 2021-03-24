@@ -34,10 +34,6 @@ public class Packets {
     public static class ShutDownRobotPacket{
         public boolean[] playersShutdown;
     }
-
-    public static class RemovePlayerPacket {
-        public int playerId;
-    }
     public static class SendMapNameToPlayer {
         public Object map;
     }
