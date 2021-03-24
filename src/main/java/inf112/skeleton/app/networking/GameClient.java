@@ -33,6 +33,7 @@ public class GameClient extends Listener {
 
         new Thread(client).start();
 
+
         try {
             client.connect(5000, ipAddress, tcpPort, udpPort);
         }catch (IOException e){
