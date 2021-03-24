@@ -70,17 +70,13 @@ public class Game implements IGame, InputProcessor {
      * @param ip InetAddress object, is being called properly in @chooseHostOrJoin()
      * @return
      */
-    public boolean joinNewGame(String ip) {
-        client = new GameClient(this);
-        if (!client.connect(ip))
+    public boolean joinNewGame(InetAddress ip) {
+        client = new GameClient(ip, this);
+        if (!client.connect(ip.getHostAddress()))
             return false;
-
         return true;
     }
 
-    public void joinNewGame(InetAddress ip) {
-        client = new GameClient(ip, this);
-    }
 
     /**
      * Method to prompt if user is hosting a game or joining a game.
