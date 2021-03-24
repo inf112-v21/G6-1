@@ -20,35 +20,22 @@ public class Network {
         kyro.register(Packets.CardsPacket.class);
         kyro.register(Packets.MessagePacket.class);
         kyro.register(Packets.NamePacket.class);
+        kyro.register(Packets.PacketMessage.class);
+        kyro.register(Packets.PlayerIdPacket.class);
         kyro.register(Packets.PlayerNumberPacket.class);
         kyro.register(Packets.ReadySignalPacket.class);
+        kyro.register(Packets.registerName.class);
         kyro.register(Packets.RemovePlayerPacket.class);
+        kyro.register(Packets.RoundPacket.class);
         kyro.register(Packets.ShutDownRobotPacket.class);
-        kyro.register(Packets.StartSignalPacket.class);
         kyro.register(Packets.StartGamePackage.class);
+        kyro.register(Packets.StartSignalPacket.class);
+        kyro.register(Packets.updateNames.class);
 
-
-
-        kyro.register(registerName.class);
-        kyro.register(updateNames.class);
-        kyro.register(PacketMessage.class);
 
         kyro.register(String[].class);
         kyro.register(int[].class);
 
     }
 
-
-    static public class registerName{
-        public String name;
-    }
-
-    static public class updateNames{
-        public String[] names;
-    }
-
-    static public class PacketMessage{
-        public String message;
-
-    }
 }

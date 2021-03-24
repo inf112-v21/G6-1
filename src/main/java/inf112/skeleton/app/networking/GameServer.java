@@ -53,6 +53,7 @@ public class GameServer implements Runnable {
             e.printStackTrace();
         }
         Network.register(server);
+        serverListener.connected();
         server.start();
 
         try {
