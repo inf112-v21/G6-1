@@ -207,6 +207,7 @@ public class Graphics  implements ApplicationListener{
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
         tiledMapRenderer.getBatch().begin();
+
         if(game.typeOfGameStarted == GameType.SINGLE_PLAYER){
             Gdx.input.setInputProcessor((InputProcessor) singlePlayer);
             singlePlayer();
