@@ -3,6 +3,7 @@ package inf112.skeleton.app.networking;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
 import inf112.skeleton.app.card.Card;
+import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.networking.listeners.ServerListener;
 import inf112.skeleton.app.networking.packets.Packets;
 

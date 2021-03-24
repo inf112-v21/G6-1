@@ -22,7 +22,6 @@ public class ServerListener extends Listener {
     private String[] playerNames;
     public boolean[] ShutdownPlayer;
     public final int MAX_PLAYERS = 5;
-    private Game game;
 
     /**
      *
@@ -56,7 +55,7 @@ public class ServerListener extends Listener {
         // Send updated number of players to all players
         Packets.PlayerNumberPacket playerPacket = new Packets.PlayerNumberPacket();
         playerPacket.numberOfPlayers = numberOfPlayers;
-        game.setNumberOfPlayers(playerPacket.numberOfPlayers);
+        //game.setNumberOfPlayers(playerPacket.numberOfPlayers);
         server.sendToAllTCP(playerPacket);
 
         // Tell the new player their player number
