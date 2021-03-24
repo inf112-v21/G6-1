@@ -12,16 +12,15 @@ import java.util.Set;
 
 public class Conveyor {
 
-
+Set<Player> playersToMove;
 HashMap<Integer,Integer> yellowConveyorDirection = new HashMap<>() {{
    put(49, Direction.NORTH.getDirectionDegree());
    put(50, Direction.SOUTH.getDirectionDegree());
    put(51, Direction.WEST.getDirectionDegree());
    put(52, Direction.EAST.getDirectionDegree());
-   put(14,Direction.EAST.getDirectionDegree());
-   put(21,Direction.SOUTH.getDirectionDegree());
 }};
-//TODO add N and W when i get it from Yasmin (mulig de ligger i masterrbannch)
+
+
 HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
    put(14,Direction.EAST.getDirectionDegree());
    put(21,Direction.SOUTH.getDirectionDegree());
@@ -35,7 +34,6 @@ HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
 //TODO vil noen av rullebåndene ha svinger??
 
 
-/*
     public void findAndRunConveyor(ArrayList<Player> players,
            TiledMapTileLayer yellowConveyor, TiledMapTileLayer blueConveyor){
         int xStart = Direction.WEST.getBoundaryCoordinate();
@@ -64,18 +62,17 @@ HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
             }
         }
     }
-*/
+
     public void locatePlayersOnConveyor(ArrayList<Player> players, int tileXPosition, int tileYPositions,
            int conveyorDirection, int numberOfMoves){
-        int direction = yellowConveyorDirection.get(conveyorDirection);
-        System.out.println(direction);
+        //int direction = yellowConveyorDirection.get(conveyorDirection);
+        System.out.println(conveyorDirection);
         for(Player player: players){
             if(!playersToMove.contains(player)
                         && player.getPlayerXPosition() == (float) tileXPosition
                         && player.getPlayerYPosition() == (float) tileYPositions){
-                    //playersToMove.add(player);
-                    boardElements.playersToMove.add(player);
-                    movePlayerOnConveyor(player, direction, numberOfMoves);
+                    playersToMove.add(player);
+                    movePlayerOnConveyor(player, conveyorDirection, numberOfMoves);
             }
         }
     }
