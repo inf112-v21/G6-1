@@ -12,7 +12,6 @@ public enum Action {
     private float action;
 
     public float getAction(){
-
         return this.action;
     }
     private Action(float action){
