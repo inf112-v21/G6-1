@@ -47,8 +47,10 @@ public class ServerListener extends Listener {
     // It will print out a message and update what players are on the server
     // and update and send the number of players to all clients.
 
+
+
     // TODO må være connected() siden metoden er fra Listener.java
-    public void connected() {
+    public void connected(Connection connection) {
         System.out.println("Player " + numberOfPlayers + " has connected to the server");
         numberOfPlayers++;
 
@@ -62,7 +64,6 @@ public class ServerListener extends Listener {
         Packets.PlayerIdPacket playerIdPacket = new Packets.PlayerIdPacket();
         playerIdPacket.playerNumber = numberOfPlayers;
         server.sendToAllTCP(playerIdPacket);
-
 
         // Send map name to player
         // Made into packet, since it is easier to handle
