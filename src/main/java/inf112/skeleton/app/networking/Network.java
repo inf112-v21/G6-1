@@ -27,7 +27,9 @@ public class Network {
         kyro.register(Packets.ShutDownRobotPacket.class);
         kyro.register(Packets.StartGamePackage.class);
         kyro.register(Packets.StartSignalPacket.class);
-        kyro.register(Packets.updateNames.class);
+        kyro.register(Packets.UpdateNames.class);
+        kyro.register(Packets.SendMapNameToPlayer.class);
+
 
         kyro.register(String[].class);
         kyro.register(int[].class);
