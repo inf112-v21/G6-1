@@ -17,7 +17,6 @@ public class Network {
         Kryo kyro = endpoint.getKryo();
 
         kyro.register(Packets.CardsPacket.class);
-        kyro.register(Packets.MessagePacket.class);
         kyro.register(Packets.NamePacket.class);
         kyro.register(Packets.PacketMessage.class);
         kyro.register(Packets.PlayerIdPacket.class);

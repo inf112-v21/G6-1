@@ -7,11 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Packets {
-    public static class MessagePacket {
-        public String message;
-        public int playerID;
-    }
-
 
     public static class StartSignalPacket{
         public boolean start;
@@ -51,11 +46,6 @@ public class Packets {
 
     static public class updateNames{
         public String[] names;
-    }
-
-    static public class PacketMessage{
-        public String message;
-
     }
 
     ////
