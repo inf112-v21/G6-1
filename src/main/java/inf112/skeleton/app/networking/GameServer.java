@@ -5,6 +5,7 @@ import com.esotericsoftware.kryonet.Server;
 import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.networking.Network.PacketMessage;
 import inf112.skeleton.app.networking.listeners.ServerListener;
+import inf112.skeleton.app.networking.packets.Packets;
 
 
 import java.io.IOException;
@@ -53,6 +54,7 @@ public class GameServer implements Runnable {
             e.printStackTrace();
         }
         Network.register(server);
+        serverListener.connected();
         server.start();
 
         try {
@@ -94,7 +96,7 @@ public class GameServer implements Runnable {
         }
 
         //names in updateNames takes all the connectedNames, and server sends it to everyone on TCP
-        Network.updateNames updateNames = new Network.updateNames();
+        Packets.updateNames updateNames = new Packets.updateNames();
         updateNames.names = (String[])connectedNames.toArray(new String[connectedNames.size()]);
         server.sendToAllTCP(updateNames.names);
     }

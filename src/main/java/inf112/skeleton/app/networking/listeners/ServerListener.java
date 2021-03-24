@@ -49,7 +49,7 @@ public class ServerListener extends Listener {
     // and update and send the number of players to all clients.
 
     // TODO må være connected() siden metoden er fra Listener.java
-    public void connected(Connection connection) {
+    public void connected() {
         System.out.println("Player " + numberOfPlayers + " has connected to the server");
         numberOfPlayers++;
 
@@ -62,12 +62,13 @@ public class ServerListener extends Listener {
         // Tell the new player their player number
         Packets.PlayerIdPacket playerIdPacket = new Packets.PlayerIdPacket();
         playerIdPacket.playerNumber = numberOfPlayers;
-        connection.sendTCP(playerIdPacket);
+        server.sendToAllTCP(playerIdPacket);
 
 
         // Send map name to player
-        // TODO make into packet, since it is easier to handle
-        server.sendToTCP(connection.getID(), map);
+        // Made into packet, since it is easier to handle
+        Packets.SendMapNameToPlayer sendMapNameToPlayer = new Packets.SendMapNameToPlayer();
+        server.sendToAllTCP(sendMapNameToPlayer);
 
 
         // TODO we automatically start the game when we have 3 players
@@ -163,7 +164,4 @@ public class ServerListener extends Listener {
         }
         return testCards;
     }
-
-
-
 }
