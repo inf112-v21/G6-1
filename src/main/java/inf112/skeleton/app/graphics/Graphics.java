@@ -154,7 +154,7 @@ public class Graphics  implements ApplicationListener{
         camera.viewportHeight = 720;
         camera.update();
     }
-    Conveyor conveyor = new Conveyor();
+ 
     /**
      * This is where the graphics of the game get rendered.
      */
