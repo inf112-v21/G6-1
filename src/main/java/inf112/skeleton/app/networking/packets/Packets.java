@@ -13,8 +13,17 @@ public class Packets {
     }
 
 
+    public static class PlayerNumberPacket{
+        public int numberOfPlayers;
+        public int numberOfPlayersConnected;
+    }
+
     public static class StartSignalPacket{
         public boolean start;
+    }
+
+    public static class NamePacket{
+        public String[] name;
     }
 
     public static class ReadySignalPacket{
@@ -26,6 +35,16 @@ public class Packets {
         public boolean[] playersShutdown;
     }
 
+    public static class RemovePlayerPacket {
+        public int playerId;
+    }
+    public static class SendMapNameToPlayer {
+        public Object map;
+    }
+
+    public static class PlayerIdPacket {
+        public int playerNumber;
+    }
 
     /** Packet containing a players moves, to be sent to the server */
     public static class CardsPacket {
@@ -38,8 +57,21 @@ public class Packets {
         public HashMap<Integer, ArrayList<Card>> playerMoves;
     }
 
+
     /** Package instructing all clients to start the game */
     public static class StartGamePackage {
+    }
+
+    static public class registerName{
+        public String name;
+    }
+
+    static public class updateNames{
+        public String[] names;
+    }
+
+    static public class PacketMessage{
+        public String message;
 
     }
 
@@ -57,24 +89,5 @@ public class Packets {
         public int playerId;
     }
 
-    /**
-     * Packet sent to players to denote which player number they are
-     */
-    public static class PlayerIdPacket {
-        /** Your player number */
-        public int playerNumber;
-    }
 
-    /**
-     * Is this the same as PlayerIdPacket?
-     * TODO figure out usage
-     */
-    public static class NamePacket{
-        public String[] name;
-        public int playerId;
-    }
-
-    public static class PlayerNumberPacket {
-        public int numberOfPlayers;
-    }
 }
