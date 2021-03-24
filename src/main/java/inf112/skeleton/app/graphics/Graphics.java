@@ -10,8 +10,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import inf112.skeleton.app.BoardItems.Conveyor;
 import inf112.skeleton.app.BoardItems.Laser;
-import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.game.GameType;
@@ -31,17 +31,18 @@ public class Graphics  implements ApplicationListener{
     private SpriteBatch spriteBatch;
     public Texture background;
     public Texture youWin;
+    public Texture reset;
+    public Texture ready;
 
     public PlayerGraphics playerGraphics;
     public CardGraphics cardGraphics;
     public HashMap<Color, Sprite> playersSprite;
-    public Player singlePlayer = new HumanPlayer(Direction.NORTH,69,Color.GREEN);
+    public HumanPlayer singlePlayer = new HumanPlayer(Direction.NORTH,69,Color.GREEN);
     public Sprite singlePlayerSprite;
     public ArrayList<Sprite> cardSpriteList;
     private CardMoveLogic cardMoveLogic = new CardMoveLogic();
     private HashMap<Action, Texture> cardTextures;
     public Game game;
-    public Laser laser = new Laser(Direction.WEST,600f);
     public ArrayList<Player> singelPlayerList =new ArrayList<>();
     public Graphics(Game game) {
         playerGraphics = new PlayerGraphics();
@@ -69,33 +70,7 @@ public class Graphics  implements ApplicationListener{
         Gdx.input.setInputProcessor((InputProcessor) player);
     }
 
-    /**
-     * Det som ser ut til å skje er at vi renderer alle spillere sine kort itillegg til alle spillere.
-     * Det er mulig at vi kunne hatt en screen til en spiller og rendret egene kort på denne og alle spillere.
-     *
-     * Hvorfor lager vi en for mye spiller i multiplayer??
-     *
-     * Om vi setter this.numberOfPlayers = numberOfPlayers -1; i Game setnumofplayers får vi bare en spiller opp.
-     * Ting ser da ut til å fungere bortsett fra at vi ikke utfører trekkene.
-     * Men vi legger kortene i chosencard og de flyttes som de skal.
-     *
-     * MÅ SJEKKE om vi spiller to stykker trykker vi på kort for forskjellig spiller???
-     * Rendrer vi egene kort øverst??
-     *
-     * Når vi spiller to stk får vi opp to helt forskjellige sett med kort. vi er begge spiller går og ikke grønn.
-     * Vi får opp kortene til grønn under våre kort og hverken grønn eller grå sine kort er like for begge som spiller.
-     *
-     *
-     * Vi ønsker å rendre kortene til this.player
-     * Vi ønsker å sette inp PRo til this. player
-     * Vi ønsker å sette setMouseClickCoordinates til this.player
-     *
-     * Vi ønaker å rendre og oppdatere alle spillbrikkene til alle players
-     *
-     * Virker ikke som vi får tildelt en spesifikk player over nett, men tar en (første?) fra listen.
-     *
-     *Flytte inp pro når vi har fått ting til å virke
-     */
+
     public void updatePlayerSprite(ArrayList<Player> players){
         if (players == null || players.isEmpty()) {
             // No players created yet, don't render any
@@ -105,7 +80,7 @@ public class Graphics  implements ApplicationListener{
             player.setMouseClickCoordinates(camera);
             setInputProcessor(player);
             updateCardSprite(player);
-
+            /*
             System.out.println("Player of color " +player.color);
             System.out.println("Start");
             for(Card playerdeckcard : player.playerDeck){
@@ -114,7 +89,7 @@ public class Graphics  implements ApplicationListener{
             System.out.println("chosenCard");
             for(Card playerchosencard : player.chosenCards){
                 System.out.println(playerchosencard.action);
-            }
+            }*/
 
             Sprite playerSprite = playersSprite.get(player.color);
             playerSprite.setTexture(playerGraphics.createPlayerTextures().get(player.color).get(player.direction));
@@ -133,7 +108,12 @@ public class Graphics  implements ApplicationListener{
         singlePlayerSprite.setPosition(singlePlayer.getPlayerXPosition(), singlePlayer.getPlayerYPosition());
         singlePlayerSprite.setTexture(playerGraphics.createPlayerTextures().get(singlePlayer.color).get(singlePlayer.direction)); //greenPiece.get(humanPlayer.direction))
         singlePlayerSprite.draw(tiledMapRenderer.getBatch());
-        singlePlayer.singlePlayerRound();
+        singlePlayer.singlePlayerRound(singelPlayerList,
+                (TiledMapTileLayer) tiledMap.getLayers().get("Laser"),
+                (TiledMapTileLayer) tiledMap.getLayers().get("BlueConveyor"),
+                (TiledMapTileLayer) tiledMap.getLayers().get("YellowConveyor"),
+                (TiledMapTileLayer) tiledMap.getLayers().get("RedGear"),
+                (TiledMapTileLayer) tiledMap.getLayers().get("GreenGear"));
     }
 
     @Override
@@ -147,7 +127,7 @@ public class Graphics  implements ApplicationListener{
         cardSpriteList = cardGraphics.createCardSprite();
         cardTextures = cardGraphics.createCardTexture();
         playersSprite = playerGraphics.createPlayerSprite();
-
+        singelPlayerList.add(singlePlayer);
         float w = 600;
         float h = 1000;
         spriteBatch = new SpriteBatch();
@@ -159,6 +139,8 @@ public class Graphics  implements ApplicationListener{
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         background = new Texture("Background.png");
         youWin = new Texture("YouWin.jpg");
+        reset = new Texture("Buttons/RESET.png");
+        ready = new Texture("Buttons/READY.png");
     }
 
     /**
@@ -172,30 +154,45 @@ public class Graphics  implements ApplicationListener{
         camera.viewportHeight = 720;
         camera.update();
     }
-
+ 
     /**
      * This is where the graphics of the game get rendered.
      */
     @Override
     public void render() {
+
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, 1280, 720);
         spriteBatch.end();
+
+        //spriteBatch.begin();
+        //spriteBatch.draw(ready, 1050, 139, 158, 85);
+        //spriteBatch.end();
+
+        /*the code under shows the ready-button and reset-button displayed on the board,
+         only use this if reset-button is going to be used instead of doble-click to
+         remove the cards from cardslot*/
+
+
+        spriteBatch.begin();
+        spriteBatch.draw(ready, 1053, 175, 125, 55);
+        spriteBatch.end();
+
+        spriteBatch.begin();
+        spriteBatch.draw(reset, 1053, 129, 125, 55);
+        spriteBatch.end();
+
+
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
-        laser.shootLaser(singelPlayerList);
-        //System.out.println(singlePlayer.healthToken+ " HealthToken");
-        //System.out.println(singlePlayer.damageTaken +" DamageTaken");
-        TiledMapTileSet tileset =  tiledMap.getTileSets().getTileSet("Flag1");
-        //System.out.println(tileset);
         tiledMapRenderer.getBatch().begin();
         if(game.typeOfGameStarted == GameType.SINGLE_PLAYER){
             Gdx.input.setInputProcessor((InputProcessor) singlePlayer);
             singlePlayer();
+
         } else{
             updatePlayerSprite(game.players);
-
         }
         tiledMapRenderer.getBatch().end();
 
@@ -209,7 +206,6 @@ public class Graphics  implements ApplicationListener{
             dispose();
         }
     }
-
 
 
     @Override

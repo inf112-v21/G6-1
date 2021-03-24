@@ -47,7 +47,8 @@
  </layer>
  <layer id="20" name="Laser" width="12" height="14">
   <properties>
-   <property name="Laser" type="int" value="39"/>
+   <property name="LaserHorizontal" value="39"/>
+   <property name="LaserVertical" value="47"/>
   </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,
@@ -59,17 +60,19 @@
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,47,0,0,
+0,0,0,0,0,0,0,0,0,47,0,0,
+0,0,0,0,0,0,0,0,0,47,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
  <layer id="21" name="LaserWall" width="12" height="14">
   <properties>
-   <property name="LaserWallLeft" type="int" value="38"/>
-   <property name="LaserWallRight" type="int" value="46"/>
+   <property name="LaserWallEast" type="int" value="46"/>
+   <property name="LaserWallNorth" value="45"/>
+   <property name="LaserWallSouth" value="37"/>
+   <property name="LaserWallWest" type="int" value="38"/>
   </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,
@@ -81,9 +84,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,45,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,37,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0
 </data>
@@ -108,10 +111,10 @@
  </layer>
  <layer id="2" name="YellowConveyor" width="12" height="14">
   <properties>
-   <property name="yConveyorDown" type="int" value="50"/>
-   <property name="yConveyorLeft" type="int" value="51"/>
-   <property name="yConveyorRight" type="int" value="52"/>
-   <property name="yConveyorUp" type="int" value="49"/>
+   <property name="yConveyorEast" type="int" value="52"/>
+   <property name="yConveyorNorth" type="int" value="49"/>
+   <property name="yConveyorSouth" type="int" value="50"/>
+   <property name="yConveyorWest" type="int" value="51"/>
   </properties>
   <data encoding="csv">
 0,0,0,49,0,50,49,0,50,0,49,0,
@@ -132,8 +135,10 @@
  </layer>
  <layer id="4" name="BlueConveyor" width="12" height="14">
   <properties>
-   <property name="bConveyorDown" type="int" value="21"/>
-   <property name="bConveyorRight" type="int" value="14"/>
+   <property name="bConveyorEast" type="int" value="14"/>
+   <property name="bConveyorSouth" type="int" value="21"/>
+   <property name="bConveyorNorth" type="int" value="13"/>
+   <property name="bConveyorWest" type="int" value="22"/>
   </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,
@@ -247,10 +252,10 @@
  </layer>
  <layer id="3" name="Walls" width="12" height="14">
   <properties>
-   <property name="TwoWallsLeftDown" type="int" value="32"/>
-   <property name="TwoWallsLeftUp" type="int" value="24"/>
-   <property name="TwoWallsRightDown" type="int" value="8"/>
-   <property name="TwoWallsRightUp" type="int" value="16"/>
+   <property name="TwoWallsLeftDown" type="int" value="16"/>
+   <property name="TwoWallsLeftUp" type="int" value="8"/>
+   <property name="TwoWallsRightDown" type="int" value="24"/>
+   <property name="TwoWallsRightUp" type="int" value="32"/>
    <property name="WallDown" type="int" value="29"/>
    <property name="WallLeft" type="int" value="30"/>
    <property name="WallRight" type="int" value="23"/>

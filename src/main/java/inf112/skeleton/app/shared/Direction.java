@@ -1,18 +1,24 @@
 package inf112.skeleton.app.shared;
 
 public enum Direction {
-    NORTH(0),
-    EAST(90),
-    SOUTH(180),
-    WEST(270);
+    NORTH(0, 3900),
+    EAST(90, 3300),
+    SOUTH(180, 0),
+    WEST(270, 0);
 
-    private float direction;
+    private int directionDegree;
+    private int boundaryCoordinate;
 
-    public float getDirection(){
-        return this.direction;
+    public int getDirectionDegree(){
+        return this.directionDegree;
     }
 
-    private Direction(float direction){
-        this.direction = direction;
+    public int getBoundaryCoordinate(){
+        return this.boundaryCoordinate; }
+
+
+    Direction(int directionDegree, int boundaryCoordinate){
+        this.directionDegree = directionDegree;
+        this.boundaryCoordinate = boundaryCoordinate;
     }
 }

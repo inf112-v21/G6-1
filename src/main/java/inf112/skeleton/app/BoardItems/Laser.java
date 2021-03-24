@@ -1,81 +1,53 @@
 package inf112.skeleton.app.BoardItems;
 
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.shared.Direction;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Laser {
 
-    private final Direction direction;
-    private final float position;
-
-
-    public Laser(Direction direction, float position){
-        this.direction = direction;
-        this.position = position;
-    }
-
-    private HashMap<Direction,Integer> endPositions = getLocationEndPositions();
-
     /**
-     * Creates a Hashmap with directions as key and end coordinates for positions as value
-     * @return HashMap<Direction, Integer>
+     * This method iterates over the game board and finds tiles containing lasers.
+     * Then calls damagePlayerInHarmsWay to find and deal damage to players standing harms way
+     * @param players list of all the players in the game
+     * @param laserLayer tiledMapTileLayer containing lasers
      */
-    public HashMap<Direction, Integer> getLocationEndPositions() {
-        HashMap<Direction,Integer> locationEndPosition = new HashMap<>();
-        locationEndPosition.put(Direction.NORTH, 3900);
-        locationEndPosition.put(Direction.SOUTH, 0);
-        locationEndPosition.put(Direction.WEST, 0);
-        locationEndPosition.put(Direction.EAST, 3300);
-        return locationEndPosition;
-    }
+    public void fireAllLasers(ArrayList<Player> players, TiledMapTileLayer laserLayer){
+      int xStart = Direction.WEST.getBoundaryCoordinate();
+      int xEnd = Direction.EAST.getBoundaryCoordinate();
+      int yStart = Direction.SOUTH.getBoundaryCoordinate();
+      int yEnd = Direction.NORTH.getBoundaryCoordinate();
+      TiledMapTileLayer.Cell laserTile;
 
-    /**
-     * This method finds the tiles and direction to where the the laser is to fire.
-     * Then "fire" the laser.
-     * @param players the list of players
-     */
-    public void shootLaser(ArrayList<Player> players){
-        int checkFromPosition = (int) this.position +300;
-        int checkToPosition = endPositions.get(this.direction);
-        String laserDirection = "Y";
-        if(this.direction == Direction.SOUTH || this.direction == Direction.WEST){
-            checkFromPosition = endPositions.get(this.direction);
-            checkToPosition = (int) this.position -300;
-            laserDirection = "X";
-        }
-        for(int tile = checkFromPosition; tile <= checkToPosition; tile+=300){
-            if( laserDirection == "X"){
-                shootPlayersXDirection(players,tile);
-            }else if(laserDirection == "Y"){
-                shootPlayersYDirection(players,tile);
+        for(int tileXPositions = xStart; tileXPositions <= xEnd; tileXPositions +=300) {
+            for (int tileYPositions = yStart; tileYPositions <= yEnd; tileYPositions += 300) {
+                laserTile = laserLayer.getCell(tileXPositions / 300, tileYPositions / 300);
+                if (laserTile != null) {
+                    damagePlayerInHarmsWay(players, (float) tileXPositions,(float) tileYPositions);
+                }
             }
         }
     }
 
     /**
-     * Deal damage to the players in x direction if player position mache the tile
-     * the laser shoots at.
-     * @param players list of players on the board
-     * @param tile tile the laser shoots at
+     * Compare players position against the lasers positions
+     * Deals damage to players whose positions mach the laser.
+     * @param players list of player
+     * @param tileXPosition x position of tile the laser is located in
+     * @param tileYPosition y position of tile the laser is located in
      */
-    public void shootPlayersXDirection(ArrayList<Player> players, int tile){
+    public void damagePlayerInHarmsWay(ArrayList<Player> players, float tileXPosition, float tileYPosition){
         for(Player player: players){
-            if(player.getPlayerXPosition() == (float) tile) player.dealDamageToPlayer();
+            if(player.getPlayerXPosition() == tileXPosition && player.getPlayerYPosition() == tileYPosition){
+                int damageBeforeLaser  = player.damageTaken;
+                player.dealDamageToPlayer();
+                System.out.println("Player " + player.color + " was hit by a laser! Player Damage was " +
+                        damageBeforeLaser + " and is now " + player.damageTaken);
+                System.out.println(" ");
+            }
         }
     }
 
-    /**
-     * Deal damage to the players in Y direction if player position mache the tile
-     * the laser shoots at.
-     * @param players list of players on the board
-     * @param tile tile the laser shoots at
-     */
-    public void shootPlayersYDirection(ArrayList<Player> players, int tile){
-        for(Player player: players){
-            if(player.getPlayerYPosition() == (float) tile) player.dealDamageToPlayer();
-        }
-    }
 }
