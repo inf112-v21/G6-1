@@ -59,6 +59,10 @@ public class ClientListener extends Listener {
         client.sendTCP(startSignalPacket);
     }
 
+    public void sendName(Packets.NamePacket name) {
+        client.sendTCP(name);
+    }
+
     public void received(Connection c, Object object) {
         // Player connection handling
         if (object instanceof Packets.PlayerNumberPacket)
@@ -88,9 +92,10 @@ public class ClientListener extends Listener {
             game.executeMoves(roundPacket.playerMoves);
 
             // TODO after all moves are done we either start a new round or end the game.
-            //  exectureMoves currently deals cards to everyone, but that doesn't work for MP
+            //  executeMoves currently deals cards to everyone, but that doesn't work for MP
             // We probably want the server to send each player a packet of cards they may choose
-            //  other possiblity which is quicker: deal cards to your own player in this else if
+            //  other possibility which is quicker: deal cards to your own player in this else if
+
         }
 
         // Ready signal handling
@@ -105,8 +110,8 @@ public class ClientListener extends Listener {
         }
         else if (object instanceof Packets.ShutDownRobotPacket) {
             // TODO what is the intended usage of this packet?
-            Packets.ShutDownRobotPacket shutDownRobotPacket = (Packets.ShutDownRobotPacket) object;
-            // game.shutDownPlayer(shutDownRobotPacket.playersShutdown);
+            Packets.ShutDownRobotPacket shutDownRobot = (Packets.ShutDownRobotPacket) object;
+            game.shutDownPlayer(shutDownRobot.playersShutdown);
         }
     }
 
@@ -130,8 +135,7 @@ public class ClientListener extends Listener {
         client.sendTCP(shutDownRobotPacket);
     }
 
-
-    // Sletter spilleren slik at de ikke kan spille kort
+    // Deleted the player so that it cannot play cards.
     public void removeAPlayerFromTheServer() {
         Packets.RemovePlayerPacket removePlayerPacket = new Packets.RemovePlayerPacket();
         client.sendTCP(removePlayerPacket);

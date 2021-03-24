@@ -44,8 +44,6 @@ public class Packets {
         public boolean[] allReady;
     }
 
-
-
     ////
     // Player packets
     ////
@@ -55,6 +53,11 @@ public class Packets {
      */
     public static class RemovePlayerPacket {
         /** The player number to remove */
+        public int playerId;
+    }
+
+    public static class NamePacket {
+        public String[] name;
         public int playerId;
     }
 

@@ -31,6 +31,7 @@ public class Game implements IGame, InputProcessor {
     public HashMap<Integer, HumanPlayer> idPlayerHashMap;
     public HumanPlayer myHumanPlayer;
     public ArrayList<Player> players = new ArrayList<Player>();
+    public String[] names;
     /** The card handler */
     CardDeck cardDeck;
     GameServer server;
@@ -114,8 +115,6 @@ public class Game implements IGame, InputProcessor {
         else if(choice.equals(GameType.SINGLE_PLAYER.value)){
             typeOfGameStarted = GameType.SINGLE_PLAYER;
             System.out.println("Single player selected");
-
-
         }
         else {
             System.out.println("Please enter 1 or 2 when asked to");
@@ -203,8 +202,9 @@ public class Game implements IGame, InputProcessor {
 
     /**
      * Calling this when needed to shut down a player (robot)
+     * @param playersShutdown
      */
-    public void shutDownPlayer() {
+    public void shutDownPlayer(boolean[] playersShutdown) {
         client.sendPlayerShutDown();
     }
 
@@ -216,6 +216,8 @@ public class Game implements IGame, InputProcessor {
     public void sendStartSignal() {
         client.sendStartSignal();
     }
+
+
 
     @Override
     public boolean isGameOver(TiledMapTileLayer flagLayer) {
@@ -246,6 +248,18 @@ public class Game implements IGame, InputProcessor {
         setMyHumanPlayer(idPlayerHashMap.get(client.getId()));
         this.players = playerList;
         return playerList;
+    }
+
+
+    public void sendName(String userName) {
+        client.sendName(userName);
+    }
+    public void receiveNames(Packets.NamePacket name) {
+        names = name.name;
+    }
+
+    public String[] getNames() {
+        return names;
     }
 
     public int getId() {

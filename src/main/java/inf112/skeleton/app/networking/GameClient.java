@@ -124,4 +124,10 @@ public class GameClient extends Listener {
     }
 
 
+    public void sendName(String text) {
+        Packets.NamePacket name = new Packets.NamePacket();
+        name.name = new String[]{ text };
+        name.playerId = client.getID();
+        cListener.sendName(name);
+    }
 }
