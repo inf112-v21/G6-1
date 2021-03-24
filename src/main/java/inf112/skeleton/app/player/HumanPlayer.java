@@ -70,6 +70,9 @@ public class HumanPlayer extends Player implements InputProcessor {
         if (this.damageTaken >= 10){
             this.healthToken --;
             this.damageTaken = 0;
+            System.out.println("Player "+ this.color + " lost a life and has now " + this.healthToken
+            + " lifes and " + this.damageTaken + " damage");
+            System.out.println(" ");
         }
     }
 

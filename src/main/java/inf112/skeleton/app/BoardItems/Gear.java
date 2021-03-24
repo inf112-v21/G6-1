@@ -49,7 +49,11 @@ public class Gear {
     public void locatePlayersOnGear(ArrayList<Player> players, int xTile, int yTile, int rotationDirection){
         for(Player player: players){
             if(player.getPlayerXPosition() == (float) xTile && player.getPlayerYPosition() == (float) yTile){
+                Direction oldPlayerDirection = player.direction;
                 player.setPlayerDirection(rotationDirection);
+                System.out.println("Player " + player.color + " was standing on a Gear, and was rotated fra direction "
+                        + oldPlayerDirection + " to direction " + player.direction);
+                System.out.println(" ");
             }
         }
     }

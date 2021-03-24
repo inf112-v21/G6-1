@@ -173,7 +173,6 @@ public class Graphics  implements ApplicationListener{
          only use this if reset-button is going to be used instead of doble-click to
          remove the cards from cardslot*/
 
-        // TODO funker bra med begge to! 
 
         spriteBatch.begin();
         spriteBatch.draw(ready, 1053, 175, 125, 55);

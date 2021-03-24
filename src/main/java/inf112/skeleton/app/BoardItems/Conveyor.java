@@ -22,16 +22,16 @@ HashMap<Integer,Integer> yellowConveyorDirection = new HashMap<>() {{
 
 
 HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
+   put(13,Direction.NORTH.getDirectionDegree());
    put(14,Direction.EAST.getDirectionDegree());
    put(21,Direction.SOUTH.getDirectionDegree());
+   put(22,Direction.WEST.getDirectionDegree());
 }};
 
 //Set<Player> playersToMove;
-//TODO when player collision is implemented
-// når en en annen spiller står ved enden av rullebåndet,
-// da skal spilleren som blir flyttet stoppe opp siden en spiller ikkje kan pushe andre spillere
 
-//TODO vil noen av rullebåndene ha svinger??
+
+//TODO add turns for ned delivery
 
 
     public void findAndRunConveyor(ArrayList<Player> players,
@@ -65,8 +65,6 @@ HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
 
     public void locatePlayersOnConveyor(ArrayList<Player> players, int tileXPosition, int tileYPositions,
            int conveyorDirection, int numberOfMoves){
-        //int direction = yellowConveyorDirection.get(conveyorDirection);
-        System.out.println(conveyorDirection);
         for(Player player: players){
             if(!playersToMove.contains(player)
                         && player.getPlayerXPosition() == (float) tileXPosition
@@ -78,7 +76,8 @@ HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
     }
 
     public void movePlayerOnConveyor(Player player, int conveyorDirection, int conveyorMovement){
-
+        float oldPlayerXPos = player.getPlayerXPosition();
+        float oldPlayerYPos = player.getPlayerYPosition();
         if(conveyorDirection == Direction.NORTH.getDirectionDegree()) {
             player.updatePlayerYPosition(player.movePlayerAsFarAsPossible(
                     player.getPlayerYPosition() + conveyorMovement, Direction.NORTH ));
@@ -95,6 +94,12 @@ HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
             player.updatePlayerXPosition(player.movePlayerAsFarAsPossible(
                     player.getPlayerXPosition() - conveyorMovement, Direction.WEST));
         }
+        System.out.println("Player " + player.color +" was standing on a conveyor and was moved "
+                + conveyorMovement/300 + " tiles");
+        System.out.println("Old position was x " + oldPlayerXPos / 300 + " y " + oldPlayerYPos / 300 +
+                " New position is x " + player.getPlayerXPosition() / 300  + " y " + player.getPlayerYPosition() / 300);
+        System.out.println(" ");
+
     }
 
 
