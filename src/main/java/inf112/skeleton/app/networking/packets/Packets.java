@@ -44,7 +44,7 @@ public class Packets {
         public String name;
     }
 
-    static public class updateNames{
+    static public class UpdateNames {
         public String[] names;
     }
 

@@ -18,7 +18,6 @@ public class Network {
 
         kyro.register(Packets.CardsPacket.class);
         kyro.register(Packets.NamePacket.class);
-        kyro.register(Packets.PacketMessage.class);
         kyro.register(Packets.PlayerIdPacket.class);
         kyro.register(Packets.PlayerNumberPacket.class);
         kyro.register(Packets.StartGamePackage.class);
@@ -28,7 +27,8 @@ public class Network {
         kyro.register(Packets.ShutDownRobotPacket.class);
         kyro.register(Packets.StartGamePackage.class);
         kyro.register(Packets.StartSignalPacket.class);
-        kyro.register(Packets.updateNames.class);
+        kyro.register(Packets.UpdateNames.class);
+        kyro.register(Packets.SendMapNameToPlayer.class);
 
 
         kyro.register(String[].class);

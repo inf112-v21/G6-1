@@ -28,7 +28,7 @@ public class Game implements IGame, InputProcessor {
     /** The number of players in this game */
     private int numberOfPlayers;
     /** The current players in this game */
-    public HashMap<Integer, HumanPlayer> idPlayerHashMap;
+    public HashMap<Integer, HumanPlayer> idPlayerHashMap = new HashMap<>();
     public HumanPlayer myHumanPlayer;
     public ArrayList<Player> players = new ArrayList<Player>();
     public String[] names;
@@ -70,17 +70,13 @@ public class Game implements IGame, InputProcessor {
      * @param ip InetAddress object, is being called properly in @chooseHostOrJoin()
      * @return
      */
-    public boolean joinNewGame(String ip) {
-        client = new GameClient(this);
-        if (!client.connect(ip))
+    public boolean joinNewGame(InetAddress ip) {
+        client = new GameClient(ip, this);
+        if (!client.connect(ip.getHostAddress()))
             return false;
-
         return true;
     }
 
-    public void joinNewGame(InetAddress ip) {
-        client = new GameClient(ip, this);
-    }
 
     /**
      * Method to prompt if user is hosting a game or joining a game.

@@ -5,8 +5,10 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.game.Game;
+import inf112.skeleton.app.networking.Network;
 import inf112.skeleton.app.networking.packets.Packets;
 
+import java.net.NetworkInterface;
 import java.util.ArrayList;
 
 
@@ -31,6 +33,7 @@ public class ClientListener extends Listener {
     public void initialize(Client client, Game game) {
         this.client = client;
         this.game = game;
+
         cards = new Packets.CardsPacket();
     }
 

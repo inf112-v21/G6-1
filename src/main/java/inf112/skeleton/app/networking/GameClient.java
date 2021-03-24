@@ -19,45 +19,7 @@ public class GameClient extends Listener {
     public Client cl;
     private ClientListener cListener;
 
-
-    public GameClient(InetAddress ipAddress, Game game, int udp, int tcp){
-        client = new Client();
-        cListener = new ClientListener();
-        this.udpPort = udp;
-        this.tcpPort = tcp;
-
-        cListener.initialize(client, game);
-        Network.register(client);
-        client.addListener(cListener);
-
-        new Thread(client).start();
-
-
-        try {
-            client.connect(5000, ipAddress, tcpPort, udpPort);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
-
     /**
-     * Used to create a client-object. Registers same packets as server does
-     *
-     * @param game
-     */
-    public GameClient(InetAddress ip, Game game) {
-        client = new Client();
-        cListener = new ClientListener();
-        cListener.initialize(client, game);
-
-
-        Network.register(client);
-
-        client.addListener(cListener);
-
-    }
-
     public GameClient(Game game) {
         client = new Client();
         cListener = new ClientListener();
@@ -67,6 +29,30 @@ public class GameClient extends Listener {
         cListener.initialize(client, game);
         Network.register(client);
         client.addListener(cListener);
+    }
+    */
+
+    public GameClient(InetAddress ipAddress, Game game){
+        client = new Client();
+        cListener = new ClientListener();
+        udpPort = 54777;
+        tcpPort = 54555;
+        //this.udpPort = udp;
+        //this.tcpPort = tcp;
+
+        cListener.initialize(client, game);
+        Network.register(client);
+        client.addListener(cListener);
+
+        new Thread(client).start();
+        client.start();
+
+        try {
+            client.connect(5000, ipAddress, tcpPort, udpPort);
+            System.out.println("Work till here");
+        }catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public boolean connect(String ip) {

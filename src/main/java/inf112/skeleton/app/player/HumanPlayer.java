@@ -203,7 +203,7 @@ public class HumanPlayer extends Player implements InputProcessor {
                                   TiledMapTileLayer redGear,
                                   TiledMapTileLayer greenGear)
                                   {
-        if(this.ready){
+        if (this.ready) {
             for(int round = 0; round < 5; round ++) {
                 updatePlayerLocation(chosenCards.get(round));
             }

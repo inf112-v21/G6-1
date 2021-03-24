@@ -3,7 +3,6 @@ package inf112.skeleton.app.networking;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
 import inf112.skeleton.app.card.Card;
-import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.networking.listeners.ServerListener;
 import inf112.skeleton.app.networking.packets.Packets;
 
@@ -94,7 +93,7 @@ public class GameServer implements Runnable {
         }
 
         //names in updateNames takes all the connectedNames, and server sends it to everyone on TCP
-        Packets.updateNames updateNames = new Packets.updateNames();
+        Packets.UpdateNames updateNames = new Packets.UpdateNames();
         updateNames.names = (String[])connectedNames.toArray(new String[connectedNames.size()]);
         server.sendToAllTCP(updateNames.names);
     }
