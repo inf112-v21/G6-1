@@ -185,9 +185,22 @@ public class Graphics  implements ApplicationListener{
         spriteBatch.end();
 
         spriteBatch.begin();
-        spriteBatch.draw(lifetoken, 800, 550, 75, 40);
-        spriteBatch.draw(lifetoken, 760, 550, 75, 40);
-        spriteBatch.draw(lifetoken, 720, 550, 75, 40);
+        spriteBatch.draw(damagetoken, 830, 400, 50, 27);
+        spriteBatch.draw(damagetoken, 800, 400, 50, 27);
+        spriteBatch.draw(damagetoken, 770, 400, 50, 27);
+        spriteBatch.draw(damagetoken, 740, 400, 50, 27);
+        spriteBatch.draw(damagetoken, 710, 400, 50, 27);
+        spriteBatch.draw(damagetoken, 830, 350, 50, 27);
+        spriteBatch.draw(damagetoken, 800, 350, 50, 27);
+        spriteBatch.draw(damagetoken, 770, 350, 50, 27);
+        spriteBatch.draw(damagetoken, 740, 350, 50, 27);
+        spriteBatch.draw(damagetoken, 710, 350, 50, 27);
+        spriteBatch.end();
+
+        spriteBatch.begin();
+        spriteBatch.draw(lifetoken, 800, 535, 75, 40);
+        spriteBatch.draw(lifetoken, 760, 535, 75, 40);
+        spriteBatch.draw(lifetoken, 720, 535, 75, 40);
         spriteBatch.end();
 
         camera.update();
