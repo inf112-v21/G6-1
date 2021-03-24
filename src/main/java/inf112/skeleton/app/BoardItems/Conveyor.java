@@ -64,7 +64,7 @@ HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
     }
 
     public void locatePlayersOnConveyor(ArrayList<Player> players, int tileXPosition, int tileYPositions,
-           int conveyorDirection, int numberOfMoves){
+           int conveyorDirection, int numberOfMoves) {
         for(Player player: players){
             if(!playersToMove.contains(player)
                         && player.getPlayerXPosition() == (float) tileXPosition
