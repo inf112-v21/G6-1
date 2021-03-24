@@ -18,7 +18,6 @@ import java.util.ArrayList;
 public class ClientListener extends Listener {
     private Client client;
     private Game game;
-    public Packets.MessagePacket message;
     public Packets.CardsPacket cards;
     public Packets.NamePacket name;
     private boolean c = false;
@@ -32,7 +31,6 @@ public class ClientListener extends Listener {
     public void initialize(Client client, Game game) {
         this.client = client;
         this.game = game;
-        message = new Packets.MessagePacket();
         cards = new Packets.CardsPacket();
     }
 

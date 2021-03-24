@@ -118,11 +118,8 @@ public class ServerListener extends Listener {
      * @param object
      */
     public void received(Connection connection, Object object) {
-        if (object instanceof Packets.MessagePacket) {
-            Packets.MessagePacket packet = (Packets.MessagePacket) object;
-            server.sendToAllTCP(packet);
 
-        } else if (object instanceof Packets.CardsPacket) {
+        if (object instanceof Packets.CardsPacket) {
             Packets.CardsPacket cards = (Packets.CardsPacket) object;
             cardsReceived.put(cards.playerId, cards.playedCards);
             sendAllMovesToClients();
