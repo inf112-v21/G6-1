@@ -90,6 +90,7 @@ public class Graphics  implements ApplicationListener{
             for(Card playerchosencard : player.chosenCards){
                 System.out.println(playerchosencard.action);
             }*/
+            //TODO remove 
 
             Sprite playerSprite = playersSprite.get(player.color);
             playerSprite.setTexture(playerGraphics.createPlayerTextures().get(player.color).get(player.direction));
