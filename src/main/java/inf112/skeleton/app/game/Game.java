@@ -28,7 +28,7 @@ public class Game implements IGame, InputProcessor {
     /** The number of players in this game */
     private int numberOfPlayers;
     /** The current players in this game */
-    public HashMap<Integer, HumanPlayer> idPlayerHashMap;
+    public HashMap<Integer, HumanPlayer> idPlayerHashMap = new HashMap<>();
     public HumanPlayer myHumanPlayer;
     public ArrayList<Player> players = new ArrayList<Player>();
     public String[] names;

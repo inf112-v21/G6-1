@@ -40,7 +40,7 @@ public class Graphics  implements ApplicationListener{
     public Sprite singlePlayerSprite;
     public ArrayList<Sprite> cardSpriteList;
     private CardMoveLogic cardMoveLogic = new CardMoveLogic();
-    private HashMap<Action, Texture> cardTextures;
+    private HashMap<Action, Texture> cardTextures = new HashMap<>();
     public Game game;
     public ArrayList<Player> singelPlayerList =new ArrayList<>();
     public Graphics(Game game) {
@@ -49,11 +49,11 @@ public class Graphics  implements ApplicationListener{
         this.game = game;
     }
 
-    public void updateCardSprite(Player humanPlayer){
+    public void updateCardSprite(Player humanPlayer) {
         int cardNumber = 0;
         int cardCoordinateX = 0;
         int cardCoordinateY = 1;
-        for (Sprite card: cardSpriteList){
+        for (Sprite card: cardSpriteList) {
             card.setSize(455, 650);
             card.setPosition(humanPlayer.cardCoordinates.get(cardCoordinateX),humanPlayer.cardCoordinates.get(cardCoordinateY));
             card.setTexture(cardTextures.get(humanPlayer.playerDeck.get(cardNumber).action));
