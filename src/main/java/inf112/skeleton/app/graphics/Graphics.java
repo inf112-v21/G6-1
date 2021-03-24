@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import inf112.skeleton.app.BoardItems.Board;
 import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.game.GameType;
@@ -107,8 +108,9 @@ public class Graphics  implements ApplicationListener{
         singlePlayerSprite.setPosition(singlePlayer.getPlayerXPosition(), singlePlayer.getPlayerYPosition());
         singlePlayerSprite.setTexture(playerGraphics.createPlayerTextures().get(singlePlayer.color).get(singlePlayer.direction)); //greenPiece.get(humanPlayer.direction))
         singlePlayerSprite.draw(tiledMapRenderer.getBatch());
+        Board board = new Board(tiledMap);
         singlePlayer.singlePlayerRound(singelPlayerList,
-                (TiledMapTileLayer) tiledMap.getLayers().get("Laser"),
+                board.getLaserLayer(),
                 (TiledMapTileLayer) tiledMap.getLayers().get("BlueConveyor"),
                 (TiledMapTileLayer) tiledMap.getLayers().get("YellowConveyor"),
                 (TiledMapTileLayer) tiledMap.getLayers().get("RedGear"),
@@ -156,7 +158,8 @@ public class Graphics  implements ApplicationListener{
         camera.viewportHeight = 720;
         camera.update();
     }
- 
+
+
     /**
      * This is where the graphics of the game get rendered.
      */
@@ -184,6 +187,7 @@ public class Graphics  implements ApplicationListener{
         spriteBatch.draw(reset, 1053, 129, 125, 55);
         spriteBatch.end();
 
+
         spriteBatch.begin();
         spriteBatch.draw(damagetoken, 830, 400, 50, 27);
         spriteBatch.draw(damagetoken, 800, 400, 50, 27);
@@ -207,7 +211,6 @@ public class Graphics  implements ApplicationListener{
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
         tiledMapRenderer.getBatch().begin();
-
         if(game.typeOfGameStarted == GameType.SINGLE_PLAYER){
             Gdx.input.setInputProcessor((InputProcessor) singlePlayer);
             singlePlayer();
