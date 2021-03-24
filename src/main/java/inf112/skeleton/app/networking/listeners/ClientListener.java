@@ -80,7 +80,7 @@ public class ClientListener extends Listener {
      * Sends a String[] name to the sever
      * @param name
      */
-    public void sendNameToServer(Packets.NamePacket name) {
+    public void sendName(Packets.NamePacket name) {
         client.sendTCP(name);
     }
 

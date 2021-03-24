@@ -51,6 +51,20 @@ public class Packets {
         public boolean[] allReady;
     }
 
+
+    static public class registerName {
+        public String name;
+    }
+
+    static public class updateNames{
+        public String[] names;
+    }
+
+    static public class PacketMessage{
+        public String message;
+
+    }
+
     ////
     // Player packets
     ////
