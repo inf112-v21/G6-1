@@ -92,9 +92,6 @@ public class ServerListener extends Listener {
         Packets.PlayerNumberPacket numberOfPlayers = new Packets.PlayerNumberPacket();
         numberOfPlayers.numberOfPlayers = this.numberOfPlayers;
         server.sendToAllTCP(numberOfPlayers);
-        Packets.NamePacket namePacket = new Packets.NamePacket();
-        namePacket.name = playerNames;
-        server.sendToAllTCP(namePacket);
     }
 
     public void sendAllMovesToClients() {
@@ -134,12 +131,6 @@ public class ServerListener extends Listener {
         } else if (object instanceof Packets.StartSignalPacket) {
             Packets.StartSignalPacket startSignalPacket = (Packets.StartSignalPacket) object;
             server.sendToAllTCP(startSignalPacket);
-
-        } else if (object instanceof Packets.NamePacket) {
-            Packets.NamePacket name = (Packets.NamePacket) object;
-            playerNames[connection.getID()] = name.name[0];
-            name.name = playerNames;
-            server.sendToAllTCP(name);
 
         } else if (object instanceof Packets.ReadySignalPacket) {
             Packets.ReadySignalPacket ready = (Packets.ReadySignalPacket) object;

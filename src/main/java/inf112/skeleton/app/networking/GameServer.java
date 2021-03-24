@@ -6,7 +6,6 @@ import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.networking.listeners.ServerListener;
 import inf112.skeleton.app.networking.packets.Packets;
 
-
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;

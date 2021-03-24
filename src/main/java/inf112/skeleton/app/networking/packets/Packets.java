@@ -13,17 +13,8 @@ public class Packets {
     }
 
 
-    public static class PlayerNumberPacket{
-        public int numberOfPlayers;
-        public int numberOfPlayersConnected;
-    }
-
     public static class StartSignalPacket{
         public boolean start;
-    }
-
-    public static class NamePacket{
-        public String[] name;
     }
 
     public static class ReadySignalPacket{
@@ -42,6 +33,7 @@ public class Packets {
         public int playerNumber;
     }
 
+
     /** Packet containing a players moves, to be sent to the server */
     public static class CardsPacket {
         public ArrayList<Card> playedCards;
@@ -53,25 +45,11 @@ public class Packets {
         public HashMap<Integer, ArrayList<Card>> playerMoves;
     }
 
-
     /** Package instructing all clients to start the game */
     public static class StartGamePackage {
+        public boolean signal;
+        public boolean[] allReady;
     }
-
-    static public class registerName{
-        public String name;
-    }
-
-    static public class updateNames{
-        public String[] names;
-    }
-
-    static public class PacketMessage{
-        public String message;
-
-    }
-
-
 
     ////
     // Player packets
@@ -85,5 +63,12 @@ public class Packets {
         public int playerId;
     }
 
+    public static class NamePacket {
+        public String[] name;
+        public int playerId;
+    }
 
+    public static class PlayerNumberPacket {
+        public int numberOfPlayers;
+    }
 }
