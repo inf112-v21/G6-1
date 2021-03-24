@@ -45,7 +45,7 @@ public class GameClient extends Listener {
         client.addListener(cListener);
 
         new Thread(client).start();
-
+        client.start();
 
         try {
             client.connect(5000, ipAddress, tcpPort, udpPort);
