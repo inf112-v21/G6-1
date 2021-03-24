@@ -10,7 +10,6 @@ import inf112.skeleton.app.networking.packets.Packets;
 import javax.swing.*;
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.NetworkInterface;
 import java.util.ArrayList;
 
 public class GameClient extends Listener {
@@ -104,7 +103,7 @@ public class GameClient extends Listener {
         }
     }
 
-    public void sendReady(Packets.ReadySignalPacket signal) {
+    public void sendReady(Packets.StartGamePackage signal) {
         cListener.sendReady(signal);
     }
 

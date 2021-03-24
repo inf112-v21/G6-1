@@ -131,9 +131,9 @@ public class ClientListener extends Listener {
             // TODO implement once basic network works
             // public boolean start;
         }
-        else if (object instanceof Packets.ReadySignalPacket) {
+        else if (object instanceof Packets.StartGamePackage) {
             // TODO implement once basic network works
-            Packets.ReadySignalPacket ready = (Packets.ReadySignalPacket) object;
+            Packets.StartGamePackage ready = (Packets.StartGamePackage) object;
             game.getAllReady(ready.allReady);
         }
         else if (object instanceof Packets.ShutDownRobotPacket) {
@@ -153,7 +153,7 @@ public class ClientListener extends Listener {
     }
 
 
-    public void sendReady(Packets.ReadySignalPacket signal) {
+    public void sendReady(Packets.StartGamePackage signal) {
         client.sendTCP(signal);
     }
 

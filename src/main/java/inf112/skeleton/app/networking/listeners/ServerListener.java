@@ -4,7 +4,6 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import inf112.skeleton.app.card.Card;
-import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.networking.packets.Packets;
 
 import java.util.ArrayList;
@@ -132,8 +131,8 @@ public class ServerListener extends Listener {
             Packets.StartSignalPacket startSignalPacket = (Packets.StartSignalPacket) object;
             server.sendToAllTCP(startSignalPacket);
 
-        } else if (object instanceof Packets.ReadySignalPacket) {
-            Packets.ReadySignalPacket ready = (Packets.ReadySignalPacket) object;
+        } else if (object instanceof Packets.StartGamePackage) {
+            Packets.StartGamePackage ready = (Packets.StartGamePackage) object;
             allPlayersReady[connection.getID()] = ready.signal;
             ready.allReady = allPlayersReady;
             server.sendToAllTCP(ready);

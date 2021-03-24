@@ -17,7 +17,7 @@ public class Packets {
         public boolean start;
     }
 
-    public static class ReadySignalPacket{
+    public static class StartGamePackage {
         public boolean signal;
         public boolean[] allReady;
     }
@@ -44,13 +44,6 @@ public class Packets {
     public static class RoundPacket {
         public HashMap<Integer, ArrayList<Card>> playerMoves;
     }
-
-    /** Package instructing all clients to start the game */
-    public static class StartGamePackage {
-        public boolean signal;
-        public boolean[] allReady;
-    }
-
 
     static public class registerName {
         public String name;
