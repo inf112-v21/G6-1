@@ -28,7 +28,7 @@ HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
    put(22,Direction.WEST.getDirectionDegree());
 }};
 
-//Set<Player> playersToMove;
+
 
 
 //TODO add turns for ned delivery
