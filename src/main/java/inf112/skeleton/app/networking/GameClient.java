@@ -33,6 +33,7 @@ public class GameClient extends Listener {
 
         new Thread(client).start();
 
+
         try {
             client.connect(5000, ipAddress, tcpPort, udpPort);
         }catch (IOException e){
@@ -124,4 +125,10 @@ public class GameClient extends Listener {
     }
 
 
+    public void sendName(String text) {
+        Packets.NamePacket name = new Packets.NamePacket();
+        name.name = new String[]{ text };
+        name.playerId = client.getID();
+        cListener.sendName(name);
+    }
 }

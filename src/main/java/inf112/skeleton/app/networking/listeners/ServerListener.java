@@ -22,7 +22,6 @@ public class ServerListener extends Listener {
     private String[] playerNames;
     public boolean[] ShutdownPlayer;
     public final int MAX_PLAYERS = 5;
-    private Game game;
 
     /**
      *
@@ -49,25 +48,26 @@ public class ServerListener extends Listener {
     // and update and send the number of players to all clients.
 
     // TODO må være connected() siden metoden er fra Listener.java
-    public void connected(Connection connection) {
+    public void connected() {
         System.out.println("Player " + numberOfPlayers + " has connected to the server");
         numberOfPlayers++;
 
         // Send updated number of players to all players
         Packets.PlayerNumberPacket playerPacket = new Packets.PlayerNumberPacket();
         playerPacket.numberOfPlayers = numberOfPlayers;
-        game.setNumberOfPlayers(playerPacket.numberOfPlayers);
+        //game.setNumberOfPlayers(playerPacket.numberOfPlayers);
         server.sendToAllTCP(playerPacket);
 
         // Tell the new player their player number
         Packets.PlayerIdPacket playerIdPacket = new Packets.PlayerIdPacket();
         playerIdPacket.playerNumber = numberOfPlayers;
-        connection.sendTCP(playerIdPacket);
+        server.sendToAllTCP(playerIdPacket);
 
 
         // Send map name to player
-        // TODO make into packet, since it is easier to handle
-        server.sendToTCP(connection.getID(), map);
+        // Made into packet, since it is easier to handle
+        Packets.SendMapNameToPlayer sendMapNameToPlayer = new Packets.SendMapNameToPlayer();
+        server.sendToAllTCP(sendMapNameToPlayer);
 
 
         // TODO we automatically start the game when we have 3 players
@@ -91,9 +91,6 @@ public class ServerListener extends Listener {
         Packets.PlayerNumberPacket numberOfPlayers = new Packets.PlayerNumberPacket();
         numberOfPlayers.numberOfPlayers = this.numberOfPlayers;
         server.sendToAllTCP(numberOfPlayers);
-        Packets.NamePacket namePacket = new Packets.NamePacket();
-        namePacket.name = playerNames;
-        server.sendToAllTCP(namePacket);
     }
 
     public void sendAllMovesToClients() {
@@ -134,12 +131,6 @@ public class ServerListener extends Listener {
             Packets.StartSignalPacket startSignalPacket = (Packets.StartSignalPacket) object;
             server.sendToAllTCP(startSignalPacket);
 
-        } else if (object instanceof Packets.NamePacket) {
-            Packets.NamePacket name = (Packets.NamePacket) object;
-            playerNames[connection.getID()] = name.name[0];
-            name.name = playerNames;
-            server.sendToAllTCP(name);
-
         } else if (object instanceof Packets.ReadySignalPacket) {
             Packets.ReadySignalPacket ready = (Packets.ReadySignalPacket) object;
             allPlayersReady[connection.getID()] = ready.signal;
@@ -172,7 +163,4 @@ public class ServerListener extends Listener {
         }
         return testCards;
     }
-
-
-
 }

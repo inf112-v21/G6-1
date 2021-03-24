@@ -25,6 +25,13 @@ public class Packets {
     public static class ShutDownRobotPacket{
         public boolean[] playersShutdown;
     }
+    public static class SendMapNameToPlayer {
+        public Object map;
+    }
+
+    public static class PlayerIdPacket {
+        public int playerNumber;
+    }
 
 
     /** Packet containing a players moves, to be sent to the server */
@@ -40,10 +47,23 @@ public class Packets {
 
     /** Package instructing all clients to start the game */
     public static class StartGamePackage {
-
+        public boolean signal;
+        public boolean[] allReady;
     }
 
 
+    static public class registerName {
+        public String name;
+    }
+
+    static public class updateNames{
+        public String[] names;
+    }
+
+    static public class PacketMessage{
+        public String message;
+
+    }
 
     ////
     // Player packets
@@ -57,19 +77,7 @@ public class Packets {
         public int playerId;
     }
 
-    /**
-     * Packet sent to players to denote which player number they are
-     */
-    public static class PlayerIdPacket {
-        /** Your player number */
-        public int playerNumber;
-    }
-
-    /**
-     * Is this the same as PlayerIdPacket?
-     * TODO figure out usage
-     */
-    public static class NamePacket{
+    public static class NamePacket {
         public String[] name;
         public int playerId;
     }

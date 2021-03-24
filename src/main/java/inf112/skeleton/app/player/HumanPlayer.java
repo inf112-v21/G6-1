@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
+import inf112.skeleton.app.BoardItems.BoardElements;
+import inf112.skeleton.app.BoardItems.Conveyor;
+import inf112.skeleton.app.BoardItems.Gear;
 import inf112.skeleton.app.BoardItems.Laser;
 import inf112.skeleton.app.card.Card;
 import com.badlogic.gdx.InputProcessor;
@@ -29,6 +32,9 @@ public class HumanPlayer extends Player implements InputProcessor {
     }
 
     public Laser laser = new Laser();
+    public Conveyor conveyor = new Conveyor();
+    public Gear gear = new Gear();
+    public BoardElements boardElements = new BoardElements();
     private float mouseClickXCoordinate;
     private float mouseClickYCoordinate;
 
@@ -64,6 +70,9 @@ public class HumanPlayer extends Player implements InputProcessor {
         if (this.damageTaken >= 10){
             this.healthToken --;
             this.damageTaken = 0;
+            System.out.println("Player "+ this.color + " lost a life and has now " + this.healthToken
+            + " lifes and " + this.damageTaken + " damage");
+            System.out.println(" ");
         }
     }
 
@@ -134,23 +143,33 @@ public class HumanPlayer extends Player implements InputProcessor {
 
     //TODO Refactor setPlayerDirection, movePlayerAsFarAsPossible and updatePlayerLocation when the rest of the board pieces are used
     @Override
-    public void setPlayerDirection(Card card){
-       float newPlayerDirection = this.direction.getDirectionDegree() + card.action.getAction();
+    public void setPlayerDirection(int moveDegree){
+       int newPlayerDirection = this.direction.getDirectionDegree() + moveDegree;
        if(newPlayerDirection > 270) newPlayerDirection = newPlayerDirection - 360;
        if(newPlayerDirection < 0) newPlayerDirection = 270;
 
-       if(newPlayerDirection == 0) this.direction = Direction.NORTH;
-       else if (newPlayerDirection == 90) this.direction = Direction.EAST;
-       else if (newPlayerDirection == 180) this.direction = Direction.SOUTH;
-       else if (newPlayerDirection == 270) this.direction = Direction.WEST;
+       switch (newPlayerDirection){
+           case 0:
+               this.direction = Direction.NORTH;
+               break;
+           case 90:
+               this.direction = Direction.EAST;
+               break;
+           case 180:
+               this.direction = Direction.SOUTH;
+               break;
+           case 270:
+               this.direction = Direction.WEST;
+
+       }
     }
 
     @Override
-    public float movePlayerAsFarAsPossible(float position){
-        if(direction == Direction.NORTH && !keepPlayerOnBoard(getPlayerXPosition(),position)) return 3900;
-        else if(direction == Direction.SOUTH && !keepPlayerOnBoard(getPlayerXPosition(),position) ) return 0;
-        else if(direction == Direction.WEST && !keepPlayerOnBoard(position, getPlayerYPosition()) ) return 0;
-        else if(direction == Direction.EAST && !keepPlayerOnBoard(position, getPlayerYPosition()) ) return 3300;
+    public float movePlayerAsFarAsPossible(float position, Direction moveDirection){
+        if(moveDirection == Direction.NORTH && !keepPlayerOnBoard(getPlayerXPosition(),position)) return 3900;
+        else if(moveDirection == Direction.SOUTH && !keepPlayerOnBoard(getPlayerXPosition(),position) ) return 0;
+        else if(moveDirection == Direction.WEST && !keepPlayerOnBoard(position, getPlayerYPosition()) ) return 0;
+        else if(moveDirection == Direction.EAST && !keepPlayerOnBoard(position, getPlayerYPosition()) ) return 3300;
         return position;
     }
 
@@ -159,35 +178,47 @@ public class HumanPlayer extends Player implements InputProcessor {
         float cardAction = card.action.getAction();
         if (cardMoveLogic.moveTypeCard(card)) {
             if(this.direction == Direction.NORTH){
-                updatePlayerYPosition(movePlayerAsFarAsPossible(getPlayerYPosition()+ cardAction));
+                updatePlayerYPosition(movePlayerAsFarAsPossible(getPlayerYPosition()+ cardAction, this.direction ));
             }
             else if (this.direction == Direction.SOUTH){
-                updatePlayerYPosition(movePlayerAsFarAsPossible(getPlayerYPosition() - cardAction));
+                updatePlayerYPosition(movePlayerAsFarAsPossible(getPlayerYPosition() - cardAction, this.direction));
             }
             else if (this.direction == Direction.EAST) {
-                updatePlayerXPosition(movePlayerAsFarAsPossible(getPlayerXPosition() + cardAction));
+                updatePlayerXPosition(movePlayerAsFarAsPossible(getPlayerXPosition() + cardAction, this.direction));
 
             } else if (this.direction == Direction.WEST) {
-                updatePlayerXPosition(movePlayerAsFarAsPossible(getPlayerXPosition() - cardAction));
+                updatePlayerXPosition(movePlayerAsFarAsPossible(getPlayerXPosition() - cardAction, this.direction));
             }
         }else if (!cardMoveLogic.moveTypeCard(card)) {
-            setPlayerDirection(card);
+            setPlayerDirection((int)card.action.getAction());
         }
     }
 
     //TODO move this to game and improve
 
-    public void singlePlayerRound(ArrayList<Player> players, TiledMapTileLayer laserLayer){
-        if(movedCards.size() == 5){
+    public void singlePlayerRound(ArrayList<Player> players,
+                                  TiledMapTileLayer laserLayer,
+                                  TiledMapTileLayer blueConveyorLayer,
+                                  TiledMapTileLayer yellowConveyorLayer,
+                                  TiledMapTileLayer redGear,
+                                  TiledMapTileLayer greenGear)
+                                  {
+        if(this.ready){
             for(int round = 0; round < 5; round ++) {
                 updatePlayerLocation(chosenCards.get(round));
             }
-            laser.findLasersAndFire(players,laserLayer);
-            movedCards = new ArrayList<>();
-            chosenCards = new ArrayList<>();
-            playerDeck = new ArrayList<>();
-            playerDeck = cardMoveLogic.playerDeck();
-            cardCoordinates = cardMoveLogic.resetCardCoordinates();
+            //conveyor.findAndRunConveyor(players, yellowConveyorLayer, blueConveyorLayer);
+            conveyor.findAndRunConveyor(players,yellowConveyorLayer,blueConveyorLayer);
+            gear.findAndRunGear(players,redGear,greenGear);
+            laser.fireAllLasers(players,laserLayer);
+            //boardElements.getBoardElementPositions(players,laserLayer,redGear,greenGear,yellowConveyorLayer,blueConveyorLayer);
+            //boardElements.locatePlayers(players);
+            this.movedCards = new ArrayList<>();
+            this.chosenCards = new ArrayList<>();
+            this.playerDeck = new ArrayList<>();
+            this.ready = false;
+            this.playerDeck = cardMoveLogic.playerDeck();
+            this.cardCoordinates = cardMoveLogic.resetCardCoordinates();
         }
     }
 
@@ -243,12 +274,10 @@ public class HumanPlayer extends Player implements InputProcessor {
             cardMoveLogic.moveCardWhenClicked(7,this);
         } else if(x >6605 && x < 7060 && y >= 1640 && y <= 2260){
             cardMoveLogic.moveCardWhenClicked(8,this);
-        } else if(x >3950 && x < 4385 && y <= 1160 && y >= 545) {
+        } else if(x >6590 && x < 7070 && y <= 825 && y >= 520) {
             cardMoveLogic.resetCard(this);
-        }
-        if (chosenCards.size() == 5) {
-
-            // TODO tell game you@re done choosing cards
+        } else if (this.chosenCards.size() == 5 && x >6590 && x < 7070 && y <= 1155 && y >= 850) {
+            this.ready = true;
         }
         return false;
     }
