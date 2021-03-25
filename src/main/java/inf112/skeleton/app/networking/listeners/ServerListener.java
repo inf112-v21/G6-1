@@ -50,7 +50,7 @@ public class ServerListener extends Listener {
 
     // TODO må være connected() siden metoden er fra Listener.java (se vekk fra denne?)
     public void connected(Connection connection) {
-        System.out.println("Player " + numberOfPlayers + " has connected to the server");
+        System.out.println("Player " + (numberOfPlayers + 1) + " has connected to the server");
         numberOfPlayers++;
 
         // Send updated number of players to all players

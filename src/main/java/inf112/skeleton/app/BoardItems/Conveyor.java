@@ -2,7 +2,6 @@ package inf112.skeleton.app.BoardItems;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.player.Player;
-import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Direction;
 
 import java.util.ArrayList;
@@ -12,14 +11,14 @@ import java.util.Set;
 
 public class Conveyor {
 
-Set<Player> playersToMove;
+Set<Player> alreadyMovedPlayers;
+
 HashMap<Integer,Integer> yellowConveyorDirection = new HashMap<>() {{
    put(49, Direction.NORTH.getDirectionDegree());
    put(50, Direction.SOUTH.getDirectionDegree());
    put(51, Direction.WEST.getDirectionDegree());
    put(52, Direction.EAST.getDirectionDegree());
 }};
-
 
 HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
    put(13,Direction.NORTH.getDirectionDegree());
@@ -29,12 +28,14 @@ HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
 }};
 
 
-
-
-//TODO add turns for ned delivery
-
-
-    public void findAndRunConveyor(ArrayList<Player> players,
+    /**
+     * Iterates conveyor layer, finds blue and yellow conveyors
+     * Then calls the method for location players on conveyors
+     * @param players List of players in game
+     * @param yellowConveyor TiledMapTileLayer
+     * @param blueConveyor TiledMapTileLayer
+     */
+    public void runConveyor(ArrayList<Player> players,
            TiledMapTileLayer yellowConveyor, TiledMapTileLayer blueConveyor){
         int xStart = Direction.WEST.getBoundaryCoordinate();
         int xEnd = Direction.EAST.getBoundaryCoordinate();
@@ -42,7 +43,7 @@ HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
         int yEnd = Direction.NORTH.getBoundaryCoordinate();
         TiledMapTileLayer.Cell yellowConveyorTile;
         TiledMapTileLayer.Cell blueConveyorTile;
-        playersToMove  = new HashSet<>();
+        alreadyMovedPlayers = new HashSet<>();
 
         for(int tileXPosition = xStart; tileXPosition <= xEnd; tileXPosition += 300) {
             for (int tileYPosition = yStart; tileYPosition <= yEnd; tileYPosition += 300) {
@@ -63,18 +64,35 @@ HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
         }
     }
 
+    /**
+     * This method locates players that are standing on a conveyor, then calls the
+     * movePlayerOnConveyor method to move those players. The players are also added to
+     * alreadyMovedPlayers set to keep them from being moved if they are already moved
+     * this round
+     * @param players List of players in the game
+     * @param tileXPosition X position of the tile a conveyor is located
+     * @param tileYPositions y position of the tile a conveyor is located
+     * @param conveyorDirection  the direction of the conveyor in that tile
+     * @param conveyorMovement number of moves. one if yellow conveyor two if blue conveyor
+     */
     public void locatePlayersOnConveyor(ArrayList<Player> players, int tileXPosition, int tileYPositions,
-           int conveyorDirection, int numberOfMoves){
+           int conveyorDirection, int conveyorMovement) {
         for(Player player: players){
-            if(!playersToMove.contains(player)
+            if(!alreadyMovedPlayers.contains(player)
                         && player.getPlayerXPosition() == (float) tileXPosition
                         && player.getPlayerYPosition() == (float) tileYPositions){
-                    playersToMove.add(player);
-                    movePlayerOnConveyor(player, conveyorDirection, numberOfMoves);
+                    alreadyMovedPlayers.add(player);
+                    movePlayerOnConveyor(player, conveyorDirection, conveyorMovement);
             }
         }
     }
 
+    /**
+     * Moves players to new tile if standing on conveyor
+     * @param player list of players in the game
+     * @param conveyorDirection the direction of the conveyor in that tile
+     * @param conveyorMovement number of moves. one if yellow conveyor two if blue conveyor
+     */
     public void movePlayerOnConveyor(Player player, int conveyorDirection, int conveyorMovement){
         float oldPlayerXPos = player.getPlayerXPosition();
         float oldPlayerYPos = player.getPlayerYPosition();
@@ -101,7 +119,4 @@ HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
         System.out.println(" ");
 
     }
-
-
-
 }

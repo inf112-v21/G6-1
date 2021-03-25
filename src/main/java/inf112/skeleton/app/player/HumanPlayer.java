@@ -123,7 +123,6 @@ public class HumanPlayer extends Player implements InputProcessor {
     public boolean hasPlayerVisitedAllFlags(TiledMapTileLayer flagLayer) {
         TiledMapTileLayer.Cell flagTile = flagLayer.getCell(normalizedCoordinates(playerCurrentXPosition),
                                       normalizedCoordinates(playerCurrentYPosition));
-
         if(flagTile!=null && !this.flagsToVisit.isEmpty() && this.flagsToVisit.get(0) == flagTile.getTile().getId()){
             this.flagsToVisit.remove(0);
         }
@@ -196,23 +195,16 @@ public class HumanPlayer extends Player implements InputProcessor {
 
     //TODO move this to game and improve
 
-    public void singlePlayerRound(ArrayList<Player> players,
-                                  TiledMapTileLayer laserLayer,
-                                  TiledMapTileLayer blueConveyorLayer,
-                                  TiledMapTileLayer yellowConveyorLayer,
-                                  TiledMapTileLayer redGear,
-                                  TiledMapTileLayer greenGear)
-                                  {
+    public void singlePlayerRound(ArrayList<Player> players,TiledMapTileLayer laserLayer,
+                                  TiledMapTileLayer blueConveyorLayer, TiledMapTileLayer yellowConveyorLayer,
+                                  TiledMapTileLayer redGear, TiledMapTileLayer greenGear) {
         if (this.ready) {
             for(int round = 0; round < 5; round ++) {
                 updatePlayerLocation(chosenCards.get(round));
             }
-            //conveyor.findAndRunConveyor(players, yellowConveyorLayer, blueConveyorLayer);
-            conveyor.findAndRunConveyor(players,yellowConveyorLayer,blueConveyorLayer);
-            gear.findAndRunGear(players,redGear,greenGear);
+            conveyor.runConveyor(players,yellowConveyorLayer,blueConveyorLayer);
+            gear.runGears(players,redGear,greenGear);
             laser.fireAllLasers(players,laserLayer);
-            //boardElements.getBoardElementPositions(players,laserLayer,redGear,greenGear,yellowConveyorLayer,blueConveyorLayer);
-            //boardElements.locatePlayers(players);
             this.movedCards = new ArrayList<>();
             this.chosenCards = new ArrayList<>();
             this.playerDeck = new ArrayList<>();
@@ -222,7 +214,6 @@ public class HumanPlayer extends Player implements InputProcessor {
         }
     }
 
-    // TODO when multiplayer works move everything below to a InputProcessor class
 
     /**
      * This method saves mouse click coordinates (coordinates on the window that is pushed) to a vector 3 object.
@@ -289,6 +280,7 @@ public class HumanPlayer extends Player implements InputProcessor {
     public boolean scrolled(int i) {return false;}
     @Override
     public boolean keyDown(int keyPressed) {return false;}
+    //TODO remove before delivery
     @Override
     public boolean keyUp(int keyPressed) {
         if(keyPressed == Input.Keys.UP) updatePlayerYPosition(getPlayerYPosition()+300);

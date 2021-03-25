@@ -9,13 +9,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import inf112.skeleton.app.BoardItems.Board;
 import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.game.Game;
@@ -29,7 +22,7 @@ import inf112.skeleton.app.shared.Direction;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Graphics extends ScreenAdapter implements ApplicationListener {
+public class Graphics implements ApplicationListener {
     public TiledMap tiledMap;
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
@@ -51,22 +44,12 @@ public class Graphics extends ScreenAdapter implements ApplicationListener {
     private HashMap<Action, Texture> cardTextures = new HashMap<>();
     public Game game;
     public ArrayList<Player> singelPlayerList =new ArrayList<>();
-    private Stage stage;
-
-    // TODO move enum its own file
-    enum Screen {
-        TITLE, MAIN_GAME, GAME_OVER;
-    }
-    private Screen currentScreen = Screen.TITLE;
-
-
-
     public Graphics(Game game) {
         playerGraphics = new PlayerGraphics();
         cardGraphics = new CardGraphics();
         this.game = game;
     }
-
+// initial
     public void updateCardSprite(Player humanPlayer) {
         int cardNumber = 0;
         int cardCoordinateX = 0;
@@ -77,7 +60,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener {
             card.setTexture(cardTextures.get(humanPlayer.playerDeck.get(cardNumber).action));
             card.draw(tiledMapRenderer.getBatch());
             cardNumber++;
-            cardCoordinateX +=2;
+            cardCoordinateX += 2;
             cardCoordinateY += 2;
         }
     }
@@ -107,6 +90,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener {
             for(Card playerchosencard : player.chosenCards){
                 System.out.println(playerchosencard.action);
             }*/
+            //TODO remove
 
             Sprite playerSprite = playersSprite.get(player.color);
             playerSprite.setTexture(playerGraphics.createPlayerTextures().get(player.color).get(player.direction));
@@ -132,6 +116,7 @@ public class Graphics extends ScreenAdapter implements ApplicationListener {
                 (TiledMapTileLayer) tiledMap.getLayers().get("YellowConveyor"),
                 (TiledMapTileLayer) tiledMap.getLayers().get("RedGear"),
                 (TiledMapTileLayer) tiledMap.getLayers().get("GreenGear"));
+
     }
 
     @Override
