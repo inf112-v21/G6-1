@@ -9,6 +9,13 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import inf112.skeleton.app.BoardItems.Board;
 import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.game.Game;
@@ -22,7 +29,7 @@ import inf112.skeleton.app.shared.Direction;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Graphics  implements ApplicationListener{
+public class Graphics extends ScreenAdapter implements ApplicationListener {
     public TiledMap tiledMap;
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
@@ -44,6 +51,16 @@ public class Graphics  implements ApplicationListener{
     private HashMap<Action, Texture> cardTextures = new HashMap<>();
     public Game game;
     public ArrayList<Player> singelPlayerList =new ArrayList<>();
+    private Stage stage;
+
+    // TODO move enum its own file
+    enum Screen {
+        TITLE, MAIN_GAME, GAME_OVER;
+    }
+    private Screen currentScreen = Screen.TITLE;
+
+
+
     public Graphics(Game game) {
         playerGraphics = new PlayerGraphics();
         cardGraphics = new CardGraphics();
@@ -165,7 +182,6 @@ public class Graphics  implements ApplicationListener{
      */
     @Override
     public void render() {
-
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, 1280, 720);
         spriteBatch.end();

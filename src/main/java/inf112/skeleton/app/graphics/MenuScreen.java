@@ -1,5 +1,6 @@
 package inf112.skeleton.app.graphics;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -11,16 +12,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import inf112.skeleton.app.game.Game;
 
-public class menuScreenGraphics extends ScreenAdapter {
-
+public class MenuScreen extends ScreenAdapter {
     private Stage stage;
     private Game game;
 
-    public menuScreenGraphics(Game game) {
+    public MenuScreen(Game game) {
         this.game = game;
-        stage = new Stage (new ScreenViewport());
+        stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -37,7 +36,7 @@ public class menuScreenGraphics extends ScreenAdapter {
         singlePlayerButton.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                //usikker på hva jeg skal putte inn her
+
             }
 
             @Override
@@ -47,10 +46,10 @@ public class menuScreenGraphics extends ScreenAdapter {
         });
 
         TextButton hostGameButton = new TextButton("Host game", skin);
-         hostGameButton.addListener(new InputListener() {
+        hostGameButton.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                //usikker på hva jeg skal putte inn her
+                game.setScreen(null); // TODO create screen for the actual game graphics
             }
 
             @Override
@@ -69,7 +68,6 @@ public class menuScreenGraphics extends ScreenAdapter {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return true;
-
             }
         });
 
@@ -78,10 +76,8 @@ public class menuScreenGraphics extends ScreenAdapter {
         table.add(hostGameButton).fillX().uniformX();
         table.row();
         table.add(joinGameButton).fillX().uniformX();
-
-
-
     }
+
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(1, 1, 1, 1);
