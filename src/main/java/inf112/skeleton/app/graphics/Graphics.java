@@ -49,7 +49,7 @@ public class Graphics  implements ApplicationListener{
         cardGraphics = new CardGraphics();
         this.game = game;
     }
-
+// initial
     public void updateCardSprite(Player humanPlayer) {
         int cardNumber = 0;
         int cardCoordinateX = 0;
