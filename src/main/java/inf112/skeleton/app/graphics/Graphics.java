@@ -24,6 +24,7 @@ import java.util.HashMap;
 
 public class Graphics implements ApplicationListener {
     public TiledMap tiledMap;
+    private Board board;
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private SpriteBatch spriteBatch;
@@ -33,10 +34,12 @@ public class Graphics implements ApplicationListener {
     public Texture ready;
     public Texture damagetoken;
     public Texture lifetoken;
-
+    public Texture menuScreenBackground;
+    public Texture singlePlayerButton;
+    public Texture joinMultiPlayerButton;
+    public Texture hostMultiPlayerButton;
     public PlayerGraphics playerGraphics;
     public CardGraphics cardGraphics;
-    public HashMap<Color, Sprite> playersSprite;
     public HumanPlayer singlePlayer = new HumanPlayer(Direction.NORTH,69,Color.GREEN);
     public Sprite singlePlayerSprite;
     public ArrayList<Sprite> cardSpriteList;
@@ -45,11 +48,11 @@ public class Graphics implements ApplicationListener {
     public Game game;
     public ArrayList<Player> singelPlayerList =new ArrayList<>();
     public Graphics(Game game) {
-        playerGraphics = new PlayerGraphics();
+        // menuInputProcessor = new MenuInputProcessor(this);
         cardGraphics = new CardGraphics();
         this.game = game;
     }
-// initial
+
     public void updateCardSprite(Player humanPlayer) {
         int cardNumber = 0;
         int cardCoordinateX = 0;
@@ -90,10 +93,11 @@ public class Graphics implements ApplicationListener {
             for(Card playerchosencard : player.chosenCards){
                 System.out.println(playerchosencard.action);
             }*/
-            //TODO remove
 
-            Sprite playerSprite = playersSprite.get(player.color);
-            playerSprite.setTexture(playerGraphics.createPlayerTextures().get(player.color).get(player.direction));
+            Sprite playerSprite = playerGraphics.getPlayerSprite(player);
+            Texture playerTexture = playerGraphics.getPlayerTexture(player);
+            playerSprite.setTexture(playerTexture);
+
             playerSprite.setSize(300,300);
             playerSprite.setPosition(player.getPlayerXPosition(), player.getPlayerYPosition());
             playerSprite.draw(tiledMapRenderer.getBatch());
@@ -106,10 +110,11 @@ public class Graphics implements ApplicationListener {
     public void singlePlayer(){
         singlePlayer.setMouseClickCoordinates(camera);
         updateCardSprite(singlePlayer);
+
         singlePlayerSprite.setPosition(singlePlayer.getPlayerXPosition(), singlePlayer.getPlayerYPosition());
-        singlePlayerSprite.setTexture(playerGraphics.createPlayerTextures().get(singlePlayer.color).get(singlePlayer.direction)); //greenPiece.get(humanPlayer.direction))
+        Texture playerTexture = playerGraphics.getPlayerTexture(singlePlayer);
+        singlePlayerSprite.setTexture(playerTexture);
         singlePlayerSprite.draw(tiledMapRenderer.getBatch());
-        Board board = new Board(tiledMap);
         singlePlayer.singlePlayerRound(singelPlayerList,
                 board.getLaserLayer(),
                 (TiledMapTileLayer) tiledMap.getLayers().get("BlueConveyor"),
@@ -121,15 +126,17 @@ public class Graphics implements ApplicationListener {
 
     @Override
     public void create() {
+        playerGraphics = new PlayerGraphics();
 
         singlePlayer.playerDeck = cardMoveLogic.playerDeck();
-        singlePlayerSprite = new Sprite((playerGraphics.createPlayerTextures().get(singlePlayer.color).get(singlePlayer.direction)));
+
+        singlePlayerSprite = playerGraphics.getPlayerSprite(singlePlayer.color);
         singlePlayerSprite.setSize(300,300);
 
         // Creates a list of sprites
         cardSpriteList = cardGraphics.createCardSprite();
         cardTextures = cardGraphics.createCardTexture();
-        playersSprite = playerGraphics.createPlayerSprite();
+
         singelPlayerList.add(singlePlayer);
         float w = 600;
         float h = 1000;
@@ -139,6 +146,7 @@ public class Graphics implements ApplicationListener {
         camera.setToOrtho(false, h, w); //something needs adjustment here
         camera.update();
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
+        board = new Board(tiledMap);
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         background = new Texture("Background.png");
         youWin = new Texture("YouWin.jpg");
@@ -147,6 +155,12 @@ public class Graphics implements ApplicationListener {
 
         damagetoken = new Texture("emptyDamageToken.png");
         lifetoken = new Texture("LifeToken.png");
+
+        // Menu Textures
+        menuScreenBackground = new Texture("MenuBackground.png"); // TODO actual textures
+        singlePlayerButton = new Texture("Buttons/READY.png");
+        joinMultiPlayerButton = new Texture("Buttons/RESET.png");
+        hostMultiPlayerButton = new Texture("Buttons/RESET.png");
     }
 
     /**
