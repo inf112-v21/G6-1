@@ -21,29 +21,24 @@ import java.util.ArrayList;
 
 public class laserTest {
 
-    Lwjgl3ApplicationConfiguration cfg;
-    Graphics graphics;
     HumanPlayer humanPlayer;
     Laser laser;
     ArrayList<Player> testPlayers = new ArrayList<>();
+    int tileSize = 300;
 
 
-    //Usikker på hvor mye at dette man trenger, tar refactoring etterpå
     @Before
     public void setup() {
-        graphics = new Graphics(new Game());
-        cfg = new Lwjgl3ApplicationConfiguration();
         humanPlayer = new HumanPlayer(Direction.NORTH, 1, Color.GREEN);
         laser = new Laser();
         testPlayers.add(humanPlayer);
-        humanPlayer.setPlayerStartXPosition(9*300);
-        humanPlayer.setPlayerStartYPosition(3*300);
-        new Lwjgl3Application(graphics, cfg);
+        humanPlayer.setPlayerStartXPosition(9*tileSize);
+        humanPlayer.setPlayerStartYPosition(3*tileSize);
     }
 
     @Test
     public void doesPlayerTakeOneDamageTokenWhenInFrontOfLaser(){
-        laser.damagePlayerInHarmsWay(testPlayers, 9*300, 3*300);
+        laser.damagePlayerInHarmsWay(testPlayers, 9*tileSize, 3*tileSize);
 
         Assertions.assertEquals(1, humanPlayer.getPlayerDamageTaken());
     }
@@ -51,7 +46,7 @@ public class laserTest {
     @Test
     public void doesPlayerTakeOneHealthWhenHitTenTimes(){
         for(int i=1; i<=10; i++) {
-            laser.damagePlayerInHarmsWay(testPlayers, 9 * 300, 3 * 300);
+            laser.damagePlayerInHarmsWay(testPlayers, 9 * tileSize, 3 * tileSize);
         }
         Assertions.assertEquals(2, humanPlayer.getPlayerHealth());
         Assertions.assertEquals(0, humanPlayer.getPlayerDamageTaken());
@@ -60,7 +55,7 @@ public class laserTest {
     @Test
     public void doesPlayerGoBackToStartWhenOneHealthIsLost(){
         for(int i=1; i<=10; i++) {
-            laser.damagePlayerInHarmsWay(testPlayers, 9 * 300, 3 * 300);
+            laser.damagePlayerInHarmsWay(testPlayers, 9 * tileSize, 3 * tileSize);
         }
 
         Assertions.assertEquals(0, humanPlayer.getPlayerXPosition());

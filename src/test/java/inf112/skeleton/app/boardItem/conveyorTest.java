@@ -9,13 +9,13 @@ import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
 import inf112.skeleton.app.BoardItems.Conveyor;
 import inf112.skeleton.app.graphics.Graphics;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.*;
+
 
 import org.junit.Before;
-import org.junit.jupiter.api.BeforeEach;
+
 
 
 /**
@@ -27,50 +27,48 @@ import org.junit.jupiter.api.BeforeEach;
 
 public class conveyorTest {
 
-
-    Lwjgl3ApplicationConfiguration cfg;
-    Graphics graphics;
     HumanPlayer humanPlayer;
     Conveyor conveyor;
+    int tileSize = 300;
 
 
     @Before
     public void setup() {
-        graphics = new Graphics(new Game());
-        cfg = new Lwjgl3ApplicationConfiguration();
         humanPlayer = new HumanPlayer(Direction.NORTH, 1, Color.GREEN);
         conveyor = new Conveyor();
-        new Lwjgl3Application(graphics, cfg);
     }
 
     @Test
     public void doesPlayerMoveOneTileOnYellowConveyor(){
-        humanPlayer.setPlayerStartXPosition(4*300);
-        humanPlayer.setPlayerStartYPosition(3*300);
-        conveyor.movePlayerOnConveyor(humanPlayer, 0, 1*300);
+        humanPlayer.setPlayerStartXPosition(4*tileSize);
+        humanPlayer.setPlayerStartYPosition(3*tileSize);
 
-        Assertions.assertEquals(4*300, humanPlayer.getPlayerXPosition());
-        Assertions.assertEquals(4*300, humanPlayer.getPlayerYPosition());
+        conveyor.movePlayerOnConveyor(humanPlayer, 0, 1*tileSize);
+
+        Assertions.assertEquals(4*tileSize, humanPlayer.getPlayerXPosition());
+        Assertions.assertEquals(4*tileSize, humanPlayer.getPlayerYPosition());
     }
 
     @Test
     public void doesPlayerMoveTwoTileOnBlueConveyor(){
-        humanPlayer.setPlayerStartXPosition(6*300);
-        humanPlayer.setPlayerStartYPosition(5*300);
-        conveyor.movePlayerOnConveyor(humanPlayer, 180, 2*300);
+        humanPlayer.setPlayerStartXPosition(6*tileSize);
+        humanPlayer.setPlayerStartYPosition(5*tileSize);
 
-        Assertions.assertEquals(6*300, humanPlayer.getPlayerXPosition());
-        Assertions.assertEquals(3*300, humanPlayer.getPlayerYPosition());
+        conveyor.movePlayerOnConveyor(humanPlayer, 180, 2*tileSize);
+
+        Assertions.assertEquals(6*tileSize, humanPlayer.getPlayerXPosition());
+        Assertions.assertEquals(3*tileSize, humanPlayer.getPlayerYPosition());
     }
 
     @Test
     public void doesPlayerMoveOneAtEndOfBlueConveyor(){
-        humanPlayer.setPlayerStartXPosition(10*300);
-        humanPlayer.setPlayerStartYPosition(8*300);
-        conveyor.movePlayerOnConveyor(humanPlayer, 90, 2*300);
+        humanPlayer.setPlayerStartXPosition(10*tileSize);
+        humanPlayer.setPlayerStartYPosition(8*tileSize);
 
-        Assertions.assertEquals(11*300, humanPlayer.getPlayerXPosition());
-        Assertions.assertEquals(8*300, humanPlayer.getPlayerYPosition());
+        conveyor.movePlayerOnConveyor(humanPlayer, 90, 2*tileSize);
+
+        Assertions.assertEquals(11*tileSize, humanPlayer.getPlayerXPosition());
+        Assertions.assertEquals(8*tileSize, humanPlayer.getPlayerYPosition());
     }
 
 }
