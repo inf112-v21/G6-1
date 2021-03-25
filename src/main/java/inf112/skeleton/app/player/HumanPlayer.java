@@ -5,10 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
-import inf112.skeleton.app.BoardItems.BoardElements;
-import inf112.skeleton.app.BoardItems.Conveyor;
-import inf112.skeleton.app.BoardItems.Gear;
-import inf112.skeleton.app.BoardItems.Laser;
+import inf112.skeleton.app.BoardItems.*;
 import inf112.skeleton.app.card.Card;
 import com.badlogic.gdx.InputProcessor;
 import inf112.skeleton.app.shared.Color;
@@ -34,6 +31,7 @@ public class HumanPlayer extends Player implements InputProcessor {
     public Laser laser = new Laser();
     public Conveyor conveyor = new Conveyor();
     public Gear gear = new Gear();
+    public Hole hole = new Hole();
     public BoardElements boardElements = new BoardElements();
     private float mouseClickXCoordinate;
     private float mouseClickYCoordinate;
@@ -68,11 +66,7 @@ public class HumanPlayer extends Player implements InputProcessor {
     public void dealDamageToPlayer(){
         this.damageTaken++;
         if (this.damageTaken >= 10){
-            this.healthToken --;
-            this.damageTaken = 0;
-            System.out.println("Player "+ this.color + " lost a life and has now " + this.healthToken
-            + " lifes and " + this.damageTaken + " damage");
-            System.out.println(" ");
+            takePlayerLife();
         }
     }
 
@@ -89,6 +83,17 @@ public class HumanPlayer extends Player implements InputProcessor {
     @Override
     public boolean isPlayerAlive(){
         return this.healthToken > 0;
+    }
+
+    @Override
+    public void takePlayerLife() {
+        this.healthToken -- ;
+        this.damageTaken = 0;
+        this.updatePlayerXPosition(0);
+        this.updatePlayerYPosition(0);
+        System.out.println("Player "+ this.color + " lost a life and has now " + this.healthToken
+                + " lives and " + this.damageTaken + " damage");
+        System.out.println(" ");
     }
 
     @Override
@@ -197,7 +202,7 @@ public class HumanPlayer extends Player implements InputProcessor {
 
     public void singlePlayerRound(ArrayList<Player> players,TiledMapTileLayer laserLayer,
                                   TiledMapTileLayer blueConveyorLayer, TiledMapTileLayer yellowConveyorLayer,
-                                  TiledMapTileLayer redGear, TiledMapTileLayer greenGear) {
+                                  TiledMapTileLayer redGear, TiledMapTileLayer greenGear, TiledMapTileLayer holes) {
         if (this.ready) {
             for(int round = 0; round < 5; round ++) {
                 updatePlayerLocation(chosenCards.get(round));
@@ -205,6 +210,7 @@ public class HumanPlayer extends Player implements InputProcessor {
             conveyor.runConveyor(players,yellowConveyorLayer,blueConveyorLayer);
             gear.runGears(players,redGear,greenGear);
             laser.fireAllLasers(players,laserLayer);
+            hole.hole(players, holes);
             this.movedCards = new ArrayList<>();
             this.chosenCards = new ArrayList<>();
             this.playerDeck = new ArrayList<>();
