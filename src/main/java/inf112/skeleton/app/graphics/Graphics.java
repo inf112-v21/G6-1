@@ -22,7 +22,7 @@ import inf112.skeleton.app.shared.Direction;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Graphics  implements ApplicationListener{
+public class Graphics implements ApplicationListener {
     public TiledMap tiledMap;
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
