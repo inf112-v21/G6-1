@@ -22,7 +22,7 @@ import inf112.skeleton.app.shared.Direction;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Graphics  implements ApplicationListener{
+public class Graphics implements ApplicationListener {
     public TiledMap tiledMap;
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
@@ -49,7 +49,7 @@ public class Graphics  implements ApplicationListener{
         cardGraphics = new CardGraphics();
         this.game = game;
     }
-
+// initial
     public void updateCardSprite(Player humanPlayer) {
         int cardNumber = 0;
         int cardCoordinateX = 0;
@@ -60,7 +60,7 @@ public class Graphics  implements ApplicationListener{
             card.setTexture(cardTextures.get(humanPlayer.playerDeck.get(cardNumber).action));
             card.draw(tiledMapRenderer.getBatch());
             cardNumber++;
-            cardCoordinateX +=2;
+            cardCoordinateX += 2;
             cardCoordinateY += 2;
         }
     }
@@ -116,6 +116,7 @@ public class Graphics  implements ApplicationListener{
                 (TiledMapTileLayer) tiledMap.getLayers().get("YellowConveyor"),
                 (TiledMapTileLayer) tiledMap.getLayers().get("RedGear"),
                 (TiledMapTileLayer) tiledMap.getLayers().get("GreenGear"));
+
     }
 
     @Override
