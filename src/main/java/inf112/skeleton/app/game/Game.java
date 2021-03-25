@@ -28,7 +28,7 @@ public class Game implements IGame, InputProcessor {
     /** The number of players in this game */
     private int numberOfPlayers;
     /** The current players in this game */
-    public HashMap<Integer, HumanPlayer> idPlayerHashMap = new HashMap<>();
+    public HashMap<Integer, HumanPlayer> idPlayerHashMap;
     public HumanPlayer myHumanPlayer;
     public ArrayList<Player> players = new ArrayList<Player>();
     public String[] names;
@@ -229,6 +229,7 @@ public class Game implements IGame, InputProcessor {
     // Creates the number of players needed and puts them into the idPlayerHashMap.
     @Override
     public ArrayList<Player> createPlayers() {
+        idPlayerHashMap = new HashMap<>();
         System.out.println("Creating players " + numberOfPlayers);
         ArrayList <Player> playerList = new ArrayList<>();
         float startPositionX = 0;
