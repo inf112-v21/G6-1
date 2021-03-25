@@ -28,8 +28,6 @@ public class GameClient extends Listener {
         cListener = new ClientListener();
         udpPort = 54777;
         tcpPort = 54555;
-        //this.udpPort = udp;
-        //this.tcpPort = tcp;
 
         cListener.initialize(client, game);
         Network.register(client);
@@ -40,42 +38,11 @@ public class GameClient extends Listener {
 
         try {
             client.connect(5000, ipAddress, tcpPort, udpPort);
-            System.out.println("Work till here");
         }catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public GameClient(InetAddress ip, Game game, int udpPort, int tcpPort){
-        client = new Client();
-        cListener = new ClientListener();
-        this.udpPort = udpPort;
-        this.tcpPort = tcpPort;
-
-        cListener.initialize(client, game);
-        Network.register(client);
-        client.addListener(cListener);
-
-
-        new Thread(client).start();
-
-        try {
-            client.connect(5000, ip, tcpPort, udpPort);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
-    public GameClient(Game game) {
-        client = new Client();
-        cListener = new ClientListener();
-        udpPort = 54777;
-        tcpPort = 54555;
-
-        cListener.initialize(client, game);
-        Network.register(client);
-        client.addListener(cListener);
-    }
 
     public boolean connect(String ip) {
         new Thread(client).start();
