@@ -2,25 +2,55 @@ package inf112.skeleton.app.graphics;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
 
 import java.util.HashMap;
 
 public class PlayerGraphics {
+    private HashMap<Color, HashMap<Direction, Texture>> playerTextures;
+    private HashMap<Color, Sprite> playerSprites;
+
+    public PlayerGraphics() {
+        this.createPlayerTextures();
+        this.createPlayerSprite();
+    }
+
+    /**
+     * Get player texture
+     * @param color color of the player
+     * @param direction direction the player is facing
+     * @return Texture of the player
+     */
+    public Texture getPlayerTexture(Color color, Direction direction) {
+        return playerTextures.get(color).get(direction);
+    }
+
+    public Texture getPlayerTexture(Player player) {
+        return getPlayerTexture(player.color, player.direction);
+    }
+
+    public Sprite getPlayerSprite(Color color) {
+        return playerSprites.get(color);
+    }
+
+    public Sprite getPlayerSprite(Player player) {
+        return getPlayerSprite(player.color);
+    }
 
     /**
      * Creates a hashmap with all player textures (all colors and all directions)
      * Get the texture by the player color and direction.
      * @return Hashmap of player textures
      */
-    public HashMap<Color, HashMap<Direction, Texture>> createPlayerTextures() {
+    private void createPlayerTextures() {
         HashMap<Direction,Texture> greenPiece = new HashMap<>();
         HashMap<Direction,Texture> greyPiece = new HashMap<>();
         HashMap<Direction,Texture> orangePiece = new HashMap<>();
         HashMap<Direction,Texture> purplePiece = new HashMap<>();
         HashMap<Direction,Texture> pinkPiece = new HashMap<>();
-        HashMap<Color, HashMap<Direction, Texture>> playerTextures = new HashMap<>();
+        playerTextures = new HashMap<>();
 
         greenPiece.put(Direction.EAST, new Texture("Player/RobotGreenEast.png"));
         greenPiece.put(Direction.WEST, new Texture("Player/RobotGreenWest.png"));
@@ -52,8 +82,6 @@ public class PlayerGraphics {
         playerTextures.put(Color.GREY,greyPiece);
         playerTextures.put(Color.PINK,pinkPiece);
         playerTextures.put(Color.PURPLE,purplePiece);
-
-        return playerTextures;
     }
 
     /**
@@ -61,13 +89,12 @@ public class PlayerGraphics {
      * Get the sprite by the players color
      * @return Hashmap of player sprites
      */
-    public HashMap<Color, Sprite> createPlayerSprite(){
-        HashMap<Color,Sprite> playerSprite = new HashMap<>();
-        playerSprite.put(Color.ORANGE,new Sprite(createPlayerTextures().get(Color.ORANGE).get(Direction.NORTH)));
-        playerSprite.put(Color.GREEN,new Sprite((createPlayerTextures().get(Color.GREEN).get(Direction.NORTH))));
-        playerSprite.put(Color.PURPLE,new Sprite((createPlayerTextures().get(Color.PURPLE).get(Direction.NORTH))));
-        playerSprite.put(Color.PINK,new Sprite((createPlayerTextures().get(Color.PINK).get(Direction.NORTH))));
-        playerSprite.put(Color.GREY,new Sprite((createPlayerTextures().get(Color.GREY).get(Direction.NORTH))));
-        return playerSprite;
+    private void createPlayerSprite(){
+        this.playerSprites = new HashMap<Color, Sprite>();
+        playerSprites.put(Color.ORANGE,new Sprite(getPlayerTexture(Color.ORANGE, Direction.NORTH)));
+        playerSprites.put(Color.GREEN,new Sprite(getPlayerTexture(Color.GREEN, Direction.NORTH)));
+        playerSprites.put(Color.PURPLE,new Sprite(getPlayerTexture(Color.PURPLE, Direction.NORTH)));
+        playerSprites.put(Color.PINK,new Sprite(getPlayerTexture(Color.PINK, Direction.NORTH)));
+        playerSprites.put(Color.GREY,new Sprite(getPlayerTexture(Color.GREY, Direction.NORTH)));
     }
 }

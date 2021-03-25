@@ -28,6 +28,7 @@ public class gearTest {
     HumanPlayer humanPlayer;
     Gear gear;
     ArrayList<Player> testPlayers = new ArrayList<>();
+    int tileSize = 300;
 
 
 
@@ -43,8 +44,8 @@ public class gearTest {
     }
     @Test
     public void playerRotatesLeftWhenStoodOnRedGear(){
-        humanPlayer.setPlayerStartXPosition(3*300);
-        humanPlayer.setPlayerStartYPosition(5*300);
+        humanPlayer.setPlayerStartXPosition(3*tileSize);
+        humanPlayer.setPlayerStartYPosition(5*tileSize);
 
         gear.runGears(testPlayers, (TiledMapTileLayer) graphics.tiledMap.getLayers().get("RedGear"),
                 (TiledMapTileLayer) graphics.tiledMap.getLayers().get("GreenGear"));
@@ -54,8 +55,8 @@ public class gearTest {
 
     @Test
     public void playerRotatesRightWhenStoodOnGreenGear(){
-        humanPlayer.setPlayerStartXPosition(10*300);
-        humanPlayer.setPlayerStartYPosition(3*300);
+        humanPlayer.setPlayerStartXPosition(10*tileSize);
+        humanPlayer.setPlayerStartYPosition(3*tileSize);
 
         gear.runGears(testPlayers, (TiledMapTileLayer) graphics.tiledMap.getLayers().get("RedGear"),
                 (TiledMapTileLayer) graphics.tiledMap.getLayers().get("GreenGear"));
@@ -65,13 +66,13 @@ public class gearTest {
 
     @Test
     public void playerDoesNotMoveWhenOnGear(){
-        humanPlayer.setPlayerStartXPosition(10*300);
-        humanPlayer.setPlayerStartYPosition(3*300);
+        humanPlayer.setPlayerStartXPosition(10*tileSize);
+        humanPlayer.setPlayerStartYPosition(3*tileSize);
 
         gear.runGears(testPlayers, (TiledMapTileLayer) graphics.tiledMap.getLayers().get("RedGear"),
                 (TiledMapTileLayer) graphics.tiledMap.getLayers().get("GreenGear"));
 
-        Assertions.assertEquals(10*300, humanPlayer.getPlayerXPosition());
-        Assertions.assertEquals(3*300, humanPlayer.getPlayerYPosition());
+        Assertions.assertEquals(10*tileSize, humanPlayer.getPlayerXPosition());
+        Assertions.assertEquals(3*tileSize, humanPlayer.getPlayerYPosition());
     }
 }
