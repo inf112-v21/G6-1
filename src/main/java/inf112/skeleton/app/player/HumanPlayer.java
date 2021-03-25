@@ -214,7 +214,6 @@ public class HumanPlayer extends Player implements InputProcessor {
         }
     }
 
-    // TODO when multiplayer works move everything below to a InputProcessor class
 
     /**
      * This method saves mouse click coordinates (coordinates on the window that is pushed) to a vector 3 object.
