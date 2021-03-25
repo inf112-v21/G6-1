@@ -45,7 +45,7 @@ public class Laser {
                 player.dealDamageToPlayer();
                 System.out.println("Player " + player.color + " was hit by a laser! Player Damage was " +
                         damageBeforeLaser + " and is now " + player.damageTaken);
-                System.out.println(" ");
+
             }
         }
     }

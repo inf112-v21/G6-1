@@ -28,8 +28,10 @@ public class Hole {
     public void playersInHole(ArrayList<Player> players, float tileXPosition, float tileYPosition){
         for(Player player: players){
             if(player.getPlayerXPosition() == tileXPosition && player.getPlayerYPosition() == tileYPosition){
-                player.takePlayerLife();
                 System.out.println("Player " + player.color + " fell in to a hole!") ;
+                player.takePlayerLife();
+
+
             }
         }
     }

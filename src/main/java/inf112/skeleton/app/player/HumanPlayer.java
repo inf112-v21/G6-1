@@ -93,7 +93,7 @@ public class HumanPlayer extends Player implements InputProcessor {
         this.updatePlayerYPosition(0);
         System.out.println("Player "+ this.color + " lost a life and has now " + this.healthToken
                 + " lives and " + this.damageTaken + " damage");
-        System.out.println(" ");
+
     }
 
     @Override
@@ -131,7 +131,6 @@ public class HumanPlayer extends Player implements InputProcessor {
         if(flagTile!=null && !this.flagsToVisit.isEmpty() && this.flagsToVisit.get(0) == flagTile.getTile().getId()){
             this.flagsToVisit.remove(0);
         }
-
         return this.flagsToVisit.isEmpty();
     }
 
