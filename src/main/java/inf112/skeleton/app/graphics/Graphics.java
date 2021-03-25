@@ -60,7 +60,7 @@ public class Graphics  implements ApplicationListener{
             card.setTexture(cardTextures.get(humanPlayer.playerDeck.get(cardNumber).action));
             card.draw(tiledMapRenderer.getBatch());
             cardNumber++;
-            cardCoordinateX +=2;
+            cardCoordinateX += 2;
             cardCoordinateY += 2;
         }
     }

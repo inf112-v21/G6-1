@@ -236,6 +236,7 @@ public class Game implements IGame, InputProcessor {
             Color playerColor = Color.getPlayerColor(i);
             HumanPlayer humanPlayer = new HumanPlayer(Direction.NORTH, i, playerColor);
             humanPlayer.setId(i);
+            humanPlayer.playerDeck = cardMoveLogic.playerDeck();
             playerList.add(humanPlayer);
             playerList.get(i).setPlayerStartXPosition(startPositionX);
             startPositionX += 300;
