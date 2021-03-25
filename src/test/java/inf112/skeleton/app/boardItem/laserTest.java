@@ -56,4 +56,14 @@ public class laserTest {
         Assertions.assertEquals(2, humanPlayer.getPlayerHealth());
         Assertions.assertEquals(0, humanPlayer.getPlayerDamageTaken());
     }
+
+    @Test
+    public void doesPlayerGoBackToStartWhenOneHealthIsLost(){
+        for(int i=1; i<=10; i++) {
+            laser.damagePlayerInHarmsWay(testPlayers, 9 * 300, 3 * 300);
+        }
+
+        Assertions.assertEquals(0, humanPlayer.getPlayerXPosition());
+        Assertions.assertEquals(0, humanPlayer.getPlayerYPosition());
+    }
 }

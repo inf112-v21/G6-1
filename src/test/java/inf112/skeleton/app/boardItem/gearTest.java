@@ -46,7 +46,7 @@ public class gearTest {
         humanPlayer.setPlayerStartXPosition(3*300);
         humanPlayer.setPlayerStartYPosition(5*300);
 
-        gear.findAndRunGear(testPlayers, (TiledMapTileLayer) graphics.tiledMap.getLayers().get("RedGear"),
+        gear.runGears(testPlayers, (TiledMapTileLayer) graphics.tiledMap.getLayers().get("RedGear"),
                 (TiledMapTileLayer) graphics.tiledMap.getLayers().get("GreenGear"));
 
         Assertions.assertEquals(Direction.WEST, humanPlayer.direction);
@@ -57,7 +57,7 @@ public class gearTest {
         humanPlayer.setPlayerStartXPosition(10*300);
         humanPlayer.setPlayerStartYPosition(3*300);
 
-        gear.findAndRunGear(testPlayers, (TiledMapTileLayer) graphics.tiledMap.getLayers().get("RedGear"),
+        gear.runGears(testPlayers, (TiledMapTileLayer) graphics.tiledMap.getLayers().get("RedGear"),
                 (TiledMapTileLayer) graphics.tiledMap.getLayers().get("GreenGear"));
 
         Assertions.assertEquals(Direction.EAST, humanPlayer.direction);
@@ -68,7 +68,7 @@ public class gearTest {
         humanPlayer.setPlayerStartXPosition(10*300);
         humanPlayer.setPlayerStartYPosition(3*300);
 
-        gear.findAndRunGear(testPlayers, (TiledMapTileLayer) graphics.tiledMap.getLayers().get("RedGear"),
+        gear.runGears(testPlayers, (TiledMapTileLayer) graphics.tiledMap.getLayers().get("RedGear"),
                 (TiledMapTileLayer) graphics.tiledMap.getLayers().get("GreenGear"));
 
         Assertions.assertEquals(10*300, humanPlayer.getPlayerXPosition());
