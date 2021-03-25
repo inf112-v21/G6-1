@@ -27,8 +27,8 @@ public class gearTest {
     Graphics graphics;
     HumanPlayer humanPlayer;
     Gear gear;
- //   TiledMap tiledMap;
     ArrayList<Player> testPlayers = new ArrayList<>();
+
 
 
     //Usikker på hvor mye at dette man trenger, tar refactoring etterpå
@@ -45,8 +45,6 @@ public class gearTest {
     public void playerRotatesLeftWhenStoodOnRedGear(){
         humanPlayer.setPlayerStartXPosition(3*300);
         humanPlayer.setPlayerStartYPosition(5*300);
-
-       // gear.locatePlayersOnGear(testPlayers, 3*300, 5*300, 270);
 
         gear.findAndRunGear(testPlayers, (TiledMapTileLayer) graphics.tiledMap.getLayers().get("RedGear"),
                 (TiledMapTileLayer) graphics.tiledMap.getLayers().get("GreenGear"));
