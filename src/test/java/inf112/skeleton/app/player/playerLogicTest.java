@@ -14,19 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class playerLogicTest {
 
-    /**
-     * In order for the test to run, a game window must be initialised.
-     * When the game window is manually closed, the tests will run as expected.
-     * The tests must be run individually.
-     * If you get error "ExceptionInInitializerError", run the JVM with -XstartOnFirstThread.
-     */
-    Graphics graphics = new Graphics(new Game());
-    Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
-    HumanPlayer humanPlayer = new HumanPlayer(Direction.NORTH, 1, Color.GREEN);
 
-    public playerLogicTest() {
-        new Lwjgl3Application(graphics, cfg);
-    }
+
+    HumanPlayer humanPlayer = new HumanPlayer(Direction.NORTH, 1, Color.GREEN);
 
     @Test
     public void testPlayersPositionMustBeOnGameBoard() {

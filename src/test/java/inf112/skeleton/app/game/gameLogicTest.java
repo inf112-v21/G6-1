@@ -17,6 +17,7 @@ public class gameLogicTest {
     Lwjgl3ApplicationConfiguration cfg;
     Graphics graphics;
     HumanPlayer humanPlayer;
+    int tileSize = 300;
 
 
     @Before
@@ -30,20 +31,20 @@ public class gameLogicTest {
     @Test
     public void doesPlayerWinWhenVisitingFlagsInCorrectOrder(){
         //Flag 1
-        humanPlayer.setPlayerStartXPosition(7*300);
-        humanPlayer.setPlayerStartYPosition(12*300);
+        humanPlayer.setPlayerStartXPosition(7*tileSize);
+        humanPlayer.setPlayerStartYPosition(12*tileSize);
 
         humanPlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer"));
 
         //Flag 2
-        humanPlayer.updatePlayerXPosition(9*300);
-        humanPlayer.updatePlayerYPosition(6*300);
+        humanPlayer.updatePlayerXPosition(9*tileSize);
+        humanPlayer.updatePlayerYPosition(6*tileSize);
 
         humanPlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer"));
 
         //Flag 3
-        humanPlayer.updatePlayerXPosition(1*300);
-        humanPlayer.updatePlayerYPosition(9*300);
+        humanPlayer.updatePlayerXPosition(1*tileSize);
+        humanPlayer.updatePlayerYPosition(9*tileSize);
 
         humanPlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer"));
 
@@ -54,20 +55,20 @@ public class gameLogicTest {
     @Test
     public void doesPlayerNotWhenVisitingFlagsInIncorrectOrder(){
         //Flag 2
-        humanPlayer.updatePlayerXPosition(9*300);
-        humanPlayer.updatePlayerYPosition(6*300);
+        humanPlayer.updatePlayerXPosition(9*tileSize);
+        humanPlayer.updatePlayerYPosition(6*tileSize);
 
         humanPlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer"));
 
         //Flag 1
-        humanPlayer.setPlayerStartXPosition(7*300);
-        humanPlayer.setPlayerStartYPosition(12*300);
+        humanPlayer.setPlayerStartXPosition(7*tileSize);
+        humanPlayer.setPlayerStartYPosition(12*tileSize);
 
         humanPlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer"));
 
         //Flag 3
-        humanPlayer.updatePlayerXPosition(1*300);
-        humanPlayer.updatePlayerYPosition(9*300);
+        humanPlayer.updatePlayerXPosition(1*tileSize);
+        humanPlayer.updatePlayerYPosition(9*tileSize);
 
         humanPlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer"));
 
@@ -78,26 +79,26 @@ public class gameLogicTest {
     @Test
     public void doesPlayerWinIfAllFlagsAreVisitedFlags1323() {
         //Flag 1
-        humanPlayer.setPlayerStartXPosition(7*300);
-        humanPlayer.setPlayerStartYPosition(12*300);
+        humanPlayer.setPlayerStartXPosition(7*tileSize);
+        humanPlayer.setPlayerStartYPosition(12*tileSize);
 
         humanPlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer"));
 
         //Flag 3
-        humanPlayer.updatePlayerXPosition(1*300);
-        humanPlayer.updatePlayerYPosition(9*300);
+        humanPlayer.updatePlayerXPosition(1*tileSize);
+        humanPlayer.updatePlayerYPosition(9*tileSize);
 
         humanPlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer"));
 
         //Flag 2
-        humanPlayer.updatePlayerXPosition(9*300);
-        humanPlayer.updatePlayerYPosition(6*300);
+        humanPlayer.updatePlayerXPosition(9*tileSize);
+        humanPlayer.updatePlayerYPosition(6*tileSize);
 
         humanPlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer"));
 
         //Flag 3
-        humanPlayer.updatePlayerXPosition(1*300);
-        humanPlayer.updatePlayerYPosition(9*300);
+        humanPlayer.updatePlayerXPosition(1*tileSize);
+        humanPlayer.updatePlayerYPosition(9*tileSize);
 
         humanPlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer"));
 
