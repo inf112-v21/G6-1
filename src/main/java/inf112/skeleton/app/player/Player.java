@@ -183,6 +183,11 @@ public abstract class Player  {
      */
     public abstract boolean isPlayerAlive();
 
+    /**
+     * Takes a life from a player
+     */
+    public abstract void takePlayerLife();
+
 
 
 

@@ -115,7 +115,8 @@ public class Graphics implements ApplicationListener {
                 (TiledMapTileLayer) tiledMap.getLayers().get("BlueConveyor"),
                 (TiledMapTileLayer) tiledMap.getLayers().get("YellowConveyor"),
                 (TiledMapTileLayer) tiledMap.getLayers().get("RedGear"),
-                (TiledMapTileLayer) tiledMap.getLayers().get("GreenGear"));
+                (TiledMapTileLayer) tiledMap.getLayers().get("GreenGear"),
+                (TiledMapTileLayer) tiledMap.getLayers().get("Hole"));
 
     }
 
