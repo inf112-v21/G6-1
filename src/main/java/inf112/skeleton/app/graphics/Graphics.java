@@ -12,7 +12,9 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import inf112.skeleton.app.BoardItems.Board;
 import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.game.Game;
+import inf112.skeleton.app.game.GameScreen;
 import inf112.skeleton.app.game.GameType;
+import inf112.skeleton.app.game.MenuInputProcessor;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.shared.Action;
@@ -28,28 +30,36 @@ public class Graphics implements ApplicationListener {
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private SpriteBatch spriteBatch;
     public Texture background;
+    public Texture menuScreenBackground;
     public Texture youWin;
     public Texture reset;
     public Texture ready;
     public Texture damagetoken;
     public Texture lifetoken;
+    public Texture singlePlayerButton;
+    public Texture joinMultiPlayerButton;
+    public Texture hostMultiPlayerButton;
 
     public PlayerGraphics playerGraphics;
     public CardGraphics cardGraphics;
     public HashMap<Color, Sprite> playersSprite;
     public HumanPlayer singlePlayer = new HumanPlayer(Direction.NORTH,69,Color.GREEN);
+    private MenuInputProcessor menuInputProcessor;
     public Sprite singlePlayerSprite;
     public ArrayList<Sprite> cardSpriteList;
     private CardMoveLogic cardMoveLogic = new CardMoveLogic();
     private HashMap<Action, Texture> cardTextures = new HashMap<>();
     public Game game;
     public ArrayList<Player> singelPlayerList =new ArrayList<>();
+
+
     public Graphics(Game game) {
+        menuInputProcessor = new MenuInputProcessor(this);
         playerGraphics = new PlayerGraphics();
         cardGraphics = new CardGraphics();
         this.game = game;
     }
-// initial
+
     public void updateCardSprite(Player humanPlayer) {
         int cardNumber = 0;
         int cardCoordinateX = 0;
@@ -121,7 +131,6 @@ public class Graphics implements ApplicationListener {
 
     @Override
     public void create() {
-
         singlePlayer.playerDeck = cardMoveLogic.playerDeck();
         singlePlayerSprite = new Sprite((playerGraphics.createPlayerTextures().get(singlePlayer.color).get(singlePlayer.direction)));
         singlePlayerSprite.setSize(300,300);
@@ -144,9 +153,16 @@ public class Graphics implements ApplicationListener {
         youWin = new Texture("YouWin.jpg");
         reset = new Texture("Buttons/RESET.png");
         ready = new Texture("Buttons/READY.png");
-
         damagetoken = new Texture("emptyDamageToken.png");
         lifetoken = new Texture("LifeToken.png");
+
+
+        // Menu Textures
+        menuScreenBackground = new Texture("Background.png"); // TODO actual textures
+        singlePlayerButton = new Texture("Buttons/READY.png");
+        joinMultiPlayerButton = new Texture("Buttons/RESET.png");
+        hostMultiPlayerButton = new Texture("Buttons/RESET.png");
+
     }
 
     /**
@@ -162,11 +178,33 @@ public class Graphics implements ApplicationListener {
     }
 
 
+    private void renderMenuScreen() {
+        // Draw background
+        spriteBatch.begin();
+        spriteBatch.draw(menuScreenBackground, 0, 0, 1280, 720);
+        spriteBatch.end();
+
+        // Draw buttons
+        spriteBatch.begin();
+        spriteBatch.draw(singlePlayerButton, 600, 200, 125, 55);
+        spriteBatch.draw(joinMultiPlayerButton, 600, 300, 125, 55);
+        spriteBatch.draw(hostMultiPlayerButton, 600, 400, 125, 55);
+        spriteBatch.end();
+
+        // Handle inputs
+        Gdx.input.setInputProcessor(menuInputProcessor);
+    }
+
     /**
      * This is where the graphics of the game get rendered.
      */
     @Override
     public void render() {
+        if (game.currentScreen == GameScreen.MENU) {
+            renderMenuScreen();
+            return;
+        }
+
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, 1280, 720);
         spriteBatch.end();
@@ -212,11 +250,11 @@ public class Graphics implements ApplicationListener {
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
         tiledMapRenderer.getBatch().begin();
-        if(game.typeOfGameStarted == GameType.SINGLE_PLAYER){
+        if (game.typeOfGameStarted == GameType.SINGLE_PLAYER) {
             Gdx.input.setInputProcessor((InputProcessor) singlePlayer);
             singlePlayer();
 
-        } else{
+        } else {
             updatePlayerSprite(game.players);
         }
         tiledMapRenderer.getBatch().end();
