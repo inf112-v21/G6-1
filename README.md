@@ -45,9 +45,6 @@ you navigate the figure on top of a flag.
 
 
 
-**Shared-package**
-* Currently unused, will be used for future development
-
 **Main-class**
 * Configures gdx
   
@@ -93,3 +90,10 @@ Only one game-piece should appear per player joined.
 
 * When running all tests at once, your computer may run out of memory. If this happens, just
 try running less tests at once, or try running all of them again. 
+
+* When standing on the edge of an express conveyor you are moved two positions. This should be only one position.
+
+* Occasionally the ready button fails to work in single player. If you reset and re-chose cards, this should work.
+
+* Currently we display damage token and health in the GUI. These are implemented in the GUI but not back-end yet, as we needed
+more time to complete it, but it will be implemented ASAP.
