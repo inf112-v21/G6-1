@@ -4,7 +4,7 @@ public enum ConveyorType {
     COMMON(300),
     EXPRESS(600);
 
-    private int numberOfMoves;
+    private final int numberOfMoves;
 
     public int getNumberOfMoves(){
         return this.numberOfMoves;

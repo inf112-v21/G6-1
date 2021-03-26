@@ -8,6 +8,13 @@ import java.util.ArrayList;
 
 public class Hole {
 
+
+    /**
+     * This method iterates over the game board and finds tiles containing holes.
+     * Than call playersInHole to find and take a life from players standing in holes.
+     * @param players list of players in the game
+     * @param holeLayer TiledMapTileLayer
+     */
         public void hole(ArrayList<Player> players, TiledMapTileLayer holeLayer){
         int xStart = Direction.WEST.getBoundaryCoordinate();
         int xEnd = Direction.EAST.getBoundaryCoordinate();
@@ -25,6 +32,12 @@ public class Hole {
         }
     }
 
+    /**
+     * Find players in holes and takes a life from them
+     * @param players list of players in the game
+     * @param tileXPosition x position on hole tile
+     * @param tileYPosition y position on hole tile
+     */
     public void playersInHole(ArrayList<Player> players, float tileXPosition, float tileYPosition){
         for(Player player: players){
             if(player.getPlayerXPosition() == tileXPosition && player.getPlayerYPosition() == tileYPosition){

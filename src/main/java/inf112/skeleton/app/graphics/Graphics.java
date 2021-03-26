@@ -9,7 +9,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import inf112.skeleton.app.BoardItems.Board;
 import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.game.GameType;
@@ -24,7 +23,7 @@ import java.util.HashMap;
 
 public class Graphics implements ApplicationListener {
     public TiledMap tiledMap;
-    private Board board;
+
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private SpriteBatch spriteBatch;
@@ -116,7 +115,7 @@ public class Graphics implements ApplicationListener {
         singlePlayerSprite.setTexture(playerTexture);
         singlePlayerSprite.draw(tiledMapRenderer.getBatch());
         singlePlayer.singlePlayerRound(singelPlayerList,
-                board.getLaserLayer(),
+                (TiledMapTileLayer) tiledMap.getLayers().get("Laser"),
                 (TiledMapTileLayer) tiledMap.getLayers().get("BlueConveyor"),
                 (TiledMapTileLayer) tiledMap.getLayers().get("YellowConveyor"),
                 (TiledMapTileLayer) tiledMap.getLayers().get("RedGear"),
@@ -147,7 +146,6 @@ public class Graphics implements ApplicationListener {
         camera.setToOrtho(false, h, w); //something needs adjustment here
         camera.update();
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
-        board = new Board(tiledMap);
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         background = new Texture("Background.png");
         youWin = new Texture("YouWin.jpg");

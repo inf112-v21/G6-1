@@ -3,7 +3,7 @@ package inf112.skeleton.app.boardItem;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import inf112.skeleton.app.BoardItems.Board;
+
 import inf112.skeleton.app.BoardItems.Gear;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.graphics.Graphics;

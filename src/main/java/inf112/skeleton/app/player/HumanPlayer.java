@@ -3,7 +3,6 @@ package inf112.skeleton.app.player;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
 import inf112.skeleton.app.BoardItems.*;
 import inf112.skeleton.app.card.Card;
@@ -22,7 +21,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 public class HumanPlayer extends Player implements InputProcessor {
 
-//TODO consider a player move class for player movement
 
     public HumanPlayer(Direction direction, int id, Color color) {
         super(direction, id, color);
@@ -32,7 +30,6 @@ public class HumanPlayer extends Player implements InputProcessor {
     public Conveyor conveyor = new Conveyor();
     public Gear gear = new Gear();
     public Hole hole = new Hole();
-    public BoardElements boardElements = new BoardElements();
     private float mouseClickXCoordinate;
     private float mouseClickYCoordinate;
 
@@ -43,11 +40,6 @@ public class HumanPlayer extends Player implements InputProcessor {
         mouseClickPosition = new Vector3();
     }
 
-    /**
-     * startet on player health and damage functions
-     *
-     */
-
     @Override
     public int getPlayerHealth(){
         return this.healthToken;
@@ -57,6 +49,7 @@ public class HumanPlayer extends Player implements InputProcessor {
     public int getPlayerDamageTaken(){
         return this.damageTaken;
     }
+
     @Override
     public void restorePlayerHealthAndDamage(){
         this.damageTaken = 0;
@@ -144,7 +137,7 @@ public class HumanPlayer extends Player implements InputProcessor {
         return (int) unNormalizedValue/300;
     }
 
-    //TODO Refactor setPlayerDirection, movePlayerAsFarAsPossible and updatePlayerLocation when the rest of the board pieces are used
+
     @Override
     public void setPlayerDirection(int moveDegree){
        int newPlayerDirection = this.direction.getDirectionDegree() + moveDegree;
@@ -197,8 +190,6 @@ public class HumanPlayer extends Player implements InputProcessor {
         }
     }
 
-    //TODO move this to game and improve
-
     public void singlePlayerRound(ArrayList<Player> players,TiledMapTileLayer laserLayer,
                                   TiledMapTileLayer blueConveyorLayer, TiledMapTileLayer yellowConveyorLayer,
                                   TiledMapTileLayer redGear, TiledMapTileLayer greenGear, TiledMapTileLayer holes) {
@@ -249,8 +240,6 @@ public class HumanPlayer extends Player implements InputProcessor {
     public boolean touchUp(int i, int i1, int i2, int i3) {
         float x  = mouseClickXCoordinate;
         float y = mouseClickYCoordinate;
-        //System.out.println(" X " +x);
-        //System.out.println(" Y " +y);
 
         if (x >5555 && x < 6005 && y >= 3090 && y <= 3740){
             cardMoveLogic.moveCardWhenClicked(0, this);
@@ -285,15 +274,8 @@ public class HumanPlayer extends Player implements InputProcessor {
     public boolean scrolled(int i) {return false;}
     @Override
     public boolean keyDown(int keyPressed) {return false;}
-    //TODO remove before delivery
     @Override
-    public boolean keyUp(int keyPressed) {
-        if(keyPressed == Input.Keys.UP) updatePlayerYPosition(getPlayerYPosition()+300);
-        if(keyPressed == Input.Keys.DOWN) updatePlayerYPosition(getPlayerYPosition()-300);
-        if(keyPressed == Input.Keys.RIGHT) updatePlayerXPosition(getPlayerXPosition()+300);
-        if(keyPressed == Input.Keys.LEFT) updatePlayerXPosition(getPlayerXPosition()-300);
-        return false;}
-
+    public boolean keyUp(int keyPressed) { return false;}
     @Override
     public boolean keyTyped(char c) {return false;}
     @Override
