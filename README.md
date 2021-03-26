@@ -87,6 +87,9 @@ however the project still runs and it does not affect performance.
   
 * When one person hosts a game, two game-pieces appear on the board. When a new player joins, one more appears.
 Only one game-piece should appear per player joined.
+  
+* The online feature is still not fully operative. You can connect to each other, but each player creates it's own list with all the 
+players and cards, instead of using a shared list
 
 * When running all tests at once, your computer may run out of memory. If this happens, just
 try running less tests at once, or try running all of them again. 
