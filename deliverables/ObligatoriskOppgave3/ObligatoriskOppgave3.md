@@ -41,6 +41,8 @@ Til obligatorisk oppgave 2 fikk vi implementert alle MVP kravene, unntatt nettve
 
 Skade og lifetokens har vi fått implementert i GUI, men mangler å knytte backend opp mot GUI skjerm. Foreløpig kan en spiller se skade og liv i konsollen.
 
+Skjermbilde av en del av projectboard er lagt ved i deliverables, det komplette projectboard finnes her: https://github.com/inf112-v21/GameStoppers/projects/4?fullscreen=true
+
 ###Brukerhistorier
 
 **1) As a user, I want the networking and multiplayer function to work so that it is possible to have several players.**
@@ -84,7 +86,7 @@ Skade og lifetokens har vi fått implementert i GUI, men mangler å knytte backe
     Work tasks:  
 - Implement method for moving board piece two positions when standing on conveyor.
 
-**5) As a user, I want the board to have a laser function, so that if a player stands where a laser shoots, it loses a life token.**
+**5) As a user, I want the board to have a laser function, so that if a player stands where a laser shoots, it loses a damage token.**
     Acceptance criteria:
 - Board piece loses a life token when standing in front of an activated laser
 
