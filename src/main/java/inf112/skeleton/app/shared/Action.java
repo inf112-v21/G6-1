@@ -14,7 +14,7 @@ public enum Action {
     public float getAction(){
         return this.action;
     }
-    private Action(float action){
+    Action(float action){
 
         this.action = action;
     }
