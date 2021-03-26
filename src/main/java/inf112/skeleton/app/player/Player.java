@@ -139,7 +139,7 @@ public abstract class Player  {
      * If the players card wil move the player outside the game board
      * this function will move the player to the edge of the board instead
      * @param position position to move to
-     * @param moveDirection
+     * @param moveDirection direction to move
      * @return new position always inside the board
      */
     public abstract float movePlayerAsFarAsPossible(float position, Direction moveDirection);
@@ -161,11 +161,6 @@ public abstract class Player  {
      */
     public abstract int getPlayerDamageTaken();
 
-    /**
-     * Set the players health Token to full (3)
-     * Set the players damageTaken to zero
-     */
-    public abstract void restorePlayerHealthAndDamage();
 
     /**
      * Increase players damageTaken by one.
@@ -174,14 +169,6 @@ public abstract class Player  {
      */
     public abstract void dealDamageToPlayer();
 
-    /**
-     * If the players healthToken is more than zero the player is alive
-     * and the function will return true.
-     * If the players healtToken in zero the player is dead
-     * and the function will return false.
-     * @return boolean
-     */
-    public abstract boolean isPlayerAlive();
 
     /**
      * Takes a life from a player

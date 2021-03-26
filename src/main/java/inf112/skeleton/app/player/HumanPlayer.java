@@ -51,11 +51,6 @@ public class HumanPlayer extends Player implements InputProcessor {
     }
 
     @Override
-    public void restorePlayerHealthAndDamage(){
-        this.damageTaken = 0;
-        this.healthToken = 3;
-    }
-    @Override
     public void dealDamageToPlayer(){
         this.damageTaken++;
         if (this.damageTaken >= 10){
@@ -73,10 +68,6 @@ public class HumanPlayer extends Player implements InputProcessor {
         return this.id;
     }
 
-    @Override
-    public boolean isPlayerAlive(){
-        return this.healthToken > 0;
-    }
 
     @Override
     public void takePlayerLife() {
