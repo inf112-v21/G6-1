@@ -59,6 +59,7 @@ public class ServerListener extends Listener {
         //game.setNumberOfPlayers(playerPacket.numberOfPlayers);
         server.sendToAllTCP(playerPacket);
 
+
         // Tell the new player their player number
         Packets.PlayerIdPacket playerIdPacket = new Packets.PlayerIdPacket();
         playerIdPacket.playerNumber = numberOfPlayers;
