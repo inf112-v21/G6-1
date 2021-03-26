@@ -95,22 +95,4 @@ public class cardLogicTest {
         humanPlayer.updatePlayerLocation(uTurnCard);
         Assertions.assertEquals(humanPlayer.direction, Direction.SOUTH);
     }
-
-/*
-    @Test
-    public void testCardDeckDealNineRandomCards(){
-
-    }
-
-    @Test
-    public void testNotPossibleToChooseEmptyCardSlot() {
-
-    }
-
-    @Test
-    public void testNotPossibleToChooseSameCardSeveralTimes() {
-
-    }
-
-*/
 }

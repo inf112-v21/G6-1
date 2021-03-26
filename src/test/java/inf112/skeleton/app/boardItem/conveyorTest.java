@@ -29,7 +29,7 @@ public class conveyorTest {
         humanPlayer.setPlayerStartXPosition(4*tileSize);
         humanPlayer.setPlayerStartYPosition(3*tileSize);
 
-        conveyor.movePlayerOnConveyor(humanPlayer, 0, 1*tileSize);
+        conveyor.movePlayerOnConveyor(humanPlayer, 0, tileSize);
 
         Assertions.assertEquals(4*tileSize, humanPlayer.getPlayerXPosition());
         Assertions.assertEquals(4*tileSize, humanPlayer.getPlayerYPosition());

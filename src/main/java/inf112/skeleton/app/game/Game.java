@@ -13,22 +13,18 @@ import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
 
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Scanner;
 
 public class Game implements IGame, InputProcessor {
 
-    private Graphics graphics;
     /** The number of players in this game */
     private int numberOfPlayers;
     /** The current players in this game */
     public HashMap<Integer, HumanPlayer> idPlayerHashMap;
     public HumanPlayer myHumanPlayer;
-    public ArrayList<Player> players = new ArrayList<Player>();
-    public String[] names;
+    public ArrayList<Player> players = new ArrayList<>();
     GameServer server;
     GameClient client;
     public GameType typeOfGameStarted = GameType.NONE;
@@ -38,8 +34,7 @@ public class Game implements IGame, InputProcessor {
 
     @Override
     public Graphics startGame() {
-        graphics = new Graphics(this);
-        return graphics;
+        return new Graphics(this);
     }
 
     /**
@@ -47,74 +42,27 @@ public class Game implements IGame, InputProcessor {
      * to avoid creating more than on server.
      *
      * @param map - What map to be used in the hosted game.
-     * @return
      */
-    public InetAddress hostNewGame(String map) {
+    public void hostNewGame(String map) {
         server = new GameServer(map);
         server.run();
         client = new GameClient(server.getAddress(),this);
-        return server.getAddress();
     }
 
     /**
      * Creates client object for user. Might need more in this method.
      *
      * @param ip InetAddress object, is being called properly in @chooseHostOrJoin()
-     * @return
      */
-    public boolean joinNewGame(InetAddress ip) {
+    public void joinNewGame(InetAddress ip) {
         client = new GameClient(ip, this);
-        if (!client.connect(ip.getHostAddress()))
-            return false;
-        return true;
-    }
-
-
-    /**
-     * Method to prompt if user is hosting a game or joining a game.
-     * In this method, a proper InetAddress object is created for @joinNewGame()
-     */
-    public void chooseHostOrJoin() {
-        // TODO delete when MenuInputProcessor done
-        Scanner HostOrJoin = new Scanner(System.in);
-        System.out.println("Host (1), join (2) or start single player (3)?: ");
-
-        String choice = HostOrJoin.nextLine();
-        System.out.println("You chose " + choice);
-
-        if(choice.equals(GameType.NETWORK_HOST.value)){
-            typeOfGameStarted = GameType.NETWORK_HOST;
-            hostNewGame("RiskyExchange");
-        }
-        else if(choice.equals(GameType.NETWORK_JOIN.value)){
-            typeOfGameStarted = GameType.NETWORK_JOIN;
-            InetAddress hostIp = null;
-            Scanner askForIpAddress = new Scanner(System.in);
-            System.out.println("Please enter the server IP to join: ");
-
-            String chosenIP = askForIpAddress.nextLine();
-            try {
-                hostIp = InetAddress.getByName(chosenIP);
-            } catch (UnknownHostException e) {
-                e.printStackTrace();
-            }
-            System.out.println(hostIp.getHostAddress());
-            joinNewGame(hostIp);
-        }
-        else if(choice.equals(GameType.SINGLE_PLAYER.value)){
-            typeOfGameStarted = GameType.SINGLE_PLAYER;
-            System.out.println("Single player selected");
-        }
-        else {
-            System.out.println("Please enter 1 or 2 when asked to");
-            chooseHostOrJoin();
-        }
+        client.connect(ip.getHostAddress());
     }
 
     @Override
     public void executeMoves(HashMap<Integer, ArrayList<Card>> playerMoves) {
         for (int moveNumber = 0; moveNumber < 5; moveNumber++){
-            ArrayList<Card> roundMoves = new ArrayList<Card>();
+            ArrayList<Card> roundMoves = new ArrayList<>();
             for (Player p: players) {
                 int playerId = p.id;
                 Card playerMove = playerMoves.get(playerId).get(moveNumber);

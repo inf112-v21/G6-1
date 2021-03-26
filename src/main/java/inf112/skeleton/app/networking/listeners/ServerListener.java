@@ -11,11 +11,9 @@ import java.util.HashMap;
 
 
 public class ServerListener extends Listener {
-    private final String map;
     private final Server server;
     private final boolean[] allPlayersReady;
     private final HashMap<Integer, ArrayList<Card>> cardsReceived;
-    ArrayList<Packets.CardsPacket> testCards;
     private int numberOfPlayers = 0;
 
     private final String[] playerNames;
@@ -26,11 +24,10 @@ public class ServerListener extends Listener {
      *
      * @param server Kryonet server that is being used
      */
-    public ServerListener(Server server, String map) {
+    public ServerListener(Server server) {
         this.server = server;
-        this.map = map;
         playerNames = new String[MAX_PLAYERS];
-        cardsReceived = new HashMap<Integer, ArrayList<Card>>();
+        cardsReceived = new HashMap<>();
         allPlayersReady = new boolean[MAX_PLAYERS];
         ShutdownPlayer = new boolean[MAX_PLAYERS];
 
@@ -65,7 +62,7 @@ public class ServerListener extends Listener {
     /**
      * If a player disconnects from the server this method will get
      * called and it will print which player disconnected.
-     * @param connection
+     * @param connection connection
      */
     public void disconnected(Connection connection) {
         System.out.println("Player: (" + numberOfPlayers + ") has been disconnected");
@@ -97,8 +94,8 @@ public class ServerListener extends Listener {
     /** When something is sent to the server this method gets called and sorts
      *  out what type of message it is before it sends it all clients
      *
-     * @param connection
-     * @param object
+     * @param connection connection
+     * @param object object
      */
     public void received(Connection connection, Object object) {
 
@@ -130,17 +127,5 @@ public class ServerListener extends Listener {
             numberOfPlayersConnected.numberOfPlayers = numberOfPlayers;
             server.sendToAllTCP(numberOfPlayersConnected);
         }
-    }
-
-    /**
-     * Used to test if the right cards are sent and received
-     * @return the cards that were sent.
-     */
-
-    public ArrayList<Packets.CardsPacket> getReceivedCards() {
-        if (testCards.size() > 4) {
-            testCards.clear();
-        }
-        return testCards;
     }
 }

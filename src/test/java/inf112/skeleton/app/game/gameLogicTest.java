@@ -48,12 +48,12 @@ public class gameLogicTest {
         humanPlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer"));
 
         //Flag 3
-        humanPlayer.updatePlayerXPosition(1*tileSize);
+        humanPlayer.updatePlayerXPosition(tileSize);
         humanPlayer.updatePlayerYPosition(9*tileSize);
 
         humanPlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer"));
 
-        Assertions.assertEquals(true, humanPlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer")));
+        Assertions.assertTrue(humanPlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer")));
 
     }
 
@@ -72,12 +72,12 @@ public class gameLogicTest {
         humanPlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer"));
 
         //Flag 3
-        humanPlayer.updatePlayerXPosition(1*tileSize);
+        humanPlayer.updatePlayerXPosition(tileSize);
         humanPlayer.updatePlayerYPosition(9*tileSize);
 
         humanPlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer"));
 
-        Assertions.assertEquals(false, humanPlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer")));
+        Assertions.assertFalse(humanPlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer")));
 
     }
 
@@ -90,7 +90,7 @@ public class gameLogicTest {
         humanPlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer"));
 
         //Flag 3
-        humanPlayer.updatePlayerXPosition(1*tileSize);
+        humanPlayer.updatePlayerXPosition(tileSize);
         humanPlayer.updatePlayerYPosition(9*tileSize);
 
         humanPlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer"));
@@ -102,12 +102,12 @@ public class gameLogicTest {
         humanPlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer"));
 
         //Flag 3
-        humanPlayer.updatePlayerXPosition(1*tileSize);
+        humanPlayer.updatePlayerXPosition(tileSize);
         humanPlayer.updatePlayerYPosition(9*tileSize);
 
         humanPlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer"));
 
-        Assertions.assertEquals(true, humanPlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer")));
+        Assertions.assertTrue(humanPlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) graphics.tiledMap.getLayers().get("flagLayer")));
 
 
 

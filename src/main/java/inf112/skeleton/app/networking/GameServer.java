@@ -16,7 +16,6 @@ import java.net.UnknownHostException;
 
 
 public class GameServer implements Runnable {
-    private final String map;
 
     Server server;
     ServerListener serverListener;
@@ -27,7 +26,6 @@ public class GameServer implements Runnable {
 
 
     public GameServer(String map) {
-        this.map = map;
     }
 
 
@@ -37,7 +35,7 @@ public class GameServer implements Runnable {
      */
     public void run() {
         server = new Server();
-        serverListener = new ServerListener(server,map);
+        serverListener = new ServerListener(server);
 
         System.out.println("Creating the server...");
 
