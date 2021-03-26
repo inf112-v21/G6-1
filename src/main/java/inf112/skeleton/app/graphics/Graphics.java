@@ -29,8 +29,8 @@ public class Graphics implements ApplicationListener {
     private SpriteBatch spriteBatch;
     public Texture background;
     public Texture youWin;
-    public Texture reset;
-    public Texture ready;
+    public Texture reset, notReset;
+    public Texture ready, notReady;
     public Texture damagetoken;
     public Texture lifetoken;
     public Texture menuScreenBackground;
@@ -149,8 +149,12 @@ public class Graphics implements ApplicationListener {
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         background = new Texture("Background.png");
         youWin = new Texture("YouWin.jpg");
+
+        //reset and ready textures
         reset = new Texture("Buttons/RESET.png");
+        notReset = new Texture("Buttons/notRESET.png");
         ready = new Texture("Buttons/READY.png");
+        notReady = new Texture("Buttons/notREADY.png");
 
         damagetoken = new Texture("emptyDamageToken.png");
         lifetoken = new Texture("LifeToken.png");
@@ -184,23 +188,9 @@ public class Graphics implements ApplicationListener {
         spriteBatch.draw(background, 0, 0, 1280, 720);
         spriteBatch.end();
 
-        //spriteBatch.begin();
-        //spriteBatch.draw(ready, 1050, 139, 158, 85);
-        //spriteBatch.end();
-
-        /*the code under shows the ready-button and reset-button displayed on the board,
-         only use this if reset-button is going to be used instead of doble-click to
-         remove the cards from cardslot*/
-
-
-        spriteBatch.begin();
-        spriteBatch.draw(ready, 1053, 175, 125, 55);
-        spriteBatch.end();
-
-        spriteBatch.begin();
-        spriteBatch.draw(reset, 1053, 129, 125, 55);
-        spriteBatch.end();
-
+        //shows when to click the buttons and when not to click
+        readyButtonIndicator();
+        resetButtonIndicator();
 
         spriteBatch.begin();
         spriteBatch.draw(damagetoken, 830, 400, 50, 27);
@@ -242,6 +232,30 @@ public class Graphics implements ApplicationListener {
             spriteBatch.end();
             pause();
             dispose();
+        }
+    }
+
+    public void readyButtonIndicator(){
+        if(singlePlayer.movedCards.size() >= 5){
+            spriteBatch.begin();
+            spriteBatch.draw(ready, 1053, 175, 125, 55);
+            spriteBatch.end();
+        } else if(singlePlayer.movedCards.size() < 5){
+            spriteBatch.begin();
+            spriteBatch.draw(notReady, 1053, 175, 125, 55);
+            spriteBatch.end();
+        }
+    }
+
+    public void resetButtonIndicator(){
+        if(singlePlayer.movedCards.size() > 0){
+            spriteBatch.begin();
+            spriteBatch.draw(reset, 1053, 129, 125, 55);
+            spriteBatch.end();
+        } else if(singlePlayer.movedCards.size() <= 4){
+            spriteBatch.begin();
+            spriteBatch.draw(notReset, 1053, 129, 125, 55);
+            spriteBatch.end();
         }
     }
 
