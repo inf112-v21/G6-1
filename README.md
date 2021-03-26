@@ -3,7 +3,7 @@
 This project is built with:
 
 * Java 15.02
-* JUnit 4.11
+* JUnit 4.12
 * Maven
 
 
