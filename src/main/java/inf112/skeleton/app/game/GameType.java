@@ -1,6 +1,7 @@
 package inf112.skeleton.app.game;
 
 public enum GameType {
+    NONE("0"),
     NETWORK_HOST("1"),
     NETWORK_JOIN("2"),
     SINGLE_PLAYER("3");

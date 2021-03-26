@@ -36,17 +36,18 @@ public class Game implements IGame, InputProcessor {
     CardDeck cardDeck;
     GameServer server;
     GameClient client;
-    public GameType typeOfGameStarted;
+    public GameType typeOfGameStarted = GameType.NONE;
     private ArrayList<Packets.CardsPacket> allPlayerCards;
     private boolean[] ready;
     CardMoveLogic cardMoveLogic = new CardMoveLogic();
     private boolean shutdown = true;
+    public GameScreen currentScreen = GameScreen.MENU;
 
 
     @Override
     public Graphics startGame() {
         graphics = new Graphics(this);
-        chooseHostOrJoin();
+        //chooseHostOrJoin();
         return graphics;
     }
 
@@ -83,6 +84,7 @@ public class Game implements IGame, InputProcessor {
      * In this method, a proper InetAddress object is created for @joinNewGame()
      */
     public void chooseHostOrJoin() {
+        // TODO delete when MenuInputProcessor done
         Scanner HostOrJoin = new Scanner(System.in);
         System.out.println("Host (1), join (2) or start single player (3)?: ");
 
