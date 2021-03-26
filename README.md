@@ -104,3 +104,5 @@ Ignore this.
 
 * Server is not currently stopped propperly when winning a game. This will be fixed ASAP.
   
+* When running all tests at once, your computer may run out of memory. If this happens, just
+try running less tests at once, or try running all of them again. 
