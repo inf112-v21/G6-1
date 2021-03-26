@@ -2,14 +2,11 @@ package inf112.skeleton.app.game;
 
 
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.card.Card;
-import inf112.skeleton.app.card.CardDeck;
 import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.graphics.Graphics;
 import inf112.skeleton.app.networking.GameClient;
 import inf112.skeleton.app.networking.GameServer;
-import inf112.skeleton.app.networking.packets.Packets;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.shared.Color;
@@ -154,7 +151,7 @@ public class Game implements IGame, InputProcessor {
     }
 
     @Override
-    public ArrayList<Player> createPlayers() {
+    public void createPlayers() {
         idPlayerHashMap = new HashMap<>();
         System.out.println("Creating players " + numberOfPlayers);
         ArrayList <Player> playerList = new ArrayList<>();
@@ -171,7 +168,6 @@ public class Game implements IGame, InputProcessor {
         }
         setMyHumanPlayer(idPlayerHashMap.get(client.getId()));
         this.players = playerList;
-        return playerList;
     }
 
     public int getId() {

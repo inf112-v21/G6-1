@@ -21,7 +21,7 @@ public class GameClient extends Listener {
         udpPort = 54777;
         tcpPort = 54555;
 
-        cListener.initialize(client, game);
+        cListener.initialize(game);
         Network.register(client);
         client.addListener(cListener);
 

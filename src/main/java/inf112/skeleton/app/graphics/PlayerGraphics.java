@@ -90,7 +90,7 @@ public class PlayerGraphics {
      * @return Hashmap of player sprites
      */
     private void createPlayerSprite(){
-        this.playerSprites = new HashMap<Color, Sprite>();
+        this.playerSprites = new HashMap<>();
         playerSprites.put(Color.ORANGE,new Sprite(getPlayerTexture(Color.ORANGE, Direction.NORTH)));
         playerSprites.put(Color.GREEN,new Sprite(getPlayerTexture(Color.GREEN, Direction.NORTH)));
         playerSprites.put(Color.PURPLE,new Sprite(getPlayerTexture(Color.PURPLE, Direction.NORTH)));

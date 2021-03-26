@@ -34,8 +34,8 @@ public class Graphics implements ApplicationListener {
     public Texture youWin;
     public Texture reset, notReset;
     public Texture ready, notReady;
-    public Texture damagetoken;
-    public Texture lifetoken;
+    public Texture damageToken;
+    public Texture lifeToken;
     public Texture singlePlayerButton;
     public Texture joinMultiPlayerButton;
     public Texture hostMultiPlayerButton;
@@ -48,7 +48,7 @@ public class Graphics implements ApplicationListener {
     private final CardMoveLogic cardMoveLogic = new CardMoveLogic();
     private HashMap<Action, Texture> cardTextures = new HashMap<>();
     public final Game game;
-    public final ArrayList<Player> singelPlayerList =new ArrayList<>();
+    public final ArrayList<Player> singlePlayerList =new ArrayList<>();
 
 
     public Graphics(Game game) {
@@ -109,7 +109,7 @@ public class Graphics implements ApplicationListener {
         Texture playerTexture = playerGraphics.getPlayerTexture(singlePlayer);
         singlePlayerSprite.setTexture(playerTexture);
         singlePlayerSprite.draw(tiledMapRenderer.getBatch());
-        singlePlayer.singlePlayerRound(singelPlayerList,
+        singlePlayer.singlePlayerRound(singlePlayerList,
                 (TiledMapTileLayer) tiledMap.getLayers().get("Laser"),
                 (TiledMapTileLayer) tiledMap.getLayers().get("BlueConveyor"),
                 (TiledMapTileLayer) tiledMap.getLayers().get("YellowConveyor"),
@@ -131,7 +131,7 @@ public class Graphics implements ApplicationListener {
         cardSpriteList = cardGraphics.createCardSprite();
         cardTextures = cardGraphics.createCardTexture();
 
-        singelPlayerList.add(singlePlayer);
+        singlePlayerList.add(singlePlayer);
         float w = 600;
         float h = 1000;
         spriteBatch = new SpriteBatch();
@@ -150,8 +150,8 @@ public class Graphics implements ApplicationListener {
         ready = new Texture("Buttons/READY.png");
         notReady = new Texture("Buttons/notREADY.png");
 
-        damagetoken = new Texture("emptyDamageToken.png");
-        lifetoken = new Texture("LifeToken.png");
+        damageToken = new Texture("emptyDamageToken.png");
+        lifeToken = new Texture("LifeToken.png");
 
         // Menu Textures
         menuScreenBackground = new Texture("Background.png"); // TODO actual textures
@@ -162,8 +162,8 @@ public class Graphics implements ApplicationListener {
 
     /**
      * Displayed on the screen.
-     * @param width
-     * @param height
+     * @param width of the screen
+     * @param height of the screen
      */
     @Override
     public void resize(int width, int height) {
@@ -209,22 +209,22 @@ public class Graphics implements ApplicationListener {
         resetButtonIndicator();
 
         spriteBatch.begin();
-        spriteBatch.draw(damagetoken, 830, 400, 50, 27);
-        spriteBatch.draw(damagetoken, 800, 400, 50, 27);
-        spriteBatch.draw(damagetoken, 770, 400, 50, 27);
-        spriteBatch.draw(damagetoken, 740, 400, 50, 27);
-        spriteBatch.draw(damagetoken, 710, 400, 50, 27);
-        spriteBatch.draw(damagetoken, 830, 350, 50, 27);
-        spriteBatch.draw(damagetoken, 800, 350, 50, 27);
-        spriteBatch.draw(damagetoken, 770, 350, 50, 27);
-        spriteBatch.draw(damagetoken, 740, 350, 50, 27);
-        spriteBatch.draw(damagetoken, 710, 350, 50, 27);
+        spriteBatch.draw(damageToken, 830, 400, 50, 27);
+        spriteBatch.draw(damageToken, 800, 400, 50, 27);
+        spriteBatch.draw(damageToken, 770, 400, 50, 27);
+        spriteBatch.draw(damageToken, 740, 400, 50, 27);
+        spriteBatch.draw(damageToken, 710, 400, 50, 27);
+        spriteBatch.draw(damageToken, 830, 350, 50, 27);
+        spriteBatch.draw(damageToken, 800, 350, 50, 27);
+        spriteBatch.draw(damageToken, 770, 350, 50, 27);
+        spriteBatch.draw(damageToken, 740, 350, 50, 27);
+        spriteBatch.draw(damageToken, 710, 350, 50, 27);
         spriteBatch.end();
 
         spriteBatch.begin();
-        spriteBatch.draw(lifetoken, 800, 535, 75, 40);
-        spriteBatch.draw(lifetoken, 760, 535, 75, 40);
-        spriteBatch.draw(lifetoken, 720, 535, 75, 40);
+        spriteBatch.draw(lifeToken, 800, 535, 75, 40);
+        spriteBatch.draw(lifeToken, 760, 535, 75, 40);
+        spriteBatch.draw(lifeToken, 720, 535, 75, 40);
         spriteBatch.end();
 
         camera.update();
@@ -232,7 +232,7 @@ public class Graphics implements ApplicationListener {
         tiledMapRenderer.render();
         tiledMapRenderer.getBatch().begin();
         if (game.typeOfGameStarted == GameType.SINGLE_PLAYER) {
-            Gdx.input.setInputProcessor((InputProcessor) singlePlayer);
+            Gdx.input.setInputProcessor(singlePlayer);
             singlePlayer();
 
         } else {
@@ -256,7 +256,7 @@ public class Graphics implements ApplicationListener {
             spriteBatch.begin();
             spriteBatch.draw(ready, 1053, 175, 125, 55);
             spriteBatch.end();
-        } else if(singlePlayer.movedCards.size() < 5){
+        } else {
             spriteBatch.begin();
             spriteBatch.draw(notReady, 1053, 175, 125, 55);
             spriteBatch.end();
@@ -268,7 +268,7 @@ public class Graphics implements ApplicationListener {
             spriteBatch.begin();
             spriteBatch.draw(reset, 1053, 129, 125, 55);
             spriteBatch.end();
-        } else if(singlePlayer.movedCards.size() <= 4){
+        } else {
             spriteBatch.begin();
             spriteBatch.draw(notReset, 1053, 129, 125, 55);
             spriteBatch.end();

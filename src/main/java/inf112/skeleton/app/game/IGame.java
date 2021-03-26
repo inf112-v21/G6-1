@@ -17,5 +17,5 @@ public interface IGame {
 
     void executeMoves(HashMap<Integer, ArrayList<Card>> playerMoves);
 
-    ArrayList createPlayers();
+    void createPlayers();
 }
