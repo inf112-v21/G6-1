@@ -5,8 +5,11 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import inf112.skeleton.app.graphics.Graphics;
 
+import java.net.InetAddress;
+
 public class MenuInputProcessor implements InputProcessor {
     private final Graphics graphics;
+    private String ip = "";
 
     public MenuInputProcessor(Graphics graphics) {
         this.graphics = graphics;
@@ -24,6 +27,19 @@ public class MenuInputProcessor implements InputProcessor {
 
     @Override
     public boolean keyTyped(char c) {
+        System.out.println("Character typed: " + c);
+
+        try {
+            int i = Integer.parseInt(c + "");
+            ip += i;
+            System.out.println("Total ip so far is " + ip);
+        } catch (Exception e) {
+            if (c == '.') {
+                ip += c;
+            } else {
+                ip = "";
+            }
+        }
         return false;
     }
 
@@ -39,22 +55,26 @@ public class MenuInputProcessor implements InputProcessor {
 
         System.out.println("Touch in menu input " + x + ", " + y);
         if (x >= 600 && x <= 725) {
-            if(y >= 200 && y <= 255) {
+            if(y >= 270 && y <= 316) {
                 System.out.println("Single player click");
                 graphics.game.typeOfGameStarted = GameType.SINGLE_PLAYER;
                 graphics.game.currentScreen = GameScreen.GAME;
 
-            } else if (y >= 300 && y <= 355) {
+            } else if (y >= 371 && y <= 415) {
                 System.out.println("Host click");
                 graphics.game.typeOfGameStarted = GameType.NETWORK_HOST;
                 graphics.game.currentScreen = GameScreen.GAME;
                 graphics.game.hostNewGame("RiskyExchange.tmx");
 
-            } else if(y >= 400 && y <= 435) {
-                System.out.println("Join click");
-                // TODO get ip from user then join game
-                //graphics.game.typeOfGameStarted = GameType.NETWORK_JOIN;
-                //graphics.game.joinNewGame(ip)
+            } else if(y >= 469 && y <= 514) {
+                System.out.println("Join click, attempting to join ip" + ip);
+                try {
+                    InetAddress hostIp = InetAddress.getByName(ip);
+                    graphics.game.typeOfGameStarted = GameType.NETWORK_JOIN;
+                    graphics.game.joinNewGame(hostIp);
+                } catch (Exception e) {
+
+                }
             }
         }
 
