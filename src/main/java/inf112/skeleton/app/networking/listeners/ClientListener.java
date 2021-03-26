@@ -5,10 +5,8 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.game.Game;
-import inf112.skeleton.app.networking.Network;
 import inf112.skeleton.app.networking.packets.Packets;
 
-import java.net.NetworkInterface;
 import java.util.ArrayList;
 
 
@@ -140,7 +138,7 @@ public class ClientListener extends Listener {
         else if (object instanceof Packets.ShutDownRobotPacket) {
             // TODO what is the intended usage of this packet?
             Packets.ShutDownRobotPacket shutDownRobot = (Packets.ShutDownRobotPacket) object;
-            game.shutDownPlayer(shutDownRobot.playersShutdown);
+            game.shutDownPlayer();
         }
     }
 

@@ -26,10 +26,10 @@ public class HumanPlayer extends Player implements InputProcessor {
         super(direction, id, color);
     }
 
-    public Laser laser = new Laser();
-    public Conveyor conveyor = new Conveyor();
-    public Gear gear = new Gear();
-    public Hole hole = new Hole();
+    public final Laser laser = new Laser();
+    public final Conveyor conveyor = new Conveyor();
+    public final Gear gear = new Gear();
+    public final Hole hole = new Hole();
     private float mouseClickXCoordinate;
     private float mouseClickYCoordinate;
 

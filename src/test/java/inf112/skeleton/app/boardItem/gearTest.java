@@ -28,8 +28,8 @@ public class gearTest {
     Graphics graphics;
     HumanPlayer humanPlayer;
     Gear gear;
-    ArrayList<Player> testPlayers = new ArrayList<>();
-    int tileSize = 300;
+    final ArrayList<Player> testPlayers = new ArrayList<>();
+    final int tileSize = 300;
 
     @Before
     public void setup() {

@@ -12,14 +12,14 @@ import java.util.HashMap;
 // Listener class for receiving and sending data from clients to all clients.
 public class ServerListener extends Listener {
     private final String map;
-    private Server server;
-    private boolean[] allPlayersReady;
-    private HashMap<Integer, ArrayList<Card>> cardsReceived;
+    private final Server server;
+    private final boolean[] allPlayersReady;
+    private final HashMap<Integer, ArrayList<Card>> cardsReceived;
     ArrayList<Packets.CardsPacket> testCards;
     private int numberOfPlayers = 0;
 
-    private String[] playerNames;
-    public boolean[] ShutdownPlayer;
+    private final String[] playerNames;
+    public final boolean[] ShutdownPlayer;
     public final int MAX_PLAYERS = 5;
 
     /**

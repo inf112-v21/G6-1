@@ -7,7 +7,7 @@ public enum Color {
         PINK(3),
         PURPLE(4);
 
-        public int colorValue;
+        public final int colorValue;
 
         private Color(int value) {
                 this.colorValue = value;

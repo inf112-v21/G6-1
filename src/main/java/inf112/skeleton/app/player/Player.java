@@ -17,7 +17,7 @@ public abstract class Player  {
 //TODO color final
     public int damageTaken;
     public int healthToken;
-    public Color color;
+    public final Color color;
     public Direction direction;
     public ArrayList<Card> chosenCards;
     public ArrayList<Card> playerDeck;
@@ -25,7 +25,7 @@ public abstract class Player  {
     public float playerCurrentYPosition;
     public ArrayList<Float> cardCoordinates;
     public ArrayList<Integer> movedCards;
-    public ArrayList<Integer> flagsToVisit;
+    public final ArrayList<Integer> flagsToVisit;
     public boolean ready;
     /**
      * @param direction The direction the player is facing. Needs to be set only when a player is created

@@ -15,8 +15,8 @@ import java.util.ArrayList;
 public class holeTest {
     HumanPlayer humanPlayer;
     Hole hole;
-    ArrayList<Player> testPlayers = new ArrayList<>();
-    int tileSize = 300;
+    final ArrayList<Player> testPlayers = new ArrayList<>();
+    final int tileSize = 300;
 
     @Before
     public void setup() {

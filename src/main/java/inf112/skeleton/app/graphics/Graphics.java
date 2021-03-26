@@ -40,20 +40,19 @@ public class Graphics implements ApplicationListener {
     public Texture joinMultiPlayerButton;
     public Texture hostMultiPlayerButton;
     public PlayerGraphics playerGraphics;
-    public CardGraphics cardGraphics;
-    public HumanPlayer singlePlayer = new HumanPlayer(Direction.NORTH,69,Color.GREEN);
-    private MenuInputProcessor menuInputProcessor;
+    public final CardGraphics cardGraphics;
+    public final HumanPlayer singlePlayer = new HumanPlayer(Direction.NORTH,69,Color.GREEN);
+    private final MenuInputProcessor menuInputProcessor;
     public Sprite singlePlayerSprite;
     public ArrayList<Sprite> cardSpriteList;
-    private CardMoveLogic cardMoveLogic = new CardMoveLogic();
+    private final CardMoveLogic cardMoveLogic = new CardMoveLogic();
     private HashMap<Action, Texture> cardTextures = new HashMap<>();
-    public Game game;
-    public ArrayList<Player> singelPlayerList =new ArrayList<>();
+    public final Game game;
+    public final ArrayList<Player> singelPlayerList =new ArrayList<>();
 
 
     public Graphics(Game game) {
         menuInputProcessor = new MenuInputProcessor(this);
-        playerGraphics = new PlayerGraphics();
         cardGraphics = new CardGraphics();
         this.game = game;
     }
@@ -88,16 +87,6 @@ public class Graphics implements ApplicationListener {
             player.setMouseClickCoordinates(camera);
             setInputProcessor(player);
             updateCardSprite(player);
-            /*
-            System.out.println("Player of color " +player.color);
-            System.out.println("Start");
-            for(Card playerdeckcard : player.playerDeck){
-                System.out.println(playerdeckcard.action);
-            }
-            System.out.println("chosenCard");
-            for(Card playerchosencard : player.chosenCards){
-                System.out.println(playerchosencard.action);
-            }*/
 
             Sprite playerSprite = playerGraphics.getPlayerSprite(player);
             Texture playerTexture = playerGraphics.getPlayerTexture(player);

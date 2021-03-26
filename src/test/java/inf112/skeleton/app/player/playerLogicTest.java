@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Assertions;
 
 public class playerLogicTest {
 
-    HumanPlayer humanPlayer = new HumanPlayer(Direction.NORTH, 1, Color.GREEN);
+    final HumanPlayer humanPlayer = new HumanPlayer(Direction.NORTH, 1, Color.GREEN);
 
     @Test
     public void testPlayersPositionMustBeOnGameBoard() {

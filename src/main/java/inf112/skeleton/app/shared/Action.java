@@ -9,7 +9,7 @@ public enum Action {
     U_TURN(180),
     BACK_UP(-300);
 
-    private float action;
+    private final float action;
 
     public float getAction(){
         return this.action;

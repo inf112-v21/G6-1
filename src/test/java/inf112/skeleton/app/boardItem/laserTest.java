@@ -15,8 +15,8 @@ public class laserTest {
 
     HumanPlayer humanPlayer;
     Laser laser;
-    ArrayList<Player> testPlayers = new ArrayList<>();
-    int tileSize = 300;
+    final ArrayList<Player> testPlayers = new ArrayList<>();
+    final int tileSize = 300;
 
 
     @Before

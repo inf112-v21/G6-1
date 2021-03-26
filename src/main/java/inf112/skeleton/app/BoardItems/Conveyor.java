@@ -13,14 +13,14 @@ public class Conveyor {
 
 Set<Player> alreadyMovedPlayers;
 
-HashMap<Integer,Integer> yellowConveyorDirection = new HashMap<>() {{
+final HashMap<Integer,Integer> yellowConveyorDirection = new HashMap<>() {{
    put(49, Direction.NORTH.getDirectionDegree());
    put(50, Direction.SOUTH.getDirectionDegree());
    put(51, Direction.WEST.getDirectionDegree());
    put(52, Direction.EAST.getDirectionDegree());
 }};
 
-HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
+final HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
    put(13,Direction.NORTH.getDirectionDegree());
    put(14,Direction.EAST.getDirectionDegree());
    put(21,Direction.SOUTH.getDirectionDegree());

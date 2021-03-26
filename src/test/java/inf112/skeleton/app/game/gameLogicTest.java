@@ -22,7 +22,7 @@ public class gameLogicTest {
     Lwjgl3ApplicationConfiguration cfg;
     Graphics graphics;
     HumanPlayer humanPlayer;
-    int tileSize = 300;
+    final int tileSize = 300;
 
 
     @Before

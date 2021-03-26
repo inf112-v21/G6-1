@@ -16,12 +16,12 @@ import java.util.ArrayList;
 public class GameClient extends Listener {
     static com.esotericsoftware.kryonet.Client client;
     //static int udpPort = 54777, tcpPort = 54555;
-    int udpPort;
-    int tcpPort;
+    final int udpPort;
+    final int tcpPort;
 
 
     public Client cl;
-    private ClientListener cListener;
+    private final ClientListener cListener;
 
     public GameClient(InetAddress ipAddress, Game game){
         client = new Client();

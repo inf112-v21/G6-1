@@ -6,8 +6,8 @@ import java.util.Random;
 
 
 public class CardDeck {
-    public ArrayList<Card> cardDeck= new ArrayList<>();
-    public Random rand = new Random();
+    public final ArrayList<Card> cardDeck= new ArrayList<>();
+    public final Random rand = new Random();
     public CardDeck(){
         renderCardDeck();
     }

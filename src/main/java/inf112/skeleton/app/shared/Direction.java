@@ -6,8 +6,8 @@ public enum Direction {
     SOUTH(180, 0),
     WEST(270, 0);
 
-    private int directionDegree;
-    private int boundaryCoordinate;
+    private final int directionDegree;
+    private final int boundaryCoordinate;
 
     public int getDirectionDegree(){
         return this.directionDegree;

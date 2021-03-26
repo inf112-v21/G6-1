@@ -14,8 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 public class MenuScreen extends ScreenAdapter {
-    private Stage stage;
-    private Game game;
+    private final Stage stage;
+    private final Game game;
 
     public MenuScreen(Game game) {
         this.game = game;

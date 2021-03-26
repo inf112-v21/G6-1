@@ -39,7 +39,7 @@ public class Game implements IGame, InputProcessor {
     public GameType typeOfGameStarted = GameType.NONE;
     private ArrayList<Packets.CardsPacket> allPlayerCards;
     private boolean[] ready;
-    CardMoveLogic cardMoveLogic = new CardMoveLogic();
+    final CardMoveLogic cardMoveLogic = new CardMoveLogic();
     private boolean shutdown = true;
     public GameScreen currentScreen = GameScreen.MENU;
 
@@ -200,9 +200,8 @@ public class Game implements IGame, InputProcessor {
 
     /**
      * Calling this when needed to shut down a player (robot)
-     * @param playersShutdown
      */
-    public void shutDownPlayer(boolean[] playersShutdown) {
+    public void shutDownPlayer() {
         client.sendPlayerShutDown();
     }
 

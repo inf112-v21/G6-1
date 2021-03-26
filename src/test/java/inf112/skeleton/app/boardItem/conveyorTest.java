@@ -15,7 +15,7 @@ public class conveyorTest {
 
     HumanPlayer humanPlayer;
     Conveyor conveyor;
-    int tileSize = 300;
+    final int tileSize = 300;
 
 
     @Before

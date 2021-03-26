@@ -26,7 +26,8 @@ public class GameServer implements Runnable {
 
 
     //What ports to be used
-    static int udpPort = 54777, tcpPort = 54555;
+    static final int udpPort = 54777;
+    static final int tcpPort = 54555;
 
 
     public GameServer(String map) {

@@ -93,6 +93,7 @@ Klassediagram finner du: [her](https://github.com/inf112-v21/GameStoppers/blob/m
 - Cards are shown on the screen
 
 
+
     Work task: 
 - Create method to show cards on the screen 
 
