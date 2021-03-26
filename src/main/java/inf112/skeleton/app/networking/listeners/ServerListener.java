@@ -9,7 +9,7 @@ import inf112.skeleton.app.networking.packets.Packets;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-// Listener class for receiving and sending data from clients to all clients.
+
 public class ServerListener extends Listener {
     private final String map;
     private final Server server;
@@ -41,39 +41,21 @@ public class ServerListener extends Listener {
     }
 
 
-
-    // If client connects to the server, this method is called.
-    // It will print out a message and update what players are on the server
-    // and update and send the number of players to all clients.
-
-
-
-    // TODO må være connected() siden metoden er fra Listener.java (se vekk fra denne?)
     public void connected(Connection connection) {
         System.out.println("Player " + (numberOfPlayers + 1) + " has connected to the server");
         numberOfPlayers++;
 
-        // Send updated number of players to all players
         Packets.PlayerNumberPacket playerPacket = new Packets.PlayerNumberPacket();
         playerPacket.numberOfPlayers = numberOfPlayers;
-        //game.setNumberOfPlayers(playerPacket.numberOfPlayers);
         server.sendToAllTCP(playerPacket);
 
-
-        // Tell the new player their player number
         Packets.PlayerIdPacket playerIdPacket = new Packets.PlayerIdPacket();
         playerIdPacket.playerNumber = numberOfPlayers;
         server.sendToAllTCP(playerIdPacket);
 
-        // Send map name to player
-        // Made into packet, since it is easier to handle
         Packets.SendMapNameToPlayer sendMapNameToPlayer = new Packets.SendMapNameToPlayer();
         server.sendToAllTCP(sendMapNameToPlayer);
 
-
-        // TODO we automatically start the game when we have 3 players
-        // TODO add a start button to the gui of the host
-        //  which should trigger starting the game
         if (numberOfPlayers >= 3) {
             this.startGameSession();
         }

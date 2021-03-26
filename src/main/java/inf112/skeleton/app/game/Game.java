@@ -32,22 +32,16 @@ public class Game implements IGame, InputProcessor {
     public HumanPlayer myHumanPlayer;
     public ArrayList<Player> players = new ArrayList<Player>();
     public String[] names;
-    /** The card handler */
-    CardDeck cardDeck;
     GameServer server;
     GameClient client;
     public GameType typeOfGameStarted = GameType.NONE;
-    private ArrayList<Packets.CardsPacket> allPlayerCards;
-    private boolean[] ready;
     final CardMoveLogic cardMoveLogic = new CardMoveLogic();
-    private boolean shutdown = true;
     public GameScreen currentScreen = GameScreen.MENU;
 
 
     @Override
     public Graphics startGame() {
         graphics = new Graphics(this);
-        //chooseHostOrJoin();
         return graphics;
     }
 
@@ -122,7 +116,6 @@ public class Game implements IGame, InputProcessor {
 
     @Override
     public void executeMoves(HashMap<Integer, ArrayList<Card>> playerMoves) {
-        // Assume all players have chosen their moves
         for (int moveNumber = 0; moveNumber < 5; moveNumber++){
             ArrayList<Card> roundMoves = new ArrayList<Card>();
             for (Player p: players) {
@@ -130,12 +123,9 @@ public class Game implements IGame, InputProcessor {
                 Card playerMove = playerMoves.get(playerId).get(moveNumber);
                 roundMoves.add(playerMove);
             }
-            // Sort moves by priority
             Collections.sort(roundMoves);
 
-            // Execute moves: for each move
             for (Card move: roundMoves) {
-                // Do the move on the correct player
 
                 for (Player player: players) {
                     if (player.chosenCards.get(moveNumber).equals(move)) {
@@ -149,7 +139,6 @@ public class Game implements IGame, InputProcessor {
 
     public void dealPlayerDeck(Player player) {
         player.cardCoordinates = cardMoveLogic.resetCardCoordinates();
-        //player.chosenCards = new ArrayList<>();
         player.playerDeck = cardMoveLogic.playerDeck();
     }
 
@@ -159,75 +148,11 @@ public class Game implements IGame, InputProcessor {
         }
     }
 
-    public void isReady(Packets.CardsPacket p) {
-        for (Packets.CardsPacket pc : allPlayerCards) {
-            if (pc.playerId == p.playerId) {
-                return;
-            }
-        }
-        allPlayerCards.add(p);
-
-        if (allPlayerCards.size() == numberOfPlayers) {
-            boolean contains = false;
-            for (int i = 1; i < numberOfPlayers; i++) {
-                if (p.playerId == i) {
-                    contains = true;
-                    break;
-                }
-            }
-        }
-    }
-
-    public void getAllReady(boolean[] ready) {
-        this.ready = ready;
-    }
-
-
-
-    // numberOfPlayers
     public void setNumberOfPlayers(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
         createPlayers();
     }
 
-    // Returns the number of players currently in the game
-    public int getNumberOfPlayers() {
-        return numberOfPlayers;
-    }
-
-    // public void deleteDisconnectedPlayers() {}
-
-
-    /**
-     * Calling this when needed to shut down a player (robot)
-     */
-    public void shutDownPlayer() {
-        client.sendPlayerShutDown();
-    }
-
-    public void setShutDown(boolean bool) {
-        shutdown = bool;
-    }
-
-    // The host sends out start signal to alert other players that the game is starting.
-    public void sendStartSignal() {
-        client.sendStartSignal();
-    }
-
-
-
-    @Override
-    public boolean isGameOver(TiledMapTileLayer flagLayer) {
-        for (Player p: players) {
-            if (p.hasPlayerVisitedAllFlags(flagLayer)){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // Initializes idPlayerHashMap,
-    // Creates the number of players needed and puts them into the idPlayerHashMap.
     @Override
     public ArrayList<Player> createPlayers() {
         idPlayerHashMap = new HashMap<>();
@@ -249,18 +174,6 @@ public class Game implements IGame, InputProcessor {
         return playerList;
     }
 
-
-    public void sendName(String userName) {
-        client.sendName(userName);
-    }
-    public void receiveNames(Packets.NamePacket name) {
-        names = name.name;
-    }
-
-    public String[] getNames() {
-        return names;
-    }
-
     public int getId() {
         return client.getId();
     }
@@ -269,13 +182,6 @@ public class Game implements IGame, InputProcessor {
     public void setMyHumanPlayer(HumanPlayer humanPlayer) {
         myHumanPlayer = humanPlayer;
     }
-
-    // idPlayerHashMap
-    public HashMap<Integer, HumanPlayer> getIdPlayerHashMap() {
-        return idPlayerHashMap;
-    }
-
-
 
     @Override
     public boolean keyDown(int i) { return true; }

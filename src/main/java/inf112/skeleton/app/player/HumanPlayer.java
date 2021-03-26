@@ -256,10 +256,8 @@ public class HumanPlayer extends Player implements InputProcessor {
         } else if(x >6605 && x < 7060 && y >= 1640 && y <= 2260){
             cardMoveLogic.moveCardWhenClicked(8,this);
         } else if(x >6590 && x < 7070 && y <= 825 && y >= 520) {
-            //the player can now regret the order of chosen cards by clicking on reset-button
             cardMoveLogic.resetCard(this);
         } else if (this.chosenCards.size() >= 5 && x >6590 && x < 7070 && y <= 1155 && y >= 850) {
-            // If 5 cards are chosen, the player can now press the ready-button and start rendering one round.
             this.ready = true;
         }
         return false;

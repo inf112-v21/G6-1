@@ -4,7 +4,6 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
 import inf112.skeleton.app.networking.packets.Packets;
 
-//In this class, common methods for both Server and Client will be implemented.
 public class Network {
 
     /**

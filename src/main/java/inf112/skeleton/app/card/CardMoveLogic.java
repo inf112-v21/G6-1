@@ -90,7 +90,7 @@ public class CardMoveLogic {
      * a new set of cards shows up and the card-coordinates is being reset.
      * It runs the round after the player selects its chosen cards and clicks on ready-button.
      * It gives the player a new deck of cards.
-     * @param player
+     * @param player the player
      */
     public void readyButtonClickable(Player player){
         player.movedCards = new ArrayList<>();

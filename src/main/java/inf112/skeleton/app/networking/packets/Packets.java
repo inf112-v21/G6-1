@@ -48,9 +48,6 @@ public class Packets {
         public String[] names;
     }
 
-    ////
-    // Player packets
-    ////
 
     /**
      * Packet sent to clients to remove a player with some player id

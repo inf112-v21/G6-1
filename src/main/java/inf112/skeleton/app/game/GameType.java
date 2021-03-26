@@ -8,7 +8,7 @@ public enum GameType {
 
     public final String value;
 
-    private GameType(String value) {
+    GameType(String value) {
         this.value = value;
     }
 }

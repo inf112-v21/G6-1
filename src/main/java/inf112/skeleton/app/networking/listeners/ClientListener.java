@@ -52,7 +52,6 @@ public class ClientListener extends Listener {
      */
 
     public void sendCardsToServer(ArrayList<Card> cards) {
-        // if player sends no cards
         if (cards.size() != 5) {
             return;
         }
@@ -91,54 +90,21 @@ public class ClientListener extends Listener {
 
 
     public void received(Connection c, Object object) {
-        // Player connection handling
         if (object instanceof Packets.PlayerNumberPacket)
         {
             Packets.PlayerNumberPacket p = (Packets.PlayerNumberPacket) object;
             game.setNumberOfPlayers(p.numberOfPlayers);
         }
-        else if (object instanceof Packets.PlayerIdPacket)
-        {
-            Packets.PlayerIdPacket p = (Packets.PlayerIdPacket) object;
-            int yourPlayerNumber = p.playerNumber;
-            // TODO ask Erlend set your player number to yourPlayerNumber
-        }
-
-        // Game start / end
         else if (object instanceof Packets.StartGamePackage)
         {
             System.out.println("Starting game");
-            // TODO we only need to deal the players player deck - not all players
             game.dealPlayerDecks();
         }
-
-        // Round handling
         else if (object instanceof Packets.RoundPacket)
         {
             Packets.RoundPacket roundPacket = (Packets.RoundPacket) object;
             game.executeMoves(roundPacket.playerMoves);
 
-            // TODO after all moves are done we either start a new round or end the game.
-            //  executeMoves currently deals cards to everyone, but that doesn't work for MP
-            // We probably want the server to send each player a packet of cards they may choose
-            //  other possibility which is quicker: deal cards to your own player in this else if
-
-        }
-
-        // Ready signal handling
-        else if (object instanceof Packets.StartSignalPacket){
-            // TODO implement once basic network works
-            // public boolean start;
-        }
-        else if (object instanceof Packets.StartGamePackage) {
-            // TODO implement once basic network works
-            Packets.StartGamePackage ready = (Packets.StartGamePackage) object;
-            game.getAllReady(ready.allReady);
-        }
-        else if (object instanceof Packets.ShutDownRobotPacket) {
-            // TODO what is the intended usage of this packet?
-            Packets.ShutDownRobotPacket shutDownRobot = (Packets.ShutDownRobotPacket) object;
-            game.shutDownPlayer();
         }
     }
 
@@ -146,7 +112,6 @@ public class ClientListener extends Listener {
         return cards;
     }
 
-    // Returns true if connected to the server
     public boolean getC() {
         return c;
     }
@@ -156,16 +121,9 @@ public class ClientListener extends Listener {
         client.sendTCP(signal);
     }
 
-    // Notifies the player to shut down their board piece
     public void sendRobotShutdownSign() {
         Packets.ShutDownRobotPacket shutDownRobotPacket = new Packets.ShutDownRobotPacket();
         client.sendTCP(shutDownRobotPacket);
-    }
-
-    // Deleted the player so that it cannot play cards.
-    public void removeAPlayerFromTheServer() {
-        Packets.RemovePlayerPacket removePlayerPacket = new Packets.RemovePlayerPacket();
-        client.sendTCP(removePlayerPacket);
     }
 
 
