@@ -9,11 +9,12 @@ This project is built with:
 
 ## Installing and using the project
 
-* Clone the project from this repo
+* Clone the project from this repo: 
+  `git clone git@github.com:inf112-v21/GameStoppers.git`
 * Installing Maven:
-    * Open computer's consol
-    * Run the command "mvn clean install"
-    * Run the command "mvn -Dexec.mainClass=inf112.skeleton.app.Main
+    * Open computer's console
+    * Run the command `mvn clean install`
+    * Run the command `mvn -Dexec.mainClass=inf112.skeleton.app.Main`
     
 * In the project overview, go to src/main/java/inf112/skeleton/app and run Main.java
 
