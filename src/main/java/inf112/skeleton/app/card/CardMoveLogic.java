@@ -86,6 +86,22 @@ public class CardMoveLogic {
     }
 
     /**
+     * This method is used in HumanPlayer (singlePlayerRound), so that when the ready-button is clicked,
+     * a new set of cards shows up and the card-coordinates is being reset.
+     * It runs the round after the player selects its chosen cards and clicks on ready-button.
+     * It gives the player a new deck of cards.
+     * @param player
+     */
+    public void readyButtonClickable(Player player){
+        player.movedCards = new ArrayList<>();
+        player.chosenCards = new ArrayList<>();
+        player.playerDeck = new ArrayList<>();
+        player.ready = false;
+        player.playerDeck = playerDeck();
+        player.cardCoordinates = resetCardCoordinates();
+    }
+
+    /**
      * This method:
      * Moves card sprite when clicked to the programming slots on the board.
      * Add the card in question to players chosenCard list.
