@@ -154,10 +154,10 @@ public class Graphics implements ApplicationListener {
         lifeToken = new Texture("LifeToken.png");
 
         // Menu Textures
-        menuScreenBackground = new Texture("Background.png"); // TODO actual textures
-        singlePlayerButton = new Texture("Buttons/READY.png");
-        joinMultiPlayerButton = new Texture("Buttons/RESET.png");
-        hostMultiPlayerButton = new Texture("Buttons/RESET.png");
+        menuScreenBackground = new Texture("MenuScreen/MenuBackground.png"); // TODO actual textures
+        singlePlayerButton = new Texture("SinglePlayerButton.png");
+        joinMultiPlayerButton = new Texture("JoinGameButton.png");
+        hostMultiPlayerButton = new Texture("HostGameButton.png");
     }
 
     /**
@@ -172,6 +172,9 @@ public class Graphics implements ApplicationListener {
         camera.update();
     }
 
+    private void createMenuScreen(){
+
+    }
 
     private void renderMenuScreen() {
         // Draw background
@@ -181,9 +184,9 @@ public class Graphics implements ApplicationListener {
 
         // Draw buttons
         spriteBatch.begin();
-        spriteBatch.draw(singlePlayerButton, 600, 200, 125, 55);
-        spriteBatch.draw(joinMultiPlayerButton, 600, 300, 125, 55);
-        spriteBatch.draw(hostMultiPlayerButton, 600, 400, 125, 55);
+        spriteBatch.draw(singlePlayerButton, 600, 400, 125, 55);
+        spriteBatch.draw(hostMultiPlayerButton, 600, 300, 125, 55);
+        spriteBatch.draw(joinMultiPlayerButton, 600, 200, 125, 55);
         spriteBatch.end();
 
         // Handle inputs
