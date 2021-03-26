@@ -104,7 +104,7 @@ public class Graphics implements ApplicationListener {
     }
 
     /**
-     * temp runs a singel-player gui
+     * temp runs a single-player gui
      */
     public void singlePlayer(){
         singlePlayer.setMouseClickCoordinates(camera);

@@ -1,29 +1,15 @@
 package inf112.skeleton.app.boardItem;
 
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import inf112.skeleton.app.game.Game;
-import inf112.skeleton.app.graphics.Graphics;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
 import inf112.skeleton.app.BoardItems.Conveyor;
-import inf112.skeleton.app.graphics.Graphics;
-import org.junit.After;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
 
 import org.junit.Before;
 
-
-
-/**
- * In order for the test to run, a game window must be initialised.
- * When the game window is manually closed, the tests will run as expected.
- * The tests must be run individually.
- * If you get error "ExceptionInInitializerError", run the JVM with -XstartOnFirstThread.
- */
 
 public class conveyorTest {
 

@@ -1,20 +1,11 @@
 package inf112.skeleton.app.player;
 
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import inf112.skeleton.app.game.Game;
-import inf112.skeleton.app.graphics.Graphics;
 import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 public class playerLogicTest {
-
-
 
     HumanPlayer humanPlayer = new HumanPlayer(Direction.NORTH, 1, Color.GREEN);
 

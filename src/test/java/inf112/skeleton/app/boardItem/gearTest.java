@@ -2,10 +2,7 @@ package inf112.skeleton.app.boardItem;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import com.badlogic.gdx.maps.Map;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import inf112.skeleton.app.BoardItems.Conveyor;
 import inf112.skeleton.app.BoardItems.Gear;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.graphics.Graphics;
@@ -13,13 +10,17 @@ import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
-import inf112.skeleton.app.graphics.Graphics;
 import org.junit.jupiter.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
+/**
+ * In order for the test to run, a game window must be initialised.
+ * When the game window is manually closed, the tests will run as expected.
+ * If you get error "ExceptionInInitializerError", run the JVM with -XstartOnFirstThread.
+ */
 
 public class gearTest {
 
@@ -30,9 +31,6 @@ public class gearTest {
     ArrayList<Player> testPlayers = new ArrayList<>();
     int tileSize = 300;
 
-
-
-    //Usikker på hvor mye at dette man trenger, tar refactoring etterpå
     @Before
     public void setup() {
         graphics = new Graphics(new Game());

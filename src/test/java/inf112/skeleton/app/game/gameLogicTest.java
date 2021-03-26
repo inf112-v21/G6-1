@@ -3,7 +3,6 @@ package inf112.skeleton.app.game;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import inf112.skeleton.app.BoardItems.Conveyor;
 import inf112.skeleton.app.graphics.Graphics;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.shared.Color;
@@ -13,6 +12,12 @@ import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
 public class gameLogicTest {
+
+    /**
+     * In order for the test to run, a game window must be initialised.
+     * When the game window is manually closed, the tests will run as expected.
+     * If you get error "ExceptionInInitializerError", run the JVM with -XstartOnFirstThread.
+     */
 
     Lwjgl3ApplicationConfiguration cfg;
     Graphics graphics;
