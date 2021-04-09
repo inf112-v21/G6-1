@@ -19,13 +19,14 @@ public class GameServer implements Runnable {
 
     Server server;
     ServerListener serverListener;
-    public InetAddress address;
 
+    public InetAddress address;
     static final int udpPort = 54777;
     static final int tcpPort = 54555;
 
 
     public GameServer(String map) {
+
     }
 
 
