@@ -27,6 +27,7 @@ public class Game implements IGame, InputProcessor {
     public ArrayList<Player> players = new ArrayList<>();
     GameServer server;
     GameClient client;
+    private boolean host;
     public GameType typeOfGameStarted = GameType.NONE;
     final CardMoveLogic cardMoveLogic = new CardMoveLogic();
     public GameScreen currentScreen = GameScreen.MENU;
@@ -43,10 +44,27 @@ public class Game implements IGame, InputProcessor {
      *
      * @param map - What map to be used in the hosted game.
      */
-    public void hostNewGame(String map) {
+    public InetAddress hostNewGame(String map) {
         server = new GameServer(map);
         server.run();
         client = new GameClient(server.getAddress(),this);
+        host = true;
+        return server.getAddress();
+    }
+
+
+    public boolean joinGame(String ipAdress) {
+        client = new GameClient(this);
+        if (!client.connect(ipAdress))
+            return false;
+
+        host = false;
+        return true;
+    }
+
+    public void joinGame(InetAddress ipAddress) {
+        client = new GameClient(ipAddress, this);
+        host = false;
     }
 
     /**

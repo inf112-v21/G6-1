@@ -9,7 +9,7 @@ public enum Color {
 
         public final int colorValue;
 
-        private Color(int value) {
+        Color(int value) {
                 this.colorValue = value;
         }
 

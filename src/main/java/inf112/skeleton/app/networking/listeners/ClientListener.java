@@ -1,5 +1,6 @@
 package inf112.skeleton.app.networking.listeners;
 
+import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import inf112.skeleton.app.game.Game;
@@ -12,15 +13,18 @@ import inf112.skeleton.app.networking.packets.Packets;
  */
 public class ClientListener extends Listener {
     private Game game;
+    private Client client;
     public Packets.CardsPacket cards;
     public Packets.NamePacket name;
 
 
     /**
-     *
-     * @param game is whats played
+     * Initializes the listener class.
+     * @param client Kryonet client that is connected to the server.
+     * @param game game class that is played
      */
-    public void initialize(Game game) {
+    public void initialize(Client client, Game game) {
+        this.client = client;
         this.game = game;
 
         cards = new Packets.CardsPacket();

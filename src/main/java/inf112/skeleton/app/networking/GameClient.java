@@ -11,9 +11,13 @@ import java.net.InetAddress;
 
 
 public class GameClient extends Listener {
-    static com.esotericsoftware.kryonet.Client client;
+
+    public Client client;
+    private ClientListener cListener;
+
     final int udpPort;
     final int tcpPort;
+
 
     public GameClient(InetAddress ipAddress, Game game){
         client = new Client();
@@ -21,7 +25,7 @@ public class GameClient extends Listener {
         udpPort = 54777;
         tcpPort = 54555;
 
-        cListener.initialize(game);
+        cListener.initialize(client, game);
         Network.register(client);
         client.addListener(cListener);
 
@@ -35,14 +39,26 @@ public class GameClient extends Listener {
         }
     }
 
+    public GameClient(Game game) {
+        client = new Client();
+        cListener = new ClientListener();
 
-    public void connect(String ip) {
+        tcpPort = 54555;
+        udpPort = 54777;
+
+        cListener.initialize(client, game);
+    }
+
+
+    public boolean connect(String ip) {
         new Thread(client).start();
         try {
             client.connect(5000, ip, tcpPort, udpPort);
             System.out.println("IP Address: "+ ip);
+            return true;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null,"Server is not started. Can not connect");
+            return false;
         }
     }
 

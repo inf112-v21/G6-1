@@ -46,3 +46,13 @@ When player can perform move-action:
 - Only after all of the 5 cards are selected, the player can perform the moves.
 - When less than 5 cards is chosen, it should result in no movement.
 - Cant attempt to choose more than five cards because the round is rendered on new, and the player has already performed its move-action.
+
+##Menu screen test
+###Testing that the menu screen works as intended. 
+
+How: Run the application running Main class. 
+
+Select either single player, host game or join game.
+- When single player is selected a game starts where there is only one player, and the game logic implemented for one player works. 
+- When host game is selected, the server is connected.
+- Before clicking join game the player must type the IP adress to the host in the terminal. Then, when join game is then selected, the player gets connected to the server. 

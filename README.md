@@ -3,17 +3,18 @@
 This project is built with:
 
 * Java 15.02
-* JUnit 4.11
+* JUnit 4.12
 * Maven
 
 
 ## Installing and using the project
 
-* Clone the project from this repo
+* Clone the project from this repo: 
+  `git clone git@github.com:inf112-v21/GameStoppers.git`
 * Installing Maven:
-    * Open computer's consol
-    * Run the command "mvn clean install"
-    * Run the command "mvn -Dexec.mainClass=inf112.skeleton.app.Main
+    * Open computer's console
+    * Run the command `mvn clean install`
+    * Run the command `mvn -Dexec.mainClass=inf112.skeleton.app.Main`
     
 * In the project overview, go to src/main/java/inf112/skeleton/app and run Main.java
 
@@ -41,7 +42,7 @@ GameStoppers' project is a simple board-game interface with working movement usi
 to navigate a figure around a 12x14 grid. The board-game will stop, and tell the localHumanPlayer they won, if
 you navigate the figure on top of a flag.
 
-![Overview](https://github.com/inf112-v21/GameStoppers/blob/master/classDiagram/UML-diagram_oblig2.png?raw=true)
+![Overview](https://github.com/inf112-v21/GameStoppers/blob/master/classDiagram/UML-diagram_oblig3.png?raw=true)
 
 
 
@@ -87,6 +88,9 @@ however the project still runs and it does not affect performance.
   
 * When one person hosts a game, two game-pieces appear on the board. When a new player joins, one more appears.
 Only one game-piece should appear per player joined.
+  
+* The online feature is still not fully operative. You can connect to each other, but each player creates it's own list with all the 
+players and cards, instead of using a shared list
 
 * When running all tests at once, your computer may run out of memory. If this happens, just
 try running less tests at once, or try running all of them again. 

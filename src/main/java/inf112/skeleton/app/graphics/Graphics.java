@@ -172,10 +172,6 @@ public class Graphics implements ApplicationListener {
         camera.update();
     }
 
-    private void createMenuScreen(){
-
-    }
-
     private void renderMenuScreen() {
         // Draw background
         spriteBatch.begin();
