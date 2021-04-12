@@ -27,9 +27,9 @@ public class Walls {
 
     /**
      * find if its a wall in a location
-     * @param walls tilemapLayer wall
-     * @param xPosition to check
-     * @param yPosition to check
+     * @param walls - tilemapLayer wall
+     * @param xPosition - to check
+     * @param yPosition - to check
      * @return Type of wall else null
      */
     public ArrayList<Direction> findWall(TiledMapTileLayer walls, int  xPosition, int yPosition){
@@ -47,7 +47,7 @@ public class Walls {
      * @param player to check
      * @param xPosition to check
      * @param yPosition to check
-     * @return true if player collides with a wall else false 
+     * @return true if player collides with a wall else false
      */
     public boolean hasCollidedWithWall(TiledMapTileLayer walls, Player player, int  xPosition, int yPosition){
         ArrayList<Direction> typeOfWall = findWall(walls, xPosition, yPosition);

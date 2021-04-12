@@ -30,6 +30,7 @@ public class HumanPlayer extends Player implements InputProcessor {
     public final Conveyor conveyor = new Conveyor();
     public final Gear gear = new Gear();
     public final Hole hole = new Hole();
+    public final Walls walls = new Walls();
     private float mouseClickXCoordinate;
     private float mouseClickYCoordinate;
 
@@ -160,6 +161,7 @@ public class HumanPlayer extends Player implements InputProcessor {
         return position;
     }
 
+
     @Override
     public void updatePlayerLocation(Card card) {
         float cardAction = card.action.getAction();
@@ -179,6 +181,36 @@ public class HumanPlayer extends Player implements InputProcessor {
         }else if (!cardMoveLogic.moveTypeCard(card)) {
             setPlayerDirection((int)card.action.getAction());
         }
+    }
+
+
+    public void movePlayer(TiledMapTileLayer wall, Card card){
+        float cardAction = card.action.getAction();
+
+        for(float movement = 300; movement <= cardAction; movement++){
+            float nextPosition =  movement * this.direction.getMoveDirection();
+
+            if ((this.direction == Direction.NORTH || this.direction == Direction.SOUTH)
+                    && canPlayerMove(wall, getPlayerXPosition() + nextPosition, getPlayerYPosition())){
+                setNewPlayerLocation(getPlayerXPosition() + nextPosition, getPlayerYPosition());
+
+            }else if((this.direction == Direction.WEST || this.direction == Direction.EAST)
+                    && canPlayerMove(wall, getPlayerXPosition(), getPlayerYPosition() + nextPosition)){
+                setNewPlayerLocation(getPlayerXPosition() , getPlayerYPosition()+ nextPosition);
+            }
+        }
+    }
+    public void setNewPlayerLocation(float xPosition, float yPosition){
+        updatePlayerYPosition(yPosition);
+        updatePlayerXPosition(xPosition);
+    }
+    public boolean canPlayerMove(TiledMapTileLayer wall, float xPosition, float yPosition){
+        int normXPos = normalizedCoordinates(xPosition);
+        int normYPos = normalizedCoordinates(yPosition);
+        boolean isPlayerOnBoard = keepPlayerOnBoard(xPosition, yPosition);
+        boolean hasPlayerCollidedWithWall = walls.hasCollidedWithWall(wall,this, normXPos, normYPos);
+
+        return isPlayerOnBoard && hasPlayerCollidedWithWall;
     }
 
     public void singlePlayerRound(ArrayList<Player> players,TiledMapTileLayer laserLayer,
