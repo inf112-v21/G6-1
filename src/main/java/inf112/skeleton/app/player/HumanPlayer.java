@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector3;
 import inf112.skeleton.app.BoardItems.*;
 import inf112.skeleton.app.card.Card;
 import com.badlogic.gdx.InputProcessor;
+import inf112.skeleton.app.graphics.TileLayers;
 import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
 import inf112.skeleton.app.card.CardMoveLogic;
@@ -25,6 +26,7 @@ public class HumanPlayer extends Player implements InputProcessor {
     public HumanPlayer(Direction direction, int id, Color color) {
         super(direction, id, color);
     }
+    public TileLayers tileLayers;
 
     public final Laser laser = new Laser();
     public final Conveyor conveyor = new Conveyor();
@@ -213,17 +215,16 @@ public class HumanPlayer extends Player implements InputProcessor {
         return isPlayerOnBoard && hasPlayerCollidedWithWall;
     }
 
-    public void singlePlayerRound(ArrayList<Player> players,TiledMapTileLayer laserLayer,
-                                  TiledMapTileLayer blueConveyorLayer, TiledMapTileLayer yellowConveyorLayer,
-                                  TiledMapTileLayer redGear, TiledMapTileLayer greenGear, TiledMapTileLayer holes) {
+    public void singlePlayerRound(ArrayList<Player> players,TileLayers layer) {
+
         if (this.ready) {
             for(int round = 0; round < 5; round ++) {
                 updatePlayerLocation(chosenCards.get(round));
             }
-            conveyor.runConveyor(players,yellowConveyorLayer,blueConveyorLayer);
-            gear.runGears(players,redGear,greenGear);
-            laser.fireAllLasers(players,laserLayer);
-            hole.hole(players, holes);
+            conveyor.runConveyor(players, layer.yellowConveyor, layer.blueConveyor);
+            gear.runGears(players,layer.redGear, layer.greenGear);
+            laser.fireAllLasers(players,layer.laser);
+            hole.hole(players, layer.hole);
 
             cardMoveLogic.readyButtonClickable(this);
         }
