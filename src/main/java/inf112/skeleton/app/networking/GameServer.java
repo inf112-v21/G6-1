@@ -2,6 +2,7 @@ package inf112.skeleton.app.networking;
 
 import com.esotericsoftware.kryonet.Server;
 import inf112.skeleton.app.networking.listeners.ServerListener;
+import inf112.skeleton.app.game.Game;
 
 
 import java.io.IOException;
@@ -16,7 +17,6 @@ import java.net.UnknownHostException;
 
 
 public class GameServer implements Runnable {
-
     Server server;
     ServerListener serverListener;
 
