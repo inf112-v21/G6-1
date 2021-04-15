@@ -186,40 +186,178 @@ public class HumanPlayer extends Player implements InputProcessor {
     }
 
 
+
+
+
+    public void newUpdatePlayerLocation(Card card, TileLayers layer){
+        if (cardMoveLogic.moveTypeCard(card)) {
+            //System.out.println("moveCard");
+            movePlayer(card,layer.wall);
+        }else if (!cardMoveLogic.moveTypeCard(card)) {
+            setPlayerDirection((int)card.action.getAction());
+        }
+    }
+
+/**
     public void movePlayer(TiledMapTileLayer wall, Card card){
         float cardAction = card.action.getAction();
+        System.out.println("cardAction " +cardAction);
+        for(float movement = 300; movement <= cardAction; movement+=300){
+            float nextPosition =  300 * this.direction.getMoveDirection();
 
-        for(float movement = 300; movement <= cardAction; movement++){
-            float nextPosition =  movement * this.direction.getMoveDirection();
-
-            if ((this.direction == Direction.NORTH || this.direction == Direction.SOUTH)
-                    && canPlayerMove(wall, getPlayerXPosition() + nextPosition, getPlayerYPosition())){
+            if ((this.direction == Direction.WEST || this.direction == Direction.EAST)){
+                System.out.println("Old X position " + getPlayerXPosition());
                 setNewPlayerLocation(getPlayerXPosition() + nextPosition, getPlayerYPosition());
+                System.out.println("New X position " + getPlayerXPosition());
 
-            }else if((this.direction == Direction.WEST || this.direction == Direction.EAST)
-                    && canPlayerMove(wall, getPlayerXPosition(), getPlayerYPosition() + nextPosition)){
+            }else if((this.direction == Direction.NORTH || this.direction == Direction.SOUTH)){
                 setNewPlayerLocation(getPlayerXPosition() , getPlayerYPosition()+ nextPosition);
+            }else{
+                setNewPlayerLocation(getPlayerXPosition(),getPlayerYPosition());
             }
         }
     }
-    public void setNewPlayerLocation(float xPosition, float yPosition){
-        updatePlayerYPosition(yPosition);
-        updatePlayerXPosition(xPosition);
+ */
+    public void setNewPlayerLocation(float newPosition){
+        if(walls.getPlayerXYDirection(this) == Direction.NORTH.getXyDirection()) {
+            updatePlayerYPosition(this.getPlayerYPosition() + newPosition);
+            updatePlayerXPosition(this.getPlayerXPosition());
+        }else{
+            updatePlayerYPosition(this.getPlayerYPosition());
+            updatePlayerXPosition(this.getPlayerXPosition() + newPosition);
+        }
     }
-    public boolean canPlayerMove(TiledMapTileLayer wall, float xPosition, float yPosition){
-        int normXPos = normalizedCoordinates(xPosition);
-        int normYPos = normalizedCoordinates(yPosition);
-        boolean isPlayerOnBoard = keepPlayerOnBoard(xPosition, yPosition);
-        boolean hasPlayerCollidedWithWall = walls.hasCollidedWithWall(wall,this, normXPos, normYPos);
 
-        return isPlayerOnBoard && hasPlayerCollidedWithWall;
+    public void testMove(Card card, TiledMapTileLayer wall){
+
+    }
+    /**
+     * skrive denne om til move player void use update player moveIfPossible?
+     * sjekke alle pos fra der spilleren går også flytte etterpå
+     * @param wall
+
+     * @return
+     */
+    /**
+    public void movePlayer(Card card, TiledMapTileLayer wall){
+        System.out.println("");
+        // vet at det er et move kort
+        float cardAction = card.action.getAction(); // finn action aka hvor langt vi skal flytte
+        float nextPosition = 0; // instansierer nesteposisjon
+        float checkPlayerXPosition = 0;
+        float checkPlayerYPosition = 0;
+        System.out.println("Card action " + cardAction);
+        for(float movement = 0; movement <= cardAction; movement+=300){ // fra og med der vi står til der vi skal
+
+            float checkPosition =  movement * this.direction.getMoveDirection(); // legger til neste pos og Sjekker om vi skal flytte i posetiv x eller y retning
+
+            // fra Her og ut  må vi vite hvilken pos som skal endre seg
+            if(walls.getPlayerXYDirection(this) == 'x'){
+                System.out.println("Player direction " + walls.getPlayerXYDirection(this));
+                 checkPlayerXPosition = checkPosition + this.getPlayerXPosition();
+                 checkPlayerYPosition = this.getPlayerYPosition();
+            }else{
+                 System.out.println("Player direction " + walls.getPlayerXYDirection(this));
+                 checkPlayerYPosition = checkPosition + this.getPlayerYPosition();
+                 checkPlayerXPosition = this.getPlayerXPosition();
+            }
+            System.out.println("Check player position  x: " + checkPlayerXPosition +" y "+ checkPlayerYPosition);
+            int normXPos = normalizedCoordinates(checkPlayerXPosition); // Normaliserte koordinater som skal sjekkes
+            int normYPos = normalizedCoordinates(checkPlayerYPosition);
+            boolean isPlayerOnBoard = keepPlayerOnBoard(checkPlayerXPosition, checkPlayerYPosition);
+            System.out.println("Is player on board? " + isPlayerOnBoard);
+            String hasPlayerCollidedWithWall= walls.hasCollidedWithWall(wall,this, normXPos, normYPos);
+            System.out.println("Has player collided with wall? " +hasPlayerCollidedWithWall +"\n");
+            if(!isPlayerOnBoard) break;
+            if(isPlayerOnBoard && hasPlayerCollidedWithWall != "NO"){
+                if(hasPlayerCollidedWithWall == "move"){
+                    break;
+                }else if(hasPlayerCollidedWithWall == "stop" && (this.getPlayerXPosition() != checkPlayerXPosition || this.getPlayerYPosition() != checkPlayerYPosition)){
+                    if(walls.getPlayerXYDirection(this) == 'x'){
+                        System.out.println("player collided X  old X " +checkPlayerXPosition);
+                        checkPlayerXPosition = checkPlayerXPosition - (300* this.direction.getMoveDirection());
+                        System.out.println("player collided X  new X " +checkPlayerXPosition);
+                    }else{
+                        System.out.println("player collided y  old y " +checkPlayerYPosition);
+                        checkPlayerYPosition = checkPlayerYPosition - (300* this.direction.getMoveDirection());
+                        System.out.println("player collided y  new y " +checkPlayerYPosition);
+                    }
+                    break;
+                }
+            }
+        }
+        //setNewPlayerLocation(nextPosition* this.direction.getMoveDirection());
+        System.out.println(" new x " + checkPlayerXPosition + " new y " + checkPlayerYPosition + "\n");
+        setPlayerNewPosition(checkPlayerXPosition, checkPlayerYPosition);
+    }*/
+    public void movePlayer(Card card, TiledMapTileLayer wall){
+
+        float cardAction = card.action.getAction();
+        float checkPlayerXPosition = 0;
+        float checkPlayerYPosition = 0;
+        float checkPosition = 0 ;
+        System.out.println("Card action " + cardAction);
+        for(float movement = 0; movement <= cardAction; movement+=300){
+
+            System.out.println(" movement " + movement);
+            System.out.println("Current x pos " + this.getPlayerXPosition());
+            System.out.println("Current y pos" + this.getPlayerYPosition());
+            if (movement != 0) {
+                 checkPosition =  300 * this.direction.getMoveDirection();
+            }
+
+            if(walls.getPlayerXYDirection(this) == 'x'){
+                checkPlayerXPosition = checkPosition + this.getPlayerXPosition();
+                checkPlayerYPosition = this.getPlayerYPosition();
+            }else if (walls.getPlayerXYDirection(this) == 'y'){
+                checkPlayerYPosition = checkPosition + this.getPlayerYPosition();
+                checkPlayerXPosition = this.getPlayerXPosition();
+            }
+            int normXPos = normalizedCoordinates(checkPlayerXPosition);
+            int normYPos = normalizedCoordinates(checkPlayerYPosition);
+
+            int hasPlayerCollidedWithWall= walls.hasCollidedTest(wall,this, normXPos, normYPos);
+
+            if(hasPlayerCollidedWithWall == 0){
+
+                setPlayerNewPosition(checkPlayerXPosition,checkPlayerYPosition);
+                break;
+            }else if(hasPlayerCollidedWithWall == 1){
+                setPlayerNewPosition(this.getPlayerXPosition(), this.getPlayerYPosition());
+
+                break;
+            }else{
+                setPlayerNewPosition(checkPlayerXPosition, checkPlayerYPosition);
+            }
+            System.out.println("move x pos " + this.getPlayerXPosition());
+            System.out.println("move y pos" + this.getPlayerYPosition());
+        }
+        System.out.println("after loop  x pos " + this.getPlayerXPosition());
+        System.out.println("after loop y pos" + this.getPlayerYPosition());
+    }
+
+    /**
+     *   int normXPos = normalizedCoordinates(checkPlayerXPosition); // Normaliserte koordinater som skal sjekkes
+     *             int normYPos = normalizedCoordinates(checkPlayerYPosition);
+     *             boolean isPlayerOnBoard = keepPlayerOnBoard(checkPlayerXPosition, checkPlayerYPosition);
+     *
+     */
+    private void setPlayerNewPosition(float xPosition, float yPosition) {
+        updatePlayerXPosition(xPosition);
+        updatePlayerYPosition(yPosition);
+    }
+
+    private void setPlayerCurrentLocation() {
+        updatePlayerXPosition(this.getPlayerXPosition());
+        updatePlayerYPosition(this.getPlayerYPosition());
     }
 
     public void singlePlayerRound(ArrayList<Player> players,TileLayers layer) {
 
         if (this.ready) {
             for(int round = 0; round < 5; round ++) {
-                updatePlayerLocation(chosenCards.get(round));
+                newUpdatePlayerLocation(chosenCards.get(round), layer);
+                //updatePlayerLocation(chosenCards.get(round));
             }
             conveyor.runConveyor(players, layer.yellowConveyor, layer.blueConveyor);
             gear.runGears(players,layer.redGear, layer.greenGear);

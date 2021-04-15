@@ -3,7 +3,7 @@ package inf112.skeleton.app.graphics;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 public class TileLayers {
-    public TiledMapTileLayer laser = null;
+    public TiledMapTileLayer laser;
     public TiledMapTileLayer blueConveyor;
     public TiledMapTileLayer yellowConveyor;
     public TiledMapTileLayer redGear;

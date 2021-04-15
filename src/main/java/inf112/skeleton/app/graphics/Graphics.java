@@ -152,7 +152,6 @@ public class Graphics implements ApplicationListener {
     public void singlePlayer(){
         singlePlayer.setMouseClickCoordinates(camera);
         updateCardSprite(singlePlayer);
-
         singlePlayerSprite.setPosition(singlePlayer.getPlayerXPosition(), singlePlayer.getPlayerYPosition());
         Texture playerTexture = playerGraphics.getPlayerTexture(singlePlayer);
         singlePlayerSprite.setTexture(playerTexture);
