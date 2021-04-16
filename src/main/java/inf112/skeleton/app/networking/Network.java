@@ -29,6 +29,6 @@ public class Network {
     }
 
     static public class addNewPlayer {
-        public int number=0;
+        public boolean bool;
     }
 }

@@ -15,6 +15,7 @@ public class RoboServer extends Listener{
     private final Game game;
     private ArrayList<Player> playerList;
     private CardDeck card;
+    private int giveClientIdNumber=0;
 
 
     public RoboServer(final Game game) throws IOException {
@@ -31,11 +32,9 @@ public class RoboServer extends Listener{
            public void connected (Connection connection) {}
            public void received (Connection connection, Object object) {
                 if (object instanceof Network.addNewPlayer) {
-                    Network.addNewPlayer np = (Network.addNewPlayer)object;
-                    playerList.add(game.createPlayer(np.number));
+                    playerList.add(game.createPlayer(giveClientIdNumber));
                     server.sendToAllTCP(playerList);
-                    np.number++;
-
+                    giveClientIdNumber++;
                 }
            }
            public void disconnected (Connection connection) {
@@ -45,7 +44,6 @@ public class RoboServer extends Listener{
         server.bind(Network.TCPport, Network.UDPport);
         new Thread(server).start();
         server.start();
-
     }
 }
 
