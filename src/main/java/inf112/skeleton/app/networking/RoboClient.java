@@ -13,11 +13,11 @@ public class RoboClient extends Listener {
     private static Client client;
     private final Game game;
     private String ip;
-    private int myId;
     private Player myPlayer=null;
+    private boolean executeMoves;
 
 
-    public RoboClient(Game game, String ip) throws IOException{
+    public RoboClient(Game game, String ip) throws IOException {
         this.ip = ip;
         this.game = game;
 
@@ -26,19 +26,24 @@ public class RoboClient extends Listener {
         new Thread(client).start();
 
 
-
-
         client.addListener(new Listener.ThreadedListener(new Listener()) {
-            public void connected (Connection connection) {
+            public void connected(Connection connection) {
             }
-            public void received (Connection connection, Object object) {
+
+            public void received(Connection connection, Object object) {
                 if (object instanceof Network.playerList && myPlayer == null) {
-                    Network.playerList pl = (Network.playerList)object;
+                    Network.playerList pl = (Network.playerList) object;
                     pl.list.stream().sorted();
-                    myPlayer = pl.list.get(myId);
+                    myPlayer = pl.list.get(-1);
+                    System.out.println(myPlayer.id);
+                }
+
+                if (object instanceof Network.cardsListReady){
+
                 }
             }
-            public void disconnected (Connection connection) {
+
+            public void disconnected(Connection connection) {
                 System.exit(0);
             }
         });
@@ -47,10 +52,21 @@ public class RoboClient extends Listener {
             Network.addNewPlayer newPlayer = new Network.addNewPlayer();
             newPlayer.bool = true;
             client.sendTCP(newPlayer);
+
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
 
+    /**
+     * To be used in loop, needs to wait for package back from server before going past this package
+     */
+    public void sendCardsReadyToServer () {
+        if(myPlayer.ready){
+            Network.cardsListReady clr = new Network.cardsListReady();
+            clr.bool = true;
+            client.sendTCP(clr);
 
+        }
     }
 }

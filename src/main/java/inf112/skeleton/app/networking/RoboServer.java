@@ -16,6 +16,7 @@ public class RoboServer extends Listener{
     private ArrayList<Player> playerList;
     private CardDeck card;
     private int giveClientIdNumber=0;
+    private int checkIfAllClientIsReady = giveClientIdNumber;
 
 
     public RoboServer(final Game game) throws IOException {
@@ -35,6 +36,16 @@ public class RoboServer extends Listener{
                     playerList.add(game.createPlayer(giveClientIdNumber));
                     server.sendToAllTCP(playerList);
                     giveClientIdNumber++;
+                }
+
+                if (object instanceof Network.cardsListReady) {
+                    checkIfAllClientIsReady++;
+                    if(checkIfAllClientIsReady == giveClientIdNumber) {
+                        Network.cardsListReady clr = (Network.cardsListReady)object;
+                        clr.bool = true;
+                        server.sendToAllTCP(clr);
+                        checkIfAllClientIsReady = 0;
+                    }
                 }
            }
            public void disconnected (Connection connection) {
