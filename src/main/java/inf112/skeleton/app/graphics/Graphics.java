@@ -186,7 +186,23 @@ public class Graphics implements ApplicationListener {
         spriteBatch.end();
 
         // Handle inputs
+        menuInputProcessor.setMouseClickCoordinates(camera);
         Gdx.input.setInputProcessor(menuInputProcessor);
+    }
+
+    private void renderHostGameScreen(){
+        //draw background
+        spriteBatch.begin();
+        spriteBatch.draw(menuScreenBackground, 0, 0, 1280, 720);
+        spriteBatch.end();
+
+        //draw ip address
+        String ip = "192.92.39.102"; // TODO actual ip
+
+        //draw buttons
+
+        //handle input
+
     }
 
     /**

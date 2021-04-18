@@ -19,8 +19,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
  * It also contain methods for matching players sprite in graphics class to the player.
  */
 
-public class HumanPlayer extends Player implements InputProcessor {
-
+public class HumanPlayer extends Player {
 
     public HumanPlayer(Direction direction, int id, Color color) {
         super(direction, id, color);
@@ -31,15 +30,7 @@ public class HumanPlayer extends Player implements InputProcessor {
     public final Gear gear = new Gear();
     public final Hole hole = new Hole();
     public final Walls walls = new Walls();
-    private float mouseClickXCoordinate;
-    private float mouseClickYCoordinate;
-
-    private final CardMoveLogic cardMoveLogic;
-    private final Vector3 mouseClickPosition;
-    {
-        cardMoveLogic = new CardMoveLogic();
-        mouseClickPosition = new Vector3();
-    }
+    private final CardMoveLogic cardMoveLogic = new CardMoveLogic();
 
     @Override
     public int getPlayerHealth(){
@@ -231,30 +222,9 @@ public class HumanPlayer extends Player implements InputProcessor {
 
 
     /**
-     * This method saves mouse click coordinates (coordinates on the window that is pushed) to a vector 3 object.
-     * Translated them to map coordinates and saves them to class variables in HumanPlayer.
-     * Map coordinates will always match the map regardless of the window size of OS
-     * This method has to be called in the render function to get the camera else it will provide a NPE
-     * @param camera OrthographicCamera created in graphics
-     */
-
-    @Override
-    public void setMouseClickCoordinates(OrthographicCamera camera){
-        if (Gdx.input.isTouched()) {
-            mouseClickPosition.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-            camera.unproject(mouseClickPosition);
-        }
-        if(Gdx.input.justTouched()){
-            mouseClickXCoordinate = mouseClickPosition.x;
-            mouseClickYCoordinate = mouseClickPosition.y;
-        }
-    }
-
-    /**
      * Create a click-box around the cards the player is dealt.
      * When the card on the screen is clicked with the mouse moveCardWhenClicked is called.
      */
-
     @Override
     public boolean touchUp(int i, int i1, int i2, int i3) {
         float x  = mouseClickXCoordinate;

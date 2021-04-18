@@ -1,17 +1,18 @@
 package inf112.skeleton.app.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector3;
 import inf112.skeleton.app.graphics.Graphics;
 
 import java.net.InetAddress;
 
-public class MenuInputProcessor implements InputProcessor {
-    private final Graphics graphics;
-    private String ip = "";
+public class MenuInputProcessor extends BaseInputProcessor {
+    final Graphics graphics;
+    String ip = "";
 
     public MenuInputProcessor(Graphics graphics) {
+        super();
         this.graphics = graphics;
     }
 
@@ -50,23 +51,23 @@ public class MenuInputProcessor implements InputProcessor {
 
     @Override
     public boolean touchUp(int i, int i1, int i2, int i3) {
-        float x = Gdx.input.getX();
-        float y = Gdx.input.getY();
+        float x = mouseClickXCoordinate;
+        float y = mouseClickYCoordinate;
 
         System.out.println("Touch in menu input " + x + ", " + y);
-        if (x >= 600 && x <= 725) {
-            if(y >= 270 && y <= 316) {
+        if (x >= 3227 && x <= 4088) {
+            if(y <= 2730 && y >= 2390) {
                 System.out.println("Single player click");
                 graphics.game.typeOfGameStarted = GameType.SINGLE_PLAYER;
                 graphics.game.currentScreen = GameScreen.GAME;
 
-            } else if (y >= 371 && y <= 415) {
+            } else if (y <= 2030 && y >= 1680) {
                 System.out.println("Host click");
                 graphics.game.typeOfGameStarted = GameType.NETWORK_HOST;
                 graphics.game.currentScreen = GameScreen.GAME;
                 graphics.game.hostNewGame("RiskyExchange.tmx");
 
-            } else if(y >= 469 && y <= 514) {
+            } else if(y <= 1330 && y >= 980) {
                 System.out.println("Join click, attempting to join ip" + ip);
                 try {
                     InetAddress hostIp = InetAddress.getByName(ip);
