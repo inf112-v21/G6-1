@@ -1,8 +1,5 @@
 package inf112.skeleton.app.game;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Vector3;
 import inf112.skeleton.app.graphics.Graphics;
 
 import java.net.InetAddress;

@@ -201,8 +201,10 @@ public class Graphics implements ApplicationListener {
 
         //draw buttons
 
-        //handle input
 
+        //handle input
+        menuInputProcessor.setMouseClickCoordinates(camera);
+        Gdx.input.setInputProcessor(menuInputProcessor);
     }
 
     /**
