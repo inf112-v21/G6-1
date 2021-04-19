@@ -27,6 +27,9 @@ final HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
    put(22,Direction.WEST.getDirectionDegree());
 }};
 
+    public void stopPlayerIfConveyorEnds(Player player){
+
+    }
 
     /**
      * Iterates conveyor layer, finds blue and yellow conveyors
