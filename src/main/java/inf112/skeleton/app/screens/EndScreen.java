@@ -1,8 +1,8 @@
 package inf112.skeleton.app.screens;
 
+import com.badlogic.gdx.Gdx;
 import inf112.skeleton.app.game.BaseInputProcessor;
 import inf112.skeleton.app.game.GameScreen;
-import inf112.skeleton.app.game.MenuInputProcessor;
 import inf112.skeleton.app.graphics.Graphics;
 
 public class EndScreen extends BaseInputProcessor {
@@ -24,7 +24,7 @@ public class EndScreen extends BaseInputProcessor {
 
             } else if (y <= 1330 && y >= 980) {
                 System.out.println("Exit button click");
-                System.exit(1);
+                Gdx.app.exit();
             }
         }
 
