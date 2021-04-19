@@ -160,13 +160,13 @@ public class Graphics implements ApplicationListener {
         emptyLifeToken = new Texture("LifeToken/4.png");
 
         // Menu Textures
-        menuScreenBackground = new Texture("MenuScreen/MenuBackground.png"); // TODO actual textures
+        menuScreenBackground = new Texture("MenuScreen/MenuBackground.png");
         singlePlayerButton = new Texture("SinglePlayerButton1.png");
         joinMultiPlayerButton = new Texture("JoinGameButton1.png");
         hostMultiPlayerButton = new Texture("HostGameButton1.png");
 
         //End screen textures
-        exitButton = new Texture("ExitButton.png");
+        exitButton = new Texture("ExitButton.png"); //TODO might change later
         returnButton = new Texture("ReturnButton.png");
     }
 
