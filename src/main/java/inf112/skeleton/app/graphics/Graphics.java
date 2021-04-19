@@ -16,6 +16,7 @@ import inf112.skeleton.app.game.GameType;
 import inf112.skeleton.app.game.MenuInputProcessor;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
+import inf112.skeleton.app.screens.EndScreen;
 import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
@@ -31,11 +32,11 @@ public class Graphics implements ApplicationListener {
     private SpriteBatch spriteBatch;
     public Texture background;
     public Texture menuScreenBackground;
-    public Texture youWin;
+    public Texture youWin, youLose;
+    public Texture exitButton, returnButton;
     public Texture reset, notReset;
     public Texture ready, notReady;
-    public Texture damageToken;
-    public Texture lifeToken;
+    public Texture emptyLifeToken, lifeToken1, lifeToken2, lifeToken3;
     public Texture singlePlayerButton;
     public Texture joinMultiPlayerButton;
     public Texture hostMultiPlayerButton;
@@ -43,6 +44,7 @@ public class Graphics implements ApplicationListener {
     public final CardGraphics cardGraphics;
     public final HumanPlayer singlePlayer = new HumanPlayer(Direction.NORTH,69,Color.GREEN);
     private final MenuInputProcessor menuInputProcessor;
+    private final EndScreen endScreen;
     public Sprite singlePlayerSprite;
     public ArrayList<Sprite> cardSpriteList;
     private final CardMoveLogic cardMoveLogic = new CardMoveLogic();
@@ -53,6 +55,7 @@ public class Graphics implements ApplicationListener {
 
     public Graphics(Game game) {
         menuInputProcessor = new MenuInputProcessor(this);
+        endScreen = new EndScreen(this);
         cardGraphics = new CardGraphics();
         this.game = game;
     }
@@ -142,7 +145,8 @@ public class Graphics implements ApplicationListener {
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         background = new Texture("Background.png");
-        youWin = new Texture("YouWin.jpg");
+        youWin = new Texture("YouWin.png");
+        youLose = new Texture("YouLose.png");
 
         //reset and ready textures
         reset = new Texture("Buttons/RESET.png");
@@ -150,14 +154,20 @@ public class Graphics implements ApplicationListener {
         ready = new Texture("Buttons/READY.png");
         notReady = new Texture("Buttons/notREADY.png");
 
-        damageToken = new Texture("emptyDamageToken.png");
-        lifeToken = new Texture("LifeToken.png");
+        lifeToken3 = new Texture("LifeToken/1.png");
+        lifeToken2 = new Texture("LifeToken/2.png");
+        lifeToken1 = new Texture("LifeToken/3.png");
+        emptyLifeToken = new Texture("LifeToken/4.png");
 
         // Menu Textures
         menuScreenBackground = new Texture("MenuScreen/MenuBackground.png"); // TODO actual textures
-        singlePlayerButton = new Texture("SinglePlayerButton.png");
-        joinMultiPlayerButton = new Texture("JoinGameButton.png");
-        hostMultiPlayerButton = new Texture("HostGameButton.png");
+        singlePlayerButton = new Texture("SinglePlayerButton1.png");
+        joinMultiPlayerButton = new Texture("JoinGameButton1.png");
+        hostMultiPlayerButton = new Texture("HostGameButton1.png");
+
+        //End screen textures
+        exitButton = new Texture("ExitButton.png");
+        returnButton = new Texture("ReturnButton.png");
     }
 
     /**
@@ -180,9 +190,9 @@ public class Graphics implements ApplicationListener {
 
         // Draw buttons
         spriteBatch.begin();
-        spriteBatch.draw(singlePlayerButton, 600, 400, 125, 55);
-        spriteBatch.draw(hostMultiPlayerButton, 600, 300, 125, 55);
-        spriteBatch.draw(joinMultiPlayerButton, 600, 200, 125, 55);
+        spriteBatch.draw(singlePlayerButton, 530, 350, 250, 150);
+        spriteBatch.draw(hostMultiPlayerButton, 530, 250, 250, 150);
+        spriteBatch.draw(joinMultiPlayerButton, 530, 150, 250, 150);
         spriteBatch.end();
 
         // Handle inputs
@@ -205,6 +215,40 @@ public class Graphics implements ApplicationListener {
 
     }
 
+    private void renderWin() {
+        spriteBatch.begin();
+        spriteBatch.draw(youWin, 0, 0, 1280, 720);
+        spriteBatch.end();
+
+        spriteBatch.begin();
+        spriteBatch.draw(returnButton, 530, 250, 250, 150);
+        spriteBatch.end();
+
+        spriteBatch.begin();
+        spriteBatch.draw(exitButton, 530, 150, 250, 150);
+        spriteBatch.end();
+
+        endScreen.setMouseClickCoordinates(camera);
+        Gdx.input.setInputProcessor(endScreen);
+    }
+
+    private void renderLose() {
+        spriteBatch.begin();
+        spriteBatch.draw(youLose, 0, 0, 1280, 720);
+        spriteBatch.end();
+
+        spriteBatch.begin();
+        spriteBatch.draw(returnButton, 530, 250, 250, 150);
+        spriteBatch.end();
+
+        spriteBatch.begin();
+        spriteBatch.draw(exitButton, 530, 150, 250, 150);
+        spriteBatch.end();
+
+        endScreen.setMouseClickCoordinates(camera);
+        Gdx.input.setInputProcessor(endScreen);
+    }
+
     /**
      * This is where the graphics of the game get rendered.
      */
@@ -223,24 +267,8 @@ public class Graphics implements ApplicationListener {
         readyButtonIndicator();
         resetButtonIndicator();
 
-        spriteBatch.begin();
-        spriteBatch.draw(damageToken, 830, 400, 50, 27);
-        spriteBatch.draw(damageToken, 800, 400, 50, 27);
-        spriteBatch.draw(damageToken, 770, 400, 50, 27);
-        spriteBatch.draw(damageToken, 740, 400, 50, 27);
-        spriteBatch.draw(damageToken, 710, 400, 50, 27);
-        spriteBatch.draw(damageToken, 830, 350, 50, 27);
-        spriteBatch.draw(damageToken, 800, 350, 50, 27);
-        spriteBatch.draw(damageToken, 770, 350, 50, 27);
-        spriteBatch.draw(damageToken, 740, 350, 50, 27);
-        spriteBatch.draw(damageToken, 710, 350, 50, 27);
-        spriteBatch.end();
-
-        spriteBatch.begin();
-        spriteBatch.draw(lifeToken, 800, 535, 75, 40);
-        spriteBatch.draw(lifeToken, 760, 535, 75, 40);
-        spriteBatch.draw(lifeToken, 720, 535, 75, 40);
-        spriteBatch.end();
+        //informs how many lifes the player has left
+        lifeTokenIndicator();
 
         camera.update();
         tiledMapRenderer.setView(camera);
@@ -256,13 +284,10 @@ public class Graphics implements ApplicationListener {
         tiledMapRenderer.getBatch().end();
 
         if (singlePlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"))) {
-            pause();
-            System.out.println("You Won!");
-            spriteBatch.begin();
-            spriteBatch.draw(youWin, 0, 0, 1280, 720);
-            spriteBatch.end();
-            pause();
-            dispose();
+            if(game.winScreen== GameScreen.WIN) {
+                //System.out.println("You Won!");
+                renderWin();
+            }
         }
     }
 
@@ -290,6 +315,23 @@ public class Graphics implements ApplicationListener {
         }
     }
 
+    public void lifeTokenIndicator(){
+        // displaying the lifetoken
+        spriteBatch.begin();
+        if(singlePlayer.getPlayerHealth() == 1){
+            spriteBatch.draw(lifeToken1, 760, 535, 110, 65);
+        }
+        else if(singlePlayer.getPlayerHealth() == 2){
+            spriteBatch.draw(lifeToken2, 760, 535, 110, 65);
+        }
+        else if(singlePlayer.getPlayerHealth() == 3){
+            spriteBatch.draw(lifeToken3, 760, 535, 110, 65);
+        }
+        else{
+            spriteBatch.draw(emptyLifeToken, 760, 535, 110, 65);
+        }
+        spriteBatch.end();
+    }
 
     @Override
     public void pause() {

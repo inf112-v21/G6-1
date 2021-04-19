@@ -31,6 +31,8 @@ public class Game implements IGame, InputProcessor {
     public GameType typeOfGameStarted = GameType.NONE;
     final CardMoveLogic cardMoveLogic = new CardMoveLogic();
     public GameScreen currentScreen = GameScreen.MENU;
+    public GameScreen winScreen = GameScreen.WIN;
+    public GameScreen loseScreen = GameScreen.LOSE;
 
 
     @Override
