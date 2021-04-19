@@ -52,19 +52,19 @@ public class MenuInputProcessor extends BaseInputProcessor {
         float y = mouseClickYCoordinate;
 
         System.out.println("Touch in menu input " + x + ", " + y);
-        if (x >= 3227 && x <= 4088) {
-            if(y <= 2730 && y >= 2390) {
+        if (x >= 3260 && x <= 3960) {
+            if(y <= 2653 && y >= 2415) {
                 System.out.println("Single player click");
                 graphics.game.typeOfGameStarted = GameType.SINGLE_PLAYER;
                 graphics.game.currentScreen = GameScreen.GAME;
 
-            } else if (y <= 2030 && y >= 1680) {
+            } else if (y <= 1950 && y >= 1722) {
                 System.out.println("Host click");
                 graphics.game.typeOfGameStarted = GameType.NETWORK_HOST;
                 graphics.game.currentScreen = GameScreen.GAME;
                 graphics.game.hostNewGame("RiskyExchange.tmx");
 
-            } else if(y <= 1330 && y >= 980) {
+            } else if(y <= 1240 && y >= 1036) {
                 System.out.println("Join click, attempting to join ip" + ip);
                 try {
                     InetAddress hostIp = InetAddress.getByName(ip);
