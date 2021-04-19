@@ -25,12 +25,14 @@ public class HumanPlayer extends Player implements InputProcessor {
     public HumanPlayer(Direction direction, int id, Color color) {
         super(direction, id, color);
     }
+    public TileLayers tileLayers;
 
     public final Laser laser = new Laser();
     public final Conveyor conveyor = new Conveyor();
     public final Gear gear = new Gear();
     public final Hole hole = new Hole();
     public final Walls walls = new Walls();
+    public final CheckPoint checkpoint = new CheckPoint();
     private float mouseClickXCoordinate;
     private float mouseClickYCoordinate;
 
@@ -55,8 +57,30 @@ public class HumanPlayer extends Player implements InputProcessor {
     public void dealDamageToPlayer(){
         this.damageTaken++;
         if (this.damageTaken >= 10){
+            sendPlayerToCheckpoint();
             takePlayerLife();
         }
+    }
+
+
+    //TODO Hossein will check if he needs this before delivery
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    //TODO Hossein will check if he needs this before delivery
+    public int getId() {
+        return this.id;
+    }
+
+    public void sendPlayerToCheckpoint(){
+        updatePlayerXPosition(this.playerCheckpointPositionX);
+        updatePlayerYPosition(this.playerCheckpointPositionY);
+    }
+
+    public void setNewPlayerCheckpointLocation(float xPosition, float yPosition){
+        this.playerCheckpointPositionX = xPosition;
+        this.playerCheckpointPositionY = yPosition;
     }
 
     @Override
@@ -69,7 +93,7 @@ public class HumanPlayer extends Player implements InputProcessor {
                 + " lives and " + this.damageTaken + " damage");
 
     }
-
+    //TODO slett disse, blir ikke brukt lenger (tror jeg)
     @Override
     public float setPlayerStartXPosition(float playerStartXPosition){
         this.playerCurrentXPosition = playerStartXPosition;
@@ -173,48 +197,82 @@ public class HumanPlayer extends Player implements InputProcessor {
     }
 
 
-    public void movePlayer(TiledMapTileLayer wall, Card card){
+    public void newUpdatePlayerLocation(Card card, TileLayers layer){
+        if (cardMoveLogic.moveTypeCard(card)) {
+            movePlayer(card,layer.wall);
+        }else if (!cardMoveLogic.moveTypeCard(card)) {
+            setPlayerDirection((int)card.action.getAction());
+        }
+    }
+
+    public void movePlayer(Card card, TiledMapTileLayer wall){
+        int normXPos;
+        int normYPos;
+        int hasPlayerCollidedWithWall;
+        float checkPosition = 0 ;
+        float checkPlayerXPosition = 0;
+        float checkPlayerYPosition = 0;
         float cardAction = card.action.getAction();
 
-        for(float movement = 300; movement <= cardAction; movement++){
-            float nextPosition =  movement * this.direction.getMoveDirection();
+        for(float movement = 0; movement <= cardAction; movement+=300){
+            if (movement != 0) {
+                 checkPosition =  300 * this.direction.getMoveDirection();
+            }
+            if(walls.getPlayerXYDirection(this) == 'x'){
+                checkPlayerXPosition = checkPosition + this.getPlayerXPosition();
+                checkPlayerYPosition = this.getPlayerYPosition();
 
-            if ((this.direction == Direction.NORTH || this.direction == Direction.SOUTH)
-                    && canPlayerMove(wall, getPlayerXPosition() + nextPosition, getPlayerYPosition())){
-                setNewPlayerLocation(getPlayerXPosition() + nextPosition, getPlayerYPosition());
+            }else if (walls.getPlayerXYDirection(this) == 'y'){
+                checkPlayerYPosition = checkPosition + this.getPlayerYPosition();
+                checkPlayerXPosition = this.getPlayerXPosition();
+            }
+            if(!keepPlayerOnBoard(checkPlayerXPosition,checkPlayerYPosition)){
+                break;
+            }
+            normXPos = normalizedCoordinates(checkPlayerXPosition);
+            normYPos = normalizedCoordinates(checkPlayerYPosition);
+            hasPlayerCollidedWithWall= walls.hasPlayerCollidedWithWall(wall,this, normXPos, normYPos);
 
-            }else if((this.direction == Direction.WEST || this.direction == Direction.EAST)
-                    && canPlayerMove(wall, getPlayerXPosition(), getPlayerYPosition() + nextPosition)){
-                setNewPlayerLocation(getPlayerXPosition() , getPlayerYPosition()+ nextPosition);
+            if(hasPlayerCollidedWithWall == 0){
+                setPlayerNewPosition(checkPlayerXPosition,checkPlayerYPosition);
+                dealDamageToPlayer();
+                break;
+
+            }else if(hasPlayerCollidedWithWall == 1){
+                setPlayerNewPosition(this.getPlayerXPosition(), this.getPlayerYPosition());
+                dealDamageToPlayer();
+                break;
+            }else{
+                setPlayerNewPosition(checkPlayerXPosition, checkPlayerYPosition);
+
+
+
             }
         }
     }
-    public void setNewPlayerLocation(float xPosition, float yPosition){
-        updatePlayerYPosition(yPosition);
+
+
+    private void setPlayerNewPosition(float xPosition, float yPosition) {
         updatePlayerXPosition(xPosition);
-    }
-    public boolean canPlayerMove(TiledMapTileLayer wall, float xPosition, float yPosition){
-        int normXPos = normalizedCoordinates(xPosition);
-        int normYPos = normalizedCoordinates(yPosition);
-        boolean isPlayerOnBoard = keepPlayerOnBoard(xPosition, yPosition);
-        boolean hasPlayerCollidedWithWall = walls.hasCollidedWithWall(wall,this, normXPos, normYPos);
-
-        return isPlayerOnBoard && hasPlayerCollidedWithWall;
+        updatePlayerYPosition(yPosition);
     }
 
-    public void singlePlayerRound(ArrayList<Player> players,TiledMapTileLayer laserLayer,
-                                  TiledMapTileLayer blueConveyorLayer, TiledMapTileLayer yellowConveyorLayer,
-                                  TiledMapTileLayer redGear, TiledMapTileLayer greenGear, TiledMapTileLayer holes) {
+
+    public void singlePlayerRound(ArrayList<Player> players,TileLayers layer) {
+
         if (this.ready) {
             for(int round = 0; round < 5; round ++) {
-                updatePlayerLocation(chosenCards.get(round));
+                newUpdatePlayerLocation(chosenCards.get(round), layer);
+                //updatePlayerLocation(chosenCards.get(round));
             }
-            conveyor.runConveyor(players,yellowConveyorLayer,blueConveyorLayer);
-            gear.runGears(players,redGear,greenGear);
-            laser.fireAllLasers(players,laserLayer);
-            hole.hole(players, holes);
+            conveyor.runConveyor(players, layer.yellowConveyor, layer.blueConveyor);
+            gear.runGears(players,layer.redGear, layer.greenGear);
+            laser.fireAllLasers(players,layer.laser);
+            hole.hole(players, layer.hole);
+            //checkpoint.findCheckpoints(this, layer.checkpoint);
 
             cardMoveLogic.readyButtonClickable(this);
+            System.out.println("\n New round ");
         }
     }
 

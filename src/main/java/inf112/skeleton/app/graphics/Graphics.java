@@ -25,7 +25,7 @@ import java.util.HashMap;
 
 public class Graphics implements ApplicationListener {
     public TiledMap tiledMap;
-
+    TileLayers layer;
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private SpriteBatch spriteBatch;
@@ -98,26 +98,6 @@ public class Graphics implements ApplicationListener {
         }
     }
 
-    /**
-     * temp runs a single-player gui
-     */
-    public void singlePlayer(){
-        singlePlayer.setMouseClickCoordinates(camera);
-        updateCardSprite(singlePlayer);
-
-        singlePlayerSprite.setPosition(singlePlayer.getPlayerXPosition(), singlePlayer.getPlayerYPosition());
-        Texture playerTexture = playerGraphics.getPlayerTexture(singlePlayer);
-        singlePlayerSprite.setTexture(playerTexture);
-        singlePlayerSprite.draw(tiledMapRenderer.getBatch());
-        singlePlayer.singlePlayerRound(singlePlayerList,
-                (TiledMapTileLayer) tiledMap.getLayers().get("Laser"),
-                (TiledMapTileLayer) tiledMap.getLayers().get("BlueConveyor"),
-                (TiledMapTileLayer) tiledMap.getLayers().get("YellowConveyor"),
-                (TiledMapTileLayer) tiledMap.getLayers().get("RedGear"),
-                (TiledMapTileLayer) tiledMap.getLayers().get("GreenGear"),
-                (TiledMapTileLayer) tiledMap.getLayers().get("Hole"));
-
-    }
 
     @Override
     public void create() {
@@ -130,7 +110,6 @@ public class Graphics implements ApplicationListener {
         // Creates a list of sprites
         cardSpriteList = cardGraphics.createCardSprite();
         cardTextures = cardGraphics.createCardTexture();
-
         singlePlayerList.add(singlePlayer);
         float w = 600;
         float h = 1000;
@@ -158,7 +137,29 @@ public class Graphics implements ApplicationListener {
         singlePlayerButton = new Texture("SinglePlayerButton.png");
         joinMultiPlayerButton = new Texture("JoinGameButton.png");
         hostMultiPlayerButton = new Texture("HostGameButton.png");
+        layer = new TileLayers((TiledMapTileLayer) tiledMap.getLayers().get("Laser"),
+                (TiledMapTileLayer) tiledMap.getLayers().get("BlueConveyor"),
+                (TiledMapTileLayer) tiledMap.getLayers().get("YellowConveyor"),
+                (TiledMapTileLayer) tiledMap.getLayers().get("RedGear"),
+                (TiledMapTileLayer) tiledMap.getLayers().get("GreenGear"),
+                (TiledMapTileLayer) tiledMap.getLayers().get("Hole"),
+                (TiledMapTileLayer) tiledMap.getLayers().get("Walls"));
+
     }
+    /**
+     * temp runs a single-player gui
+     */
+    public void singlePlayer(){
+        singlePlayer.setMouseClickCoordinates(camera);
+        updateCardSprite(singlePlayer);
+        singlePlayerSprite.setPosition(singlePlayer.getPlayerXPosition(), singlePlayer.getPlayerYPosition());
+        Texture playerTexture = playerGraphics.getPlayerTexture(singlePlayer);
+        singlePlayerSprite.setTexture(playerTexture);
+        singlePlayerSprite.draw(tiledMapRenderer.getBatch());
+        singlePlayer.singlePlayerRound(singlePlayerList,layer);
+
+    }
+
 
     /**
      * Displayed on the screen.
