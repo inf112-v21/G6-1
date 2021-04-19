@@ -1,8 +1,14 @@
 package inf112.skeleton.app.networking.listeners;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+
+import inf112.skeleton.app.card.Card;
+import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.networking.packets.Packets;
 
@@ -12,6 +18,7 @@ import inf112.skeleton.app.networking.packets.Packets;
  * Calls methods in the game to be able to send data to game.
  */
 public class ClientListener extends Listener {
+    private boolean conn = false;
     private Game game;
     private Client client;
     public Packets.CardsPacket cards;
@@ -37,11 +44,47 @@ public class ClientListener extends Listener {
      */
     public void connected(Connection connection  ) {
         System.out.println("Cl: Established connection");
+        conn = true;
     }
 
+    /**
+     * Sends an array of cards to the server to be played.
+     * @param CardMoveLogic The cards the player want to be played.
+     */
+    public void sendCards(HashMap<Integer, ArrayList<Card>> cardLogic){
+        Packets.RoundPacket newCards = new Packets.RoundPacket();
+        if(cardLogic != null){
+            newCards.playerMoves = new HashMap<Integer, ArrayList<Card>>();
+            for (int i = 0; i < cardLogic.size(); i++) {
+                newCards.playerMoves = cardLogic;
+            }
+        }else {
+            newCards.playerMoves = null;
+        }
+        newCards.playerId = client.getID();
+        client.sendTCP(newCards);
+    }
+
+    /**
+     * Sends a start signal to the server alerting all clients to start the game.
+     */
+    public void sendStartSignal() {
+        Packets.StartSignalPacket startSignal = new Packets.StartSignalPacket();
+        startSignal.start = true;
+        client.sendTCP(startSignal);
+    }
+
+    /**
+     * Sends a name to the server
+     * @param name A Packet with a single name in a String[]
+     */
+    public void sendName(Packets.UpdateNames name) {
+        client.sendTCP(name);
+    }
 
     public void disconnected(Connection connection ) {
         System.out.println("Cl: You have been disconnected from the server");
+        conn = false;
     }
 
 
@@ -65,5 +108,28 @@ public class ClientListener extends Listener {
         }
     }
 
+    public boolean getConnection(){
+        return conn;
+    }
+
+    public void sendReady(Packets.StartGamePackage signal) {
+        client.sendTCP(signal);
+    }
+
+    /**
+     * Sends a message tot he server that this player is powering down their robot
+     */
+    public void sendShutdownRobot() {
+        Packets.ShutDownRobotPacket shutdownRobot = new Packets.ShutDownRobotPacket();
+        client.sendTCP(shutdownRobot);
+    }
+
+    /**
+     * Removes this player from playing anymore cards.
+     */
+    public void removeOnePlayerFromServer() {
+        Packets.RemovePlayerPacket removePlayer = new Packets.RemovePlayerPacket();
+        client.sendTCP(removePlayer);
+    }
 
 }

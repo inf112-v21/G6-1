@@ -38,6 +38,7 @@ public class Packets {
     /** A packet containing all player moves for a round so that clients may execute them */
     public static class RoundPacket {
         public HashMap<Integer, ArrayList<Card>> playerMoves;
+        public int playerId;
     }
 
     static public class registerName {
@@ -46,6 +47,7 @@ public class Packets {
 
     static public class UpdateNames {
         public String[] names;
+        public int playerId;
     }
 
 

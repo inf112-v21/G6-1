@@ -18,7 +18,7 @@ public class ServerListener extends Listener {
 
     private final String[] playerNames;
     public final boolean[] ShutdownPlayer;
-    public final int MAX_PLAYERS = 5;
+    public final int MAX_PLAYERS = 3;
 
     /**
      *

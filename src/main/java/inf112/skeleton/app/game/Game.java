@@ -40,7 +40,7 @@ public class Game implements IGame, InputProcessor {
 
     /**
      * InetAddress object created by the host. This is the only place server.run() should be used,
-     * to avoid creating more than on server.
+     * to avoid creating more than one server.
      *
      * @param map - What map to be used in the hosted game.
      */
@@ -136,8 +136,20 @@ public class Game implements IGame, InputProcessor {
         this.players = playerList;
     }
 
+    public boolean getConnection(){
+        return client.getConnection();
+    }
+
     public int getId() {
         return client.getId();
+    }
+
+    /**
+     *
+     * @return Returns number of people in the game.
+     */
+    public int getNumberOfPlayers() {
+        return numberOfPlayers;
     }
 
 
