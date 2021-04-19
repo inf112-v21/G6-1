@@ -188,7 +188,6 @@ public class HumanPlayer extends Player implements InputProcessor {
 
     public void newUpdatePlayerLocation(Card card, TileLayers layer){
         if (cardMoveLogic.moveTypeCard(card)) {
-            //System.out.println("moveCard");
             movePlayer(card,layer.wall);
         }else if (!cardMoveLogic.moveTypeCard(card)) {
             setPlayerDirection((int)card.action.getAction());
@@ -196,19 +195,15 @@ public class HumanPlayer extends Player implements InputProcessor {
     }
 
     public void movePlayer(Card card, TiledMapTileLayer wall){
-
-        float cardAction = card.action.getAction();
-        float checkPlayerXPosition = 0;
-        float checkPlayerYPosition = 0;
-        float checkPosition = 0 ;
         int normXPos;
         int normYPos;
         int hasPlayerCollidedWithWall;
-        System.out.println(" \n  New card ");
-        System.out.println("Card action " + cardAction);
+        float checkPosition = 0 ;
+        float checkPlayerXPosition = 0;
+        float checkPlayerYPosition = 0;
+        float cardAction = card.action.getAction();
 
         for(float movement = 0; movement <= cardAction; movement+=300){
-
             if (movement != 0) {
                  checkPosition =  300 * this.direction.getMoveDirection();
             }
@@ -220,17 +215,21 @@ public class HumanPlayer extends Player implements InputProcessor {
                 checkPlayerYPosition = checkPosition + this.getPlayerYPosition();
                 checkPlayerXPosition = this.getPlayerXPosition();
             }
-
+            if(!keepPlayerOnBoard(checkPlayerXPosition,checkPlayerYPosition)){
+                break;
+            }
             normXPos = normalizedCoordinates(checkPlayerXPosition);
             normYPos = normalizedCoordinates(checkPlayerYPosition);
-            hasPlayerCollidedWithWall= walls.hasCollidedTest(wall,this, normXPos, normYPos);
+            hasPlayerCollidedWithWall= walls.hasPlayerCollidedWithWall(wall,this, normXPos, normYPos);
 
             if(hasPlayerCollidedWithWall == 0){
                 setPlayerNewPosition(checkPlayerXPosition,checkPlayerYPosition);
+                dealDamageToPlayer();
                 break;
 
             }else if(hasPlayerCollidedWithWall == 1){
                 setPlayerNewPosition(this.getPlayerXPosition(), this.getPlayerYPosition());
+                dealDamageToPlayer();
                 break;
             }else{
                 setPlayerNewPosition(checkPlayerXPosition, checkPlayerYPosition);
@@ -241,12 +240,7 @@ public class HumanPlayer extends Player implements InputProcessor {
         }
     }
 
-    /**
-     *   int normXPos = normalizedCoordinates(checkPlayerXPosition); // Normaliserte koordinater som skal sjekkes
-     *             int normYPos = normalizedCoordinates(checkPlayerYPosition);
-     *             boolean isPlayerOnBoard = keepPlayerOnBoard(checkPlayerXPosition, checkPlayerYPosition);
-     *
-     */
+
     private void setPlayerNewPosition(float xPosition, float yPosition) {
         updatePlayerXPosition(xPosition);
         updatePlayerYPosition(yPosition);
