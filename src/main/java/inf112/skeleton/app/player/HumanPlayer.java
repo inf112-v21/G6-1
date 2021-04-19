@@ -12,7 +12,7 @@ import inf112.skeleton.app.shared.Direction;
 import inf112.skeleton.app.card.CardMoveLogic;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-
+import inf112.skeleton.app.graphics.TileLayers;
 /**
  * This class is to be used to create an human players.
  * This class keeps track of everything concerning a human player.
@@ -57,7 +57,6 @@ public class HumanPlayer extends Player implements InputProcessor {
     public void dealDamageToPlayer(){
         this.damageTaken++;
         if (this.damageTaken >= 10){
-            sendPlayerToCheckpoint();
             takePlayerLife();
         }
     }

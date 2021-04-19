@@ -5,6 +5,8 @@ import com.badlogic.gdx.InputProcessor;
 import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.graphics.Graphics;
+import inf112.skeleton.app.networking.GameClient;
+import inf112.skeleton.app.networking.GameServer;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.shared.Color;
@@ -17,7 +19,11 @@ import java.util.HashMap;
 
 public class Game implements IGame, InputProcessor {
 
-
+    /** The number of players in this game */
+    private int numberOfPlayers;
+    /** The current players in this game */
+    public HashMap<Integer, HumanPlayer> idPlayerHashMap;
+    public HumanPlayer myHumanPlayer;
     public ArrayList<Player> players = new ArrayList<>();
     GameServer server;
     GameClient client;
@@ -34,7 +40,7 @@ public class Game implements IGame, InputProcessor {
 
     /**
      * InetAddress object created by the host. This is the only place server.run() should be used,
-     * to avoid creating more than on server.
+     * to avoid creating more than one server.
      *
      * @param map - What map to be used in the hosted game.
      */
@@ -44,6 +50,21 @@ public class Game implements IGame, InputProcessor {
         client = new GameClient(server.getAddress(),this);
         host = true;
         return server.getAddress();
+    }
+
+
+    public boolean joinGame(String ipAdress) {
+        client = new GameClient(this);
+        if (!client.connect(ipAdress))
+            return false;
+
+        host = false;
+        return true;
+    }
+
+    public void joinGame(InetAddress ipAddress) {
+        client = new GameClient(ipAddress, this);
+        host = false;
     }
 
     /**
@@ -90,16 +111,50 @@ public class Game implements IGame, InputProcessor {
         }
     }
 
-    public HumanPlayer createPlayer(int playerNumber) {
-        System.out.println("Creating player");
-        float startPositionX = playerNumber*300;
-        Color playerColor = Color.getPlayerColor(playerNumber);
-        HumanPlayer humanPlayer = new HumanPlayer(Direction.NORTH, playerNumber, playerColor);
-        humanPlayer.playerDeck = cardMoveLogic.playerDeck();
-        humanPlayer.id = playerNumber;
-        humanPlayer.setPlayerStartXPosition(startPositionX);
-        return humanPlayer;
+    public void setNumberOfPlayers(int numberOfPlayers) {
+        this.numberOfPlayers = numberOfPlayers;
+        createPlayers();
+    }
 
+    @Override
+    public void createPlayers() {
+        idPlayerHashMap = new HashMap<>();
+        System.out.println("Creating players " + numberOfPlayers);
+        ArrayList <Player> playerList = new ArrayList<>();
+        float startPositionX = 0;
+        for (int i = 0; i < numberOfPlayers; i++) {
+            Color playerColor = Color.getPlayerColor(i);
+            HumanPlayer humanPlayer = new HumanPlayer(Direction.NORTH, i, playerColor);
+            humanPlayer.setId(i);
+            humanPlayer.playerDeck = cardMoveLogic.playerDeck();
+            playerList.add(humanPlayer);
+            playerList.get(i).setPlayerStartXPosition(startPositionX);
+            startPositionX += 300;
+            idPlayerHashMap.put(i, humanPlayer);
+        }
+        setMyHumanPlayer(idPlayerHashMap.get(client.getId()));
+        this.players = playerList;
+    }
+
+    public boolean getConnection(){
+        return client.getConnection();
+    }
+
+    public int getId() {
+        return client.getId();
+    }
+
+    /**
+     *
+     * @return Returns number of people in the game.
+     */
+    public int getNumberOfPlayers() {
+        return numberOfPlayers;
+    }
+
+
+    public void setMyHumanPlayer(HumanPlayer humanPlayer) {
+        myHumanPlayer = humanPlayer;
     }
 
     @Override
