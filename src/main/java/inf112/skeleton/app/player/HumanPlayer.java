@@ -33,6 +33,7 @@ public class HumanPlayer extends Player implements InputProcessor {
     public final Gear gear = new Gear();
     public final Hole hole = new Hole();
     public final Walls walls = new Walls();
+    public final CheckPoint checkpoint = new CheckPoint();
     private float mouseClickXCoordinate;
     private float mouseClickYCoordinate;
 
@@ -57,9 +58,11 @@ public class HumanPlayer extends Player implements InputProcessor {
     public void dealDamageToPlayer(){
         this.damageTaken++;
         if (this.damageTaken >= 10){
+            sendPlayerToCheckpoint();
             takePlayerLife();
         }
     }
+
 
     //TODO Hossein will check if he needs this before delivery
     public void setId(int id) {
@@ -71,6 +74,15 @@ public class HumanPlayer extends Player implements InputProcessor {
         return this.id;
     }
 
+    public void sendPlayerToCheckpoint(){
+        updatePlayerXPosition(this.playerCheckpointPositionX);
+        updatePlayerYPosition(this.playerCheckpointPositionY);
+    }
+
+    public void setNewPlayerCheckpointLocation(float xPosition, float yPosition){
+        this.playerCheckpointPositionX = xPosition;
+        this.playerCheckpointPositionY = yPosition;
+    }
 
     @Override
     public void takePlayerLife() {
@@ -82,7 +94,7 @@ public class HumanPlayer extends Player implements InputProcessor {
                 + " lives and " + this.damageTaken + " damage");
 
     }
-
+    //TODO slett disse, blir ikke brukt lenger (tror jeg)
     @Override
     public float setPlayerStartXPosition(float playerStartXPosition){
         this.playerCurrentXPosition = playerStartXPosition;
@@ -258,6 +270,7 @@ public class HumanPlayer extends Player implements InputProcessor {
             gear.runGears(players,layer.redGear, layer.greenGear);
             laser.fireAllLasers(players,layer.laser);
             hole.hole(players, layer.hole);
+            //checkpoint.findCheckpoints(this, layer.checkpoint);
 
             cardMoveLogic.readyButtonClickable(this);
             System.out.println("\n New round ");

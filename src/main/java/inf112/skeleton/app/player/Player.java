@@ -13,6 +13,7 @@ import java.util.Arrays;
 public abstract class Player  {
 
 
+
     public int id;
 //TODO color final
     public int damageTaken;
@@ -21,6 +22,8 @@ public abstract class Player  {
     public Direction direction;
     public ArrayList<Card> chosenCards;
     public ArrayList<Card> playerDeck;
+    public float playerCheckpointPositionX;
+    public float playerCheckpointPositionY;
     public float playerCurrentXPosition;
     public float playerCurrentYPosition;
     public ArrayList<Float> cardCoordinates;
@@ -45,6 +48,8 @@ public abstract class Player  {
         this.direction = direction;
         this.playerCurrentXPosition = 0;
         this.playerCurrentYPosition = 0;
+        this.playerCheckpointPositionX = 0;
+        this.playerCheckpointPositionY = 0;
         this.movedCards = new ArrayList<>();
         this.chosenCards  =  new ArrayList<>();
         this.playerDeck = new ArrayList<>();
@@ -60,6 +65,8 @@ public abstract class Player  {
                         6080f, 1640f,
                         6605f, 1640f));
     }
+
+    public abstract void setNewPlayerCheckpointLocation(float xPosition, float yPosition);
 
     /**
      * Needed to mach Sprite positions with the player when starting a game.
