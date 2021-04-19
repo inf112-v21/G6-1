@@ -16,7 +16,7 @@ import inf112.skeleton.app.graphics.TileLayers;
 /**
  * This class is to be used to create an human players.
  * This class keeps track of everything concerning a human player.
- * It also contain methods for matching players sprite in graphics class to the player.
+ * It also contain methods for matching players sprite in graphics class to the player
  */
 
 public class HumanPlayer extends Player implements InputProcessor {
