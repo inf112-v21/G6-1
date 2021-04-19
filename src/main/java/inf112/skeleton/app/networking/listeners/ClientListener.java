@@ -47,7 +47,7 @@ public class ClientListener extends Listener {
         conn = true;
     }
 
-    /**
+     /**
      * Sends an array of cards to the server to be played.
      * @param CardMoveLogic The cards the player want to be played.
      */
@@ -65,7 +65,7 @@ public class ClientListener extends Listener {
         client.sendTCP(newCards);
     }
 
-    /**
+     /**
      * Sends a start signal to the server alerting all clients to start the game.
      */
     public void sendStartSignal() {
@@ -74,7 +74,7 @@ public class ClientListener extends Listener {
         client.sendTCP(startSignal);
     }
 
-    /**
+        /**
      * Sends a name to the server
      * @param name A Packet with a single name in a String[]
      */

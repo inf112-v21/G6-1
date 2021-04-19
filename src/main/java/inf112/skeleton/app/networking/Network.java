@@ -2,16 +2,9 @@ package inf112.skeleton.app.networking;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
-import inf112.skeleton.app.card.Card;
-import inf112.skeleton.app.player.Player;
-
-import java.util.ArrayList;
-
+import inf112.skeleton.app.networking.packets.Packets;
 
 public class Network {
-
-    static public final int TCPport = 54555;
-    static public final int UDPport = 54777;
 
     /**
      * Method used to register all needed classes for the server and client.
@@ -21,20 +14,25 @@ public class Network {
      */
     static public void register (EndPoint endpoint) {
         Kryo kyro = endpoint.getKryo();
-        kyro.register(playerList.class);
-        kyro.register(addNewPlayer.class);
-        kyro.register(cardsListReady.class);
+
+        kyro.register(Packets.CardsPacket.class);
+        kyro.register(Packets.NamePacket.class);
+        kyro.register(Packets.PlayerIdPacket.class);
+        kyro.register(Packets.PlayerNumberPacket.class);
+        kyro.register(Packets.StartGamePackage.class);
+        kyro.register(Packets.registerName.class);
+        kyro.register(Packets.RemovePlayerPacket.class);
+        kyro.register(Packets.RoundPacket.class);
+        kyro.register(Packets.ShutDownRobotPacket.class);
+        kyro.register(Packets.StartGamePackage.class);
+        kyro.register(Packets.StartSignalPacket.class);
+        kyro.register(Packets.UpdateNames.class);
+        kyro.register(Packets.SendMapNameToPlayer.class);
+
+
+        kyro.register(String[].class);
+        kyro.register(int[].class);
+
     }
 
-    static public class playerList {
-        public ArrayList<Player> list;
-    }
-
-    static public class addNewPlayer {
-        public boolean bool;
-    }
-
-    static public class cardsListReady {
-        public boolean bool;
-    }
 }

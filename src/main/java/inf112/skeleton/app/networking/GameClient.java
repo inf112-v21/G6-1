@@ -89,7 +89,7 @@ public class GameClient extends Listener {
         }
     }
 
-    /**
+/**
      * Sends an array of ProgramCards to the server.
      * @param programCards The cards that the player wants to play.
      */
@@ -97,7 +97,7 @@ public class GameClient extends Listener {
         cListener.sendCards(cardLogic);
     }
 
-    /**
+        /**
      *
      * @return returns the last cards sent to the server.
      */
@@ -121,7 +121,7 @@ public class GameClient extends Listener {
         cListener.sendStartSignal();
     }
 
-    /**
+        /**
      * Sends the username of the player to the server
      * @param text username of the player
      */
