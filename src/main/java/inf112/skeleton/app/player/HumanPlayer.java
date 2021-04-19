@@ -59,17 +59,6 @@ public class HumanPlayer extends Player implements InputProcessor {
         }
     }
 
-    //TODO Hossein will check if he needs this before delivery
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    //TODO Hossein will check if he needs this before delivery
-    public int getId() {
-        return this.id;
-    }
-
-
     @Override
     public void takePlayerLife() {
         this.healthToken -- ;
