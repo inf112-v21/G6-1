@@ -2,6 +2,7 @@ package inf112.skeleton.app.networking;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
+import inf112.skeleton.app.card.BackUp;
 import inf112.skeleton.app.networking.packets.Packets;
 import java.util.*;
 
