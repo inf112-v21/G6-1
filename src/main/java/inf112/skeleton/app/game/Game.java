@@ -116,6 +116,7 @@ public class Game implements IGame, InputProcessor {
         createPlayers();
     }
 
+
     @Override
     public void createPlayers() {
         idPlayerHashMap = new HashMap<>();

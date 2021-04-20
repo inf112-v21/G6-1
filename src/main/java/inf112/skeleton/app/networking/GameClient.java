@@ -142,7 +142,7 @@ public class GameClient extends Listener {
     }
 
     /**
-     * Sends a message tot he server that this player is powering down their robot
+     * Sends a message to the server that this player is powering down their robot.
      */
     public void sendShutdownRobot() {
         cListener.sendShutdownRobot();
