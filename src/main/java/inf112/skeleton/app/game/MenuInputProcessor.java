@@ -70,8 +70,9 @@ public class MenuInputProcessor implements InputProcessor {
                 System.out.println("Join click, attempting to join ip" + ip);
                 try {
                     InetAddress hostIp = InetAddress.getByName(ip);
-                    graphics.game.typeOfGameStarted = GameType.NETWORK_JOIN;
                     graphics.game.chooseHostOrJoin();
+                    graphics.game.typeOfGameStarted = GameType.NETWORK_JOIN;
+                    graphics.game.currentScreen = GameScreen.GAME;
                 } catch (Exception e) {
 
                 }
