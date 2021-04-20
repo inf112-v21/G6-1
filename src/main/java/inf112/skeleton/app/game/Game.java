@@ -31,6 +31,7 @@ public class Game implements IGame, InputProcessor {
     public GameType typeOfGameStarted = GameType.NONE;
     final CardMoveLogic cardMoveLogic = new CardMoveLogic();
     public GameScreen currentScreen = GameScreen.MENU;
+    public GameScreen hostGameScreen = GameScreen.HOST;
     public GameScreen winScreen = GameScreen.WIN;
     public GameScreen loseScreen = GameScreen.LOSE;
 
@@ -116,6 +117,10 @@ public class Game implements IGame, InputProcessor {
     public void setNumberOfPlayers(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
         createPlayers();
+    }
+
+    public int getNumberOfPlayers() {
+        return numberOfPlayers;
     }
 
     @Override

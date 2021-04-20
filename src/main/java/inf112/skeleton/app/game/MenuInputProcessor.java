@@ -60,9 +60,8 @@ public class MenuInputProcessor extends BaseInputProcessor {
 
             } else if (y <= 1950 && y >= 1722) {
                 System.out.println("Host click");
-                graphics.game.typeOfGameStarted = GameType.NETWORK_HOST;
-                graphics.game.currentScreen = GameScreen.GAME;
-                graphics.game.hostNewGame("RiskyExchange.tmx");
+                graphics.game.currentScreen = GameScreen.HOST;
+
 
             } else if(y <= 1240 && y >= 1036) {
                 System.out.println("Join click, attempting to join ip" + ip);

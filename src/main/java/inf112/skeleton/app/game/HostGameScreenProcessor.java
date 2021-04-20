@@ -32,6 +32,11 @@ public class HostGameScreenProcessor extends BaseInputProcessor {
 
     @Override
     public boolean touchUp(int i, int i1, int i2, int i3) {
+        float x = mouseClickXCoordinate;
+        float y = mouseClickYCoordinate;
+
+
+
         return false;
     }
 

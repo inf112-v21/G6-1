@@ -3,6 +3,7 @@ package inf112.skeleton.app.graphics;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -10,10 +11,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import inf112.skeleton.app.card.CardMoveLogic;
+import inf112.skeleton.app.game.*;
 import inf112.skeleton.app.game.Game;
-import inf112.skeleton.app.game.GameScreen;
-import inf112.skeleton.app.game.GameType;
-import inf112.skeleton.app.game.MenuInputProcessor;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.screens.EndScreen;
@@ -30,6 +29,7 @@ public class Graphics implements ApplicationListener {
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private SpriteBatch spriteBatch;
+    private BitmapFont font;
     public Texture background;
     public Texture menuScreenBackground;
     public Texture youWin, youLose;
@@ -44,6 +44,7 @@ public class Graphics implements ApplicationListener {
     public final CardGraphics cardGraphics;
     public final HumanPlayer singlePlayer = new HumanPlayer(Direction.NORTH,69,Color.GREEN);
     private final MenuInputProcessor menuInputProcessor;
+    private final HostGameScreenProcessor hostGameScreenProcessor;
     private final EndScreen endScreen;
     public Sprite singlePlayerSprite;
     public ArrayList<Sprite> cardSpriteList;
@@ -55,6 +56,7 @@ public class Graphics implements ApplicationListener {
 
     public Graphics(Game game) {
         menuInputProcessor = new MenuInputProcessor(this);
+        hostGameScreenProcessor = new HostGameScreenProcessor(this);
         endScreen = new EndScreen(this);
         cardGraphics = new CardGraphics();
         this.game = game;
@@ -165,6 +167,8 @@ public class Graphics implements ApplicationListener {
         joinMultiPlayerButton = new Texture("JoinGameButton1.png");
         hostMultiPlayerButton = new Texture("HostGameButton1.png");
 
+        font = new BitmapFont();
+
         //End screen textures
         exitButton = new Texture("ExitButton.png"); //TODO might change later
         returnButton = new Texture("ReturnButton.png");
@@ -206,15 +210,22 @@ public class Graphics implements ApplicationListener {
         spriteBatch.draw(menuScreenBackground, 0, 0, 1280, 720);
         spriteBatch.end();
 
-        //draw ip address
-        String ip = "192.92.39.102"; // TODO actual ip
+        //draw message
+        spriteBatch.begin();
+        font.draw(spriteBatch, "Waiting for players..", 500, 500);
+        font.draw(spriteBatch, "There are " + game.getNumberOfPlayers() + " players in the game", 500, 450);
+        spriteBatch.end();
+
+        //
 
         //draw buttons
-
+        spriteBatch.begin();
+        spriteBatch.draw(hostMultiPlayerButton,530,250,250,150);
+        spriteBatch.end();
 
         //handle input
-        menuInputProcessor.setMouseClickCoordinates(camera);
-        Gdx.input.setInputProcessor(menuInputProcessor);
+        hostGameScreenProcessor.setMouseClickCoordinates(camera);
+        Gdx.input.setInputProcessor(hostGameScreenProcessor);
     }
 
     private void renderWin() {
@@ -258,6 +269,10 @@ public class Graphics implements ApplicationListener {
     public void render() {
         if (game.currentScreen == GameScreen.MENU) {
             renderMenuScreen();
+            return;
+        }
+        if (game.currentScreen == GameScreen.HOST) {
+            renderHostGameScreen();
             return;
         }
 
