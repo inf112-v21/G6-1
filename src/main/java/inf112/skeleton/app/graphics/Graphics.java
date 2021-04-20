@@ -43,6 +43,9 @@ public class Graphics implements ApplicationListener {
     public Texture singlePlayerButton;
     public Texture joinMultiPlayerButton;
     public Texture hostMultiPlayerButton;
+    public Texture startGameButton;
+    public Texture readyButton;
+    public Texture backToMenuScreenButton;
     public PlayerGraphics playerGraphics;
     public final CardGraphics cardGraphics;
     public final HumanPlayer singlePlayer = new HumanPlayer(Direction.NORTH,69,Color.GREEN);
@@ -184,7 +187,13 @@ public class Graphics implements ApplicationListener {
         joinMultiPlayerButton = new Texture("JoinGameButton1.png");
         hostMultiPlayerButton = new Texture("HostGameButton1.png");
 
+        //Host screen textures
         font = new BitmapFont();
+        startGameButton = new Texture("StartGameButton.png");
+        backToMenuScreenButton = new Texture("BackButton.png");
+
+        //Join screen textures
+        readyButton = new Texture("ReadyButton.png");
 
         //End screen textures
         exitButton = new Texture("ExitButton.png"); //TODO might change later
@@ -237,7 +246,8 @@ public class Graphics implements ApplicationListener {
 
         //draw buttons
         spriteBatch.begin();
-        spriteBatch.draw(hostMultiPlayerButton,530,250,250,150);
+        spriteBatch.draw(startGameButton,530,250,250,150);
+        spriteBatch.draw(backToMenuScreenButton,530,150,250,150);
         spriteBatch.end();
 
         //handle input
@@ -250,6 +260,10 @@ public class Graphics implements ApplicationListener {
         spriteBatch.begin();
         spriteBatch.draw(menuScreenBackground, 0, 0, 1280, 720);
         spriteBatch.end();
+
+        //draw buttons
+        spriteBatch.draw(readyButton,530,250,250,150);
+        spriteBatch.draw(backToMenuScreenButton,530,150,250,150);
 
         //handle input
         joinGameScreenProcessor.setMouseClickCoordinates(camera);
