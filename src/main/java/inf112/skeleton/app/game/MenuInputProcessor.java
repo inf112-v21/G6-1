@@ -61,8 +61,8 @@ public class MenuInputProcessor implements InputProcessor {
 
             } else if (y >= 371 && y <= 415) {
                 System.out.println("Host click");
-                graphics.game.chooseHostOrJoin();
                 graphics.game.typeOfGameStarted = GameType.NETWORK_HOST;
+                graphics.game.chooseHostOrJoin();
                 graphics.game.currentScreen = GameScreen.GAME;
                 //graphics.game.hostNewGame("RiskyExchange.tmx");
 
@@ -70,8 +70,8 @@ public class MenuInputProcessor implements InputProcessor {
                 System.out.println("Join click, attempting to join ip" + ip);
                 try {
                     InetAddress hostIp = InetAddress.getByName(ip);
-                    graphics.game.chooseHostOrJoin();
                     graphics.game.typeOfGameStarted = GameType.NETWORK_JOIN;
+                    graphics.game.chooseHostOrJoin();
                     graphics.game.currentScreen = GameScreen.GAME;
                 } catch (Exception e) {
 

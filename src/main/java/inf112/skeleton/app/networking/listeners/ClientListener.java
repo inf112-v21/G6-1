@@ -33,7 +33,6 @@ public class ClientListener extends Listener {
     public void initialize(Client client, Game game) {
         this.client = client;
         this.game = game;
-
         cards = new Packets.CardsPacket();
     }
 
@@ -104,7 +103,6 @@ public class ClientListener extends Listener {
         {
             Packets.RoundPacket roundPacket = (Packets.RoundPacket) object;
             game.executeMoves(roundPacket.playerMoves);
-
         }
     }
 

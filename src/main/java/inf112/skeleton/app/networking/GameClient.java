@@ -45,37 +45,6 @@ public class GameClient extends Listener {
         }
     }
 
-    public GameClient(InetAddress ipAddress, Game game, int udp, int tcp){
-        client = new Client();
-        cListener = new ClientListener();
-        this.udpPort = udp;
-        this.tcpPort = tcp;
-
-        cListener.initialize(client, game);
-        Network.register(client);
-        client.addListener(cListener);
-
-
-        new Thread(client).start();
-
-        try {
-            client.connect(5000, ipAddress, tcp, udp);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
-    public GameClient(Game game) {
-        client = new Client();
-        cListener = new ClientListener();
-
-        tcpPort = 54555;
-        udpPort = 54777;
-
-        cListener.initialize(client, game);
-        Network.register(client);
-    }
-
 
     public boolean connect(String ip) {
         new Thread(client).start();
@@ -91,7 +60,7 @@ public class GameClient extends Listener {
 
 /**
      * Sends an array of ProgramCards to the server.
-     * @param programCards The cards that the player wants to play.
+     *
      */
     public void sendCards(HashMap<Integer, ArrayList<Card>> cardLogic){
         cListener.sendCards(cardLogic);
