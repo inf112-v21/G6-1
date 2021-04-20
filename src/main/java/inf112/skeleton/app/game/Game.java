@@ -94,20 +94,6 @@ public class Game implements IGame, InputProcessor {
     }
 
 
-    public boolean joinGame(String ipAdress) {
-        client = new GameClient(this);
-        if (!client.connect(ipAdress))
-            return false;
-
-        host = false;
-        return true;
-    }
-
-    public void joinGame(InetAddress ipAddress) {
-        client = new GameClient(ipAddress, this);
-        host = false;
-    }
-
     /**
      * Creates client object for user. Might need more in this method.
      *
