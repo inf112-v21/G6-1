@@ -66,6 +66,16 @@ public abstract class Player  {
                         6605f, 1640f));
     }
 
+
+    /**
+     * This method essentially handles players card move.
+     * The method:
+     * Finds the direction to
+     * @param card
+     * @param wall
+     */
+    public abstract void movePlayerIfPossible(Card card, TiledMapTileLayer wall);
+
     public abstract void setNewPlayerCheckpointLocation(float xPosition, float yPosition);
 
     /**
@@ -126,7 +136,7 @@ public abstract class Player  {
      * @param yDirection to check
      * @return boolean
      */
-    public abstract boolean keepPlayerOnBoard(float xDirection, float yDirection);
+    public abstract boolean isPlayerOnBoard(float xDirection, float yDirection);
 
     /**
      * Calculate normalized coordinates. The tiled-map operates with

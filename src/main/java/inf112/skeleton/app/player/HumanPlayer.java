@@ -25,17 +25,16 @@ public class HumanPlayer extends Player implements InputProcessor {
     public HumanPlayer(Direction direction, int id, Color color) {
         super(direction, id, color);
     }
-    public TileLayers tileLayers;
 
-    public final Laser laser = new Laser();
-    public final Conveyor conveyor = new Conveyor();
     public final Gear gear = new Gear();
     public final Hole hole = new Hole();
+    public final Laser laser = new Laser();
     public final Walls walls = new Walls();
+    public final Conveyor conveyor = new Conveyor();
     public final CheckPoint checkpoint = new CheckPoint();
+
     private float mouseClickXCoordinate;
     private float mouseClickYCoordinate;
-
     private final CardMoveLogic cardMoveLogic;
     private final Vector3 mouseClickPosition;
     {
@@ -60,23 +59,7 @@ public class HumanPlayer extends Player implements InputProcessor {
             takePlayerLife();
         }
     }
-
-
-    //TODO Hossein will check if he needs this before delivery
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    //TODO Hossein will check if he needs this before delivery
-    public int getId() {
-        return this.id;
-    }
-
-    public void sendPlayerToCheckpoint(){
-        updatePlayerXPosition(this.playerCheckpointPositionX);
-        updatePlayerYPosition(this.playerCheckpointPositionY);
-    }
-
+    @Override
     public void setNewPlayerCheckpointLocation(float xPosition, float yPosition){
         this.playerCheckpointPositionX = xPosition;
         this.playerCheckpointPositionY = yPosition;
@@ -92,12 +75,14 @@ public class HumanPlayer extends Player implements InputProcessor {
                 + " lives and " + this.damageTaken + " damage");
 
     }
-    //TODO slett disse, blir ikke brukt lenger (tror jeg)
+
+
     @Override
     public float setPlayerStartXPosition(float playerStartXPosition){
         this.playerCurrentXPosition = playerStartXPosition;
         return this.playerCurrentXPosition;
     }
+
 
     @Override
     public float setPlayerStartYPosition(float playerStartYPosition){
@@ -105,21 +90,26 @@ public class HumanPlayer extends Player implements InputProcessor {
         return playerCurrentYPosition;
     }
 
+
     @Override
     public void updatePlayerXPosition(float newXPosition){
         this.playerCurrentXPosition = newXPosition;
     }
+
 
     @Override
     public void updatePlayerYPosition(float newYPosition){
         this.playerCurrentYPosition = newYPosition;
     }
 
+
     @Override
     public float getPlayerXPosition() { return this.playerCurrentXPosition; }
 
+
     @Override
     public float getPlayerYPosition() { return this.playerCurrentYPosition; }
+
 
     @Override
     public boolean hasPlayerVisitedAllFlags(TiledMapTileLayer flagLayer) {
@@ -131,10 +121,12 @@ public class HumanPlayer extends Player implements InputProcessor {
         return this.flagsToVisit.isEmpty();
     }
 
+
     @Override
-    public boolean keepPlayerOnBoard(float xDirection, float yDirection) {
+    public boolean isPlayerOnBoard(float xDirection, float yDirection) {
         return !(xDirection < 0 || xDirection > 3300 || yDirection < 0 || yDirection > 3900);
     }
+
 
     @Override
     public int normalizedCoordinates(float unNormalizedValue) {
@@ -164,105 +156,95 @@ public class HumanPlayer extends Player implements InputProcessor {
        }
     }
 
+
     @Override
     public float movePlayerAsFarAsPossible(float position, Direction moveDirection){
-        if(moveDirection == Direction.NORTH && !keepPlayerOnBoard(getPlayerXPosition(),position)) return 3900;
-        else if(moveDirection == Direction.SOUTH && !keepPlayerOnBoard(getPlayerXPosition(),position) ) return 0;
-        else if(moveDirection == Direction.WEST && !keepPlayerOnBoard(position, getPlayerYPosition()) ) return 0;
-        else if(moveDirection == Direction.EAST && !keepPlayerOnBoard(position, getPlayerYPosition()) ) return 3300;
+        if(moveDirection == Direction.NORTH && !isPlayerOnBoard(getPlayerXPosition(),position)) return 3900;
+        else if(moveDirection == Direction.SOUTH && !isPlayerOnBoard(getPlayerXPosition(),position) ) return 0;
+        else if(moveDirection == Direction.WEST && !isPlayerOnBoard(position, getPlayerYPosition()) ) return 0;
+        else if(moveDirection == Direction.EAST && !isPlayerOnBoard(position, getPlayerYPosition()) ) return 3300;
         return position;
     }
 
 
-    @Override
-    public void updatePlayerLocation(Card card) {
-        float cardAction = card.action.getAction();
-        if (cardMoveLogic.moveTypeCard(card)) {
-            if(this.direction == Direction.NORTH){
-                updatePlayerYPosition(movePlayerAsFarAsPossible(getPlayerYPosition()+ cardAction, this.direction ));
-            }
-            else if (this.direction == Direction.SOUTH){
-                updatePlayerYPosition(movePlayerAsFarAsPossible(getPlayerYPosition() - cardAction, this.direction));
-            }
-            else if (this.direction == Direction.EAST) {
-                updatePlayerXPosition(movePlayerAsFarAsPossible(getPlayerXPosition() + cardAction, this.direction));
 
-            } else if (this.direction == Direction.WEST) {
-                updatePlayerXPosition(movePlayerAsFarAsPossible(getPlayerXPosition() - cardAction, this.direction));
-            }
-        }else if (!cardMoveLogic.moveTypeCard(card)) {
-            setPlayerDirection((int)card.action.getAction());
-        }
-    }
-
-
+// TODO @Overide from player when old method is removed (and comment)
     public void newUpdatePlayerLocation(Card card, TileLayers layer){
         if (cardMoveLogic.moveTypeCard(card)) {
-            movePlayer(card,layer.wall);
+            movePlayerIfPossible(card,layer.wall);
         }else if (!cardMoveLogic.moveTypeCard(card)) {
             setPlayerDirection((int)card.action.getAction());
         }
     }
 
-    public void movePlayer(Card card, TiledMapTileLayer wall){
-        int normXPos;
-        int normYPos;
+
+    public void movePlayerIfPossible(Card card, TiledMapTileLayer wall){
         int hasPlayerCollidedWithWall;
-        float checkPosition = 0 ;
-        float checkPlayerXPosition = 0;
-        float checkPlayerYPosition = 0;
+        float checkXPosition;
+        float checkYPosition;
         float cardAction = card.action.getAction();
+        ArrayList<Float> coordinatesToCheck;
 
         for(float movement = 0; movement <= cardAction; movement+=300){
-            if (movement != 0) {
-                 checkPosition =  300 * this.direction.getMoveDirection();
-            }
-            if(walls.getPlayerXYDirection(this) == 'x'){
-                checkPlayerXPosition = checkPosition + this.getPlayerXPosition();
-                checkPlayerYPosition = this.getPlayerYPosition();
+            coordinatesToCheck = getCoordinatesToCheck(movement);
+            checkXPosition = coordinatesToCheck.get(0);
+            checkYPosition = coordinatesToCheck.get(1);
+            hasPlayerCollidedWithWall= walls.hasPlayerCollidedWithWall(wall,this,
+                    normalizedCoordinates(checkXPosition), normalizedCoordinates(checkYPosition));
 
-            }else if (walls.getPlayerXYDirection(this) == 'y'){
-                checkPlayerYPosition = checkPosition + this.getPlayerYPosition();
-                checkPlayerXPosition = this.getPlayerXPosition();
-            }
-            if(!keepPlayerOnBoard(checkPlayerXPosition,checkPlayerYPosition)){
+            if(!isPlayerOnBoard(checkXPosition,checkYPosition)){
                 break;
             }
-            normXPos = normalizedCoordinates(checkPlayerXPosition);
-            normYPos = normalizedCoordinates(checkPlayerYPosition);
-            hasPlayerCollidedWithWall= walls.hasPlayerCollidedWithWall(wall,this, normXPos, normYPos);
-
-            if(hasPlayerCollidedWithWall == 0){
-                setPlayerNewPosition(checkPlayerXPosition,checkPlayerYPosition);
-                System.out.println("Player hit a wall! old damage " + this.damageTaken);
-                dealDamageToPlayer();
-                System.out.println("new damage " + this.damageTaken);
+            else if(hasPlayerCollidedWithWall == 0){
+                wallCollisionHandler(checkXPosition,checkYPosition);
                 break;
-
             }else if(hasPlayerCollidedWithWall == 1){
-                setPlayerNewPosition(this.getPlayerXPosition(), this.getPlayerYPosition());
-                System.out.println("Player hit a wall! old damage " + this.damageTaken);
-                dealDamageToPlayer();
-                System.out.println("new damage " + this.damageTaken);
+                wallCollisionHandler(this.getPlayerXPosition(), this.getPlayerYPosition());
                 break;
             }else{
-                setPlayerNewPosition(checkPlayerXPosition, checkPlayerYPosition);
-
-
-
+                setPlayerNewLocation(checkXPosition, checkYPosition);
             }
         }
     }
 
+    public ArrayList<Float> getCoordinatesToCheck(float movement){
+        ArrayList<Float> coordinatesToCheck = new ArrayList<Float>();
+        float newPosition = 0 ;
+        float checkXPosition = 0;
+        float checkYPosition = 0;
+        if (movement != 0) {
+            newPosition =  300 * this.direction.getMoveDirection();
+        }
+        if(walls.getPlayerXYDirection(this) == 'x'){
+            checkXPosition = newPosition + this.getPlayerXPosition();
+            checkYPosition = this.getPlayerYPosition();
 
-    private void setPlayerNewPosition(float xPosition, float yPosition) {
+        }else if (walls.getPlayerXYDirection(this) == 'y'){
+            checkYPosition = newPosition + this.getPlayerYPosition();
+            checkXPosition = this.getPlayerXPosition();
+        }
+        coordinatesToCheck.add(checkXPosition);
+        coordinatesToCheck.add(checkYPosition);
+        return coordinatesToCheck;
+    }
+
+
+    public void wallCollisionHandler(float afterCollisionX, float afterCollisionY){
+        updatePlayerXPosition(afterCollisionX);
+        updatePlayerYPosition(afterCollisionY);
+        System.out.println("Player hit a wall! old damage " + this.damageTaken);
+        dealDamageToPlayer();
+        System.out.println("new damage " + this.damageTaken);
+    }
+
+    private void setPlayerNewLocation(float xPosition, float yPosition) {
         updatePlayerXPosition(xPosition);
         updatePlayerYPosition(yPosition);
+
     }
 
 
     public void singlePlayerRound(ArrayList<Player> players,TileLayers layer) {
-
         if (this.ready) {
             for(int round = 0; round < 5; round ++) {
                 newUpdatePlayerLocation(chosenCards.get(round), layer);
@@ -299,6 +281,7 @@ public class HumanPlayer extends Player implements InputProcessor {
             mouseClickYCoordinate = mouseClickPosition.y;
         }
     }
+
 
     /**
      * Create a click-box around the cards the player is dealt.
@@ -349,4 +332,26 @@ public class HumanPlayer extends Player implements InputProcessor {
     public boolean keyTyped(char c) {return false;}
     @Override
     public boolean touchDown(int i, int i1, int i2, int i3) {return false;}
+
+//TODO this will be removed
+    @Override
+    public void updatePlayerLocation(Card card) {
+        float cardAction = card.action.getAction();
+        if (cardMoveLogic.moveTypeCard(card)) {
+            if(this.direction == Direction.NORTH){
+                updatePlayerYPosition(movePlayerAsFarAsPossible(getPlayerYPosition()+ cardAction, this.direction ));
+            }
+            else if (this.direction == Direction.SOUTH){
+                updatePlayerYPosition(movePlayerAsFarAsPossible(getPlayerYPosition() - cardAction, this.direction));
+            }
+            else if (this.direction == Direction.EAST) {
+                updatePlayerXPosition(movePlayerAsFarAsPossible(getPlayerXPosition() + cardAction, this.direction));
+
+            } else if (this.direction == Direction.WEST) {
+                updatePlayerXPosition(movePlayerAsFarAsPossible(getPlayerXPosition() - cardAction, this.direction));
+            }
+        }else if (!cardMoveLogic.moveTypeCard(card)) {
+            setPlayerDirection((int)card.action.getAction());
+        }
+    }
 }

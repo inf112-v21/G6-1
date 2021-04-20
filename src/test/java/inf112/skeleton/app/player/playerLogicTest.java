@@ -16,10 +16,10 @@ public class playerLogicTest {
         float yPositiveDirection = 3901;
         float yNegativeDirection = -1;
 
-        Assertions.assertFalse(humanPlayer.keepPlayerOnBoard(xPositiveDirection, 0));
-        Assertions.assertFalse(humanPlayer.keepPlayerOnBoard(xNegativeDirection, 0));
-        Assertions.assertFalse(humanPlayer.keepPlayerOnBoard(0, yPositiveDirection));
-        Assertions.assertFalse(humanPlayer.keepPlayerOnBoard(0, yNegativeDirection));
+        Assertions.assertFalse(humanPlayer.isPlayerOnBoard(xPositiveDirection, 0));
+        Assertions.assertFalse(humanPlayer.isPlayerOnBoard(xNegativeDirection, 0));
+        Assertions.assertFalse(humanPlayer.isPlayerOnBoard(0, yPositiveDirection));
+        Assertions.assertFalse(humanPlayer.isPlayerOnBoard(0, yNegativeDirection));
     }
 
 }
