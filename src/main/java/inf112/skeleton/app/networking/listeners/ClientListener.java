@@ -93,6 +93,11 @@ public class ClientListener extends Listener {
         {
             Packets.PlayerNumberPacket p = (Packets.PlayerNumberPacket) object;
             game.setNumberOfPlayers(p.numberOfPlayers);
+
+            Packets.playerObject playerO = new Packets.playerObject();
+            game.myHumanPlayer = playerO.player;
+            client.sendTCP(playerO);
+
         }
         else if (object instanceof Packets.StartGamePackage)
         {
@@ -104,6 +109,12 @@ public class ClientListener extends Listener {
             Packets.RoundPacket roundPacket = (Packets.RoundPacket) object;
             game.executeMoves(roundPacket.playerMoves);
         }
+        else if (object instanceof Packets.playerList) {
+
+            Packets.playerList pl = (Packets.playerList) object;
+            game.players = pl.list;
+        }
+
     }
 
     public boolean getConnection(){

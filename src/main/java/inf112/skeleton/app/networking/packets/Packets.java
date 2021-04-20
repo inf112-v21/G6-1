@@ -1,6 +1,7 @@
 package inf112.skeleton.app.networking.packets;
 
 import inf112.skeleton.app.card.Card;
+import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
 
 import java.util.ArrayList;
@@ -66,5 +67,13 @@ public class Packets {
 
     public static class PlayerNumberPacket {
         public int numberOfPlayers;
+    }
+
+    public static class playerList {
+        public ArrayList<Player> list;
+    }
+
+    public static class playerObject {
+        public HumanPlayer player;
     }
 }
