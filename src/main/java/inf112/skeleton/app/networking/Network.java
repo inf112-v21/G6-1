@@ -2,9 +2,7 @@ package inf112.skeleton.app.networking;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
-import inf112.skeleton.app.card.BackUp;
 import inf112.skeleton.app.networking.packets.Packets;
-import java.util.*;
 
 public class Network {
 
@@ -20,7 +18,7 @@ public class Network {
 
 
         kyro.register(Packets.CardsPacket.class);
-        kyro.register(Packets.NamePacket.class);
+        kyro.register(Packets.UpdateNames.class);
         kyro.register(Packets.PlayerIdPacket.class);
         kyro.register(Packets.PlayerNumberPacket.class);
         kyro.register(Packets.StartGamePackage.class);

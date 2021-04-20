@@ -5,7 +5,6 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.networking.packets.Packets;
-import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
 
 import java.util.ArrayList;
@@ -48,7 +47,7 @@ public class ServerListener extends Listener {
         numberOfPlayers++;
 
         Packets.PlayerNumberPacket playerPacket = new Packets.PlayerNumberPacket();
-        playerPacket.numberOfPlayers = numberOfPlayers;
+        playerPacket.numberofplayersConnected = numberOfPlayers;
         server.sendToAllTCP(playerPacket);
 
         Packets.PlayerIdPacket playerIdPacket = new Packets.PlayerIdPacket();
@@ -79,7 +78,7 @@ public class ServerListener extends Listener {
         numberOfPlayers--;
         playerNames[connection.getID()] = null;
         Packets.PlayerNumberPacket numberOfPlayers = new Packets.PlayerNumberPacket();
-        numberOfPlayers.numberOfPlayers = this.numberOfPlayers;
+        numberOfPlayers.numberofplayersConnected = this.numberOfPlayers;
         server.sendToAllTCP(numberOfPlayers);
     }
 
@@ -134,7 +133,7 @@ public class ServerListener extends Listener {
         } else if (object instanceof Packets.RemovePlayerPacket) {
             numberOfPlayers--;
             Packets.PlayerNumberPacket numberOfPlayersConnected = new Packets.PlayerNumberPacket();
-            numberOfPlayersConnected.numberOfPlayers = numberOfPlayers;
+            numberOfPlayersConnected.numberofplayersConnected = numberOfPlayers;
             server.sendToAllTCP(numberOfPlayersConnected);
         }
         else if (object instanceof Packets.playerObject) {

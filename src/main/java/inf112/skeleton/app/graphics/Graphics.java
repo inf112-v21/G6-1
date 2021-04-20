@@ -275,7 +275,6 @@ public class Graphics implements ApplicationListener {
         }
     }
 
-
     @Override
     public void pause() {
 

@@ -17,11 +17,11 @@ import inf112.skeleton.app.networking.packets.Packets;
  * Calls methods in the game to be able to send data to game.
  */
 public class ClientListener extends Listener {
-    private boolean conn = false;
+    private boolean c = false;
     private Game game;
     private Client client;
     public Packets.CardsPacket cards;
-    public Packets.NamePacket name;
+    public Packets.UpdateNames name;
     private boolean playerCreated = false;
 
 
@@ -41,9 +41,9 @@ public class ClientListener extends Listener {
      * send a message to the server and set the connection to true.
      * @param connection connected
      */
-    public void connected(Connection connection  ) {
+    public void connected(Connection connection) {
         System.out.println("Cl: Established connection");
-        conn = true;
+        c = true;
     }
 
      /**
@@ -78,35 +78,38 @@ public class ClientListener extends Listener {
      * @param name A Packet with a single name in a String[]
      */
     public void sendName(Packets.UpdateNames name) {
+        this.name = this.name;
         client.sendTCP(name);
     }
 
     public void disconnected(Connection connection ) {
         System.out.println("Cl: You have been disconnected from the server");
-        conn = false;
+        c = false;
     }
 
 
+    /**
+     * Kryonet Client calls this when it receives something from the server,
+     * then this method sorts what type of object it is and sends it to the right place in the game class.
+     * @param c
+     * @param object
+     */
 
     public void received(Connection c, Object object) {
 
-        if (object instanceof Packets.PlayerNumberPacket && playerCreated == false)
-        {
+        if (object instanceof Packets.PlayerNumberPacket && playerCreated == false) {
             Packets.PlayerNumberPacket p = (Packets.PlayerNumberPacket) object;
             Packets.playerObject playerO = new Packets.playerObject();
-            playerO.player = game.setNumberOfPlayers(p.numberOfPlayers);
+            playerO.player = game.setNumberOfPlayers(p.numberofplayersConnected);
             playerCreated = true;
             client.sendTCP(playerO);
-
-
         }
-        else if (object instanceof Packets.StartGamePackage)
-        {
+
+        else if (object instanceof Packets.StartGamePackage) {
             System.out.println("Starting game");
             game.dealPlayerDecks();
         }
-        else if (object instanceof Packets.RoundPacket)
-        {
+        else if (object instanceof Packets.RoundPacket) {
             Packets.RoundPacket roundPacket = (Packets.RoundPacket) object;
             game.executeMoves(roundPacket.playerMoves);
         }
@@ -119,7 +122,7 @@ public class ClientListener extends Listener {
     }
 
     public boolean getConnection(){
-        return conn;
+        return c;
     }
 
     public void sendReady(Packets.StartGamePackage signal) {

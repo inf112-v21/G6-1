@@ -84,8 +84,8 @@ public class GameClient extends Listener {
      */
     public void sendName(String text) {
         Packets.UpdateNames name = new Packets.UpdateNames();
-        name.names = new String[]{text};
-        name.playerId = client.getID();
+        name.name = new String[]{text};
+        name.playerID = client.getID();
         cListener.sendName(name);
     }
 
