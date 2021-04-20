@@ -154,28 +154,20 @@ public class Game implements IGame, InputProcessor {
 
     public void setNumberOfPlayers(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
-        createPlayers();
+        createPlayers(numberOfPlayers-1);
     }
 
 
     @Override
-    public void createPlayers() {
-        idPlayerHashMap = new HashMap<>();
-        System.out.println("Creating players " + numberOfPlayers);
-        ArrayList <Player> playerList = new ArrayList<>();
-        float startPositionX = 0;
-        for (int i = 0; i < numberOfPlayers; i++) {
-            Color playerColor = Color.getPlayerColor(i);
-            HumanPlayer humanPlayer = new HumanPlayer(Direction.NORTH, i, playerColor);
-            humanPlayer.setId(i);
-            humanPlayer.playerDeck = cardMoveLogic.playerDeck();
-            playerList.add(humanPlayer);
-            playerList.get(i).setPlayerStartXPosition(startPositionX);
-            startPositionX += 300;
-            idPlayerHashMap.put(i, humanPlayer);
-        }
-        setMyHumanPlayer(idPlayerHashMap.get(client.getId()));
-        this.players = playerList;
+    public HumanPlayer createPlayers(int playerNumber) {
+        System.out.println("Creating player ID " + playerNumber);
+        float startPositionX = playerNumber*300;
+        Color playerColor = Color.getPlayerColor(playerNumber);
+        HumanPlayer humanPlayer = new HumanPlayer(Direction.NORTH, playerNumber, playerColor);
+        humanPlayer.playerDeck = cardMoveLogic.playerDeck();
+        humanPlayer.id = playerNumber;
+        humanPlayer.setPlayerStartXPosition(startPositionX);
+        return humanPlayer;
     }
 
     public boolean getConnection(){
