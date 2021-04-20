@@ -27,7 +27,7 @@ final HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
    put(22,Direction.WEST.getDirectionDegree());
 }};
 
-    public void stopPlayerIfConveyorEnds(Player player){
+    public void stopPlayerIfConveyorEnds(Player player, float direction, TiledMapTileLayer blueConveyor){
 
     }
 
@@ -61,6 +61,7 @@ final HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
                 if(blueConveyorTile != null) {
                     int conveyorDirection = blueConveyorDirection.get(blueConveyorTile.getTile().getId());
                     int conveyorMovement = ConveyorType.EXPRESS.getNumberOfMoves();
+
                     locatePlayersOnConveyor(players, tileXPosition, tileYPosition, conveyorDirection,conveyorMovement);
                 }
             }

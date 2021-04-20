@@ -143,7 +143,8 @@ public class Graphics implements ApplicationListener {
                 (TiledMapTileLayer) tiledMap.getLayers().get("RedGear"),
                 (TiledMapTileLayer) tiledMap.getLayers().get("GreenGear"),
                 (TiledMapTileLayer) tiledMap.getLayers().get("Hole"),
-                (TiledMapTileLayer) tiledMap.getLayers().get("Walls"));
+                (TiledMapTileLayer) tiledMap.getLayers().get("Walls"),
+                (TiledMapTileLayer) tiledMap.getLayers().get("Checkpoint"));
 
     }
     /**

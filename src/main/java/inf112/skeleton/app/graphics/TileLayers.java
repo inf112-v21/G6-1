@@ -10,9 +10,10 @@ public class TileLayers {
     public TiledMapTileLayer greenGear;
     public TiledMapTileLayer hole;
     public TiledMapTileLayer wall;
+    public TiledMapTileLayer checkpoint;
     public TileLayers(TiledMapTileLayer laser, TiledMapTileLayer blueConveyor,
                       TiledMapTileLayer yellowConveyor, TiledMapTileLayer redGear, TiledMapTileLayer greenGear,
-                      TiledMapTileLayer hole,TiledMapTileLayer wall){
+                      TiledMapTileLayer hole,TiledMapTileLayer wall, TiledMapTileLayer checkpoint){
         this.laser = laser;
         this.blueConveyor = blueConveyor;
         this.yellowConveyor = yellowConveyor;
@@ -20,5 +21,6 @@ public class TileLayers {
         this.greenGear = greenGear;
         this.hole = hole;
         this.wall = wall;
+        this.checkpoint = checkpoint;
     }
 }

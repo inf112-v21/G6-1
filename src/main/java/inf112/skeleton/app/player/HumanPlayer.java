@@ -86,8 +86,8 @@ public class HumanPlayer extends Player implements InputProcessor {
     public void takePlayerLife() {
         this.healthToken -- ;
         this.damageTaken = 0;
-        this.updatePlayerXPosition(0);
-        this.updatePlayerYPosition(0);
+        this.updatePlayerXPosition(this.playerCheckpointPositionX);
+        this.updatePlayerYPosition(this.playerCheckpointPositionY);
         System.out.println("Player "+ this.color + " lost a life and has now " + this.healthToken
                 + " lives and " + this.damageTaken + " damage");
 
@@ -234,12 +234,16 @@ public class HumanPlayer extends Player implements InputProcessor {
 
             if(hasPlayerCollidedWithWall == 0){
                 setPlayerNewPosition(checkPlayerXPosition,checkPlayerYPosition);
+                System.out.println("Player hit a wall! old damage " + this.damageTaken);
                 dealDamageToPlayer();
+                System.out.println("new damage " + this.damageTaken);
                 break;
 
             }else if(hasPlayerCollidedWithWall == 1){
                 setPlayerNewPosition(this.getPlayerXPosition(), this.getPlayerYPosition());
+                System.out.println("Player hit a wall! old damage " + this.damageTaken);
                 dealDamageToPlayer();
+                System.out.println("new damage " + this.damageTaken);
                 break;
             }else{
                 setPlayerNewPosition(checkPlayerXPosition, checkPlayerYPosition);
@@ -268,7 +272,7 @@ public class HumanPlayer extends Player implements InputProcessor {
             gear.runGears(players,layer.redGear, layer.greenGear);
             laser.fireAllLasers(players,layer.laser);
             hole.hole(players, layer.hole);
-            //checkpoint.findCheckpoints(this, layer.checkpoint);
+            checkpoint.findCheckpoints(this, layer.checkpoint);
 
             cardMoveLogic.readyButtonClickable(this);
             System.out.println("\n New round ");
