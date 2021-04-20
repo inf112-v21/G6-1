@@ -43,6 +43,10 @@ public class HostGameScreenProcessor extends BaseInputProcessor {
                 graphics.game.currentScreen = GameScreen.GAME;
                 graphics.game.hostNewGame("RiskyExchange.tmx");
             }
+            if(y <= 1267 && y >= 1029) {
+                graphics.game.currentScreen = GameScreen.MENU;
+            }
+
         }
 
         return false;
