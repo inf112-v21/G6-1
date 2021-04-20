@@ -101,7 +101,7 @@ public class Game implements IGame, InputProcessor {
      */
     public void joinNewGame(InetAddress ip) {
         client = new GameClient(ip, this);
-        client.connect(ip.getHostAddress());
+        //client.connect(ip.getHostAddress());
     }
 
     @Override
@@ -140,7 +140,8 @@ public class Game implements IGame, InputProcessor {
 
     public void setNumberOfPlayers(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
-        createPlayers(numberOfPlayers-1);
+        myHumanPlayer = createPlayers(numberOfPlayers-1);
+        players.add(myHumanPlayer);
     }
 
 

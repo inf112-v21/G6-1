@@ -55,7 +55,7 @@ public class ServerListener extends Listener {
         Packets.SendMapNameToPlayer sendMapNameToPlayer = new Packets.SendMapNameToPlayer();
         server.sendToAllTCP(sendMapNameToPlayer);
 
-        if (numberOfPlayers >= 3) {
+        if (numberOfPlayers >= 2) {
             this.startGameSession();
         }
     }

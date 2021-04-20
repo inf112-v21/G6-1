@@ -46,18 +46,6 @@ public class GameClient extends Listener {
     }
 
 
-    public boolean connect(String ip) {
-        new Thread(client).start();
-        try {
-            client.connect(5000, ip, tcpPort, udpPort);
-            System.out.println("IP Address: "+ ip);
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"Server is not started. Can not connect");
-            return false;
-        }
-    }
-
 /**
      * Sends an array of ProgramCards to the server.
      *

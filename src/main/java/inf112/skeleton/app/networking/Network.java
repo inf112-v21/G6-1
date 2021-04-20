@@ -29,7 +29,7 @@ public class Network {
         kyro.register(Packets.UpdateNames.class);
         kyro.register(Packets.SendMapNameToPlayer.class);
 
-
+        kyro.register(boolean[].class);
         kyro.register(String[].class);
         kyro.register(int[].class);
 
