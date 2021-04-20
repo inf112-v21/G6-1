@@ -136,8 +136,8 @@
  <layer id="4" name="BlueConveyor" width="12" height="14">
   <properties>
    <property name="bConveyorEast" type="int" value="14"/>
-   <property name="bConveyorSouth" type="int" value="21"/>
    <property name="bConveyorNorth" type="int" value="13"/>
+   <property name="bConveyorSouth" type="int" value="21"/>
    <property name="bConveyorWest" type="int" value="22"/>
   </properties>
   <data encoding="csv">
@@ -278,8 +278,12 @@
 0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
-<layer id="22" name="Checkpoint" width="12" height="14">
-<data encoding="csv">
+ <layer id="22" name="Checkpoint" width="12" height="14">
+  <properties>
+   <property name="checkpoint1" type="int" value="121"/>
+   <property name="checkpoint2" type="int" value="122"/>
+  </properties>
+  <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
@@ -293,7 +297,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0
+121,122,0,0,0,0,0,0,0,0,0,0
 </data>
-</layer>
+ </layer>
 </map>
