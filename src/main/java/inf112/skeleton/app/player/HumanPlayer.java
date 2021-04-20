@@ -85,7 +85,7 @@ public class HumanPlayer extends Player implements InputProcessor {
     @Override
     public void takePlayerLife() {
         this.healthToken -- ;
-        this.damageTaken = 0;
+        this.damageTaken ++;
         this.updatePlayerXPosition(this.playerCheckpointPositionX);
         this.updatePlayerYPosition(this.playerCheckpointPositionY);
         System.out.println("Player "+ this.color + " lost a life and has now " + this.healthToken
