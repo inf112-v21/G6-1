@@ -36,6 +36,9 @@ public class Graphics implements ApplicationListener {
     public Texture exitButton, returnButton;
     public Texture reset, notReset;
     public Texture ready, notReady;
+    public Texture emptyDamageToken, damageToken1, damageToken2, damageToken3,
+            damageToken4, damageToken5, damageToken6, damageToken7,
+            damageToken8, damageToken9, damageToken10;
     public Texture emptyLifeToken, lifeToken1, lifeToken2, lifeToken3;
     public Texture singlePlayerButton;
     public Texture joinMultiPlayerButton;
@@ -162,6 +165,18 @@ public class Graphics implements ApplicationListener {
         lifeToken2 = new Texture("LifeToken/2.png");
         lifeToken1 = new Texture("LifeToken/3.png");
         emptyLifeToken = new Texture("LifeToken/4.png");
+
+        emptyDamageToken = new Texture("Damagetoken/50.png");
+        damageToken1 = new Texture("Damagetoken/60.png");
+        damageToken2 = new Texture("Damagetoken/70.png");
+        damageToken3 = new Texture("Damagetoken/80.png");
+        damageToken4 = new Texture("Damagetoken/90.png");
+        damageToken5 = new Texture("Damagetoken/100.png");
+        damageToken6 = new Texture("Damagetoken/110.png");
+        damageToken7 = new Texture("Damagetoken/120.png");
+        damageToken8 = new Texture("Damagetoken/130.png");
+        damageToken9 = new Texture("Damagetoken/140.png");
+        damageToken10 = new Texture("Damagetoken/150.png");
 
         // Menu Textures
         menuScreenBackground = new Texture("MenuScreen/MenuBackground.png");
@@ -302,6 +317,8 @@ public class Graphics implements ApplicationListener {
         readyButtonIndicator();
         resetButtonIndicator();
 
+        //informs the player when damaged
+        damageTokenIndicator();
         //informs how many lifes the player has left
         lifeTokenIndicator();
 
@@ -322,6 +339,12 @@ public class Graphics implements ApplicationListener {
             if(game.winScreen== GameScreen.WIN) {
                 //System.out.println("You Won!");
                 renderWin();
+            }
+        }
+
+        if(singlePlayer.getPlayerDamageTaken() == 10 || singlePlayer.getPlayerHealth() == 0){
+            if(game.loseScreen == GameScreen.LOSE){
+                renderLose();
             }
         }
     }
@@ -354,19 +377,59 @@ public class Graphics implements ApplicationListener {
         // displaying the lifetoken
         spriteBatch.begin();
         if(singlePlayer.getPlayerHealth() == 1){
-            spriteBatch.draw(lifeToken1, 760, 535, 110, 65);
+            spriteBatch.draw(lifeToken1, 740, 530, 110, 65);
         }
         else if(singlePlayer.getPlayerHealth() == 2){
-            spriteBatch.draw(lifeToken2, 760, 535, 110, 65);
+            spriteBatch.draw(lifeToken2, 740, 530, 110, 65);
         }
         else if(singlePlayer.getPlayerHealth() == 3){
-            spriteBatch.draw(lifeToken3, 760, 535, 110, 65);
+            spriteBatch.draw(lifeToken3, 740, 530, 110, 65);
         }
         else{
-            spriteBatch.draw(emptyLifeToken, 760, 535, 110, 65);
+            spriteBatch.draw(emptyLifeToken, 740, 530, 110, 65);
         }
         spriteBatch.end();
     }
+
+    public void damageTokenIndicator(){
+        // displaying the damagetoken
+        spriteBatch.begin();
+        if(singlePlayer.getPlayerDamageTaken() == 1){
+            spriteBatch.draw(damageToken1, 710, 350, 185, 110);
+        }
+        else if(singlePlayer.getPlayerDamageTaken() == 2){
+            spriteBatch.draw(damageToken2, 710, 350, 185, 110);
+        }
+        else if(singlePlayer.getPlayerDamageTaken() == 3){
+            spriteBatch.draw(damageToken3, 710, 350, 185, 110);
+        }
+        else if(singlePlayer.getPlayerDamageTaken() == 4){
+            spriteBatch.draw(damageToken4, 710, 350, 185, 110);
+        }
+        else if(singlePlayer.getPlayerDamageTaken() == 5){
+            spriteBatch.draw(damageToken5, 710, 350, 185, 110);
+        }
+        else if(singlePlayer.getPlayerDamageTaken() == 6){
+            spriteBatch.draw(damageToken6, 710, 350, 185, 110);
+        }
+        else if(singlePlayer.getPlayerDamageTaken() == 7){
+            spriteBatch.draw(damageToken7, 710, 350, 185, 110);
+        }
+        else if(singlePlayer.getPlayerDamageTaken() == 8){
+            spriteBatch.draw(damageToken8, 710, 350, 185, 110);
+        }
+        else if(singlePlayer.getPlayerDamageTaken() == 9){
+            spriteBatch.draw(damageToken9, 710, 350, 185, 110);
+        }
+        else if(singlePlayer.getPlayerDamageTaken() == 10){
+            spriteBatch.draw(damageToken10, 710, 350, 185, 110);
+        }
+        else{
+            spriteBatch.draw(emptyDamageToken, 710, 350, 185, 110);
+        }
+        spriteBatch.end();
+    }
+
 
     @Override
     public void pause() {
