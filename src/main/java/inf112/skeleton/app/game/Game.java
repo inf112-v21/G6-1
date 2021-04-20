@@ -37,6 +37,7 @@ public class Game implements IGame, InputProcessor {
 
     @Override
     public Graphics startGame() {
+        chooseHostOrJoin();
         return new Graphics(this);
     }
 
