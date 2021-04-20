@@ -88,7 +88,7 @@ public class Game implements IGame, InputProcessor {
     public InetAddress hostNewGame(String map) {
         server = new GameServer(map);
         server.run();
-        client = new GameClient(server.getAddress(),this);
+        client = new GameClient(server.getAddress(),Game.this);
         host = true;
         return server.getAddress();
     }
@@ -100,7 +100,7 @@ public class Game implements IGame, InputProcessor {
      * @param ip InetAddress object, is being called properly in @chooseHostOrJoin()
      */
     public void joinNewGame(InetAddress ip) {
-        client = new GameClient(ip, this);
+        client = new GameClient(ip, Game.this);
         //client.connect(ip.getHostAddress());
     }
 
@@ -138,9 +138,10 @@ public class Game implements IGame, InputProcessor {
         }
     }
 
-    public void setNumberOfPlayers(int numberOfPlayers) {
+    public HumanPlayer setNumberOfPlayers(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
         myHumanPlayer = createPlayers(numberOfPlayers-1);
+        return myHumanPlayer;
     }
 
 

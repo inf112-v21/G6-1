@@ -76,4 +76,5 @@ public class Packets {
     public static class playerObject {
         public HumanPlayer player;
     }
+
 }

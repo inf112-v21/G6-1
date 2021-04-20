@@ -8,7 +8,6 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
 import inf112.skeleton.app.card.Card;
-import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.networking.packets.Packets;
 
@@ -23,6 +22,7 @@ public class ClientListener extends Listener {
     private Client client;
     public Packets.CardsPacket cards;
     public Packets.NamePacket name;
+    private boolean playerCreated = false;
 
 
     /**
@@ -89,14 +89,15 @@ public class ClientListener extends Listener {
 
 
     public void received(Connection c, Object object) {
-        if (object instanceof Packets.PlayerNumberPacket)
+
+        if (object instanceof Packets.PlayerNumberPacket && playerCreated == false)
         {
             Packets.PlayerNumberPacket p = (Packets.PlayerNumberPacket) object;
-            game.setNumberOfPlayers(p.numberOfPlayers);
-
             Packets.playerObject playerO = new Packets.playerObject();
-            game.myHumanPlayer = playerO.player;
+            playerO.player = game.setNumberOfPlayers(p.numberOfPlayers);
+            playerCreated = true;
             client.sendTCP(playerO);
+
 
         }
         else if (object instanceof Packets.StartGamePackage)

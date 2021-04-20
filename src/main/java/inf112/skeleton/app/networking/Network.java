@@ -3,6 +3,7 @@ package inf112.skeleton.app.networking;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
 import inf112.skeleton.app.networking.packets.Packets;
+import java.util.*;
 
 public class Network {
 
@@ -14,6 +15,8 @@ public class Network {
      */
     static public void register (EndPoint endpoint) {
         Kryo kyro = endpoint.getKryo();
+        kyro.setRegistrationRequired(false);
+
 
         kyro.register(Packets.CardsPacket.class);
         kyro.register(Packets.NamePacket.class);
@@ -28,7 +31,11 @@ public class Network {
         kyro.register(Packets.StartSignalPacket.class);
         kyro.register(Packets.UpdateNames.class);
         kyro.register(Packets.SendMapNameToPlayer.class);
+        kyro.register(Packets.playerList.class);
+        kyro.register(Packets.playerObject.class);
 
+
+        kyro.register(java.util.ArrayList.class);
         kyro.register(boolean[].class);
         kyro.register(String[].class);
         kyro.register(int[].class);

@@ -58,6 +58,7 @@ public class ServerListener extends Listener {
         Packets.SendMapNameToPlayer sendMapNameToPlayer = new Packets.SendMapNameToPlayer();
         server.sendToAllTCP(sendMapNameToPlayer);
 
+
         if (numberOfPlayers >= 2) {
             Packets.playerList pl = new Packets.playerList();
             pl.list = players;
