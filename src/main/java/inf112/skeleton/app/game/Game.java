@@ -13,9 +13,11 @@ import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
 
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Game implements IGame, InputProcessor {
 
@@ -37,6 +39,44 @@ public class Game implements IGame, InputProcessor {
     public Graphics startGame() {
         return new Graphics(this);
     }
+
+    public void chooseHostOrJoin () {
+        Scanner HostOrJoin = new Scanner(System.in);
+        System.out.println("Host (1), join (2) or start single player (3)?: ");
+
+        String choice = HostOrJoin.nextLine();
+        System.out.println("You choose " + choice);
+
+        if(choice.equals("1")){
+            hostNewGame("RiskyExchange");
+            typeOfGameStarted = GameType.NETWORK_HOST;
+        }
+        else if(choice.equals("2")){
+            InetAddress hostIp = null;
+            Scanner askForIpAddress = new Scanner(System.in);
+            System.out.println("Please enter the server IP to join: ");
+
+            String ChosenIP = askForIpAddress.nextLine();
+            try {
+                hostIp = InetAddress.getByName(ChosenIP);
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
+            System.out.println(hostIp.getHostAddress());
+            typeOfGameStarted = GameType.NETWORK_JOIN;
+            joinNewGame(hostIp);
+
+        }
+        else if(choice.equals("3")){
+            System.out.println("Single player selected");
+            typeOfGameStarted = GameType.SINGLE_PLAYER;
+        }
+        else {
+            System.out.println("Please enter 1 or 2 when asked to");
+            chooseHostOrJoin();
+        }
+    }
+
 
     /**
      * InetAddress object created by the host. This is the only place server.run() should be used,

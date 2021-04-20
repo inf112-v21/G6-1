@@ -49,7 +49,7 @@ public class ClientListener extends Listener {
 
      /**
      * Sends an array of cards to the server to be played.
-     * @param CardMoveLogic The cards the player want to be played.
+     * @param cardLogic The cards the player want to be played.
      */
     public void sendCards(HashMap<Integer, ArrayList<Card>> cardLogic){
         Packets.RoundPacket newCards = new Packets.RoundPacket();

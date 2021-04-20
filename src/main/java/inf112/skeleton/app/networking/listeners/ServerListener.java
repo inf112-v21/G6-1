@@ -38,6 +38,8 @@ public class ServerListener extends Listener {
     }
 
 
+
+
     public void connected(Connection connection) {
         System.out.println("Player " + (numberOfPlayers + 1) + " has connected to the server");
         numberOfPlayers++;
