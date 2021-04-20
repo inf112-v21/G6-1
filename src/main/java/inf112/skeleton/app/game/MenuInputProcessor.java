@@ -2,7 +2,6 @@ package inf112.skeleton.app.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import inf112.skeleton.app.graphics.Graphics;
 
 import java.net.InetAddress;
@@ -62,16 +61,17 @@ public class MenuInputProcessor implements InputProcessor {
 
             } else if (y >= 371 && y <= 415) {
                 System.out.println("Host click");
+                graphics.game.chooseHostOrJoin();
                 graphics.game.typeOfGameStarted = GameType.NETWORK_HOST;
                 graphics.game.currentScreen = GameScreen.GAME;
-                graphics.game.hostNewGame("RiskyExchange.tmx");
+                //graphics.game.hostNewGame("RiskyExchange.tmx");
 
             } else if(y >= 469 && y <= 514) {
                 System.out.println("Join click, attempting to join ip" + ip);
                 try {
                     InetAddress hostIp = InetAddress.getByName(ip);
                     graphics.game.typeOfGameStarted = GameType.NETWORK_JOIN;
-                    graphics.game.joinNewGame(hostIp);
+                    graphics.game.chooseHostOrJoin();
                 } catch (Exception e) {
 
                 }
