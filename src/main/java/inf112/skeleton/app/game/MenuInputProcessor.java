@@ -65,13 +65,17 @@ public class MenuInputProcessor extends BaseInputProcessor {
 
             } else if(y <= 1240 && y >= 1036) {
                 System.out.println("Join click, attempting to join ip" + ip);
+                graphics.game.currentScreen = GameScreen.JOIN;
+
+
+                /**Dette skal brukes når bruker har skrevet inn IP
                 try {
                     InetAddress hostIp = InetAddress.getByName(ip);
                     graphics.game.typeOfGameStarted = GameType.NETWORK_JOIN;
                     graphics.game.joinNewGame(hostIp);
                 } catch (Exception e) {
 
-                }
+                }**/
             }
         }
 

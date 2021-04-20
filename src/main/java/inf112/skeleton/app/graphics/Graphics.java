@@ -45,6 +45,7 @@ public class Graphics implements ApplicationListener {
     public final HumanPlayer singlePlayer = new HumanPlayer(Direction.NORTH,69,Color.GREEN);
     private final MenuInputProcessor menuInputProcessor;
     private final HostGameScreenProcessor hostGameScreenProcessor;
+    private final JoinGameScreenProcessor joinGameScreenProcessor;
     private final EndScreen endScreen;
     public Sprite singlePlayerSprite;
     public ArrayList<Sprite> cardSpriteList;
@@ -57,6 +58,7 @@ public class Graphics implements ApplicationListener {
     public Graphics(Game game) {
         menuInputProcessor = new MenuInputProcessor(this);
         hostGameScreenProcessor = new HostGameScreenProcessor(this);
+        joinGameScreenProcessor = new JoinGameScreenProcessor(this);
         endScreen = new EndScreen(this);
         cardGraphics = new CardGraphics();
         this.game = game;
@@ -228,6 +230,18 @@ public class Graphics implements ApplicationListener {
         Gdx.input.setInputProcessor(hostGameScreenProcessor);
     }
 
+    private void renderJoinGameScreen(){
+        //draw background
+        spriteBatch.begin();
+        spriteBatch.draw(menuScreenBackground, 0, 0, 1280, 720);
+        spriteBatch.end();
+
+        //handle input
+        joinGameScreenProcessor.setMouseClickCoordinates(camera);
+        Gdx.input.setInputProcessor(joinGameScreenProcessor);
+
+    }
+
     private void renderWin() {
         spriteBatch.begin();
         spriteBatch.draw(youWin, 0, 0, 1280, 720);
@@ -273,6 +287,10 @@ public class Graphics implements ApplicationListener {
         }
         if (game.currentScreen == GameScreen.HOST) {
             renderHostGameScreen();
+            return;
+        }
+        if(game.currentScreen == GameScreen.JOIN){
+            renderJoinGameScreen();
             return;
         }
 

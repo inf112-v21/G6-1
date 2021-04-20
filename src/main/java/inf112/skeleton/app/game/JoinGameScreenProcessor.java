@@ -2,10 +2,10 @@ package inf112.skeleton.app.game;
 
 import inf112.skeleton.app.graphics.Graphics;
 
-public class HostGameScreenProcessor extends BaseInputProcessor {
+public class JoinGameScreenProcessor extends BaseInputProcessor{
     final Graphics graphics;
 
-    public HostGameScreenProcessor(Graphics graphics){
+    public JoinGameScreenProcessor(Graphics graphics){
         super();
         this.graphics = graphics;
     }
@@ -34,16 +34,6 @@ public class HostGameScreenProcessor extends BaseInputProcessor {
     public boolean touchUp(int i, int i1, int i2, int i3) {
         float x = mouseClickXCoordinate;
         float y = mouseClickYCoordinate;
-
-        System.out.println("Touch in menu input " + x + ", " + y);
-        if (x >= 3260 && x <= 3960) {
-            if (y <= 1950 && y >= 1722) {
-                System.out.println("Host click");
-                graphics.game.typeOfGameStarted = GameType.NETWORK_HOST;
-                graphics.game.currentScreen = GameScreen.GAME;
-                graphics.game.hostNewGame("RiskyExchange.tmx");
-            }
-        }
 
         return false;
     }
