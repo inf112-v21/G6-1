@@ -119,6 +119,7 @@ public class Game implements IGame, InputProcessor {
             player.setPlayerStartXPosition(playerStartPos.get(0));
             player.setPlayerStartYPosition(playerStartPos.get(1));
             if(player.id == myId){
+                System.out.println(myId +" dette e min id");
                 initializeMyHumanPlayer(player);
             }
 
@@ -129,13 +130,14 @@ public class Game implements IGame, InputProcessor {
         myHumanPlayer.playerDeck = cardMoveLogic.playerDeck();
     }
 
-    public void cardRank(HashMap<Integer, ArrayList<Card>> playerMoves){
-        HashMap<Integer, Action> phase = new HashMap();
-
+    public HashMap<Integer, ArrayList<HashMap<Integer, Action>>> getPlayerActionList(){
+        HashMap<Integer, ArrayList<HashMap<Integer, Action>>>  actionList = new HashMap();
+        ArrayList<HashMap<Integer, Action>> sendAbleCards =
+                cardMoveLogic.convertToSendAbleCard(myHumanPlayer.chosenCards);
+        actionList.put(myHumanPlayer.id,sendAbleCards);
+        return actionList;
     }
-    public void doRound(){
 
-    }
     @Override
     public void executeMoves(HashMap<Integer, ArrayList<Card>> playerMoves) {
         for (int moveNumber = 0; moveNumber < 5; moveNumber++){

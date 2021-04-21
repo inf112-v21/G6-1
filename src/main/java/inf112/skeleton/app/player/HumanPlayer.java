@@ -318,6 +318,7 @@ public class HumanPlayer extends Player implements InputProcessor {
             cardMoveLogic.resetCard(this);
         } else if (this.chosenCards.size() >= 5 && x >6590 && x < 7070 && y <= 1155 && y >= 850) {
             this.ready = true;
+            System.out.println(this.ready);
         }
         return false;
     }
