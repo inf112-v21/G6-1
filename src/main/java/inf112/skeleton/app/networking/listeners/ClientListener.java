@@ -104,22 +104,30 @@ public class ClientListener extends Listener {
 
         if (object instanceof Packets.PlayerNumberPacket) {
             Packets.PlayerNumberPacket p = (Packets.PlayerNumberPacket) object;
-            dummyPlayer = game.setNumberOfPlayers(p.numberOfPlayersConnected);
+
+
             if (playerCreated == false) {
                 playerCreated = true;
 
                 Packets.playerInfo playerInfo = new Packets.playerInfo();
                 myId = p.numberOfPlayersConnected -1;
+                ArrayList<Float> playerCoordinates = new ArrayList<>();
+                playerCoordinates.add((float) (myId*300));
+                playerCoordinates.add(0F);
+                playerInfo.playerInfo.put(myId, playerCoordinates);
 
+                client.sendTCP(playerInfo);
+/**
                 for (int playerID = 0; playerID < game.getNumberOfPlayers(); playerID++) {
 
-                    game.createPlayers(playerID);
-                    ArrayList<Float> playerCoordinates = new ArrayList<>();
+                    dummyPlayer = game.createPlayers(playerID);
+
                     playerCoordinates.add(dummyPlayer.playerCurrentXPosition);
                     playerCoordinates.add(dummyPlayer.playerCurrentYPosition);
                     playerInfo.playerInfo.put(myId, playerCoordinates);
                 }
-                client.sendTCP(playerInfo);
+ */
+
             }
         }
         else if (object instanceof Packets.playerInfo){

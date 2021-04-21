@@ -147,6 +147,8 @@ public class ServerListener extends Listener {
             for (Integer key: findPlayerIdKey) {
                 Integer foundKey = key;
                 playerInfoGlobal.put(foundKey, playerInfo.playerInfo.get(foundKey));
+                System.out.println(foundKey);
+                System.out.println(playerInfoGlobal);
             }
 
         } else if (object instanceof Packets.SendAction) {

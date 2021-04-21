@@ -137,10 +137,9 @@ public class Game implements IGame, InputProcessor {
         }
     }
 
-    public HumanPlayer setNumberOfPlayers(int numberOfPlayers) {
+    public void setNumberOfPlayers(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
-        myHumanPlayer = createPlayers(numberOfPlayers-1);
-        return myHumanPlayer;
+        createPlayers(numberOfPlayers-1);
     }
 
 
