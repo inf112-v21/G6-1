@@ -102,6 +102,10 @@ public class ClientListener extends Listener {
      */
 
     public void received(Connection c, Object object) {
+        if (game.myHumanPlayer != null && game.myHumanPlayer.ready ) {
+            System.out.println("Erlend har fått vite at han er klar med id "+ game.myHumanPlayer.id );
+            game.myHumanPlayer.ready = false;
+        }
 
         if (object instanceof Packets.PlayerNumberPacket) {
             Packets.PlayerNumberPacket p = (Packets.PlayerNumberPacket) object;
