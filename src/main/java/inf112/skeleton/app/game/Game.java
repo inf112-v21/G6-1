@@ -137,7 +137,31 @@ public class Game implements IGame, InputProcessor {
         actionList.put(myHumanPlayer.id,sendAbleCards);
         return actionList;
     }
+    public void giveAllPlayersCardObjects(HashMap<Integer, ArrayList<HashMap<Integer, Action>>> actionList){
+        for(Player player : players){
+            ArrayList<HashMap<Integer, Action>> sendAbleCard = actionList.get(player.id);
+            ArrayList<Card> cardObject = cardMoveLogic.convertToCardObject(sendAbleCard);
+            player.chosenCards = cardObject;
+        }
+    }
+    /**
+    if (this.ready) {
+        for(int round = 0; round < 5; round ++) {
+            //for this player
+            doPlayerMove(chosenCards.get(round), layer);
+        }
+        conveyor.runConveyor(players, layer.yellowConveyor, layer.blueConveyor);
+        gear.runGears(players,layer.redGear, layer.greenGear);
+        laser.fireAllLasers(players,layer.laser);
+        hole.hole(players, layer.hole);
+        checkpoint.findCheckpoints(this, layer.checkpoint);
 
+        cardMoveLogic.readyButtonClickable(this);
+
+    }
+}
+
+*/
     @Override
     public void executeMoves(HashMap<Integer, ArrayList<Card>> playerMoves) {
         for (int moveNumber = 0; moveNumber < 5; moveNumber++){
