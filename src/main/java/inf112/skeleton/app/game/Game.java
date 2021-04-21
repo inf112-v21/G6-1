@@ -112,10 +112,11 @@ public class Game implements IGame, InputProcessor {
     }
 
     public void setStartPos(HashMap<Integer,ArrayList<Float>> playerInfo){
+
         for(Player player: players){
-            ArrayList<Float> playerStartPos = playerInfo.get(player);
+            ArrayList<Float> playerStartPos = playerInfo.get(player.id);
             player.setPlayerStartXPosition(playerStartPos.get(0));
-            player.setPlayerStartYPosition(playerStartPos.get(0));
+            player.setPlayerStartYPosition(playerStartPos.get(1));
         }
     }
 
