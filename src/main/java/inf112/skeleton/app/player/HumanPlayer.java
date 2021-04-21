@@ -1,14 +1,12 @@
 package inf112.skeleton.app.player;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
 import inf112.skeleton.app.BoardItems.*;
 import inf112.skeleton.app.card.Card;
 import com.badlogic.gdx.InputProcessor;
-import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
 import inf112.skeleton.app.card.CardMoveLogic;
@@ -159,7 +157,7 @@ public class HumanPlayer extends Player implements InputProcessor {
     }
 
 
-// TODO @Overide from player when old method is removed (and comment)
+    @Override
     public void doPlayerMove(Card card, TileLayers tileLayers){
         if (cardMoveLogic.moveTypeCard(card)) {
             playerMoveHandler(card,tileLayers.wall);
@@ -252,10 +250,7 @@ public class HumanPlayer extends Player implements InputProcessor {
             for(int round = 0; round < 5; round ++) {
                 doPlayerMove(chosenCards.get(round), layer);
             }
-            conveyor.runConveyor(players, layer.yellowConveyor, layer.blueConveyor);
-            gear.runGears(players,layer.redGear, layer.greenGear);
-            laser.fireAllLasers(players,layer.laser);
-            hole.hole(players, layer.hole);
+            runAllBoardItemsOnPlayers(players, layer);
             checkpoint.findCheckpoints(this, layer.checkpoint);
 
             cardMoveLogic.readyButtonClickable(this);
@@ -263,6 +258,13 @@ public class HumanPlayer extends Player implements InputProcessor {
         }
     }
 
+    public void runAllBoardItemsOnPlayers(ArrayList<Player> players, TileLayers layer){
+        conveyor.runConveyor(players, layer.yellowConveyor, layer.blueConveyor);
+        gear.runGears(players,layer.redGear, layer.greenGear);
+        laser.fireAllLasers(players,layer.laser);
+        hole.hole(players, layer.hole);
+
+    }
 
 
     /**

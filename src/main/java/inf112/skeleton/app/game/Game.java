@@ -2,9 +2,11 @@ package inf112.skeleton.app.game;
 
 
 import com.badlogic.gdx.InputProcessor;
+import inf112.skeleton.app.BoardItems.CheckPoint;
 import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.graphics.Graphics;
+import inf112.skeleton.app.graphics.TileLayers;
 import inf112.skeleton.app.networking.GameClient;
 import inf112.skeleton.app.networking.GameServer;
 import inf112.skeleton.app.networking.listeners.ClientListener;
@@ -26,10 +28,12 @@ public class Game implements IGame, InputProcessor {
     public HashMap<Integer, HumanPlayer> idPlayerHashMap;
     public Player myHumanPlayer;
     public ArrayList<Player> players = new ArrayList<>();
+    public HashMap<Integer, ArrayList<HashMap<Integer, Action>>> allPlayerMoves;
     GameServer server;
     GameClient client;
     public int myId;
     private boolean host;
+    public CheckPoint checkpoint = new CheckPoint();
     public GameType typeOfGameStarted = GameType.NONE;
     final CardMoveLogic cardMoveLogic = new CardMoveLogic();
     public GameScreen currentScreen = GameScreen.MENU;
@@ -162,29 +166,53 @@ public class Game implements IGame, InputProcessor {
 }
 
 */
-    @Override
-    public void executeMoves(HashMap<Integer, ArrayList<Card>> playerMoves) {
-        for (int moveNumber = 0; moveNumber < 5; moveNumber++){
-            ArrayList<Card> roundMoves = new ArrayList<>();
-            for (Player p: players) {
-                int playerId = p.id;
-                Card playerMove = playerMoves.get(playerId).get(moveNumber);
-                roundMoves.add(playerMove);
-            }
-            Collections.sort(roundMoves);
+    public HashMap<Integer, ArrayList<Card>> playerMoves(){
+        HashMap<Integer, ArrayList<Card>> playerMoves = new HashMap();
+        for(Player player : players){
+            playerMoves.put(player.id,player.chosenCards);
+        }
+        return playerMoves;
+    }
 
-            for (Card move: roundMoves) {
+    public void resetMyPlayer(Player player){
+        player.movedCards = new ArrayList<>();
+        player.chosenCards = new ArrayList<>();
+        player.playerDeck = new ArrayList<>();
+        player.ready = false;
+        player.playerDeck = cardMoveLogic.playerDeck();
+        player.cardCoordinates = cardMoveLogic.resetCardCoordinates();
+    }
+    public void resetOtherPlayers(ArrayList<Player> players){
+        for(Player player : players){
+            player.chosenCards = new ArrayList<>();
+        }
+    }
+    public void executeMoves(TileLayers layer) {
+        if(!allPlayerMoves.isEmpty()){
+            giveAllPlayersCardObjects(allPlayerMoves);
+            HashMap<Integer, ArrayList<Card>> playerMoves = playerMoves();
 
-                for (Player player: players) {
-                    if (player.chosenCards.get(moveNumber).equals(move)) {
-                        //TODO is removed and replaced with
-                        // doPlayerMove(Card card, TileLayers tileLayers)
-                        //player.updatePlayerLocation(move);
+            for (int moveNumber = 0; moveNumber < 5; moveNumber++){
+                ArrayList<Card> roundMoves = new ArrayList<>();
+                for (Player p: players) {
+                    int playerId = p.id;
+                    Card playerMove = playerMoves.get(playerId).get(moveNumber);
+                    roundMoves.add(playerMove);
+                }
+                Collections.sort(roundMoves);
+                for (Card move: roundMoves) {
+                    for (Player player: players) {
+                        if (player.chosenCards.get(moveNumber).equals(move)) {
+                            player.doPlayerMove(move, layer);
+                            checkpoint.findCheckpoints(player, layer.checkpoint);
+                        }
                     }
                 }
             }
         }
-        dealPlayerDecks();
+        resetMyPlayer(myHumanPlayer);
+        resetOtherPlayers(players);
+        allPlayerMoves = new HashMap<>();
     }
 
     public void dealPlayerDeck(Player player) {

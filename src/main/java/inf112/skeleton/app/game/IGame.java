@@ -16,7 +16,7 @@ public interface IGame {
      */
     Graphics startGame();
 
-    void executeMoves(HashMap<Integer, ArrayList<Card>> playerMoves);
+   // void executeMoves(HashMap<Integer, ArrayList<Card>> playerMoves);
 
     HumanPlayer createPlayers(int object);
 }

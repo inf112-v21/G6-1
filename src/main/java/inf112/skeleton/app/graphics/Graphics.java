@@ -82,20 +82,15 @@ public class Graphics implements ApplicationListener {
 
     public void updatePlayerSprite(ArrayList<Player> players, Player myPlayer){
         if (players == null || players.isEmpty()) {
-            // No players created yet, don't render any
             return;
         }
         setInputProcessor(myPlayer);
         updateCardSprite(myPlayer);
+        myPlayer.setMouseClickCoordinates(camera);
         for (Player player : players){
-            player.setMouseClickCoordinates(camera);
-
-            //updateCardSprite(player);
-
             Sprite playerSprite = playerGraphics.getPlayerSprite(player);
             Texture playerTexture = playerGraphics.getPlayerTexture(player);
             playerSprite.setTexture(playerTexture);
-
             playerSprite.setSize(300,300);
             playerSprite.setPosition(player.getPlayerXPosition(), player.getPlayerYPosition());
             playerSprite.draw(tiledMapRenderer.getBatch());
@@ -241,6 +236,7 @@ public class Graphics implements ApplicationListener {
             singlePlayer();
 
         } else {
+            game.executeMoves(layer);
             updatePlayerSprite(game.players, game.myHumanPlayer);
         }
         tiledMapRenderer.getBatch().end();

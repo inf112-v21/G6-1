@@ -4,6 +4,7 @@ package inf112.skeleton.app.player;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.card.Card;
+import inf112.skeleton.app.graphics.TileLayers;
 import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
 
@@ -78,6 +79,7 @@ public abstract class Player  {
 
     public abstract void setNewPlayerCheckpointLocation(float xPosition, float yPosition);
 
+    public abstract void doPlayerMove(Card card, TileLayers tileLayers);
     /**
      * Needed to mach Sprite positions with the player when starting a game.
      * Pass this method in as X parameter in set player position sprite-built-in method.
