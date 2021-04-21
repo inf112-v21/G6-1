@@ -101,7 +101,6 @@ public class Game implements IGame, InputProcessor {
      */
     public void joinNewGame(InetAddress ip) {
         client = new GameClient(ip, Game.this);
-        //client.connect(ip.getHostAddress());
     }
 
     @Override
@@ -154,7 +153,16 @@ public class Game implements IGame, InputProcessor {
         humanPlayer.playerDeck = cardMoveLogic.playerDeck();
         humanPlayer.id = playerNumber;
         humanPlayer.setPlayerStartXPosition(startPositionX);
+        players.add(humanPlayer);
         return humanPlayer;
+    }
+    public void updatePlayerInfo(HashMap<Integer, ArrayList<Float>> playerInfo) {
+        for (Player player : players) {
+            ArrayList<Float> useThisToUpdateCoordinates = playerInfo.get(player.id);
+            player.playerCurrentXPosition = useThisToUpdateCoordinates.get(0);
+            player.playerCurrentYPosition = useThisToUpdateCoordinates.get(1);
+        }
+
     }
 
     public boolean getConnection(){
@@ -215,5 +223,6 @@ public class Game implements IGame, InputProcessor {
     public boolean scrolled(int i) {
         return false;
     }
+
 
 }

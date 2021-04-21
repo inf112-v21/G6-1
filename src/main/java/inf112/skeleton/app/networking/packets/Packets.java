@@ -70,14 +70,8 @@ public class Packets {
         public String name;
     }
 
-
-
-    public static class playerList {
-        public ArrayList<Player> list;
-    }
-
-    public static class playerObject {
-        public HumanPlayer player;
+    static public class playerInfo {
+        public HashMap<Integer, ArrayList<Float>> playerInfo = new HashMap<>();
     }
 
 

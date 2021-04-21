@@ -7,6 +7,7 @@ import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.networking.packets.Packets;
 import inf112.skeleton.app.player.Player;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,11 +17,12 @@ public class ServerListener extends Listener {
     private final boolean[] allPlayersReady;
     private final HashMap<Integer, ArrayList<Card>> cardsReceived;
     private int numberOfPlayers = 0;
-
     private final String[] playerNames;
     public final boolean[] ShutdownPlayer;
     public final int MAX_PLAYERS = 3;
-    public ArrayList<Player> players = new ArrayList<>();
+    public HashMap<Integer, ArrayList<Float>> playerInfoGlobal = new HashMap<>();
+
+
 
     /**
      *
@@ -40,14 +42,12 @@ public class ServerListener extends Listener {
     }
 
 
-
-
     public void connected(Connection connection) {
         System.out.println("Player " + (numberOfPlayers) + " has connected to the server");
         numberOfPlayers++;
 
         Packets.PlayerNumberPacket playerPacket = new Packets.PlayerNumberPacket();
-        playerPacket.numberofplayersConnected = numberOfPlayers;
+        playerPacket.numberOfPlayersConnected = numberOfPlayers;
         server.sendToAllTCP(playerPacket);
 
         Packets.PlayerIdPacket playerIdPacket = new Packets.PlayerIdPacket();
@@ -59,11 +59,8 @@ public class ServerListener extends Listener {
 
 
         if (numberOfPlayers >= 2) {
-            Packets.playerList pl = new Packets.playerList();
-            pl.list = players;
-            server.sendToAllTCP(pl);
-
             this.startGameSession();
+
         }
     }
 
@@ -78,7 +75,7 @@ public class ServerListener extends Listener {
         numberOfPlayers--;
         playerNames[connection.getID()] = null;
         Packets.PlayerNumberPacket numberOfPlayers = new Packets.PlayerNumberPacket();
-        numberOfPlayers.numberofplayersConnected = this.numberOfPlayers;
+        numberOfPlayers.numberOfPlayersConnected = this.numberOfPlayers;
         server.sendToAllTCP(numberOfPlayers);
     }
 
@@ -133,12 +130,24 @@ public class ServerListener extends Listener {
         } else if (object instanceof Packets.RemovePlayerPacket) {
             numberOfPlayers--;
             Packets.PlayerNumberPacket numberOfPlayersConnected = new Packets.PlayerNumberPacket();
-            numberOfPlayersConnected.numberofplayersConnected = numberOfPlayers;
+            numberOfPlayersConnected.numberOfPlayersConnected = numberOfPlayers;
             server.sendToAllTCP(numberOfPlayersConnected);
+        } else if (object instanceof Packets.playerInfo) {
+            System.out.println("Motatt!");
+            Packets.playerInfo playerInfo = (Packets.playerInfo) object;
+            System.out.println(playerInfo.playerInfo);
+
+            playerInfoGlobal = playerInfo.playerInfo;
+            playerInfoGlobal.get(0).clear();
+            playerInfoGlobal.get(0).add(300F);
+            playerInfoGlobal.get(0).add(300F);
+
+            Packets.playerInfo updatedPlayerInfo = new Packets.playerInfo();
+            updatedPlayerInfo.playerInfo = playerInfoGlobal;
+            server.sendToAllTCP(updatedPlayerInfo);
         }
-        else if (object instanceof Packets.playerObject) {
-            Packets.playerObject playerO = (Packets.playerObject) object;
-            players.add(playerO.player);
-        }
+
+
+
     }
 }

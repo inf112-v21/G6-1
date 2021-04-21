@@ -1,5 +1,6 @@
 package inf112.skeleton.app.networking.listeners;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -10,6 +11,7 @@ import com.esotericsoftware.kryonet.Listener;
 import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.networking.packets.Packets;
+import inf112.skeleton.app.player.Player;
 
 
 /**
@@ -23,6 +25,8 @@ public class ClientListener extends Listener {
     public Packets.CardsPacket cards;
     public Packets.UpdateNames name;
     private boolean playerCreated = false;
+    public int myId;
+    public Player dummyPlayer;
 
 
     /**
@@ -97,12 +101,25 @@ public class ClientListener extends Listener {
 
     public void received(Connection c, Object object) {
 
-        if (object instanceof Packets.PlayerNumberPacket && playerCreated == false) {
+        if (object instanceof Packets.PlayerNumberPacket) {
             Packets.PlayerNumberPacket p = (Packets.PlayerNumberPacket) object;
-            Packets.playerObject playerO = new Packets.playerObject();
-            playerO.player = game.setNumberOfPlayers(p.numberofplayersConnected);
-            playerCreated = true;
-            client.sendTCP(playerO);
+            dummyPlayer = game.setNumberOfPlayers(p.numberOfPlayersConnected);
+            if (playerCreated == false) {
+                playerCreated = true;
+                myId = p.numberOfPlayersConnected -1;
+                Packets.playerInfo playerInfo = new Packets.playerInfo();
+                ArrayList<Float> playerCoordinates = new ArrayList<>();
+                playerCoordinates.add(dummyPlayer.playerCurrentXPosition);
+                playerCoordinates.add(dummyPlayer.playerCurrentYPosition);
+                playerInfo.playerInfo.put(myId, playerCoordinates);
+                client.sendTCP(playerInfo);
+            }
+
+        }
+        else if (object instanceof Packets.playerInfo){
+            Packets.playerInfo playerInfo = (Packets.playerInfo) object;
+            System.out.println(playerInfo.playerInfo);
+            game.updatePlayerInfo(playerInfo.playerInfo);
         }
 
         else if (object instanceof Packets.StartGamePackage) {
@@ -112,11 +129,6 @@ public class ClientListener extends Listener {
         else if (object instanceof Packets.RoundPacket) {
             Packets.RoundPacket roundPacket = (Packets.RoundPacket) object;
             game.executeMoves(roundPacket.playerMoves);
-        }
-        else if (object instanceof Packets.playerList) {
-
-            Packets.playerList pl = (Packets.playerList) object;
-            game.players = pl.list;
         }
 
     }
