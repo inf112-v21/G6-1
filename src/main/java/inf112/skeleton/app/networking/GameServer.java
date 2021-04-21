@@ -37,9 +37,10 @@ public class GameServer implements Runnable {
     public void run() {
         server = new Server();
         serverListener = new ServerListener(server);
+        Network.register(server);
+
 
         System.out.println("Creating the server...");
-
         server.addListener(serverListener);
 
         try {
@@ -47,7 +48,7 @@ public class GameServer implements Runnable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Network.register(server);
+
         server.start();
 
         try {

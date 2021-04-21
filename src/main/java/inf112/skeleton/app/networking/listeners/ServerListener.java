@@ -5,9 +5,13 @@ import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.networking.packets.Packets;
+import inf112.skeleton.app.player.Player;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 
 public class ServerListener extends Listener {
@@ -15,10 +19,12 @@ public class ServerListener extends Listener {
     private final boolean[] allPlayersReady;
     private final HashMap<Integer, ArrayList<Card>> cardsReceived;
     private int numberOfPlayers = 0;
-
     private final String[] playerNames;
     public final boolean[] ShutdownPlayer;
     public final int MAX_PLAYERS = 3;
+    public HashMap<Integer, ArrayList<Float>> playerInfoGlobal = new HashMap<>();
+
+
 
     /**
      *
@@ -39,11 +45,11 @@ public class ServerListener extends Listener {
 
 
     public void connected(Connection connection) {
-        System.out.println("Player " + (numberOfPlayers + 1) + " has connected to the server");
+        System.out.println("Player " + (numberOfPlayers) + " has connected to the server");
         numberOfPlayers++;
 
         Packets.PlayerNumberPacket playerPacket = new Packets.PlayerNumberPacket();
-        playerPacket.numberOfPlayers = numberOfPlayers;
+        playerPacket.numberOfPlayersConnected = numberOfPlayers;
         server.sendToAllTCP(playerPacket);
 
         Packets.PlayerIdPacket playerIdPacket = new Packets.PlayerIdPacket();
@@ -53,8 +59,15 @@ public class ServerListener extends Listener {
         Packets.SendMapNameToPlayer sendMapNameToPlayer = new Packets.SendMapNameToPlayer();
         server.sendToAllTCP(sendMapNameToPlayer);
 
-        if (numberOfPlayers >= 3) {
+
+        if (numberOfPlayers >= 2) {
+
+            Packets.playerInfo updatedPlayerInfo = new Packets.playerInfo();
+            updatedPlayerInfo.playerInfo = playerInfoGlobal;
+            server.sendToAllTCP(updatedPlayerInfo);
+
             this.startGameSession();
+
         }
     }
 
@@ -69,7 +82,7 @@ public class ServerListener extends Listener {
         numberOfPlayers--;
         playerNames[connection.getID()] = null;
         Packets.PlayerNumberPacket numberOfPlayers = new Packets.PlayerNumberPacket();
-        numberOfPlayers.numberOfPlayers = this.numberOfPlayers;
+        numberOfPlayers.numberOfPlayersConnected = this.numberOfPlayers;
         server.sendToAllTCP(numberOfPlayers);
     }
 
@@ -100,9 +113,7 @@ public class ServerListener extends Listener {
     public void received(Connection connection, Object object) {
 
         if (object instanceof Packets.CardsPacket) {
-            Packets.CardsPacket cards = (Packets.CardsPacket) object;
-            cardsReceived.put(cards.playerId, cards.playedCards);
-            sendAllMovesToClients();
+
 
         } else if (object instanceof Packets.StartSignalPacket) {
             Packets.StartSignalPacket startSignalPacket = (Packets.StartSignalPacket) object;
@@ -124,8 +135,28 @@ public class ServerListener extends Listener {
         } else if (object instanceof Packets.RemovePlayerPacket) {
             numberOfPlayers--;
             Packets.PlayerNumberPacket numberOfPlayersConnected = new Packets.PlayerNumberPacket();
-            numberOfPlayersConnected.numberOfPlayers = numberOfPlayers;
+            numberOfPlayersConnected.numberOfPlayersConnected = numberOfPlayers;
             server.sendToAllTCP(numberOfPlayersConnected);
+
+        } else if (object instanceof Packets.playerInfo) {
+            System.out.println("Motatt!");
+            Packets.playerInfo playerInfo = (Packets.playerInfo) object;
+            System.out.println(playerInfo.playerInfo);
+            Set<Integer> findPlayerIdKey = playerInfo.playerInfo.keySet();
+
+            for (Integer key: findPlayerIdKey) {
+                Integer foundKey = key;
+                playerInfoGlobal.put(foundKey, playerInfo.playerInfo.get(foundKey));
+                System.out.println(foundKey);
+                System.out.println(playerInfoGlobal);
+            }
+
+        } else if (object instanceof Packets.SendAction) {
+            Packets.SendAction receivedAction = (Packets.SendAction) object;
+
         }
+
+
+
     }
 }

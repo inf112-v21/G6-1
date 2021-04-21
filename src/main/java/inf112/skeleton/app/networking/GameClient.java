@@ -45,53 +45,10 @@ public class GameClient extends Listener {
         }
     }
 
-    public GameClient(InetAddress ipAddress, Game game, int udp, int tcp){
-        client = new Client();
-        cListener = new ClientListener();
-        this.udpPort = udp;
-        this.tcpPort = tcp;
-
-        cListener.initialize(client, game);
-        Network.register(client);
-        client.addListener(cListener);
-
-
-        new Thread(client).start();
-
-        try {
-            client.connect(5000, ipAddress, tcp, udp);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-    }
-
-    public GameClient(Game game) {
-        client = new Client();
-        cListener = new ClientListener();
-
-        tcpPort = 54555;
-        udpPort = 54777;
-
-        cListener.initialize(client, game);
-        Network.register(client);
-    }
-
-
-    public boolean connect(String ip) {
-        new Thread(client).start();
-        try {
-            client.connect(5000, ip, tcpPort, udpPort);
-            System.out.println("IP Address: "+ ip);
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null,"Server is not started. Can not connect");
-            return false;
-        }
-    }
 
 /**
      * Sends an array of ProgramCards to the server.
-     * @param programCards The cards that the player wants to play.
+     *
      */
     public void sendCards(HashMap<Integer, ArrayList<Card>> cardLogic){
         cListener.sendCards(cardLogic);
@@ -127,8 +84,8 @@ public class GameClient extends Listener {
      */
     public void sendName(String text) {
         Packets.UpdateNames name = new Packets.UpdateNames();
-        name.names = new String[]{text};
-        name.playerId = client.getID();
+        name.name = new String[]{text};
+        name.playerID = client.getID();
         cListener.sendName(name);
     }
 
@@ -142,7 +99,7 @@ public class GameClient extends Listener {
     }
 
     /**
-     * Sends a message tot he server that this player is powering down their robot
+     * Sends a message to the server that this player is powering down their robot.
      */
     public void sendShutdownRobot() {
         cListener.sendShutdownRobot();

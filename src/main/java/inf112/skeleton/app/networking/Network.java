@@ -6,6 +6,7 @@ import inf112.skeleton.app.networking.packets.Packets;
 
 public class Network {
 
+
     /**
      * Method used to register all needed classes for the server and client.
      * This must be identical on both server and client.
@@ -13,25 +14,31 @@ public class Network {
      * @param
      */
     static public void register (EndPoint endpoint) {
-        Kryo kyro = endpoint.getKryo();
-
-        kyro.register(Packets.CardsPacket.class);
-        kyro.register(Packets.NamePacket.class);
-        kyro.register(Packets.PlayerIdPacket.class);
-        kyro.register(Packets.PlayerNumberPacket.class);
-        kyro.register(Packets.StartGamePackage.class);
-        kyro.register(Packets.registerName.class);
-        kyro.register(Packets.RemovePlayerPacket.class);
-        kyro.register(Packets.RoundPacket.class);
-        kyro.register(Packets.ShutDownRobotPacket.class);
-        kyro.register(Packets.StartGamePackage.class);
-        kyro.register(Packets.StartSignalPacket.class);
-        kyro.register(Packets.UpdateNames.class);
-        kyro.register(Packets.SendMapNameToPlayer.class);
+        Kryo kryo = endpoint.getKryo();
+        kryo.setRegistrationRequired(false);
 
 
-        kyro.register(String[].class);
-        kyro.register(int[].class);
+        kryo.register(Packets.CardsPacket.class);
+        kryo.register(Packets.UpdateNames.class);
+        kryo.register(Packets.PlayerIdPacket.class);
+        kryo.register(Packets.PlayerNumberPacket.class);
+        kryo.register(Packets.StartGamePackage.class);
+        kryo.register(Packets.registerName.class);
+        kryo.register(Packets.RemovePlayerPacket.class);
+        kryo.register(Packets.RoundPacket.class);
+        kryo.register(Packets.ShutDownRobotPacket.class);
+        kryo.register(Packets.StartGamePackage.class);
+        kryo.register(Packets.StartSignalPacket.class);
+        kryo.register(Packets.UpdateNames.class);
+        kryo.register(Packets.SendMapNameToPlayer.class);
+        kryo.register(Packets.playerInfo.class);
+
+
+
+        kryo.register(java.util.ArrayList.class);
+        kryo.register(boolean[].class);
+        kryo.register(String[].class);
+        kryo.register(int[].class);
 
     }
 

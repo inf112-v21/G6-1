@@ -13,6 +13,7 @@ import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
 
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -36,8 +37,47 @@ public class Game implements IGame, InputProcessor {
 
     @Override
     public Graphics startGame() {
+        //chooseHostOrJoin();
         return new Graphics(this);
     }
+
+    public void chooseHostOrJoin () {
+        Scanner HostOrJoin = new Scanner(System.in);
+        System.out.println("Host (1), join (2) or start single player (3)?: ");
+
+        String choice = HostOrJoin.nextLine();
+        System.out.println("You choose " + choice);
+
+        if(choice.equals("1")){
+            hostNewGame("RiskyExchange");
+            typeOfGameStarted = GameType.NETWORK_HOST;
+        }
+        else if(choice.equals("2")){
+            InetAddress hostIp = null;
+            Scanner askForIpAddress = new Scanner(System.in);
+            System.out.println("Please enter the server IP to join: ");
+
+            String ChosenIP = askForIpAddress.nextLine();
+            try {
+                hostIp = InetAddress.getByName(ChosenIP);
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
+            System.out.println(hostIp.getHostAddress());
+            typeOfGameStarted = GameType.NETWORK_JOIN;
+            joinNewGame(hostIp);
+
+        }
+        else if(choice.equals("3")){
+            System.out.println("Single player selected");
+            typeOfGameStarted = GameType.SINGLE_PLAYER;
+        }
+        else {
+            System.out.println("Please enter 1 or 2 when asked to");
+            chooseHostOrJoin();
+        }
+    }
+
 
     /**
      * InetAddress object created by the host. This is the only place server.run() should be used,
@@ -48,25 +88,11 @@ public class Game implements IGame, InputProcessor {
     public InetAddress hostNewGame(String map) {
         server = new GameServer(map);
         server.run();
-        client = new GameClient(server.getAddress(),this);
+        client = new GameClient(server.getAddress(),Game.this);
         host = true;
         return server.getAddress();
     }
 
-
-    public boolean joinGame(String ipAdress) {
-        client = new GameClient(this);
-        if (!client.connect(ipAdress))
-            return false;
-
-        host = false;
-        return true;
-    }
-
-    public void joinGame(InetAddress ipAddress) {
-        client = new GameClient(ipAddress, this);
-        host = false;
-    }
 
     /**
      * Creates client object for user. Might need more in this method.
@@ -74,8 +100,7 @@ public class Game implements IGame, InputProcessor {
      * @param ip InetAddress object, is being called properly in @chooseHostOrJoin()
      */
     public void joinNewGame(InetAddress ip) {
-        client = new GameClient(ip, this);
-        client.connect(ip.getHostAddress());
+        client = new GameClient(ip, Game.this);
     }
 
     public ArrayList<Player> createListOfPlayers(HashMap<Integer,ArrayList<Float>> playerInfo){
@@ -125,27 +150,29 @@ public class Game implements IGame, InputProcessor {
 
     public void setNumberOfPlayers(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
-        createPlayers();
+        createPlayers(numberOfPlayers-1);
     }
 
+
     @Override
-    public void createPlayers() {
-        idPlayerHashMap = new HashMap<>();
-        System.out.println("Creating players " + numberOfPlayers);
-        ArrayList <Player> playerList = new ArrayList<>();
-        float startPositionX = 0;
-        for (int i = 0; i < numberOfPlayers; i++) {
-            Color playerColor = Color.getPlayerColor(i);
-            HumanPlayer humanPlayer = new HumanPlayer(Direction.NORTH, i, playerColor);
-            humanPlayer.id = i ;
-            humanPlayer.playerDeck = cardMoveLogic.playerDeck();
-            playerList.add(humanPlayer);
-            playerList.get(i).setPlayerStartXPosition(startPositionX);
-            startPositionX += 300;
-            idPlayerHashMap.put(i, humanPlayer);
+    public HumanPlayer createPlayers(int playerNumber) {
+        System.out.println("Creating player ID " + playerNumber);
+        float startPositionX = playerNumber*300;
+        Color playerColor = Color.getPlayerColor(playerNumber);
+        HumanPlayer humanPlayer = new HumanPlayer(Direction.NORTH, playerNumber, playerColor);
+        humanPlayer.playerDeck = cardMoveLogic.playerDeck();
+        humanPlayer.id = playerNumber;
+        humanPlayer.setPlayerStartXPosition(startPositionX);
+        players.add(humanPlayer);
+        return humanPlayer;
+    }
+    public void updatePlayerInfo(HashMap<Integer, ArrayList<Float>> playerInfo) {
+        for (Player player : players) {
+            ArrayList<Float> useThisToUpdateCoordinates = playerInfo.get(player.id);
+            player.playerCurrentXPosition = useThisToUpdateCoordinates.get(0);
+            player.playerCurrentYPosition = useThisToUpdateCoordinates.get(1);
         }
-        setMyHumanPlayer(idPlayerHashMap.get(client.getId()));
-        this.players = playerList;
+
     }
 
     public boolean getConnection(){
