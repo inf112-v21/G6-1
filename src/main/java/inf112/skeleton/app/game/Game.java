@@ -9,6 +9,7 @@ import inf112.skeleton.app.networking.GameClient;
 import inf112.skeleton.app.networking.GameServer;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
+import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
 
@@ -109,6 +110,21 @@ public class Game implements IGame, InputProcessor {
         return players;
     }
 
+    public void setStartPos(HashMap<Integer,ArrayList<Float>> playerInfo){
+        for(Player player: players){
+            ArrayList<Float> playerStartPos = playerInfo.get(player);
+            player.setPlayerStartXPosition(playerStartPos.get(0));
+            player.setPlayerStartYPosition(playerStartPos.get(0));
+        }
+    }
+
+    public void cardRank(HashMap<Integer, ArrayList<Card>> playerMoves){
+        HashMap<Integer, Action> phase = new HashMap();
+
+    }
+    public void doRound(){
+
+    }
     @Override
     public void executeMoves(HashMap<Integer, ArrayList<Card>> playerMoves) {
         for (int moveNumber = 0; moveNumber < 5; moveNumber++){
