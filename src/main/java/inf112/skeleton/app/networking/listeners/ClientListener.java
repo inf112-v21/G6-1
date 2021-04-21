@@ -10,6 +10,7 @@ import com.esotericsoftware.kryonet.Listener;
 import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.networking.packets.Packets;
+import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.shared.Action;
 
@@ -107,12 +108,18 @@ public class ClientListener extends Listener {
             if (playerCreated == false) {
                 playerCreated = true;
 
-                myId = p.numberOfPlayersConnected -1;
                 Packets.playerInfo playerInfo = new Packets.playerInfo();
-                ArrayList<Float> playerCoordinates = new ArrayList<>();
-                playerCoordinates.add(dummyPlayer.playerCurrentXPosition);
-                playerCoordinates.add(dummyPlayer.playerCurrentYPosition);
-                playerInfo.playerInfo.put(myId, playerCoordinates);
+
+                for (int playerID = 0; playerID < game.getNumberOfPlayers(); playerID++) {
+
+                    game.createPlayers(playerID);
+                    myId = p.numberOfPlayersConnected -1;
+
+                    ArrayList<Float> playerCoordinates = new ArrayList<>();
+                    playerCoordinates.add(dummyPlayer.playerCurrentXPosition);
+                    playerCoordinates.add(dummyPlayer.playerCurrentYPosition);
+                    playerInfo.playerInfo.put(myId, playerCoordinates);
+                }
                 client.sendTCP(playerInfo);
             }
 
