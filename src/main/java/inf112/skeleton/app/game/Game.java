@@ -28,7 +28,7 @@ public class Game implements IGame, InputProcessor {
     public HashMap<Integer, HumanPlayer> idPlayerHashMap;
     public Player myHumanPlayer;
     public ArrayList<Player> players = new ArrayList<>();
-    public HashMap<Integer, ArrayList<HashMap<Integer, Action>>> allPlayerMoves;
+    public HashMap<Integer, ArrayList<HashMap<Integer, Action>>> allPlayerMoves = new HashMap<>();
     GameServer server;
     GameClient client;
     public int myId;
