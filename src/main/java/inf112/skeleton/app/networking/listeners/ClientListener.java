@@ -110,13 +110,14 @@ public class ClientListener extends Listener {
         if (game.myHumanPlayer != null && game.myHumanPlayer.ready) {
             System.out.println("Thomas har fått vite at jeg er klar" + game.myHumanPlayer.id);
             Packets.SendAction HereIsMyCards = new Packets.SendAction();
-            HereIsMyCards.actionList.
+            HereIsMyCards.actionList = game.getPlayerActionList();
             client.sendTCP(HereIsMyCards);
+
             game.myHumanPlayer.ready = false;
         }
          if (object instanceof Packets.SendAction) {
              Packets.SendAction receivedActionsFromAll = (Packets.SendAction) object;
-
+             System.out.println(receivedActionsFromAll.actionList.size());
          }
 
         if (object instanceof Packets.PlayerNumberPacket) {

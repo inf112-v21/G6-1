@@ -89,17 +89,6 @@ public class ServerListener extends Listener {
         server.sendToAllTCP(numberOfPlayers);
     }
 
-    public void sendAllMovesToClients() {
-        if (cardsReceived.size() != numberOfPlayers) {
-            return;
-        }
-        Packets.RoundPacket roundPacket = new Packets.RoundPacket();
-        roundPacket.playerMoves = cardsReceived;
-
-        server.sendToAllTCP(roundPacket);
-        System.out.println("card sent");
-        cardsReceived.clear();
-    }
 
     public void startGameSession() {
         System.out.println("Instructing all clients to start the game");
@@ -162,10 +151,16 @@ public class ServerListener extends Listener {
             checkIfAllClientsAreReady++;
             Packets.SendAction receivedAction = (Packets.SendAction) object;
 
+            Set<Integer> findPlayerIdKey = receivedAction.actionList.keySet();
 
+            for (Integer key: findPlayerIdKey) {
+                Integer foundKey = key;
+                cardsReceived.put(foundKey, receivedAction.actionList.get(foundKey));
+                System.out.println(foundKey);
+                System.out.println(cardsReceived);
+            }
             if(checkIfAllClientsAreReady == numberOfPlayers) {
-                Packets.SendAction sendReadyActionsToClients = new Packets.SendAction();
-                server.sendToAllTCP(sendReadyActionsToClients);
+                server.sendToAllTCP(receivedAction);
 
             }
         }
