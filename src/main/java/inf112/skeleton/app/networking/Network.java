@@ -31,6 +31,7 @@ public class Network {
         kryo.register(Packets.StartSignalPacket.class);
         kryo.register(Packets.UpdateNames.class);
         kryo.register(Packets.SendMapNameToPlayer.class);
+        kryo.register(Packets.playerInfo.class);
 
 
 
