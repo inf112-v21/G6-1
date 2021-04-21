@@ -188,7 +188,7 @@ public class Game implements IGame, InputProcessor {
         }
     }
     public void executeMoves(TileLayers layer) {
-        if(!allPlayerMoves.isEmpty()){
+        if(allPlayerMoves != null){
             giveAllPlayersCardObjects(allPlayerMoves);
             HashMap<Integer, ArrayList<Card>> playerMoves = playerMoves();
 
@@ -209,10 +209,11 @@ public class Game implements IGame, InputProcessor {
                     }
                 }
             }
+            resetMyPlayer(myHumanPlayer);
+            resetOtherPlayers(players);
+            allPlayerMoves = new HashMap<>();
         }
-        resetMyPlayer(myHumanPlayer);
-        resetOtherPlayers(players);
-        allPlayerMoves = new HashMap<>();
+
     }
 
     public void dealPlayerDeck(Player player) {
