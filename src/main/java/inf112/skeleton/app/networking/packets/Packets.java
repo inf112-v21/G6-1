@@ -76,7 +76,7 @@ public class Packets {
     }
 
     static public class SendAction {
-        public ArrayList<Action> actionList = new ArrayList<>();
+        public HashMap<Integer, ArrayList<HashMap<Integer, Action>>> actionList = new HashMap<>();
     }
 
 

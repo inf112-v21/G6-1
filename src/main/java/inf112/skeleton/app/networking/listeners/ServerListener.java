@@ -6,6 +6,7 @@ import com.esotericsoftware.kryonet.Server;
 import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.networking.packets.Packets;
 import inf112.skeleton.app.player.Player;
+import inf112.skeleton.app.shared.Action;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -17,12 +18,13 @@ import java.util.Set;
 public class ServerListener extends Listener {
     private final Server server;
     private final boolean[] allPlayersReady;
-    private final HashMap<Integer, ArrayList<Card>> cardsReceived;
+    private final HashMap<Integer, ArrayList<HashMap<Integer, Action>>> cardsReceived;
     private int numberOfPlayers = 0;
     private final String[] playerNames;
     public final boolean[] ShutdownPlayer;
     public final int MAX_PLAYERS = 3;
     public HashMap<Integer, ArrayList<Float>> playerInfoGlobal = new HashMap<>();
+    private int checkIfAllClientsAreReady=0;
 
 
 
@@ -157,8 +159,15 @@ public class ServerListener extends Listener {
 
 
         } else if (object instanceof Packets.SendAction) {
+            checkIfAllClientsAreReady++;
             Packets.SendAction receivedAction = (Packets.SendAction) object;
 
+
+            if(checkIfAllClientsAreReady == numberOfPlayers) {
+                Packets.SendAction sendReadyActionsToClients = new Packets.SendAction();
+                server.sendToAllTCP(sendReadyActionsToClients);
+
+            }
         }
 
 

@@ -103,6 +103,18 @@ public class ClientListener extends Listener {
 
     public void received(Connection c, Object object) {
 
+        if (game.myHumanPlayer != null && game.myHumanPlayer.ready) {
+            System.out.println("Thomas har fått vite at jeg er klar" + game.myHumanPlayer.id);
+            Packets.SendAction HereIsMyCards = new Packets.SendAction();
+            HereIsMyCards.actionList.
+            client.sendTCP(HereIsMyCards);
+            game.myHumanPlayer.ready = false;
+        }
+         if (object instanceof Packets.SendAction) {
+             Packets.SendAction receivedActionsFromAll = (Packets.SendAction) object;
+
+         }
+
         if (object instanceof Packets.PlayerNumberPacket) {
             Packets.PlayerNumberPacket p = (Packets.PlayerNumberPacket) object;
 
