@@ -119,7 +119,7 @@ public class CardMoveLogic {
     }
 
     /**
-     * This method convert ArrayList<Card> chosenCard into ArrayList<HashMap<Integer, Action>>
+     * This method convert ArrayList<Card> chosenCard into ArrayList<HashMap<Integer(Priority), Action>>
      * to make chosenCardList possible to send on network.
      * @param chosenCard list of players chosen cards for one round
      * @return ArrayList<HashMap<Integer, Action>>
