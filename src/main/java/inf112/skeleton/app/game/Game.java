@@ -102,7 +102,6 @@ public class Game implements IGame, InputProcessor {
     }
 
     public ArrayList<Player> createListOfPlayers(HashMap<Integer,ArrayList<Float>> playerInfo){
-
         Set<Integer> playerID = playerInfo.keySet();
         for(Integer player : playerID){
             players.add(new HumanPlayer(Direction.NORTH,player,Color.getPlayerColor(player)));
