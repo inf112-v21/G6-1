@@ -101,19 +101,19 @@ final HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
         float oldPlayerXPos = player.getPlayerXPosition();
         float oldPlayerYPos = player.getPlayerYPosition();
         if(conveyorDirection == Direction.NORTH.getDirectionDegree()) {
-            player.updatePlayerYPosition(player.movePlayerAsFarAsPossible(
+            player.updatePlayerYPosition(movePlayerAsFarAsPossible(player,
                     player.getPlayerYPosition() + conveyorMovement, Direction.NORTH ));
         }
         if(conveyorDirection == Direction.SOUTH.getDirectionDegree()) {
-            player.updatePlayerYPosition(player.movePlayerAsFarAsPossible(
+            player.updatePlayerYPosition(movePlayerAsFarAsPossible(player,
                     player.getPlayerYPosition() - conveyorMovement, Direction.SOUTH));
         }
         if(conveyorDirection == Direction.EAST.getDirectionDegree()) {
-            player.updatePlayerXPosition(player.movePlayerAsFarAsPossible(
+            player.updatePlayerXPosition(movePlayerAsFarAsPossible(player,
                     player.getPlayerXPosition() + conveyorMovement, Direction.EAST));
         }
         if(conveyorDirection == Direction.WEST.getDirectionDegree()) {
-            player.updatePlayerXPosition(player.movePlayerAsFarAsPossible(
+            player.updatePlayerXPosition(movePlayerAsFarAsPossible(player,
                     player.getPlayerXPosition() - conveyorMovement, Direction.WEST));
         }
         System.out.println("Player " + player.color +" was standing on a conveyor and was moved "
@@ -123,4 +123,13 @@ final HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
         System.out.println(" ");
 
     }
+
+    public float movePlayerAsFarAsPossible(Player player, float move, Direction moveDir){
+         if(moveDir == Direction.NORTH && !player.isPlayerOnBoard(player.getPlayerXPosition(),move)) return 3900;
+         else if(moveDir == Direction.SOUTH && !player.isPlayerOnBoard(player.getPlayerXPosition(),move) ) return 0;
+         else if(moveDir == Direction.WEST && !player.isPlayerOnBoard(move, player.getPlayerYPosition()) ) return 0;
+         else if(moveDir == Direction.EAST && !player.isPlayerOnBoard(move, player.getPlayerYPosition()) ) return 3300;
+         return move;
+     }
+
 }

@@ -16,6 +16,7 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Set;
 
 public class Game implements IGame, InputProcessor {
 
@@ -77,6 +78,15 @@ public class Game implements IGame, InputProcessor {
         client.connect(ip.getHostAddress());
     }
 
+    public ArrayList<Player> createListOfPlayers(HashMap<Integer,ArrayList<Float>> playerInfo){
+
+        Set<Integer> playerID = playerInfo.keySet();
+        for(Integer player : playerID){
+            players.add(new HumanPlayer(Direction.NORTH,player,Color.getPlayerColor(player)));
+        }
+        return players;
+    }
+
     @Override
     public void executeMoves(HashMap<Integer, ArrayList<Card>> playerMoves) {
         for (int moveNumber = 0; moveNumber < 5; moveNumber++){
@@ -92,7 +102,9 @@ public class Game implements IGame, InputProcessor {
 
                 for (Player player: players) {
                     if (player.chosenCards.get(moveNumber).equals(move)) {
-                        player.updatePlayerLocation(move);
+                        //TODO is removed and replaced with
+                        // doPlayerMove(Card card, TileLayers tileLayers)
+                        //player.updatePlayerLocation(move);
                     }
                 }
             }

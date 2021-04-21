@@ -158,17 +158,6 @@ public class HumanPlayer extends Player implements InputProcessor {
        }
     }
 
-    //TODO used in conveyor, move and rewrite
-    @Override
-    public float movePlayerAsFarAsPossible(float position, Direction moveDirection){
-        if(moveDirection == Direction.NORTH && !isPlayerOnBoard(getPlayerXPosition(),position)) return 3900;
-        else if(moveDirection == Direction.SOUTH && !isPlayerOnBoard(getPlayerXPosition(),position) ) return 0;
-        else if(moveDirection == Direction.WEST && !isPlayerOnBoard(position, getPlayerYPosition()) ) return 0;
-        else if(moveDirection == Direction.EAST && !isPlayerOnBoard(position, getPlayerYPosition()) ) return 3300;
-        return position;
-    }
-
-
 
 // TODO @Overide from player when old method is removed (and comment)
     public void doPlayerMove(Card card, TileLayers tileLayers){
@@ -349,25 +338,5 @@ public class HumanPlayer extends Player implements InputProcessor {
     @Override
     public boolean touchDown(int i, int i1, int i2, int i3) {return false;}
 
-//TODO this will be removed
-    @Override
-    public void updatePlayerLocation(Card card) {
-        float cardAction = card.action.getAction();
-        if (cardMoveLogic.moveTypeCard(card)) {
-            if(this.direction == Direction.NORTH){
-                updatePlayerYPosition(movePlayerAsFarAsPossible(getPlayerYPosition()+ cardAction, this.direction ));
-            }
-            else if (this.direction == Direction.SOUTH){
-                updatePlayerYPosition(movePlayerAsFarAsPossible(getPlayerYPosition() - cardAction, this.direction));
-            }
-            else if (this.direction == Direction.EAST) {
-                updatePlayerXPosition(movePlayerAsFarAsPossible(getPlayerXPosition() + cardAction, this.direction));
 
-            } else if (this.direction == Direction.WEST) {
-                updatePlayerXPosition(movePlayerAsFarAsPossible(getPlayerXPosition() - cardAction, this.direction));
-            }
-        }else if (!cardMoveLogic.moveTypeCard(card)) {
-            setPlayerDirection((int)card.action.getAction());
-        }
-    }
 }

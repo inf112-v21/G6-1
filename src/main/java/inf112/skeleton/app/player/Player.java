@@ -152,21 +152,7 @@ public abstract class Player  {
      */
     public abstract void setPlayerDirection(int moveDegree);
 
-    /**
-     * If the players card wil move the player outside the game board
-     * this function will move the player to the edge of the board instead
-     * @param position position to move to
-     * @param moveDirection direction to move
-     * @return new position always inside the board
-     */
-    public abstract float movePlayerAsFarAsPossible(float position, Direction moveDirection);
 
-
-    /**
-     * Update player location or direction from given card
-     * @param card  given card
-     */
-    public abstract void updatePlayerLocation(Card card);
 
     /**
      * @return This method returns the players health token
