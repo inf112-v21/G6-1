@@ -106,6 +106,7 @@ public class ClientListener extends Listener {
             dummyPlayer = game.setNumberOfPlayers(p.numberOfPlayersConnected);
             if (playerCreated == false) {
                 playerCreated = true;
+
                 myId = p.numberOfPlayersConnected -1;
                 Packets.playerInfo playerInfo = new Packets.playerInfo();
                 ArrayList<Float> playerCoordinates = new ArrayList<>();
