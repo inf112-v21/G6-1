@@ -16,6 +16,7 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Set;
 
 public class Game implements IGame, InputProcessor {
 
@@ -75,6 +76,15 @@ public class Game implements IGame, InputProcessor {
     public void joinNewGame(InetAddress ip) {
         client = new GameClient(ip, this);
         client.connect(ip.getHostAddress());
+    }
+
+    public ArrayList<Player> createListOfPlayers(HashMap<Integer,ArrayList<Float>> playerInfo){
+
+        Set<Integer> playerID = playerInfo.keySet();
+        for(Integer player : playerID){
+            players.add(new HumanPlayer(Direction.NORTH,player,Color.getPlayerColor(player)));
+        }
+        return players;
     }
 
     @Override

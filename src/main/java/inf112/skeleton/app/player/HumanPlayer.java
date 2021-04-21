@@ -158,17 +158,6 @@ public class HumanPlayer extends Player implements InputProcessor {
        }
     }
 
-    //TODO used in conveyor, move and rewrite
-    @Override
-    public float movePlayerAsFarAsPossible(float position, Direction moveDirection){
-        if(moveDirection == Direction.NORTH && !isPlayerOnBoard(getPlayerXPosition(),position)) return 3900;
-        else if(moveDirection == Direction.SOUTH && !isPlayerOnBoard(getPlayerXPosition(),position) ) return 0;
-        else if(moveDirection == Direction.WEST && !isPlayerOnBoard(position, getPlayerYPosition()) ) return 0;
-        else if(moveDirection == Direction.EAST && !isPlayerOnBoard(position, getPlayerYPosition()) ) return 3300;
-        return position;
-    }
-
-
 
 // TODO @Overide from player when old method is removed (and comment)
     public void doPlayerMove(Card card, TileLayers tileLayers){
