@@ -118,6 +118,12 @@ public class CardMoveLogic {
         }
     }
 
+    /**
+     * This method convert ArrayList<Card> chosenCard into ArrayList<HashMap<Integer, Action>>
+     * to make chosenCardList possible to send on network.
+     * @param chosenCard list of players chosen cards for one round
+     * @return ArrayList<HashMap<Integer, Action>>
+     */
     public ArrayList<HashMap<Integer, Action>> convertToSendAbleCard(ArrayList<Card> chosenCard){
         ArrayList<HashMap<Integer, Action>> senAbleChosenCard = new ArrayList<>();
         for(Card card: chosenCard){
