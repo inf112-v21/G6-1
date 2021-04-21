@@ -114,7 +114,7 @@ public class ClientListener extends Listener {
         }
          if (object instanceof Packets.SendAction) {
              Packets.SendAction receivedActionsFromAll = (Packets.SendAction) object;
-             //TODO dette er listen som kommer når alle har trykket ready
+             game.allPlayerMoves=receivedActionsFromAll.actionList;
              System.out.println(receivedActionsFromAll.actionList);
          }
 
@@ -162,10 +162,7 @@ public class ClientListener extends Listener {
             System.out.println("Starting game");
             game.startGame();
         }
-        else if (object instanceof Packets.RoundPacket) {
-            Packets.RoundPacket roundPacket = (Packets.RoundPacket) object;
-            game.executeMoves(roundPacket.playerMoves);
-        }
+
 
     }
 
