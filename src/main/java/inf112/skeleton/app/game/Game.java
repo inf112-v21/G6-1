@@ -92,7 +92,9 @@ public class Game implements IGame, InputProcessor {
 
                 for (Player player: players) {
                     if (player.chosenCards.get(moveNumber).equals(move)) {
-                        player.updatePlayerLocation(move);
+                        //TODO is removed and replaced with
+                        // doPlayerMove(Card card, TileLayers tileLayers)
+                        //player.updatePlayerLocation(move);
                     }
                 }
             }

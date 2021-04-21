@@ -349,25 +349,5 @@ public class HumanPlayer extends Player implements InputProcessor {
     @Override
     public boolean touchDown(int i, int i1, int i2, int i3) {return false;}
 
-//TODO this will be removed
-    @Override
-    public void updatePlayerLocation(Card card) {
-        float cardAction = card.action.getAction();
-        if (cardMoveLogic.moveTypeCard(card)) {
-            if(this.direction == Direction.NORTH){
-                updatePlayerYPosition(movePlayerAsFarAsPossible(getPlayerYPosition()+ cardAction, this.direction ));
-            }
-            else if (this.direction == Direction.SOUTH){
-                updatePlayerYPosition(movePlayerAsFarAsPossible(getPlayerYPosition() - cardAction, this.direction));
-            }
-            else if (this.direction == Direction.EAST) {
-                updatePlayerXPosition(movePlayerAsFarAsPossible(getPlayerXPosition() + cardAction, this.direction));
 
-            } else if (this.direction == Direction.WEST) {
-                updatePlayerXPosition(movePlayerAsFarAsPossible(getPlayerXPosition() - cardAction, this.direction));
-            }
-        }else if (!cardMoveLogic.moveTypeCard(card)) {
-            setPlayerDirection((int)card.action.getAction());
-        }
-    }
 }

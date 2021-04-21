@@ -163,12 +163,6 @@ public abstract class Player  {
 
 
     /**
-     * Update player location or direction from given card
-     * @param card  given card
-     */
-    public abstract void updatePlayerLocation(Card card);
-
-    /**
      * @return This method returns the players health token
      */
     public abstract int getPlayerHealth();
