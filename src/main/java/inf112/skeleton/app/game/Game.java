@@ -188,7 +188,7 @@ public class Game implements IGame, InputProcessor {
         }
     }
     public void executeMoves(TileLayers layer) {
-        if(allPlayerMoves != null){
+        if(!allPlayerMoves.isEmpty()){
             giveAllPlayersCardObjects(allPlayerMoves);
             HashMap<Integer, ArrayList<Card>> playerMoves = playerMoves();
 
