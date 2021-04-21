@@ -106,6 +106,7 @@ public class Game implements IGame, InputProcessor {
         Set<Integer> playerID = playerInfo.keySet();
         for(Integer player : playerID){
             players.add(new HumanPlayer(Direction.NORTH,player,Color.getPlayerColor(player)));
+            setStartPos(playerInfo);
         }
         return players;
     }
