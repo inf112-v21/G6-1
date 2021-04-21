@@ -5,6 +5,7 @@ import inf112.skeleton.app.shared.Action;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class CardMoveLogic {
     private final CardDeck cardDeck = new CardDeck();
@@ -115,5 +116,15 @@ public class CardMoveLogic {
             player.movedCards.add(playerCardDeckIndex);
             updateCardPosition(player);
         }
+    }
+
+    public ArrayList<HashMap<Integer, Action>> convertToSendAbleCard(ArrayList<Card> chosenCard){
+        ArrayList<HashMap<Integer, Action>> senAbleChosenCard = new ArrayList<>();
+        for(Card card: chosenCard){
+            HashMap<Integer, Action> sendAbleCard = new HashMap<>();
+            sendAbleCard.put(card.priority,card.action);
+            senAbleChosenCard.add(sendAbleCard);
+        }
+        return senAbleChosenCard;
     }
 }
