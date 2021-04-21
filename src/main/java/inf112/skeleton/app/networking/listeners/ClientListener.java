@@ -28,6 +28,7 @@ public class ClientListener extends Listener {
     private boolean playerCreated = false;
     public int myId;
     public Player dummyPlayer;
+    private boolean GameHasStarted = false;
 
 
     /**
@@ -133,12 +134,17 @@ public class ClientListener extends Listener {
         else if (object instanceof Packets.playerInfo){
             Packets.playerInfo playerInfo = (Packets.playerInfo) object;
             System.out.println(playerInfo.playerInfo);
-            game.updatePlayerInfo(playerInfo.playerInfo);
+            if (playerInfo.playerInfo.size() == 2) {
+                game.createListOfPlayers(playerInfo.playerInfo);
+            }
+            else {
+                game.updatePlayerInfo(playerInfo.playerInfo);
+            }
         }
 
         else if (object instanceof Packets.StartGamePackage) {
             System.out.println("Starting game");
-            game.dealPlayerDecks();
+            game.startGame();
         }
         else if (object instanceof Packets.RoundPacket) {
             Packets.RoundPacket roundPacket = (Packets.RoundPacket) object;
