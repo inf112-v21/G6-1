@@ -102,10 +102,6 @@ public class ClientListener extends Listener {
      */
 
     public void received(Connection c, Object object) {
-        if (game.myHumanPlayer != null && game.myHumanPlayer.ready ) {
-            System.out.println("Erlend har fått vite at han er klar med id "+ game.myHumanPlayer.id );
-            game.myHumanPlayer.ready = false;
-        }
 
         if (game.myHumanPlayer != null && game.myHumanPlayer.ready) {
             System.out.println("Thomas har fått vite at jeg er klar" + game.myHumanPlayer.id);
@@ -117,7 +113,7 @@ public class ClientListener extends Listener {
         }
          if (object instanceof Packets.SendAction) {
              Packets.SendAction receivedActionsFromAll = (Packets.SendAction) object;
-             System.out.println(receivedActionsFromAll.actionList.size());
+             System.out.println(receivedActionsFromAll.actionList);
          }
 
         if (object instanceof Packets.PlayerNumberPacket) {

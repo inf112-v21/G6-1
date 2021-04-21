@@ -160,6 +160,7 @@ public class ServerListener extends Listener {
                 System.out.println(cardsReceived);
             }
             if(checkIfAllClientsAreReady == numberOfPlayers) {
+                receivedAction.actionList = cardsReceived;
                 server.sendToAllTCP(receivedAction);
 
             }
