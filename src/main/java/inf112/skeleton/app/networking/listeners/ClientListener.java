@@ -109,12 +109,11 @@ public class ClientListener extends Listener {
                 playerCreated = true;
 
                 Packets.playerInfo playerInfo = new Packets.playerInfo();
+                myId = p.numberOfPlayersConnected -1;
 
                 for (int playerID = 0; playerID < game.getNumberOfPlayers(); playerID++) {
 
                     game.createPlayers(playerID);
-                    myId = p.numberOfPlayersConnected -1;
-
                     ArrayList<Float> playerCoordinates = new ArrayList<>();
                     playerCoordinates.add(dummyPlayer.playerCurrentXPosition);
                     playerCoordinates.add(dummyPlayer.playerCurrentYPosition);
@@ -122,8 +121,6 @@ public class ClientListener extends Listener {
                 }
                 client.sendTCP(playerInfo);
             }
-
-
         }
         else if (object instanceof Packets.playerInfo){
             Packets.playerInfo playerInfo = (Packets.playerInfo) object;
