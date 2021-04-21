@@ -162,6 +162,11 @@ public class ClientListener extends Listener {
             System.out.println("Starting game");
             game.startGame();
         }
+        else if (object instanceof Packets.RoundPacket) {
+            Packets.RoundPacket roundPacket = (Packets.RoundPacket) object;
+            game.executeMoves(roundPacket.playerMoves);
+        }
+
     }
 
     public boolean getConnection(){
