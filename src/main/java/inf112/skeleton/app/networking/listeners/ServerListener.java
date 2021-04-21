@@ -162,6 +162,7 @@ public class ServerListener extends Listener {
             if(checkIfAllClientsAreReady == numberOfPlayers) {
                 receivedAction.actionList = cardsReceived;
                 server.sendToAllTCP(receivedAction);
+                cardsReceived.clear();
 
             }
         }
