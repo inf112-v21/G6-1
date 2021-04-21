@@ -9,7 +9,6 @@ import inf112.skeleton.app.graphics.Graphics;
 import inf112.skeleton.app.graphics.TileLayers;
 import inf112.skeleton.app.networking.GameClient;
 import inf112.skeleton.app.networking.GameServer;
-import inf112.skeleton.app.networking.listeners.ClientListener;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.shared.Action;
@@ -33,10 +32,6 @@ public class Game implements IGame, InputProcessor {
     GameClient client;
     public int myId;
     private boolean host;
-    public Conveyor conveyor = new Conveyor();
-    public Gear gear = new Gear();
-    public Laser laser = new Laser();
-    public Hole hole = new Hole();
     BoardItems boardItems = new BoardItems();
     public CheckPoint checkpoint = new CheckPoint();
     public GameType typeOfGameStarted = GameType.NONE;
@@ -46,7 +41,6 @@ public class Game implements IGame, InputProcessor {
 
     @Override
     public Graphics startGame() {
-        //chooseHostOrJoin();
         return new Graphics(this);
     }
 
@@ -112,6 +106,13 @@ public class Game implements IGame, InputProcessor {
         client = new GameClient(ip, Game.this);
     }
 
+
+    /**
+     * Create a list of players for a game, from a Hashmap containing player info provided by the server.
+     * The Hashmap playerInfo contains player id and start position for all players connected to the game.
+     * @param playerInfo HashMap<Integer (player id),ArrayList<Float (XY position index: 0 = X, 1 = Y)>>
+     * @return ArrayList<Player> list of players
+     */
     public ArrayList<Player> createListOfPlayers(HashMap<Integer,ArrayList<Float>> playerInfo){
         Set<Integer> playerID = playerInfo.keySet();
         for(Integer player : playerID){
@@ -122,30 +123,58 @@ public class Game implements IGame, InputProcessor {
         return players;
     }
 
+
+    /**
+     * Sets all players start position and initialize the local player
+     * @param playerInfo HashMap<Integer (player id),ArrayList<Float (XY position index: 0 = X, 1 = Y)>>
+     */
     public void setStartPos(HashMap<Integer,ArrayList<Float>> playerInfo){
         for(Player player: players){
             ArrayList<Float> playerStartPos = playerInfo.get(player.id);
             player.setPlayerStartXPosition(playerStartPos.get(0));
             player.setPlayerStartYPosition(playerStartPos.get(1));
             if(player.id == myId){
-                System.out.println(myId +" dette e min id");
                 initializeMyHumanPlayer(player);
             }
 
         }
     }
+
+
+    /**
+     * Sets the local human player equal the game class variable myHumanPlayer and
+     * provide a start deck of card for the local player.
+     * The local player to pass this method is the player in the players list with
+     * the id matching the class variable myId.
+     * @param player the local player
+     */
     public void initializeMyHumanPlayer(Player player){
         myHumanPlayer = player;
         myHumanPlayer.playerDeck = cardMoveLogic.playerDeck();
     }
 
+
+    /**
+     * This method returns a Hashmap of cards the local player want to play this round with the local players id as key.
+     * It converts the chosenCard list from the local player to a HashMap that ist possible to send
+     * via network. The card Hashmap has card priority as key and its action as value.
+     * @return HashMap<Integer (playerID), ArrayList<HashMap<Integer(Card Priority), Action (Card action)>>>
+     */
     public HashMap<Integer, ArrayList<HashMap<Integer, Action>>> getPlayerActionList(){
-        HashMap<Integer, ArrayList<HashMap<Integer, Action>>>  actionList = new HashMap();
+        HashMap<Integer, ArrayList<HashMap<Integer, Action>>>  sendAbleChosenCards = new HashMap();
         ArrayList<HashMap<Integer, Action>> sendAbleCards =
                 cardMoveLogic.convertToSendAbleCard(myHumanPlayer.chosenCards);
-        actionList.put(myHumanPlayer.id,sendAbleCards);
-        return actionList;
+        sendAbleChosenCards.put(myHumanPlayer.id,sendAbleCards);
+        return sendAbleChosenCards;
     }
+
+
+    /**
+     * This method takes a HashMap<Integer (playerID), ArrayList<HashMap<Integer(Card Priority), Action (Card action)>>>
+     * containing all players cards. It then converts them into card objects and add the list of card object to
+     * every players chosenCard list by player id.
+     * @param actionList Hashmap
+     */
     public void giveAllPlayersCardObjects(HashMap<Integer, ArrayList<HashMap<Integer, Action>>> actionList){
         for(Player player : players){
             ArrayList<HashMap<Integer, Action>> sendAbleCard = actionList.get(player.id);
@@ -153,24 +182,12 @@ public class Game implements IGame, InputProcessor {
             player.chosenCards = cardObject;
         }
     }
+
+
     /**
-    if (this.ready) {
-        for(int round = 0; round < 5; round ++) {
-            //for this player
-            doPlayerMove(chosenCards.get(round), layer);
-        }
-        conveyor.runConveyor(players, layer.yellowConveyor, layer.blueConveyor);
-        gear.runGears(players,layer.redGear, layer.greenGear);
-        laser.fireAllLasers(players,layer.laser);
-        hole.hole(players, layer.hole);
-        checkpoint.findCheckpoints(this, layer.checkpoint);
-
-        cardMoveLogic.readyButtonClickable(this);
-
-    }
-}
-
-*/
+     * Adds all players chosenCard list as value to a Hashmap with the players id as key
+     * @return  HashMap<Integer (Player id), ArrayList<Card>>
+     */
     public HashMap<Integer, ArrayList<Card>> playerMoves(){
         HashMap<Integer, ArrayList<Card>> playerMoves = new HashMap();
         for(Player player : players){
@@ -179,19 +196,22 @@ public class Game implements IGame, InputProcessor {
         return playerMoves;
     }
 
-    public void resetMyPlayer(Player player){
-        player.movedCards = new ArrayList<>();
-        player.chosenCards = new ArrayList<>();
-        player.playerDeck = new ArrayList<>();
-        player.ready = false;
-        player.playerDeck = cardMoveLogic.playerDeck();
-        player.cardCoordinates = cardMoveLogic.resetCardCoordinates();
-    }
+
+    /**
+     * Reset the chosenCard list for all players to make them ready from the next round
+     * @param players list of players in the game
+     */
     public void resetOtherPlayers(ArrayList<Player> players){
         for(Player player : players){
             player.chosenCards = new ArrayList<>();
         }
     }
+
+
+    /**
+     * Does a multiplayer round when the server sends the list of all moves for all players
+     * @param layer TileLayers
+     */
     public void doRoundNetworkMultiplayer(TileLayers layer) {
         if(!allPlayerMoves.isEmpty()){
             giveAllPlayersCardObjects(allPlayerMoves);
@@ -213,18 +233,20 @@ public class Game implements IGame, InputProcessor {
                         }
                     }
                 }
-                //TODO method this
-                conveyor.runConveyor(players, layer.yellowConveyor, layer.blueConveyor);
-                gear.runGears(players,layer.redGear, layer.greenGear);
-                laser.fireAllLasers(players,layer.laser);
-                hole.hole(players, layer.hole);
+                boardItems.activateBoardItems(players, layer);
             }
-            resetMyPlayer(myHumanPlayer);
+            myHumanPlayer.resetPlayer(myHumanPlayer);
             resetOtherPlayers(players);
             allPlayerMoves = new HashMap<>();
         }
     }
 
+
+    /**
+     * Does a single player round when the single player press the ready button
+     * @param players list of player
+     * @param layer TileLayers
+     */
     public void singlePlayerRound(ArrayList<Player> players,TileLayers layer) {
         Player singlePlayer = players.get(0);
         if (singlePlayer.ready) {
@@ -237,24 +259,24 @@ public class Game implements IGame, InputProcessor {
         }
     }
 
-
+    // TODO delete
     public void dealPlayerDeck(Player player) {
         player.cardCoordinates = cardMoveLogic.resetCardCoordinates();
         player.playerDeck = cardMoveLogic.playerDeck();
     }
-
+    //TODO delete
     public void dealPlayerDecks() {
         for (Player player: players) {
             dealPlayerDeck(player);
         }
     }
-
+    //TODO delete
     public void setNumberOfPlayers(int numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
         createPlayers(numberOfPlayers-1);
     }
 
-
+    // TODO delete this
     @Override
     public HumanPlayer createPlayers(int playerNumber) {
         System.out.println("Creating player ID " + playerNumber);
@@ -267,6 +289,8 @@ public class Game implements IGame, InputProcessor {
         players.add(humanPlayer);
         return humanPlayer;
     }
+
+    // TODO trenger vi denne?
     public void updatePlayerInfo(HashMap<Integer, ArrayList<Float>> playerInfo) {
         for (Player player : players) {
             ArrayList<Float> useThisToUpdateCoordinates = playerInfo.get(player.id);
@@ -275,11 +299,11 @@ public class Game implements IGame, InputProcessor {
         }
 
     }
-
+    //TODO delete
     public boolean getConnection(){
         return client.getConnection();
     }
-
+    //TODO trenger vi denne?
     public int getId() {
         return client.getId();
     }
@@ -288,15 +312,17 @@ public class Game implements IGame, InputProcessor {
      *
      * @return Returns number of people in the game.
      */
+    //TODO delete
     public int getNumberOfPlayers() {
         return numberOfPlayers;
     }
 
-
+    //TODO delete
     public void setMyHumanPlayer(HumanPlayer humanPlayer) {
         myHumanPlayer = humanPlayer;
     }
 
+    //TODO Hvorfor har vi InpPro her???
     @Override
     public boolean keyDown(int i) { return true; }
 
