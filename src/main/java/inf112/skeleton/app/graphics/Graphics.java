@@ -58,6 +58,7 @@ public class Graphics implements ApplicationListener {
     public final ArrayList<Player> singlePlayerList =new ArrayList<>();
 
 
+
     public Graphics(Game game) {
         menuInputProcessor = new MenuInputProcessor(this);
         hostGameScreenProcessor = new HostGameScreenProcessor(this);
@@ -247,10 +248,14 @@ public class Graphics implements ApplicationListener {
         spriteBatch.end();
 
         //draw buttons
+        spriteBatch.begin();
         spriteBatch.draw(readyButton,530,250,250,150);
         spriteBatch.draw(backToMenuScreenButton,530,150,250,150);
+        spriteBatch.end();
 
         //handle input
+        TextInputListener listener = new TextInputListener();
+        Gdx.input.getTextInput(listener, "Dialog Title", "Initial Textfield Value", "Hint Value");
         joinGameScreenProcessor.setMouseClickCoordinates(camera);
         Gdx.input.setInputProcessor(joinGameScreenProcessor);
 
@@ -402,4 +407,5 @@ public class Graphics implements ApplicationListener {
         background.dispose();
         youWin.dispose();
     }
+
 }
