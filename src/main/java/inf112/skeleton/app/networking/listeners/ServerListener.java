@@ -163,6 +163,7 @@ public class ServerListener extends Listener {
                 receivedAction.actionList = cardsReceived;
                 server.sendToAllTCP(receivedAction);
                 cardsReceived.clear();
+                checkIfAllClientsAreReady = 0;
 
             }
         }
