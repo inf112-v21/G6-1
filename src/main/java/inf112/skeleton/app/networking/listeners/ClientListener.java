@@ -1,6 +1,5 @@
 package inf112.skeleton.app.networking.listeners;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -12,6 +11,7 @@ import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.networking.packets.Packets;
 import inf112.skeleton.app.player.Player;
+import inf112.skeleton.app.shared.Action;
 
 
 /**
@@ -114,6 +114,7 @@ public class ClientListener extends Listener {
                 playerInfo.playerInfo.put(myId, playerCoordinates);
                 client.sendTCP(playerInfo);
             }
+
 
         }
         else if (object instanceof Packets.playerInfo){

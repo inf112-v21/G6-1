@@ -3,6 +3,7 @@ package inf112.skeleton.app.networking.packets;
 import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
+import inf112.skeleton.app.shared.Action;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,6 +73,10 @@ public class Packets {
 
     static public class playerInfo {
         public HashMap<Integer, ArrayList<Float>> playerInfo = new HashMap<>();
+    }
+
+    static public class SendAction {
+        public ArrayList<Action> actionList = new ArrayList<>();
     }
 
 

@@ -10,6 +10,8 @@ import inf112.skeleton.app.player.Player;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 
 public class ServerListener extends Listener {
@@ -59,6 +61,11 @@ public class ServerListener extends Listener {
 
 
         if (numberOfPlayers >= 2) {
+
+            Packets.playerInfo updatedPlayerInfo = new Packets.playerInfo();
+            updatedPlayerInfo.playerInfo = playerInfoGlobal;
+            server.sendToAllTCP(updatedPlayerInfo);
+
             this.startGameSession();
 
         }
@@ -106,9 +113,7 @@ public class ServerListener extends Listener {
     public void received(Connection connection, Object object) {
 
         if (object instanceof Packets.CardsPacket) {
-            Packets.CardsPacket cards = (Packets.CardsPacket) object;
-            cardsReceived.put(cards.playerId, cards.playedCards);
-            sendAllMovesToClients();
+
 
         } else if (object instanceof Packets.StartSignalPacket) {
             Packets.StartSignalPacket startSignalPacket = (Packets.StartSignalPacket) object;
@@ -132,19 +137,21 @@ public class ServerListener extends Listener {
             Packets.PlayerNumberPacket numberOfPlayersConnected = new Packets.PlayerNumberPacket();
             numberOfPlayersConnected.numberOfPlayersConnected = numberOfPlayers;
             server.sendToAllTCP(numberOfPlayersConnected);
+
         } else if (object instanceof Packets.playerInfo) {
             System.out.println("Motatt!");
             Packets.playerInfo playerInfo = (Packets.playerInfo) object;
             System.out.println(playerInfo.playerInfo);
+            Set<Integer> findPlayerIdKey = playerInfo.playerInfo.keySet();
 
-            playerInfoGlobal = playerInfo.playerInfo;
-            playerInfoGlobal.get(0).clear();
-            playerInfoGlobal.get(0).add(300F);
-            playerInfoGlobal.get(0).add(300F);
+            for (Integer key: findPlayerIdKey) {
+                Integer foundKey = key;
+                playerInfoGlobal.put(foundKey, playerInfo.playerInfo.get(foundKey));
+            }
 
-            Packets.playerInfo updatedPlayerInfo = new Packets.playerInfo();
-            updatedPlayerInfo.playerInfo = playerInfoGlobal;
-            server.sendToAllTCP(updatedPlayerInfo);
+        } else if (object instanceof Packets.SendAction) {
+            Packets.SendAction receivedAction = (Packets.SendAction) object;
+
         }
 
 
