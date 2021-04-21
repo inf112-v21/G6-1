@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public class CardMoveLogic {
     private final CardDeck cardDeck = new CardDeck();
-
+    ArrayList<Card> deck = cardDeck.getCardDeck();
     /**
      * This method returns the initial card position to where the cards are placed
      * on the game-board when a player gets a new deck of cards
@@ -111,7 +111,7 @@ public class CardMoveLogic {
      * @param player the given player
      */
     public void moveCardWhenClicked(int playerCardDeckIndex, Player player){
-        if (!player.movedCards.contains(playerCardDeckIndex)){
+        if (!player.movedCards.contains(playerCardDeckIndex) && player.movedCards.size() <= 4 ){
             player.chosenCards.add(player.playerDeck.get(playerCardDeckIndex));
             player.movedCards.add(playerCardDeckIndex);
             updateCardPosition(player);
@@ -120,7 +120,7 @@ public class CardMoveLogic {
 
     /**
      * This method convert ArrayList<Card> chosenCard into ArrayList<HashMap<Integer(Priority), Action>>
-     * to make chosenCardList possible to send on network.
+     * to make CardList possible to send on network.
      * @param chosenCard list of players chosen cards for one round
      * @return ArrayList<HashMap<Integer, Action>>
      */
@@ -132,5 +132,27 @@ public class CardMoveLogic {
             senAbleChosenCard.add(sendAbleCard);
         }
         return senAbleChosenCard;
+    }
+
+    /**
+     * This method convert ArrayList<HashMap<Integer(Priority), Action>> to ArrayList<Card>
+     * to make cards from CardList possible to render in graphics
+     * @param sendAbleCards
+     * @return
+     */
+    public ArrayList<Card> convertToCardObject(ArrayList<HashMap<Integer, Action>> sendAbleCards){
+        ArrayList<Card> cardsAsObject = new ArrayList<>();
+        for(HashMap<Integer, Action> sendAbleCard: sendAbleCards){
+            int pri = (int) sendAbleCard.keySet().toArray()[0];
+            Action action = sendAbleCard.get(pri);
+            for(Card card : deck){
+                if (card.priority == pri && card.action == action){
+                    cardsAsObject.add(card);
+                    System.out.println(card.priority + "pri" + card.action + "action");
+                }
+            }
+        }
+        return cardsAsObject;
+
     }
 }

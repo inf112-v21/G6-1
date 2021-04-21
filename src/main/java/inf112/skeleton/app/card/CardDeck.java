@@ -2,6 +2,7 @@ package inf112.skeleton.app.card;
 import inf112.skeleton.app.shared.Action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 
@@ -71,4 +72,10 @@ public class CardDeck {
         }
         return cardDeckOneRound;
     }
+    public ArrayList<Card> getCardDeck(){
+        ArrayList<Card> allCards = cardDeck;
+        return allCards;
+    }
+
+
 }

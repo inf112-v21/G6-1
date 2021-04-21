@@ -247,9 +247,8 @@ public class HumanPlayer extends Player implements InputProcessor {
 
 
     public void singlePlayerRound(ArrayList<Player> players,TileLayers layer) {
+
         if (this.ready) {
-            ArrayList<HashMap<Integer, Action>> test = cardMoveLogic.convertToSendAbleCard(this.chosenCards);
-            System.out.println(test);
             for(int round = 0; round < 5; round ++) {
                 doPlayerMove(chosenCards.get(round), layer);
                 //updatePlayerLocation(chosenCards.get(round));
