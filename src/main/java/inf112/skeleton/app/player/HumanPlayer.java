@@ -1,12 +1,14 @@
 package inf112.skeleton.app.player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
 import inf112.skeleton.app.BoardItems.*;
 import inf112.skeleton.app.card.Card;
 import com.badlogic.gdx.InputProcessor;
+import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
 import inf112.skeleton.app.card.CardMoveLogic;
@@ -32,7 +34,6 @@ public class HumanPlayer extends Player implements InputProcessor {
     public final Walls walls = new Walls();
     public final Conveyor conveyor = new Conveyor();
     public final CheckPoint checkpoint = new CheckPoint();
-
     private float mouseClickXCoordinate;
     private float mouseClickYCoordinate;
     private final CardMoveLogic cardMoveLogic;
@@ -63,6 +64,7 @@ public class HumanPlayer extends Player implements InputProcessor {
     public void setNewPlayerCheckpointLocation(float xPosition, float yPosition){
         this.playerCheckpointPositionX = xPosition;
         this.playerCheckpointPositionY = yPosition;
+
     }
 
     @Override
@@ -156,7 +158,7 @@ public class HumanPlayer extends Player implements InputProcessor {
        }
     }
 
-
+    //TODO used in conveyor, move and rewrite
     @Override
     public float movePlayerAsFarAsPossible(float position, Direction moveDirection){
         if(moveDirection == Direction.NORTH && !isPlayerOnBoard(getPlayerXPosition(),position)) return 3900;
@@ -169,36 +171,40 @@ public class HumanPlayer extends Player implements InputProcessor {
 
 
 // TODO @Overide from player when old method is removed (and comment)
-    public void newUpdatePlayerLocation(Card card, TileLayers layer){
+    public void doPlayerMove(Card card, TileLayers tileLayers){
         if (cardMoveLogic.moveTypeCard(card)) {
-            movePlayerIfPossible(card,layer.wall);
+            playerMoveHandler(card,tileLayers.wall);
         }else if (!cardMoveLogic.moveTypeCard(card)) {
             setPlayerDirection((int)card.action.getAction());
         }
     }
 
-
-    public void movePlayerIfPossible(Card card, TiledMapTileLayer wall){
-        int hasPlayerCollidedWithWall;
+    /**
+     * This method handles player movement by card
+     * @param moveCard this players round card
+     * @param wall TiledMapTileLayer
+     */
+    public void playerMoveHandler(Card moveCard, TiledMapTileLayer wall){
+        int collidedWithWall;
         float checkXPosition;
         float checkYPosition;
-        float cardAction = card.action.getAction();
-        ArrayList<Float> coordinatesToCheck;
+        float moveCardAction = moveCard.action.getAction();
+        ArrayList<Float> nextCoordinatesToCheck;
 
-        for(float movement = 0; movement <= cardAction; movement+=300){
-            coordinatesToCheck = getCoordinatesToCheck(movement);
-            checkXPosition = coordinatesToCheck.get(0);
-            checkYPosition = coordinatesToCheck.get(1);
-            hasPlayerCollidedWithWall= walls.hasPlayerCollidedWithWall(wall,this,
+        for(float movement = 0; movement <= moveCardAction; movement+=300){
+            nextCoordinatesToCheck = getCoordinatesToCheck(movement);
+            checkXPosition = nextCoordinatesToCheck.get(0);
+            checkYPosition = nextCoordinatesToCheck.get(1);
+            collidedWithWall= walls.hasPlayerCollidedWithWall(wall,this,
                     normalizedCoordinates(checkXPosition), normalizedCoordinates(checkYPosition));
 
             if(!isPlayerOnBoard(checkXPosition,checkYPosition)){
                 break;
             }
-            else if(hasPlayerCollidedWithWall == 0){
+            else if(collidedWithWall == 0){
                 wallCollisionHandler(checkXPosition,checkYPosition);
                 break;
-            }else if(hasPlayerCollidedWithWall == 1){
+            }else if(collidedWithWall == 1){
                 wallCollisionHandler(this.getPlayerXPosition(), this.getPlayerYPosition());
                 break;
             }else{
@@ -207,21 +213,28 @@ public class HumanPlayer extends Player implements InputProcessor {
         }
     }
 
-    public ArrayList<Float> getCoordinatesToCheck(float movement){
-        ArrayList<Float> coordinatesToCheck = new ArrayList<Float>();
-        float newPosition = 0 ;
-        float checkXPosition = 0;
-        float checkYPosition = 0;
-        if (movement != 0) {
+    /**
+     * Help method for playerMoveHandler
+     * This method finds the next location to check for walls, and board limits.
+     * It takes the amount of movement (0 or 300), finds the XY direction of the player,
+     * multiplays it by playerDirection.getMoveDirection which give the coorect direction to move NSEW.
+     * Then alters either X or Y direction and adds it to the list to be returned
+     * @param amountOfMovement
+     * @return
+     */
+    public ArrayList<Float> getCoordinatesToCheck(float amountOfMovement){
+        ArrayList<Float> coordinatesToCheck = new ArrayList<>();
+        float newPosition = 0;
+        float checkXPosition = this.getPlayerXPosition();
+        float checkYPosition = this.getPlayerYPosition();;
+        if (amountOfMovement != 0) {
             newPosition =  300 * this.direction.getMoveDirection();
         }
         if(walls.getPlayerXYDirection(this) == 'x'){
             checkXPosition = newPosition + this.getPlayerXPosition();
-            checkYPosition = this.getPlayerYPosition();
 
         }else if (walls.getPlayerXYDirection(this) == 'y'){
             checkYPosition = newPosition + this.getPlayerYPosition();
-            checkXPosition = this.getPlayerXPosition();
         }
         coordinatesToCheck.add(checkXPosition);
         coordinatesToCheck.add(checkYPosition);
@@ -246,8 +259,10 @@ public class HumanPlayer extends Player implements InputProcessor {
 
     public void singlePlayerRound(ArrayList<Player> players,TileLayers layer) {
         if (this.ready) {
+            ArrayList<HashMap<Integer, Action>> test = cardMoveLogic.convertToSendAbleCard(this.chosenCards);
+            System.out.println(test);
             for(int round = 0; round < 5; round ++) {
-                newUpdatePlayerLocation(chosenCards.get(round), layer);
+                doPlayerMove(chosenCards.get(round), layer);
                 //updatePlayerLocation(chosenCards.get(round));
             }
             conveyor.runConveyor(players, layer.yellowConveyor, layer.blueConveyor);
@@ -260,6 +275,7 @@ public class HumanPlayer extends Player implements InputProcessor {
             System.out.println("\n New round ");
         }
     }
+
 
 
     /**

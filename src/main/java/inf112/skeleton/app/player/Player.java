@@ -74,7 +74,7 @@ public abstract class Player  {
      * @param card
      * @param wall
      */
-    public abstract void movePlayerIfPossible(Card card, TiledMapTileLayer wall);
+    public abstract void playerMoveHandler(Card card, TiledMapTileLayer wall);
 
     public abstract void setNewPlayerCheckpointLocation(float xPosition, float yPosition);
 

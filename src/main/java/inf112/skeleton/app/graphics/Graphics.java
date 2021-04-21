@@ -25,7 +25,7 @@ import java.util.HashMap;
 
 public class Graphics implements ApplicationListener {
     public TiledMap tiledMap;
-    TileLayers layer;
+    public TileLayers layer;
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private SpriteBatch spriteBatch;
