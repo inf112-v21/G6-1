@@ -65,7 +65,7 @@ public class HumanPlayer extends Player {
     @Override
     public void takePlayerLife() {
         this.healthToken -- ;
-        this.damageTaken = 0;
+        this.damageTaken ++;
         this.updatePlayerXPosition(0);
         this.updatePlayerYPosition(0);
         System.out.println("Player "+ this.color + " lost a life and has now " + this.healthToken
