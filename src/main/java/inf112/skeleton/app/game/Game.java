@@ -2,7 +2,7 @@ package inf112.skeleton.app.game;
 
 
 import com.badlogic.gdx.InputProcessor;
-import inf112.skeleton.app.BoardItems.CheckPoint;
+import inf112.skeleton.app.BoardItems.*;
 import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.graphics.Graphics;
@@ -33,6 +33,10 @@ public class Game implements IGame, InputProcessor {
     GameClient client;
     public int myId;
     private boolean host;
+    public Conveyor conveyor = new Conveyor();
+    public Gear gear = new Gear();
+    public Laser laser = new Laser();
+    public Hole hole = new Hole();
     public CheckPoint checkpoint = new CheckPoint();
     public GameType typeOfGameStarted = GameType.NONE;
     final CardMoveLogic cardMoveLogic = new CardMoveLogic();
@@ -208,6 +212,10 @@ public class Game implements IGame, InputProcessor {
                         }
                     }
                 }
+                conveyor.runConveyor(players, layer.yellowConveyor, layer.blueConveyor);
+                gear.runGears(players,layer.redGear, layer.greenGear);
+                laser.fireAllLasers(players,layer.laser);
+                hole.hole(players, layer.hole);
             }
             resetMyPlayer(myHumanPlayer);
             resetOtherPlayers(players);
