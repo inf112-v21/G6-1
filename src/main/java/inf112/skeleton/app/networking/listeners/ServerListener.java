@@ -66,6 +66,7 @@ public class ServerListener extends Listener {
             updatedPlayerInfo.playerInfo = playerInfoGlobal;
             server.sendToAllTCP(updatedPlayerInfo);
 
+
             this.startGameSession();
 
         }
@@ -150,6 +151,10 @@ public class ServerListener extends Listener {
                 System.out.println(foundKey);
                 System.out.println(playerInfoGlobal);
             }
+            Packets.playerInfo sendPlayerInfo = new Packets.playerInfo();
+            sendPlayerInfo.playerInfo = playerInfoGlobal;
+            server.sendToAllTCP(sendPlayerInfo);
+
 
         } else if (object instanceof Packets.SendAction) {
             Packets.SendAction receivedAction = (Packets.SendAction) object;

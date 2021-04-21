@@ -88,7 +88,7 @@ public class Graphics implements ApplicationListener {
         for (Player player : players){
             player.setMouseClickCoordinates(camera);
             setInputProcessor(player);
-            updateCardSprite(player);
+            //updateCardSprite(player);
 
             Sprite playerSprite = playerGraphics.getPlayerSprite(player);
             Texture playerTexture = playerGraphics.getPlayerTexture(player);
