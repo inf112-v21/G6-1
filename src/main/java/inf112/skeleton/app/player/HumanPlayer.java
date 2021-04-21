@@ -251,7 +251,6 @@ public class HumanPlayer extends Player implements InputProcessor {
         if (this.ready) {
             for(int round = 0; round < 5; round ++) {
                 doPlayerMove(chosenCards.get(round), layer);
-                //updatePlayerLocation(chosenCards.get(round));
             }
             conveyor.runConveyor(players, layer.yellowConveyor, layer.blueConveyor);
             gear.runGears(players,layer.redGear, layer.greenGear);
@@ -260,7 +259,7 @@ public class HumanPlayer extends Player implements InputProcessor {
             checkpoint.findCheckpoints(this, layer.checkpoint);
 
             cardMoveLogic.readyButtonClickable(this);
-            System.out.println("\n New round ");
+
         }
     }
 

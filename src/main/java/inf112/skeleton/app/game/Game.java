@@ -7,6 +7,7 @@ import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.graphics.Graphics;
 import inf112.skeleton.app.networking.GameClient;
 import inf112.skeleton.app.networking.GameServer;
+import inf112.skeleton.app.networking.listeners.ClientListener;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.shared.Action;
@@ -23,10 +24,11 @@ public class Game implements IGame, InputProcessor {
     private int numberOfPlayers;
     /** The current players in this game */
     public HashMap<Integer, HumanPlayer> idPlayerHashMap;
-    public HumanPlayer myHumanPlayer;
+    public Player myHumanPlayer;
     public ArrayList<Player> players = new ArrayList<>();
     GameServer server;
     GameClient client;
+    public int myId;
     private boolean host;
     public GameType typeOfGameStarted = GameType.NONE;
     final CardMoveLogic cardMoveLogic = new CardMoveLogic();
@@ -112,12 +114,19 @@ public class Game implements IGame, InputProcessor {
     }
 
     public void setStartPos(HashMap<Integer,ArrayList<Float>> playerInfo){
-
         for(Player player: players){
             ArrayList<Float> playerStartPos = playerInfo.get(player.id);
             player.setPlayerStartXPosition(playerStartPos.get(0));
             player.setPlayerStartYPosition(playerStartPos.get(1));
+            if(player.id == myId){
+                initializeMyHumanPlayer(player);
+            }
+
         }
+    }
+    public void initializeMyHumanPlayer(Player player){
+        myHumanPlayer = player;
+        myHumanPlayer.playerDeck = cardMoveLogic.playerDeck();
     }
 
     public void cardRank(HashMap<Integer, ArrayList<Card>> playerMoves){

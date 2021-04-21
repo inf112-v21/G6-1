@@ -112,6 +112,7 @@ public class ClientListener extends Listener {
 
                 Packets.playerInfo playerInfo = new Packets.playerInfo();
                 myId = p.numberOfPlayersConnected -1;
+                game.myId = myId;
                 ArrayList<Float> playerCoordinates = new ArrayList<>();
                 playerCoordinates.add((float) (myId*300));
                 playerCoordinates.add(0F);
