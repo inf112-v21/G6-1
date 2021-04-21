@@ -37,6 +37,7 @@ public class Game implements IGame, InputProcessor {
     public Gear gear = new Gear();
     public Laser laser = new Laser();
     public Hole hole = new Hole();
+    BoardItems boardItems = new BoardItems();
     public CheckPoint checkpoint = new CheckPoint();
     public GameType typeOfGameStarted = GameType.NONE;
     final CardMoveLogic cardMoveLogic = new CardMoveLogic();
@@ -191,7 +192,7 @@ public class Game implements IGame, InputProcessor {
             player.chosenCards = new ArrayList<>();
         }
     }
-    public void executeMoves(TileLayers layer) {
+    public void doRoundNetworkMultiplayer(TileLayers layer) {
         if(!allPlayerMoves.isEmpty()){
             giveAllPlayersCardObjects(allPlayerMoves);
             HashMap<Integer, ArrayList<Card>> playerMoves = playerMoves();
@@ -212,6 +213,7 @@ public class Game implements IGame, InputProcessor {
                         }
                     }
                 }
+                //TODO method this
                 conveyor.runConveyor(players, layer.yellowConveyor, layer.blueConveyor);
                 gear.runGears(players,layer.redGear, layer.greenGear);
                 laser.fireAllLasers(players,layer.laser);
@@ -222,6 +224,19 @@ public class Game implements IGame, InputProcessor {
             allPlayerMoves = new HashMap<>();
         }
     }
+
+    public void singlePlayerRound(ArrayList<Player> players,TileLayers layer) {
+        Player singlePlayer = players.get(0);
+        if (singlePlayer.ready) {
+            for(int round = 0; round < 5; round ++) {
+                players.get(0).doPlayerMove(singlePlayer.chosenCards.get(round), layer);
+            }
+            boardItems.activateBoardItems(players, layer);
+            checkpoint.findCheckpoints(singlePlayer, layer.checkpoint);
+            singlePlayer.resetPlayer(singlePlayer);
+        }
+    }
+
 
     public void dealPlayerDeck(Player player) {
         player.cardCoordinates = cardMoveLogic.resetCardCoordinates();

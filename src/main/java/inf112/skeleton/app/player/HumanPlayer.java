@@ -32,6 +32,7 @@ public class HumanPlayer extends Player implements InputProcessor {
     public final Walls walls = new Walls();
     public final Conveyor conveyor = new Conveyor();
     public final CheckPoint checkpoint = new CheckPoint();
+    public final BoardItems boardItems = new BoardItems();
     private float mouseClickXCoordinate;
     private float mouseClickYCoordinate;
     private final CardMoveLogic cardMoveLogic;
@@ -244,27 +245,17 @@ public class HumanPlayer extends Player implements InputProcessor {
     }
 
 
-    public void singlePlayerRound(ArrayList<Player> players,TileLayers layer) {
 
-        if (this.ready) {
-            for(int round = 0; round < 5; round ++) {
-                doPlayerMove(chosenCards.get(round), layer);
-            }
-            runAllBoardItemsOnPlayers(players, layer);
-            checkpoint.findCheckpoints(this, layer.checkpoint);
-
-            cardMoveLogic.readyButtonClickable(this);
-
-        }
-    }
     @Override
-    public void runAllBoardItemsOnPlayers(ArrayList<Player> players, TileLayers layer){
-        conveyor.runConveyor(players, layer.yellowConveyor, layer.blueConveyor);
-        gear.runGears(players,layer.redGear, layer.greenGear);
-        laser.fireAllLasers(players,layer.laser);
-        hole.hole(players, layer.hole);
-
+    public void resetPlayer(Player player){
+        player.movedCards = new ArrayList<>();
+        player.chosenCards = new ArrayList<>();
+        player.playerDeck = new ArrayList<>();
+        player.ready = false;
+        player.playerDeck = cardMoveLogic.playerDeck();
+        player.cardCoordinates = cardMoveLogic.resetCardCoordinates();
     }
+
 
 
     /**

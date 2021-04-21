@@ -81,7 +81,7 @@ public abstract class Player  {
 
     public abstract void doPlayerMove(Card card, TileLayers tileLayers);
 
-    public abstract void runAllBoardItemsOnPlayers(ArrayList<Player> players, TileLayers layer);
+    public abstract void resetPlayer(Player player);
     /**
      * Needed to mach Sprite positions with the player when starting a game.
      * Pass this method in as X parameter in set player position sprite-built-in method.
