@@ -27,9 +27,7 @@ final HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
    put(22,Direction.WEST.getDirectionDegree());
 }};
 
-    public void stopPlayerIfConveyorEnds(Player player, float direction, TiledMapTileLayer blueConveyor){
 
-    }
 
     /**
      * Iterates conveyor layer, finds blue and yellow conveyors
@@ -62,7 +60,8 @@ final HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
                     int conveyorDirection = blueConveyorDirection.get(blueConveyorTile.getTile().getId());
                     int conveyorMovement = ConveyorType.EXPRESS.getNumberOfMoves();
 
-                    locatePlayersOnConveyor(players, tileXPosition, tileYPosition, conveyorDirection,conveyorMovement);
+                    locatePlayersOnConveyor(players, tileXPosition, tileYPosition, conveyorDirection,
+                            conveyorMovement);
                 }
             }
         }
@@ -102,7 +101,7 @@ final HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
         float oldPlayerYPos = player.getPlayerYPosition();
         if(conveyorDirection == Direction.NORTH.getDirectionDegree()) {
             player.updatePlayerYPosition(movePlayerAsFarAsPossible(player,
-                    player.getPlayerYPosition() + conveyorMovement, Direction.NORTH ));
+                    player.getPlayerYPosition() + conveyorMovement, Direction.NORTH));
         }
         if(conveyorDirection == Direction.SOUTH.getDirectionDegree()) {
             player.updatePlayerYPosition(movePlayerAsFarAsPossible(player,
@@ -115,6 +114,9 @@ final HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
         if(conveyorDirection == Direction.WEST.getDirectionDegree()) {
             player.updatePlayerXPosition(movePlayerAsFarAsPossible(player,
                     player.getPlayerXPosition() - conveyorMovement, Direction.WEST));
+        }
+        if(player.getPlayerYPosition() == 0 && player.getPlayerXPosition() == 1500){
+            player.updatePlayerYPosition(300);
         }
         System.out.println("Player " + player.color +" was standing on a conveyor and was moved "
                 + conveyorMovement/300 + " tiles");
@@ -131,5 +133,6 @@ final HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
          else if(moveDir == Direction.EAST && !player.isPlayerOnBoard(move, player.getPlayerYPosition()) ) return 3300;
          return move;
      }
+
 
 }

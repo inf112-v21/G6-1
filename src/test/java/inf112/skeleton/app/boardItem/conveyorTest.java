@@ -13,6 +13,7 @@ import org.junit.Before;
 
 public class conveyorTest {
 
+
     HumanPlayer humanPlayer;
     Conveyor conveyor;
     final int tileSize = 300;
@@ -56,5 +57,6 @@ public class conveyorTest {
         Assertions.assertEquals(11*tileSize, humanPlayer.getPlayerXPosition());
         Assertions.assertEquals(8*tileSize, humanPlayer.getPlayerYPosition());
     }
+
 
 }
