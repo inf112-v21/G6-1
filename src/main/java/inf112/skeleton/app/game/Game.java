@@ -221,7 +221,6 @@ public class Game implements IGame, InputProcessor {
             resetOtherPlayers(players);
             allPlayerMoves = new HashMap<>();
         }
-
     }
 
     public void dealPlayerDeck(Player player) {
