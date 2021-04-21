@@ -6,6 +6,7 @@ import com.esotericsoftware.kryonet.Server;
 import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.networking.packets.Packets;
 import inf112.skeleton.app.player.Player;
+import inf112.skeleton.app.shared.Action;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -17,12 +18,13 @@ import java.util.Set;
 public class ServerListener extends Listener {
     private final Server server;
     private final boolean[] allPlayersReady;
-    private final HashMap<Integer, ArrayList<Card>> cardsReceived;
+    private final HashMap<Integer, ArrayList<HashMap<Integer, Action>>> cardsReceived;
     private int numberOfPlayers = 0;
     private final String[] playerNames;
     public final boolean[] ShutdownPlayer;
     public final int MAX_PLAYERS = 3;
     public HashMap<Integer, ArrayList<Float>> playerInfoGlobal = new HashMap<>();
+    private int checkIfAllClientsAreReady=0;
 
 
 
@@ -87,17 +89,6 @@ public class ServerListener extends Listener {
         server.sendToAllTCP(numberOfPlayers);
     }
 
-    public void sendAllMovesToClients() {
-        if (cardsReceived.size() != numberOfPlayers) {
-            return;
-        }
-        Packets.RoundPacket roundPacket = new Packets.RoundPacket();
-        roundPacket.playerMoves = cardsReceived;
-
-        server.sendToAllTCP(roundPacket);
-        System.out.println("card sent");
-        cardsReceived.clear();
-    }
 
     public void startGameSession() {
         System.out.println("Instructing all clients to start the game");
@@ -157,8 +148,21 @@ public class ServerListener extends Listener {
 
 
         } else if (object instanceof Packets.SendAction) {
+            checkIfAllClientsAreReady++;
             Packets.SendAction receivedAction = (Packets.SendAction) object;
 
+            Set<Integer> findPlayerIdKey = receivedAction.actionList.keySet();
+
+            for (Integer key: findPlayerIdKey) {
+                Integer foundKey = key;
+                cardsReceived.put(foundKey, receivedAction.actionList.get(foundKey));
+                System.out.println(foundKey);
+                System.out.println(cardsReceived);
+            }
+            if(checkIfAllClientsAreReady == numberOfPlayers) {
+                server.sendToAllTCP(receivedAction);
+
+            }
         }
 
 
