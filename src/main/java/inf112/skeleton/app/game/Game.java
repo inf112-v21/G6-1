@@ -9,15 +9,13 @@ import inf112.skeleton.app.networking.GameClient;
 import inf112.skeleton.app.networking.GameServer;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
+import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 
 public class Game implements IGame, InputProcessor {
 
@@ -108,10 +106,26 @@ public class Game implements IGame, InputProcessor {
         Set<Integer> playerID = playerInfo.keySet();
         for(Integer player : playerID){
             players.add(new HumanPlayer(Direction.NORTH,player,Color.getPlayerColor(player)));
+            setStartPos(playerInfo);
         }
         return players;
     }
 
+    public void setStartPos(HashMap<Integer,ArrayList<Float>> playerInfo){
+        for(Player player: players){
+            ArrayList<Float> playerStartPos = playerInfo.get(player);
+            player.setPlayerStartXPosition(playerStartPos.get(0));
+            player.setPlayerStartYPosition(playerStartPos.get(0));
+        }
+    }
+
+    public void cardRank(HashMap<Integer, ArrayList<Card>> playerMoves){
+        HashMap<Integer, Action> phase = new HashMap();
+
+    }
+    public void doRound(){
+
+    }
     @Override
     public void executeMoves(HashMap<Integer, ArrayList<Card>> playerMoves) {
         for (int moveNumber = 0; moveNumber < 5; moveNumber++){
