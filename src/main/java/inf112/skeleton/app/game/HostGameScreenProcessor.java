@@ -43,7 +43,7 @@ public class HostGameScreenProcessor extends BaseInputProcessor {
                 System.out.println("Host click");
                 graphics.game.typeOfGameStarted = GameType.NETWORK_HOST;
                 graphics.game.currentScreen = GameScreen.GAME;
-                graphics.game.hostNewGame("RiskyExchange.tmx");
+                graphics.game.hostNewGame();
             }
             if(y <= 1267 && y >= 1029) {
                 graphics.game.currentScreen = GameScreen.MENU;

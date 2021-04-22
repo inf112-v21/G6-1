@@ -27,6 +27,7 @@ public class ClientListener extends Listener {
     private boolean playerCreated = false;
     private boolean clientHasSentCards = false;
     public int myId;
+    private int totalPlayersConnectedToServer = 0;
 
 
 
@@ -86,7 +87,7 @@ public class ClientListener extends Listener {
 
         if (object instanceof Packets.PlayerNumberPacket) {
             Packets.PlayerNumberPacket p = (Packets.PlayerNumberPacket) object;
-
+            totalPlayersConnectedToServer = p.numberOfPlayersConnected;
 
             if (!playerCreated) {
                 playerCreated = true;
@@ -104,7 +105,7 @@ public class ClientListener extends Listener {
         } else if (object instanceof Packets.playerInfo){
             Packets.playerInfo playerInfo = (Packets.playerInfo) object;
             System.out.println(playerInfo.playerInfo);
-            if (playerInfo.playerInfo.size() == 2) {
+            if (playerInfo.playerInfo.size() == totalPlayersConnectedToServer) {
                 game.createListOfPlayers(playerInfo.playerInfo);
             }
             else {

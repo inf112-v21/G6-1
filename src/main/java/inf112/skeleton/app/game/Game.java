@@ -41,7 +41,7 @@ public class Game implements IGame {
     public Graphics startGame() {
         return new Graphics(this);
     }
-
+/**
     public void chooseHostOrJoin () {
         Scanner HostOrJoin = new Scanner(System.in);
         System.out.println("Host (1), join (2) or start single player (3)?: ");
@@ -78,18 +78,19 @@ public class Game implements IGame {
             chooseHostOrJoin();
         }
     }
-
+*/
 
     /**
      * InetAddress object created by the host. This is the only place server.run() should be used,
      * to avoid creating more than one server.
      *
-     * @param map - What map to be used in the hosted game.
+     *
      */
-    public InetAddress hostNewGame(String map) {
-        server = new GameServer(map);
+    public InetAddress hostNewGame() {
+        server = new GameServer("RiskyExchange");
         server.run();
         client = new GameClient(server.getAddress(),Game.this);
+        typeOfGameStarted = GameType.NETWORK_HOST;
         return server.getAddress();
     }
 
@@ -99,8 +100,16 @@ public class Game implements IGame {
      *
      * @param ip InetAddress object, is being called properly in @chooseHostOrJoin()
      */
-    public void joinNewGame(InetAddress ip) {
-        client = new GameClient(ip, Game.this);
+    public void joinNewGame(String ip) {
+        InetAddress hostIp = null;
+        try {
+            hostIp = InetAddress.getByName(ip);
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        }
+        typeOfGameStarted = GameType.NETWORK_JOIN;
+
+        client = new GameClient(hostIp, Game.this);
     }
 
 

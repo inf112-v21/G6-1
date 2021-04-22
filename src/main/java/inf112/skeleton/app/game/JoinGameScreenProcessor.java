@@ -55,9 +55,9 @@ public class JoinGameScreenProcessor extends BaseInputProcessor implements Input
             }
             if (y <= 1960 && y >= 1722){
                 // TODO figure out how to connect to the following IP: graphics.enteredIp
-
+                graphics.game.joinNewGame(graphics.enteredIp);
                 // Once connected show the host screen
-                graphics.game.currentScreen = GameScreen.HOST;
+                //graphics.game.currentScreen = GameScreen.HOST;
             }
         }
         return false;
