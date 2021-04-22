@@ -12,6 +12,8 @@ import java.net.InetAddress;
 public class GameClient extends Listener {
 
     public Client client;
+    public ClientListener cListener;
+    public boolean receivedPacket = false;
     final int udpPort;
     final int tcpPort;
 
@@ -34,4 +36,14 @@ public class GameClient extends Listener {
             e.printStackTrace();
         }
     }
+
+    // For testing in ServerClientTest
+    public Client getClient(){
+        return client;
+    }
+
+    public boolean getConnection(){
+        return cListener.getConnection();
+    }
+
 }

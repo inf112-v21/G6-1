@@ -35,6 +35,10 @@ public class Packets {
         public HashMap<Integer, ArrayList<HashMap<Integer, Action>>> actionList = new HashMap<>();
     }
 
+    static public  class TestPack{
+        public String packet;
+    }
+
 
 
 }
