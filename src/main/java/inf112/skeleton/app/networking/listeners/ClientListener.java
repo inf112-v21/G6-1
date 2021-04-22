@@ -10,9 +10,7 @@ import com.esotericsoftware.kryonet.Listener;
 import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.networking.packets.Packets;
-import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
-import inf112.skeleton.app.shared.Action;
 
 
 /**
@@ -27,8 +25,7 @@ public class ClientListener extends Listener {
     public Packets.UpdateNames name;
     private boolean playerCreated = false;
     public int myId;
-    public Player dummyPlayer;
-    private boolean GameHasStarted = false;
+
 
 
     /**
@@ -52,41 +49,6 @@ public class ClientListener extends Listener {
         c = true;
     }
 
-     /**
-     * Sends an array of cards to the server to be played.
-     * @param cardLogic The cards the player want to be played.
-     */
-    public void sendCards(HashMap<Integer, ArrayList<Card>> cardLogic){
-        Packets.RoundPacket newCards = new Packets.RoundPacket();
-        if(cardLogic != null){
-            newCards.playerMoves = new HashMap<Integer, ArrayList<Card>>();
-            for (int i = 0; i < cardLogic.size(); i++) {
-                newCards.playerMoves = cardLogic;
-            }
-        }else {
-            newCards.playerMoves = null;
-        }
-        newCards.playerId = client.getID();
-        client.sendTCP(newCards);
-    }
-
-     /**
-     * Sends a start signal to the server alerting all clients to start the game.
-     */
-    public void sendStartSignal() {
-        Packets.StartSignalPacket startSignal = new Packets.StartSignalPacket();
-        startSignal.start = true;
-        client.sendTCP(startSignal);
-    }
-
-        /**
-     * Sends a name to the server
-     * @param name A Packet with a single name in a String[]
-     */
-    public void sendName(Packets.UpdateNames name) {
-        this.name = this.name;
-        client.sendTCP(name);
-    }
 
     public void disconnected(Connection connection ) {
         System.out.println("Cl: You have been disconnected from the server");
@@ -134,20 +96,8 @@ public class ClientListener extends Listener {
                 playerInfo.playerInfo.put(myId, playerCoordinates);
 
                 client.sendTCP(playerInfo);
-/**
-                for (int playerID = 0; playerID < game.getNumberOfPlayers(); playerID++) {
-
-                    dummyPlayer = game.createPlayers(playerID);
-
-                    playerCoordinates.add(dummyPlayer.playerCurrentXPosition);
-                    playerCoordinates.add(dummyPlayer.playerCurrentYPosition);
-                    playerInfo.playerInfo.put(myId, playerCoordinates);
-                }
- */
-
             }
-        }
-        else if (object instanceof Packets.playerInfo){
+        } else if (object instanceof Packets.playerInfo){
             Packets.playerInfo playerInfo = (Packets.playerInfo) object;
             System.out.println(playerInfo.playerInfo);
             if (playerInfo.playerInfo.size() == 2) {
@@ -156,38 +106,11 @@ public class ClientListener extends Listener {
             else {
                 game.updatePlayerInfo(playerInfo.playerInfo);
             }
-        }
-
-        else if (object instanceof Packets.StartGamePackage) {
+        } else if (object instanceof Packets.StartGamePackage) {
             System.out.println("Starting game");
             game.startGame();
         }
 
-
-    }
-
-    public boolean getConnection(){
-        return c;
-    }
-
-    public void sendReady(Packets.StartGamePackage signal) {
-        client.sendTCP(signal);
-    }
-
-    /**
-     * Sends a message tot he server that this player is powering down their robot
-     */
-    public void sendShutdownRobot() {
-        Packets.ShutDownRobotPacket shutdownRobot = new Packets.ShutDownRobotPacket();
-        client.sendTCP(shutdownRobot);
-    }
-
-    /**
-     * Removes this player from playing anymore cards.
-     */
-    public void removeOnePlayerFromServer() {
-        Packets.RemovePlayerPacket removePlayer = new Packets.RemovePlayerPacket();
-        client.sendTCP(removePlayer);
     }
 
 }

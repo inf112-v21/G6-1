@@ -253,6 +253,7 @@ public class Game implements IGame {
         }
     }
 
+
     public void updatePlayerInfo(HashMap<Integer, ArrayList<Float>> playerInfo) {
         for (Player player : players) {
             ArrayList<Float> useThisToUpdateCoordinates = playerInfo.get(player.id);
