@@ -59,7 +59,7 @@ public class HumanPlayer extends Player {
         this.playerCheckpointPositionY = playerStartYPosition;
         this.movedCards = new ArrayList<>();
         this.chosenCards  =  new ArrayList<>();
-        this.playerDeck = new ArrayList<>();
+        this.playerDeck = cardMoveLogic.playerDeck();
         this.flagsToVisit = new ArrayList<>(Arrays.asList(55,63,71));
         this.cardCoordinates = new ArrayList<>(
                 Arrays.asList(5555f, 3090f,

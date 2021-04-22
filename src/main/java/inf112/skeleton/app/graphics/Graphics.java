@@ -57,19 +57,19 @@ public class Graphics implements ApplicationListener {
     public Texture backToMenuScreenButton;
     public PlayerGraphics playerGraphics;
     public final CardGraphics cardGraphics;
-    public final HumanPlayer singlePlayer = new HumanPlayer(Direction.NORTH,69,Color.GREEN);
+    public  Player singlePlayer = new HumanPlayer(Direction.NORTH,69,Color.GREEN);
     private final MenuInputProcessor menuInputProcessor;
     private final HostGameScreenProcessor hostGameScreenProcessor;
     private final JoinGameScreenProcessor joinGameScreenProcessor;
     private final EndScreen endScreen;
     public Sprite singlePlayerSprite;
     public ArrayList<Sprite> cardSpriteList;
-    private final CardMoveLogic cardMoveLogic = new CardMoveLogic();
+    private  CardMoveLogic cardMoveLogic = new CardMoveLogic();
     private HashMap<Action, Texture> cardTextures = new HashMap<>();
     public final Game game;
     public final ArrayList<Player> singlePlayerList =new ArrayList<>();
     public String enteredIp = "";
-
+    public boolean singlePlayerGameStarted = true;
 
     public Graphics(Game game) {
         menuInputProcessor = new MenuInputProcessor(this);
@@ -122,11 +122,15 @@ public class Graphics implements ApplicationListener {
     @Override
     public void create() {
         playerGraphics = new PlayerGraphics();
+
+        /**
+
         singlePlayer.playerDeck = cardMoveLogic.playerDeck();
 
         singlePlayerSprite = playerGraphics.getPlayerSprite(singlePlayer.color);
         singlePlayerSprite.setSize(300,300);
-
+         */
+        singlePlayer.playerDeck = cardMoveLogic.playerDeck();
         // Creates a list of sprites
         cardSpriteList = cardGraphics.createCardSprite();
         cardTextures = cardGraphics.createCardTexture();
@@ -204,13 +208,18 @@ public class Graphics implements ApplicationListener {
      * temp runs a single-player gui
      */
     public void singlePlayer(){
+
+
+        singlePlayerSprite = playerGraphics.getPlayerSprite(singlePlayer.color);
+
         singlePlayer.setMouseClickCoordinates(camera);
         updateCardSprite(singlePlayer);
         singlePlayerSprite.setPosition(singlePlayer.getPlayerXPosition(), singlePlayer.getPlayerYPosition());
         Texture playerTexture = playerGraphics.getPlayerTexture(singlePlayer);
         singlePlayerSprite.setTexture(playerTexture);
+        singlePlayerSprite.setSize(300,300);
         singlePlayerSprite.draw(tiledMapRenderer.getBatch());
-        game.doSinglePlayerMove(singlePlayerList,layer);
+        game.doSinglePlayerMove(layer);
 
     }
 
@@ -368,10 +377,18 @@ public class Graphics implements ApplicationListener {
         tiledMapRenderer.render();
         tiledMapRenderer.getBatch().begin();
         if (game.typeOfGameStarted == GameType.SINGLE_PLAYER) {
+
+
             Gdx.input.setInputProcessor(singlePlayer);
+            if(singlePlayerGameStarted == true){
+                singlePlayerGameStarted= game.createSinglePlayer();
+            }
+
+            singlePlayer = game.myHumanPlayer;
             singlePlayer();
 
         } else {
+            singlePlayer = game.myHumanPlayer;
             game.multiplayerRound(layer);
             updatePlayerSprite(game.players, game.myHumanPlayer);
 
@@ -391,6 +408,7 @@ public class Graphics implements ApplicationListener {
             }
         }
     }
+
 
 
     public boolean isWinner(){

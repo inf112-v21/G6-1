@@ -21,7 +21,7 @@ import java.util.*;
 public class Game implements IGame {
 
 
-    public Player myHumanPlayer;
+    public Player myHumanPlayer = new HumanPlayer(Direction.NORTH,69,Color.GREEN);
     public ArrayList<Player> players = new ArrayList<>();
     public HashMap<Integer, ArrayList<HashMap<Integer, Action>>> allPlayerMoves = new HashMap<>();
     GameServer server;
@@ -364,35 +364,24 @@ public class Game implements IGame {
     }
 
 
-
-    /**
-     * Does a single player round when the single player press the ready button
-     * @param players list of player
-     * @param layer TileLayers
-     */
-    public void singlePlayerRound(ArrayList<Player> players,TileLayers layer) {
-        Player singlePlayer = players.get(0);
-        if (singlePlayer.ready) {
-            for(int round = 0; round < 5; round ++) {
-                players.get(0).doPlayerMove(singlePlayer.chosenCards.get(round), layer);
-            }
-            boardItems.activateBoardItems(players, layer);
-            checkpoint.findCheckpoints(singlePlayer, layer.checkpoint);
-            singlePlayer.resetPlayer(singlePlayer);
-        }
+    public boolean createSinglePlayer(){
+        myHumanPlayer = new HumanPlayer(Direction.NORTH,69,Color.GREEN);
+        myHumanPlayer.playerDeck = cardMoveLogic.playerDeck();
+        return false;
     }
 
     public void cardCount(Player player, TileLayers layer){
+        ArrayList<Player> myHumanPlayerList = new ArrayList<Player>(Arrays.asList(player));
         if(player.chosenCards.isEmpty() && player.movedCards.size()==5){
-            boardItems.activateBoardItems(players, layer);
+            boardItems.activateBoardItems(myHumanPlayerList, layer);
             checkpoint.findCheckpoints(player, layer.checkpoint);
             player.resetPlayer(player);
         }
     }
-    public void doSinglePlayerMove(ArrayList<Player> players, TileLayers layer){
-        Player singlePlayer = players.get(0);
-        if(singlePlayer.ready && !singlePlayer.chosenCards.isEmpty()){
-            singlePlayer.doPlayerMove(singlePlayer.chosenCards.remove(0), layer);
+    public void doSinglePlayerMove(TileLayers layer){
+
+        if(myHumanPlayer.ready && !myHumanPlayer.chosenCards.isEmpty()){
+            myHumanPlayer.doPlayerMove(myHumanPlayer.chosenCards.remove(0), layer);
             try {
                 Thread.sleep(1000);
 
@@ -400,7 +389,7 @@ public class Game implements IGame {
                 e.printStackTrace();
             }
         }
-        cardCount(singlePlayer, layer);
+        cardCount(myHumanPlayer, layer);
 
     }
 
