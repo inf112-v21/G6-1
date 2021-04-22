@@ -320,6 +320,7 @@ public class Game implements IGame {
         if(cardCount % players.size()  == 0 && cardCount <= count+1) {
             System.out.println(" % "+ players.size() % cardCount);
             boardItems.activateBoardItems(players, layer);
+            checkpoint.findCheckpoints(player, layer.checkpoint);
         }
     }
     public void multiplayerRound(TileLayers layer){
