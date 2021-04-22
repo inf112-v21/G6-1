@@ -1,6 +1,7 @@
 package inf112.skeleton.app.player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
@@ -42,6 +43,36 @@ public class HumanPlayer extends Player implements InputProcessor {
         cardMoveLogic = new CardMoveLogic();
         mouseClickPosition = new Vector3();
     }
+
+
+    @Override
+    public void newHumanPlayer (int id, Color color, float playerStartXPosition,float playerStartYPosition){
+        this.id = id;
+        this.color = color;
+        this.ready = false;
+        this.healthToken = 3;
+        this.damageTaken = 0;
+        this.direction = Direction.NORTH;
+        this.playerCurrentXPosition = 0;
+        this.playerCurrentYPosition = 0;
+        this.playerCheckpointPositionX = playerStartXPosition;
+        this.playerCheckpointPositionY = playerStartYPosition;
+        this.movedCards = new ArrayList<>();
+        this.chosenCards  =  new ArrayList<>();
+        this.playerDeck = new ArrayList<>();
+        this.flagsToVisit = new ArrayList<>(Arrays.asList(55,63,71));
+        this.cardCoordinates = new ArrayList<>(
+                Arrays.asList(5555f, 3090f,
+                        6080f, 3090f,
+                        6605f, 3090f,
+                        5555f, 2370f,
+                        6080f, 2370f,
+                        6605f, 2370f,
+                        5555f, 1640f,
+                        6080f, 1640f,
+                        6605f, 1640f));
+    }
+
 
     @Override
     public int getPlayerHealth(){
