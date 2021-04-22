@@ -1,6 +1,7 @@
 package inf112.skeleton.app.graphics;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -10,6 +11,12 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.game.*;
 import inf112.skeleton.app.game.Game;
@@ -59,8 +66,7 @@ public class Graphics implements ApplicationListener {
     private HashMap<Action, Texture> cardTextures = new HashMap<>();
     public final Game game;
     public final ArrayList<Player> singlePlayerList =new ArrayList<>();
-    TextInputListener listener = new TextInputListener();
-
+    public String enteredIp = "";
 
 
     public Graphics(Game game) {
@@ -264,19 +270,21 @@ public class Graphics implements ApplicationListener {
         //draw background
         spriteBatch.begin();
         spriteBatch.draw(menuScreenBackground, 0, 0, 1280, 720);
-        spriteBatch.end();
 
         //draw buttons
-        spriteBatch.begin();
         spriteBatch.draw(readyButton,530,250,250,150);
         spriteBatch.draw(backToMenuScreenButton,530,150,250,150);
+
+        // Draw input
+        font.draw(spriteBatch, "Enter IP address by typing...", 500, 500);
+        font.draw(spriteBatch, enteredIp, 500, 460);
         spriteBatch.end();
 
         //handle input
+
         joinGameScreenProcessor.setMouseClickCoordinates(camera);
         Gdx.input.setInputProcessor(joinGameScreenProcessor);
-        Gdx.input.getTextInput(listener, "Type your IP", "Initial Textfield Value", "Hint Value");
-        Gdx.app.log("Text", listener.text);
+        //Gdx.app.log("Text", );
     }
 
     private void renderWin() {
@@ -326,7 +334,7 @@ public class Graphics implements ApplicationListener {
             renderHostGameScreen();
             return;
         }
-        if(game.currentScreen == GameScreen.JOIN){
+        if (game.currentScreen == GameScreen.JOIN){
             renderJoinGameScreen();
             return;
         }

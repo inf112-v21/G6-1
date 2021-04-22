@@ -8,8 +8,8 @@ public class TextInputListener implements Input.TextInputListener {
 
     @Override
     public void input(String s) {
-        this.text = text;
     }
+
 
     @Override
     public void canceled() {

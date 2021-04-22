@@ -24,6 +24,17 @@ public class JoinGameScreenProcessor extends BaseInputProcessor implements Input
 
     @Override
     public boolean keyTyped(char c) {
+        // add text to ip
+        if (Character.isDigit(c) || c == '.') {
+            graphics.enteredIp += c;
+        }
+        // remove last character of ip on backspace click
+        if (c == '\b' && graphics.enteredIp.length() > 0) {
+            graphics.enteredIp = graphics.enteredIp.substring(0, graphics.enteredIp.length() - 1);
+        }
+        System.out.println("The character pressed is ");
+        System.out.println(c);
+
         return false;
     }
 
@@ -41,6 +52,12 @@ public class JoinGameScreenProcessor extends BaseInputProcessor implements Input
         if (x >= 3260 && x <= 3960) {
             if (y <= 1267 && y >= 1029) {
                 graphics.game.currentScreen = GameScreen.MENU;
+            }
+            if (y <= 1960 && y >= 1722){
+                // TODO figure out how to connect to the following IP: graphics.enteredIp
+
+                // Once connected show the host screen
+                graphics.game.currentScreen = GameScreen.HOST;
             }
         }
         return false;
