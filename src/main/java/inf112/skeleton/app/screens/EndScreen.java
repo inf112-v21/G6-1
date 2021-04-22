@@ -3,7 +3,10 @@ package inf112.skeleton.app.screens;
 import com.badlogic.gdx.Gdx;
 import inf112.skeleton.app.game.BaseInputProcessor;
 import inf112.skeleton.app.game.GameScreen;
+import inf112.skeleton.app.game.GameType;
 import inf112.skeleton.app.graphics.Graphics;
+import inf112.skeleton.app.player.HumanPlayer;
+import inf112.skeleton.app.shared.Color;
 
 public class EndScreen extends BaseInputProcessor {
     Graphics graphics;
@@ -21,6 +24,8 @@ public class EndScreen extends BaseInputProcessor {
             if(y <= 2030 && y >= 1680) {
                 System.out.println("Play again button click");
                 graphics.game.currentScreen = GameScreen.MENU;
+                graphics.game.typeOfGameStarted = GameType.NONE;
+                graphics.singlePlayer.newHumanPlayer(0, Color.GREEN, 0,0);
 
             } else if (y <= 1330 && y >= 980) {
                 System.out.println("Exit button click");

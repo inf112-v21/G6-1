@@ -237,12 +237,12 @@ public class Game implements IGame {
             allPlayerMoves = new HashMap<>();
         }
     }
-/*
+
     public boolean getConnection(){
         return client.getConnection();
     }
 
- */
+
 
     /**
      * Finds the largest size of a list found in the playerMoves across all keys.
@@ -400,11 +400,6 @@ public class Game implements IGame {
             player.playerCurrentXPosition = useThisToUpdateCoordinates.get(0);
             player.playerCurrentYPosition = useThisToUpdateCoordinates.get(1);
         }
-    }
-
-
-    public boolean getConnection() {
-        return client.getConnection();
     }
 
 
