@@ -235,7 +235,12 @@ public class Game implements IGame {
         }
     }
 
-
+    /**
+     * Finds the largest size of a list found in the playerMoves across all keys.
+     *
+     * @param playerMoves
+     * @return
+     */
     public int findMaxValue( HashMap<Integer, ArrayList<Card>> playerMoves){
         int maxValue = 0;
         Set<Integer> keySet = playerMoves.keySet();
@@ -248,15 +253,19 @@ public class Game implements IGame {
         return maxValue;
     }
 
+    /**
+     * Finds the player(s) to move, based on which players hold the highest amount of cards.
+     *
+     * @return Returns all the players which havent played their card yet in a hashmap
+     */
+
     public HashMap<Integer, ArrayList<Card>> playersToMove(){
         HashMap<Integer, ArrayList<Card>> playerMoves = playerMoves();
         int maxValue = findMaxValue(playerMoves);
         Set<Integer> keySet = playerMoves.keySet();
         HashMap<Integer, ArrayList<Card>> playersToMove = new HashMap<>();
 
-
         for(Integer key : keySet){
-            System.out.println("lengt of cardlist " +playerMoves.get(key).size() + " id of player " + key);
             if(playerMoves.get(key).size() != 0 && playerMoves.get(key).size() == maxValue){
                 playersToMove.put(key, playerMoves.get(key));
             }
@@ -264,22 +273,29 @@ public class Game implements IGame {
         return playersToMove;
     }
 
+    /**
+     * Uses the hashmap from playersToMove and checks which of the players has played the card with the
+     * highest priority
+     *
+     * @return
+     */
+
     public HashMap<Integer, ArrayList<Card>> moveThisPlayer(){
 
         HashMap<Integer, ArrayList<Card>> playerMoves = playersToMove();
         HashMap<Integer, ArrayList<Card>> moveThisPlayer = new HashMap<>();
 
         Set<Integer> keySet = playerMoves.keySet();
-        int maxValue = 0;
+        int higestValuedPriorityCard = 0;
         Player player = null;
 
         for(Integer key : keySet){
-            if(playerMoves.get(key).get(0).priority > maxValue){
+            if(playerMoves.get(key).get(0).priority > higestValuedPriorityCard){
 
                 ArrayList<Card> cardToPlay = new ArrayList<>();
                 moveThisPlayer = new HashMap<>();
 
-                maxValue = playerMoves.get(key).get(0).priority;
+                higestValuedPriorityCard = playerMoves.get(key).get(0).priority;
                 player = players.get(key);
                 
                 cardToPlay.add(playerMoves.get(key).get(0));
@@ -291,34 +307,26 @@ public class Game implements IGame {
         System.out.println("Chosen cards after  " +  player.chosenCards.size() + "id " + player.id);
         return moveThisPlayer;
     }
-    boolean test = false;
-    int cardCount = 0;
+    boolean runOnceAtStartOfRound = false;
+    int countCardsPlayedPerRound = 0;
 
     public void keepPlaying() {
-
         if (!allPlayerMoves.isEmpty()) {
-            cardCount++;
-            int count = players.size() * 5;
-
-            System.out.println(cardCount + "cardcount ");
-            System.out.println("count " + count);
-            //checkpoint.findCheckpoints(player, layer.checkpoint);
-
-
-            if (cardCount == count+1) {
+            countCardsPlayedPerRound++;
+            int amountOfCardsToBePlayedEachRound = players.size() * 5;
+            if (countCardsPlayedPerRound == amountOfCardsToBePlayedEachRound+1) {
                 myHumanPlayer.resetPlayer(myHumanPlayer);
                 resetOtherPlayers(players);
                 allPlayerMoves = new HashMap<>();
-                cardCount = 0;
-                test = false;
-                System.out.println("ER vi ferdig?????");
+                countCardsPlayedPerRound = 0;
+                runOnceAtStartOfRound = false;
             }
         }
     }
     public void boardItemsMove(Player player, TileLayers layer){
-        int count = players.size() * 5;
-        if(cardCount % players.size()  == 0 && cardCount <= count+1) {
-            System.out.println(" % "+ players.size() % cardCount);
+        int amountOfCardsToBePlayedEachRound = players.size() * 5;
+        if(countCardsPlayedPerRound % players.size()  == 0 &&
+                countCardsPlayedPerRound <= amountOfCardsToBePlayedEachRound+1) {
             boardItems.activateBoardItems(players, layer);
             checkpoint.findCheckpoints(player, layer.checkpoint);
         }
@@ -326,9 +334,9 @@ public class Game implements IGame {
     public void multiplayerRound(TileLayers layer){
         keepPlaying();
         if(!allPlayerMoves.isEmpty()) {
-            if(test == false ){
+            if(runOnceAtStartOfRound == false ){
                 giveAllPlayersCardObjects(allPlayerMoves);
-                test = true;
+                runOnceAtStartOfRound = true;
             }
 
             HashMap<Integer, ArrayList<Card>> moveThisPlayer = moveThisPlayer();
