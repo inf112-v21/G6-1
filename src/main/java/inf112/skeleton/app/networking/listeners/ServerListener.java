@@ -41,7 +41,7 @@ public class ServerListener extends Listener {
         playerIdPacket.playerNumber = numberOfPlayers;
         server.sendToAllTCP(playerIdPacket);
 
-        if (numberOfPlayers >= 2) {
+        if (numberOfPlayers >= 3) {
 
             Packets.playerInfo updatedPlayerInfo = new Packets.playerInfo();
             updatedPlayerInfo.playerInfo = playerInfoGlobal;
