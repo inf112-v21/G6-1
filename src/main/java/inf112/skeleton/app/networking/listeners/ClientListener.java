@@ -77,7 +77,7 @@ public class ClientListener extends Listener {
              Packets.SendAction receivedActionsFromAll = (Packets.SendAction) object;
              game.allPlayerMoves=receivedActionsFromAll.actionList;
              clientHasSentCards = false;
-             System.out.println(receivedActionsFromAll.actionList);a
+             System.out.println(receivedActionsFromAll.actionList);
          }
 
         if (object instanceof Packets.PlayerNumberPacket) {
