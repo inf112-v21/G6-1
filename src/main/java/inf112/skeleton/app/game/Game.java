@@ -294,7 +294,7 @@ public class Game implements IGame {
     boolean test = false;
     int cardCount = 0;
 
-    public void keepPlaying(Player player, TileLayers layer) {
+    public void keepPlaying() {
 
         if (!allPlayerMoves.isEmpty()) {
             cardCount++;
@@ -302,10 +302,9 @@ public class Game implements IGame {
 
             System.out.println(cardCount + "cardcount ");
             System.out.println("count " + count);
-            checkpoint.findCheckpoints(player, layer.checkpoint);
-            if(players.size() % count == 0) {
-                boardItems.activateBoardItems(players, layer);
-            }
+            //checkpoint.findCheckpoints(player, layer.checkpoint);
+
+
             if (cardCount == count+1) {
                 myHumanPlayer.resetPlayer(myHumanPlayer);
                 resetOtherPlayers(players);
@@ -316,8 +315,15 @@ public class Game implements IGame {
             }
         }
     }
+    public void boardItemsMove(Player player, TileLayers layer){
+        int count = players.size() * 5;
+        if(cardCount % players.size()  == 0 && cardCount <= count+1) {
+            System.out.println(" % "+ players.size() % cardCount);
+            boardItems.activateBoardItems(players, layer);
+        }
+    }
     public void multiplayerRound(TileLayers layer){
-
+        keepPlaying();
         if(!allPlayerMoves.isEmpty()) {
             if(test == false ){
                 giveAllPlayersCardObjects(allPlayerMoves);
@@ -329,7 +335,7 @@ public class Game implements IGame {
             Player player = players.get(playerId);
             Card move = moveThisPlayer.get(playerId).get(0);
             player.doPlayerMove(move, layer);
-            keepPlaying(player, layer);
+            boardItemsMove(player,layer);
             try {
                 Thread.sleep(1000);
 
