@@ -282,7 +282,7 @@ public class Game implements IGame {
                 maxValue = playerMoves.get(key).get(0).priority;
                 player = players.get(key);
                 
-                cardToPlay.add(playerMoves.get(key).remove(0));
+                cardToPlay.add(playerMoves.get(key).get(0));
                 moveThisPlayer.put(key,cardToPlay);
             }
         }
@@ -292,13 +292,25 @@ public class Game implements IGame {
         return moveThisPlayer;
     }
     boolean test = false;
+    int cardCount = 0;
+
+    public void keepPlaying() {
+        cardCount++;
+        if (!allPlayerMoves.isEmpty()) {
+            int count = players.size() * 5;
+            if (cardCount == count) {
+                allPlayerMoves = new HashMap<>();
+            }
+        }
+    }
     public void multiplayerRound(TileLayers layer){
+        keepPlaying();
         if(!allPlayerMoves.isEmpty()) {
             if(test == false ){
                 giveAllPlayersCardObjects(allPlayerMoves);
                 test = true;
             }
-            
+
             HashMap<Integer, ArrayList<Card>> moveThisPlayer = moveThisPlayer();
             int playerId = (int) moveThisPlayer.keySet().toArray()[0];
             Player player = players.get(playerId);
