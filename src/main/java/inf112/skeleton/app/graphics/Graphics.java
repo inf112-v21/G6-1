@@ -59,6 +59,7 @@ public class Graphics implements ApplicationListener {
     private HashMap<Action, Texture> cardTextures = new HashMap<>();
     public final Game game;
     public final ArrayList<Player> singlePlayerList =new ArrayList<>();
+    TextInputListener listener = new TextInputListener();
 
 
 
@@ -269,11 +270,10 @@ public class Graphics implements ApplicationListener {
         spriteBatch.end();
 
         //handle input
-        TextInputListener listener = new TextInputListener();
-        Gdx.input.getTextInput(listener, "Dialog Title", "Initial Textfield Value", "Hint Value");
         joinGameScreenProcessor.setMouseClickCoordinates(camera);
         Gdx.input.setInputProcessor(joinGameScreenProcessor);
-
+        Gdx.input.getTextInput(listener, "Type your IP", "Initial Textfield Value", "Hint Value");
+        Gdx.app.log("Text", listener.text);
     }
 
     private void renderWin() {
@@ -327,7 +327,6 @@ public class Graphics implements ApplicationListener {
             renderJoinGameScreen();
             return;
         }
-
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, 1280, 720);
         spriteBatch.end();
