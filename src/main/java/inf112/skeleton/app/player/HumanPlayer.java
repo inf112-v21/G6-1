@@ -1,6 +1,7 @@
 package inf112.skeleton.app.player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.math.Vector3;
 import inf112.skeleton.app.BoardItems.*;
 import inf112.skeleton.app.card.Card;
 import com.badlogic.gdx.InputProcessor;
+import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
 import inf112.skeleton.app.card.CardMoveLogic;
@@ -41,6 +43,36 @@ public class HumanPlayer extends Player {
         cardMoveLogic = new CardMoveLogic();
         mouseClickPosition = new Vector3();
     }
+
+
+    @Override
+    public void newHumanPlayer (int id, Color color, float playerStartXPosition,float playerStartYPosition){
+        this.id = id;
+        this.color = color;
+        this.ready = false;
+        this.healthToken = 3;
+        this.damageTaken = 0;
+        this.direction = Direction.NORTH;
+        this.playerCurrentXPosition = 0;
+        this.playerCurrentYPosition = 0;
+        this.playerCheckpointPositionX = playerStartXPosition;
+        this.playerCheckpointPositionY = playerStartYPosition;
+        this.movedCards = new ArrayList<>();
+        this.chosenCards  =  new ArrayList<>();
+        this.playerDeck = new ArrayList<>();
+        this.flagsToVisit = new ArrayList<>(Arrays.asList(55,63,71));
+        this.cardCoordinates = new ArrayList<>(
+                Arrays.asList(5555f, 3090f,
+                        6080f, 3090f,
+                        6605f, 3090f,
+                        5555f, 2370f,
+                        6080f, 2370f,
+                        6605f, 2370f,
+                        5555f, 1640f,
+                        6080f, 1640f,
+                        6605f, 1640f));
+    }
+
 
     @Override
     public int getPlayerHealth(){
@@ -181,23 +213,29 @@ public class HumanPlayer extends Player {
         float checkXPosition;
         float checkYPosition;
         float moveCardAction = moveCard.action.getAction();
+        if(moveCard.action == Action.BACK_UP){
+            moveCardAction = moveCardAction *(-1);
+        }
         ArrayList<Float> nextCoordinatesToCheck;
 
         for(float movement = 0; movement <= moveCardAction; movement+=300){
-            nextCoordinatesToCheck = getCoordinatesToCheck(movement);
+
+            nextCoordinatesToCheck = getCoordinatesToCheck(movement, moveCard);
             checkXPosition = nextCoordinatesToCheck.get(0);
             checkYPosition = nextCoordinatesToCheck.get(1);
             collidedWithWall= walls.hasPlayerCollidedWithWall(wall,this,
-                    normalizedCoordinates(checkXPosition), normalizedCoordinates(checkYPosition));
+                    normalizedCoordinates(checkXPosition), normalizedCoordinates(checkYPosition), moveCard);
 
             if(!isPlayerOnBoard(checkXPosition,checkYPosition)){
                 break;
             }
             else if(collidedWithWall == 0){
+                System.out.println("returned " + collidedWithWall);
                 wallCollisionHandler(checkXPosition,checkYPosition);
                 break;
             }else if(collidedWithWall == 1){
                 wallCollisionHandler(this.getPlayerXPosition(), this.getPlayerYPosition());
+
                 break;
             }else{
                 setPlayerNewLocation(checkXPosition, checkYPosition);
@@ -214,13 +252,18 @@ public class HumanPlayer extends Player {
      * @param amountOfMovement
      * @return
      */
-    public ArrayList<Float> getCoordinatesToCheck(float amountOfMovement){
+    public ArrayList<Float> getCoordinatesToCheck(float amountOfMovement, Card card){
         ArrayList<Float> coordinatesToCheck = new ArrayList<>();
         float newPosition = 0;
         float checkXPosition = this.getPlayerXPosition();
         float checkYPosition = this.getPlayerYPosition();;
         if (amountOfMovement != 0) {
             newPosition =  300 * this.direction.getMoveDirection();
+            if(card.action == Action.BACK_UP){
+
+                newPosition = -newPosition;
+
+            }
         }
         if(walls.getPlayerXYDirection(this) == 'x'){
             checkXPosition = newPosition + this.getPlayerXPosition();
@@ -230,6 +273,7 @@ public class HumanPlayer extends Player {
         }
         coordinatesToCheck.add(checkXPosition);
         coordinatesToCheck.add(checkYPosition);
+        System.out.println(coordinatesToCheck);
         return coordinatesToCheck;
     }
 

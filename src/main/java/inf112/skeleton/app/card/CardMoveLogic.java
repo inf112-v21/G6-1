@@ -133,7 +133,7 @@ public class CardMoveLogic {
             for(Card card : deck){
                 if (card.priority == pri && card.action == action){
                     cardsAsObject.add(card);
-                    System.out.println(card.priority + "pri" + card.action + "action");
+
                 }
             }
         }
