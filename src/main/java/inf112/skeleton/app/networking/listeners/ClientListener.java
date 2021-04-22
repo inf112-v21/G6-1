@@ -68,7 +68,7 @@ public class ClientListener extends Listener {
     public void received(Connection c, Object object) {
 
 
-        if (game.myHumanPlayer != null && game.myHumanPlayer.ready) {
+        if (game.myHumanPlayer != null && game.myHumanPlayer.ready && clientHasSentCards == false) {
             System.out.println("Thomas har fått vite at jeg er klar" + game.myHumanPlayer.id);
             Packets.SendAction HereIsMyCards = new Packets.SendAction();
             HereIsMyCards.actionList = game.getPlayerActionList();
