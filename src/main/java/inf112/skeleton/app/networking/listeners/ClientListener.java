@@ -31,6 +31,7 @@ public class ClientListener extends Listener {
 
 
 
+
     /**
      * Initializes the listener class.
      * @param client Kryonet client that is connected to the server.
@@ -128,4 +129,7 @@ public class ClientListener extends Listener {
         return cListener.getConnection();
     }
 
+    public boolean getC() {
+        return c;
+    }
 }
