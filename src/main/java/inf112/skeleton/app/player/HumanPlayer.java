@@ -77,6 +77,10 @@ public class HumanPlayer extends Player {
 
     }
 
+    @Override
+    public boolean isPlayerAlive(){
+        return this.healthToken <= 0;
+    }
 
     @Override
     public float setPlayerStartXPosition(float playerStartXPosition){

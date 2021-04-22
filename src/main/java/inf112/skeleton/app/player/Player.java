@@ -173,6 +173,14 @@ public abstract class Player extends BaseInputProcessor {
      */
     public abstract void dealDamageToPlayer();
 
+    /**
+     * If the players healthToken is more than zero the player is alive
+     * and the function will return true.
+     * If the players healtToken in zero the player is dead
+     * and the function will return false.
+     * @return boolean
+     */
+    public abstract boolean isPlayerAlive();
 
     /**
      * Takes a life from a player
