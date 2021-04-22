@@ -237,6 +237,12 @@ public class Game implements IGame {
             allPlayerMoves = new HashMap<>();
         }
     }
+/*
+    public boolean getConnection(){
+        return client.getConnection();
+    }
+
+ */
 
 
     /**
@@ -264,6 +270,12 @@ public class Game implements IGame {
             player.playerCurrentYPosition = useThisToUpdateCoordinates.get(1);
         }
     }
+
+
+    public boolean getConnection() {
+        return client.getConnection();
+    }
+
 
 
 }

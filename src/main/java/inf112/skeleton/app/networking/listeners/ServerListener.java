@@ -12,6 +12,7 @@ import java.util.Set;
 
 public class ServerListener extends Listener {
     private final Server server;
+    public boolean gotPackage = false;
 
     private final HashMap<Integer, ArrayList<HashMap<Integer, Action>>> cardsReceived;
     private int numberOfPlayers = 0;
@@ -27,6 +28,7 @@ public class ServerListener extends Listener {
         this.server = server;
         cardsReceived = new HashMap<>();
     }
+
 
 
     public void connected(Connection connection) {
@@ -120,6 +122,10 @@ public class ServerListener extends Listener {
                 checkIfAllClientsAreReady = 0;
 
             }
+        } else if (object instanceof Packets.TestPack) {
+            System.out.println("Server got test pack");
+            Packets.TestPack packet = (Packets.TestPack) object;
+            gotPackage = true;
         }
 
 

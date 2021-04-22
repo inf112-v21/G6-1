@@ -65,6 +65,9 @@ public class GameServer implements Runnable {
         server.stop();
     }
 
+    public Server getServer() { return server; }
+
+
     public InetAddress getAddress() {
         return address;
     }
