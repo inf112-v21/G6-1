@@ -3,29 +3,20 @@ package inf112.skeleton.app.networking.listeners;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
-import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.networking.packets.Packets;
-import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.shared.Action;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Set;
 
 
 public class ServerListener extends Listener {
     private final Server server;
-    private final boolean[] allPlayersReady;
+
     private final HashMap<Integer, ArrayList<HashMap<Integer, Action>>> cardsReceived;
     private int numberOfPlayers = 0;
-    private final String[] playerNames;
-    public final boolean[] ShutdownPlayer;
-    public final int MAX_PLAYERS = 3;
     public HashMap<Integer, ArrayList<Float>> playerInfoGlobal = new HashMap<>();
     private int checkIfAllClientsAreReady=0;
-
 
 
     /**
@@ -34,15 +25,7 @@ public class ServerListener extends Listener {
      */
     public ServerListener(Server server) {
         this.server = server;
-        playerNames = new String[MAX_PLAYERS];
         cardsReceived = new HashMap<>();
-        allPlayersReady = new boolean[MAX_PLAYERS];
-        ShutdownPlayer = new boolean[MAX_PLAYERS];
-
-
-        for (int i = 0; i < MAX_PLAYERS; i++) {
-            ShutdownPlayer[i] = false;
-        }
     }
 
 
@@ -57,10 +40,6 @@ public class ServerListener extends Listener {
         Packets.PlayerIdPacket playerIdPacket = new Packets.PlayerIdPacket();
         playerIdPacket.playerNumber = numberOfPlayers;
         server.sendToAllTCP(playerIdPacket);
-
-        Packets.SendMapNameToPlayer sendMapNameToPlayer = new Packets.SendMapNameToPlayer();
-        server.sendToAllTCP(sendMapNameToPlayer);
-
 
         if (numberOfPlayers >= 2) {
 
@@ -83,7 +62,6 @@ public class ServerListener extends Listener {
     public void disconnected(Connection connection) {
         System.out.println("Player: (" + numberOfPlayers + ") has been disconnected");
         numberOfPlayers--;
-        playerNames[connection.getID()] = null;
         Packets.PlayerNumberPacket numberOfPlayers = new Packets.PlayerNumberPacket();
         numberOfPlayers.numberOfPlayersConnected = this.numberOfPlayers;
         server.sendToAllTCP(numberOfPlayers);
@@ -104,27 +82,9 @@ public class ServerListener extends Listener {
      */
     public void received(Connection connection, Object object) {
 
-        if (object instanceof Packets.CardsPacket) {
 
 
-        } else if (object instanceof Packets.StartSignalPacket) {
-            Packets.StartSignalPacket startSignalPacket = (Packets.StartSignalPacket) object;
-            server.sendToAllTCP(startSignalPacket);
-
-        } else if (object instanceof Packets.StartGamePackage) {
-            Packets.StartGamePackage ready = (Packets.StartGamePackage) object;
-            allPlayersReady[connection.getID()] = ready.signal;
-            ready.allReady = allPlayersReady;
-            server.sendToAllTCP(ready);
-
-        } else if (object instanceof Packets.ShutDownRobotPacket) {
-            Packets.ShutDownRobotPacket robotShutdown = (Packets.ShutDownRobotPacket) object;
-            ShutdownPlayer[connection.getID()] = true;
-            robotShutdown.playersShutdown = ShutdownPlayer;
-            server.sendToAllTCP(robotShutdown);
-            ShutdownPlayer[connection.getID()] = false;
-
-        } else if (object instanceof Packets.RemovePlayerPacket) {
+        if (object instanceof Packets.RemovePlayerPacket) {
             numberOfPlayers--;
             Packets.PlayerNumberPacket numberOfPlayersConnected = new Packets.PlayerNumberPacket();
             numberOfPlayersConnected.numberOfPlayersConnected = numberOfPlayers;
