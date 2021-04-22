@@ -308,6 +308,7 @@ public class Game implements IGame {
                 resetOtherPlayers(players);
                 allPlayerMoves = new HashMap<>();
                 cardCount = 0;
+                test = false;
                 System.out.println("ER vi ferdig?????");
             }
         }
