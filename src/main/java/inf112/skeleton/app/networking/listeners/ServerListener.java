@@ -3,6 +3,7 @@ package inf112.skeleton.app.networking.listeners;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
+import inf112.skeleton.app.game.HostGameScreenProcessor;
 import inf112.skeleton.app.networking.packets.Packets;
 import inf112.skeleton.app.shared.Action;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import java.util.Set;
 public class ServerListener extends Listener {
     private final Server server;
     public boolean gotPackage = false;
+    public HostGameScreenProcessor HGSP;
 
     private final HashMap<Integer, ArrayList<HashMap<Integer, Action>>> cardsReceived;
     private int numberOfPlayers = 0;
@@ -42,7 +44,7 @@ public class ServerListener extends Listener {
         Packets.PlayerIdPacket playerIdPacket = new Packets.PlayerIdPacket();
         playerIdPacket.playerNumber = numberOfPlayers;
         server.sendToAllTCP(playerIdPacket);
-
+/**
         if (numberOfPlayers >= 2) {
 
             Packets.playerInfo updatedPlayerInfo = new Packets.playerInfo();
@@ -51,9 +53,9 @@ public class ServerListener extends Listener {
 
 
             this.startGameSession();
-
+*/
         }
-    }
+
 
 
     /**
@@ -84,12 +86,20 @@ public class ServerListener extends Listener {
      */
     public void received(Connection connection, Object object) {
 
+        if (object instanceof Packets.StartGamePackage) {
 
+            Packets.playerInfo updatedPlayerInfo = new Packets.playerInfo();
+            updatedPlayerInfo.playerInfo = playerInfoGlobal;
+            updatedPlayerInfo.firstPacket = true;
+            server.sendToAllTCP(updatedPlayerInfo);
+
+            this.startGameSession();
+
+        }
 
         if (object instanceof Packets.playerInfo) {
             System.out.println("Motatt!");
             Packets.playerInfo playerInfo = (Packets.playerInfo) object;
-            System.out.println(playerInfo.playerInfo);
             Set<Integer> findPlayerIdKey = playerInfo.playerInfo.keySet();
 
             for (Integer key: findPlayerIdKey) {
@@ -127,6 +137,7 @@ public class ServerListener extends Listener {
             Packets.TestPack packet = (Packets.TestPack) object;
             gotPackage = true;
         }
+
 
 
 

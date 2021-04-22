@@ -4,6 +4,7 @@ import inf112.skeleton.app.graphics.Graphics;
 
 public class HostGameScreenProcessor extends BaseInputProcessor {
     final Graphics graphics;
+    public boolean startGame = false;
 
     public HostGameScreenProcessor(Graphics graphics){
         super();
@@ -41,7 +42,8 @@ public class HostGameScreenProcessor extends BaseInputProcessor {
                 System.out.println("Host click");
                 graphics.game.typeOfGameStarted = GameType.NETWORK_HOST;
                 graphics.game.currentScreen = GameScreen.GAME;
-                graphics.game.hostNewGame("RiskyExchange.tmx");
+
+                startGame = true;
             }
             if(y <= 1267 && y >= 1029) {
                 graphics.game.currentScreen = GameScreen.MENU;
