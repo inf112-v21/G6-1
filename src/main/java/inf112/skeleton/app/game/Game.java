@@ -1,7 +1,6 @@
 package inf112.skeleton.app.game;
 
 
-import com.badlogic.gdx.InputProcessor;
 import inf112.skeleton.app.BoardItems.*;
 import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.card.CardMoveLogic;
@@ -19,19 +18,15 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.*;
 
-public class Game implements IGame, InputProcessor {
+public class Game implements IGame {
 
-    /** The number of players in this game */
-    private int numberOfPlayers;
-    /** The current players in this game */
-    public HashMap<Integer, HumanPlayer> idPlayerHashMap;
+
     public Player myHumanPlayer;
     public ArrayList<Player> players = new ArrayList<>();
     public HashMap<Integer, ArrayList<HashMap<Integer, Action>>> allPlayerMoves = new HashMap<>();
     GameServer server;
     GameClient client;
     public int myId;
-    private boolean host;
     BoardItems boardItems = new BoardItems();
     public CheckPoint checkpoint = new CheckPoint();
     public GameType typeOfGameStarted = GameType.NONE;
@@ -92,7 +87,6 @@ public class Game implements IGame, InputProcessor {
         server = new GameServer(map);
         server.run();
         client = new GameClient(server.getAddress(),Game.this);
-        host = true;
         return server.getAddress();
     }
 
@@ -259,106 +253,13 @@ public class Game implements IGame, InputProcessor {
         }
     }
 
-    // TODO delete
-    public void dealPlayerDeck(Player player) {
-        player.cardCoordinates = cardMoveLogic.resetCardCoordinates();
-        player.playerDeck = cardMoveLogic.playerDeck();
-    }
-    //TODO delete
-    public void dealPlayerDecks() {
-        for (Player player: players) {
-            dealPlayerDeck(player);
-        }
-    }
-    //TODO delete
-    public void setNumberOfPlayers(int numberOfPlayers) {
-        this.numberOfPlayers = numberOfPlayers;
-        createPlayers(numberOfPlayers-1);
-    }
-
-    // TODO delete this
-    @Override
-    public HumanPlayer createPlayers(int playerNumber) {
-        System.out.println("Creating player ID " + playerNumber);
-        float startPositionX = playerNumber*300;
-        Color playerColor = Color.getPlayerColor(playerNumber);
-        HumanPlayer humanPlayer = new HumanPlayer(Direction.NORTH, playerNumber, playerColor);
-        humanPlayer.playerDeck = cardMoveLogic.playerDeck();
-        humanPlayer.id = playerNumber;
-        humanPlayer.setPlayerStartXPosition(startPositionX);
-        players.add(humanPlayer);
-        return humanPlayer;
-    }
-
-    // TODO trenger vi denne?
     public void updatePlayerInfo(HashMap<Integer, ArrayList<Float>> playerInfo) {
         for (Player player : players) {
             ArrayList<Float> useThisToUpdateCoordinates = playerInfo.get(player.id);
             player.playerCurrentXPosition = useThisToUpdateCoordinates.get(0);
             player.playerCurrentYPosition = useThisToUpdateCoordinates.get(1);
         }
-
-    }
-    //TODO delete
-    public boolean getConnection(){
-        return client.getConnection();
-    }
-    //TODO trenger vi denne?
-    public int getId() {
-        return client.getId();
     }
 
-    /**
-     *
-     * @return Returns number of people in the game.
-     */
-    //TODO delete
-    public int getNumberOfPlayers() {
-        return numberOfPlayers;
-    }
-
-    //TODO delete
-    public void setMyHumanPlayer(HumanPlayer humanPlayer) {
-        myHumanPlayer = humanPlayer;
-    }
-
-    //TODO Hvorfor har vi InpPro her???
-    @Override
-    public boolean keyDown(int i) { return true; }
-
-    @Override
-    public boolean keyUp(int i) {
-        return false;
-    }
-
-    @Override
-    public boolean keyTyped(char c) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int i, int i1, int i2, int i3) {
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int i, int i1, int i2, int i3) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int i, int i1, int i2) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int i, int i1) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(int i) {
-        return false;
-    }
 
 }
