@@ -33,7 +33,7 @@ public class Graphics implements ApplicationListener {
     public Texture background;
     public Texture menuScreenBackground;
     public Texture youWin, youLose;
-    public Texture exitButton, returnButton;
+    public Texture exitButton, playAgainButton;
     public Texture reset, notReset;
     public Texture ready, notReady;
     public Texture emptyDamageToken, damageToken1, damageToken2, damageToken3,
@@ -188,7 +188,7 @@ public class Graphics implements ApplicationListener {
 
         //End screen textures
         exitButton = new Texture("ExitButton.png"); //TODO might change later
-        returnButton = new Texture("ReturnButton.png");
+        playAgainButton = new Texture("ReturnButton.png");
     }
     /**
      * temp runs a single-player gui
@@ -285,7 +285,7 @@ public class Graphics implements ApplicationListener {
         spriteBatch.end();
 
         spriteBatch.begin();
-        spriteBatch.draw(returnButton, 530, 250, 250, 150);
+        spriteBatch.draw(playAgainButton, 530, 250, 250, 150);
         spriteBatch.end();
 
         spriteBatch.begin();
@@ -302,7 +302,7 @@ public class Graphics implements ApplicationListener {
         spriteBatch.end();
 
         spriteBatch.begin();
-        spriteBatch.draw(returnButton, 530, 250, 250, 150);
+        spriteBatch.draw(playAgainButton, 530, 250, 250, 150);
         spriteBatch.end();
 
         spriteBatch.begin();
@@ -357,18 +357,23 @@ public class Graphics implements ApplicationListener {
         }
         tiledMapRenderer.getBatch().end();
 
-        if (singlePlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"))) {
+        //the player gets a win screen after visiting all the flags
+        if (isWinner()) {
             if(game.winScreen== GameScreen.WIN) {
-                //System.out.println("You Won!");
                 renderWin();
+
             }
         }
-
-        if(singlePlayer.getPlayerDamageTaken() == 10 || singlePlayer.getPlayerHealth() == 0){
+        //the player gets a lose screen when the player dies or loses against other players
+        if(singlePlayer.isPlayerAlive()){
             if(game.loseScreen == GameScreen.LOSE){
                 renderLose();
             }
         }
+    }
+
+    public boolean isWinner(){
+        return singlePlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"));
     }
 
     public void readyButtonIndicator(){
