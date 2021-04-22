@@ -59,7 +59,7 @@ public class HumanPlayer extends Player {
         this.playerCheckpointPositionY = playerStartYPosition;
         this.movedCards = new ArrayList<>();
         this.chosenCards  =  new ArrayList<>();
-        this.playerDeck = new ArrayList<>();
+        this.playerDeck = cardMoveLogic.playerDeck();
         this.flagsToVisit = new ArrayList<>(Arrays.asList(55,63,71));
         this.cardCoordinates = new ArrayList<>(
                 Arrays.asList(5555f, 3090f,
@@ -370,7 +370,12 @@ public class HumanPlayer extends Player {
     @Override
     public boolean scrolled(int i) {return false;}
     @Override
-    public boolean keyDown(int keyPressed) {return false;}
+    public boolean keyDown(int keyPressed) {
+        if(keyPressed == Input.Keys.UP) updatePlayerYPosition(getPlayerYPosition()+300);
+        if(keyPressed == Input.Keys.DOWN) updatePlayerYPosition(getPlayerYPosition()-300);
+        if(keyPressed == Input.Keys.RIGHT) updatePlayerXPosition(getPlayerXPosition()+300);
+        if(keyPressed == Input.Keys.LEFT) updatePlayerXPosition(getPlayerXPosition()-300);
+        return false;}
     @Override
     public boolean keyUp(int keyPressed) { return false;}
     @Override
