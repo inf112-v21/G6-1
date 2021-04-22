@@ -39,11 +39,11 @@ public class HostGameScreenProcessor extends BaseInputProcessor {
         System.out.println("Touch in menu input " + x + ", " + y);
         if (x >= 3260 && x <= 3960) {
             if (y <= 1950 && y >= 1722) {
-                startGame = true;
                 System.out.println("Host click");
                 graphics.game.typeOfGameStarted = GameType.NETWORK_HOST;
                 graphics.game.currentScreen = GameScreen.GAME;
-                graphics.game.hostNewGame();
+
+                startGame = true;
             }
             if(y <= 1267 && y >= 1029) {
                 graphics.game.currentScreen = GameScreen.MENU;

@@ -14,7 +14,7 @@ import java.util.Set;
 public class ServerListener extends Listener {
     private final Server server;
     public boolean gotPackage = false;
-    private HostGameScreenProcessor HGSP;
+    public HostGameScreenProcessor HGSP;
 
     private final HashMap<Integer, ArrayList<HashMap<Integer, Action>>> cardsReceived;
     private int numberOfPlayers = 0;
@@ -55,7 +55,7 @@ public class ServerListener extends Listener {
             this.startGameSession();
 */
         }
-    }
+
 
 
     /**
@@ -86,7 +86,7 @@ public class ServerListener extends Listener {
      */
     public void received(Connection connection, Object object) {
 
-        if (HGSP.startGame) {
+        if (HGSP != null && HGSP.startGame) {
 
             Packets.playerInfo updatedPlayerInfo = new Packets.playerInfo();
             updatedPlayerInfo.playerInfo = playerInfoGlobal;
