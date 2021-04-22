@@ -236,9 +236,8 @@ public class Game implements IGame {
     }
 
 
-    public int findMaxValue(){
+    public int findMaxValue( HashMap<Integer, ArrayList<Card>> playerMoves){
         int maxValue = 0;
-        HashMap<Integer, ArrayList<Card>> playerMoves = playerMoves();
         Set<Integer> keySet = playerMoves.keySet();
 
         for(Integer key : keySet){
@@ -250,8 +249,8 @@ public class Game implements IGame {
     }
 
     public HashMap<Integer, ArrayList<Card>> playersToMove(){
-        int maxValue = findMaxValue();
         HashMap<Integer, ArrayList<Card>> playerMoves = playerMoves();
+        int maxValue = findMaxValue(playerMoves);
         Set<Integer> keySet = playerMoves.keySet();
         HashMap<Integer, ArrayList<Card>> playersToMove = new HashMap<>();
 
@@ -287,14 +286,19 @@ public class Game implements IGame {
                 moveThisPlayer.put(key,cardToPlay);
             }
         }
+        System.out.println("Chosen cards before " + player.chosenCards.size() + "id " + player.id);
         player.chosenCards.remove(0);
+        System.out.println("Chosen cards after  " +  player.chosenCards.size() + "id " + player.id);
         return moveThisPlayer;
     }
-
+    boolean test = false;
     public void multiplayerRound(TileLayers layer){
         if(!allPlayerMoves.isEmpty()) {
-
-            giveAllPlayersCardObjects(allPlayerMoves);
+            if(test == false ){
+                giveAllPlayersCardObjects(allPlayerMoves);
+                test = true;
+            }
+            
             HashMap<Integer, ArrayList<Card>> moveThisPlayer = moveThisPlayer();
             int playerId = (int) moveThisPlayer.keySet().toArray()[0];
             Player player = players.get(playerId);

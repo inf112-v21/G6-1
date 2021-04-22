@@ -161,7 +161,6 @@ public class HumanPlayer extends Player implements InputProcessor {
 
     @Override
     public void doPlayerMove(Card card, TileLayers tileLayers){
-        System.out.println("is movecard " +cardMoveLogic.moveTypeCard(card));
         if (cardMoveLogic.moveTypeCard(card)) {
             playerMoveHandler(card,tileLayers.wall);
         }else if (!cardMoveLogic.moveTypeCard(card)) {
@@ -185,14 +184,13 @@ public class HumanPlayer extends Player implements InputProcessor {
         ArrayList<Float> nextCoordinatesToCheck;
 
         for(float movement = 0; movement <= moveCardAction; movement+=300){
-            System.out.println(movement + "movement");
+
             nextCoordinatesToCheck = getCoordinatesToCheck(movement, moveCard);
             checkXPosition = nextCoordinatesToCheck.get(0);
             checkYPosition = nextCoordinatesToCheck.get(1);
             collidedWithWall= walls.hasPlayerCollidedWithWall(wall,this,
                     normalizedCoordinates(checkXPosition), normalizedCoordinates(checkYPosition), moveCard);
-            System.out.println(checkYPosition + " check y pos ");
-            System.out.println(checkXPosition + " check x pos");
+
             if(!isPlayerOnBoard(checkXPosition,checkYPosition)){
                 break;
             }
@@ -202,7 +200,7 @@ public class HumanPlayer extends Player implements InputProcessor {
                 break;
             }else if(collidedWithWall == 1){
                 wallCollisionHandler(this.getPlayerXPosition(), this.getPlayerYPosition());
-                System.out.println("returned " + collidedWithWall);
+
                 break;
             }else{
                 setPlayerNewLocation(checkXPosition, checkYPosition);
@@ -227,9 +225,9 @@ public class HumanPlayer extends Player implements InputProcessor {
         if (amountOfMovement != 0) {
             newPosition =  300 * this.direction.getMoveDirection();
             if(card.action == Action.BACK_UP){
-                System.out.println("old newpos " + newPosition);
+
                 newPosition = -newPosition;
-                System.out.println("new newpos " + newPosition);
+
             }
         }
         if(walls.getPlayerXYDirection(this) == 'x'){
