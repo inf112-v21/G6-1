@@ -78,6 +78,7 @@ public class ClientListener extends Listener  {
             game.graphics.hostGameScreenProcessor.startGame = false;
         }
 
+
         if (game.myHumanPlayer != null && game.myHumanPlayer.ready && clientHasSentCards == false) {
             System.out.println("Thomas har fått vite at jeg er klar" + game.myHumanPlayer.id);
             Packets.SendAction HereIsMyCards = new Packets.SendAction();
