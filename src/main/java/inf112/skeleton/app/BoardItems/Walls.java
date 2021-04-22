@@ -1,7 +1,9 @@
 package inf112.skeleton.app.BoardItems;
 
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.player.Player;
+import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Direction;
 
 import java.util.ArrayList;
@@ -41,12 +43,12 @@ public class Walls {
      * @param checkThisYPos Y position to check for wall
      * @return Integer 0 ,1 or 2
      */
-    public int hasPlayerCollidedWithWall(TiledMapTileLayer wall, Player player, int  checkThisXPos, int checkThisYPos){
+    public int hasPlayerCollidedWithWall(TiledMapTileLayer wall, Player player, int  checkThisXPos, int checkThisYPos, Card card){
         ArrayList<Direction> typeOfWall = isThereAWallInThisLocation(wall, checkThisXPos, checkThisYPos);
         if(typeOfWall != null){
             for(Direction wallDirection: typeOfWall){
                 if(getPlayerXYDirection(player) == wallDirection.getXyDirection()){
-                    return canMove(wallDirection,player, checkThisXPos, checkThisYPos);
+                    return canMove(wallDirection,player, checkThisXPos, checkThisYPos, card);
                 }
             }
         }
@@ -90,16 +92,35 @@ public class Walls {
      * @param wallYPosition wall position
      * @return same as hasPlayerCollidedWithWall
      */
-    public Integer canMove(Direction wall, Player player, float wallXPosition, float wallYPosition ){
+    public Integer canMove(Direction wall, Player player, float wallXPosition, float wallYPosition, Card card ){
             if(player.direction == wall && !hasPlayerAndWallSameLocation(player,wallXPosition,wallYPosition)){
-                return 0;
+                if(card.action == Action.BACK_UP){
+                    return 2;
+                }else{
+                    return 0;
+                }
+
             }else if (player.direction == wall && hasPlayerAndWallSameLocation(player,wallXPosition,wallYPosition)) {
-                return 1;
+                if(card.action == Action.BACK_UP){
+                    return 2;
+                }else {
+                    return 1;
+                }
+
             }else if((hasOppositeDirection(player,wall) && !hasPlayerAndWallSameLocation(player,wallXPosition, wallYPosition))){
+                return 1;
+            }else if((hasOppositeDirection(player,wall) && !hasPlayerAndWallSameLocation(player,wallXPosition, wallYPosition) && card.action == Action.BACK_UP)){
                 return 1;
             }
         return 2;
     }
+
+    /**
+     * return 0 flytter spiller til pos og break
+     * return 1 flytter ikke spiller men lar den stå brak
+     * return 2 flytter spiller og forsetter
+     */
+
 
     /**
      * This method checks if a player has the opposite direction than a wall

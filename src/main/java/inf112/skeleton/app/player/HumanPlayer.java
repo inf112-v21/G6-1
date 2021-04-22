@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector3;
 import inf112.skeleton.app.BoardItems.*;
 import inf112.skeleton.app.card.Card;
 import com.badlogic.gdx.InputProcessor;
+import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
 import inf112.skeleton.app.card.CardMoveLogic;
@@ -160,6 +161,7 @@ public class HumanPlayer extends Player implements InputProcessor {
 
     @Override
     public void doPlayerMove(Card card, TileLayers tileLayers){
+        System.out.println("is movecard " +cardMoveLogic.moveTypeCard(card));
         if (cardMoveLogic.moveTypeCard(card)) {
             playerMoveHandler(card,tileLayers.wall);
         }else if (!cardMoveLogic.moveTypeCard(card)) {
@@ -177,23 +179,30 @@ public class HumanPlayer extends Player implements InputProcessor {
         float checkXPosition;
         float checkYPosition;
         float moveCardAction = moveCard.action.getAction();
+        if(moveCard.action == Action.BACK_UP){
+            moveCardAction = moveCardAction *(-1);
+        }
         ArrayList<Float> nextCoordinatesToCheck;
 
         for(float movement = 0; movement <= moveCardAction; movement+=300){
-            nextCoordinatesToCheck = getCoordinatesToCheck(movement);
+            System.out.println(movement + "movement");
+            nextCoordinatesToCheck = getCoordinatesToCheck(movement, moveCard);
             checkXPosition = nextCoordinatesToCheck.get(0);
             checkYPosition = nextCoordinatesToCheck.get(1);
             collidedWithWall= walls.hasPlayerCollidedWithWall(wall,this,
-                    normalizedCoordinates(checkXPosition), normalizedCoordinates(checkYPosition));
-
+                    normalizedCoordinates(checkXPosition), normalizedCoordinates(checkYPosition), moveCard);
+            System.out.println(checkYPosition + " check y pos ");
+            System.out.println(checkXPosition + " check x pos");
             if(!isPlayerOnBoard(checkXPosition,checkYPosition)){
                 break;
             }
             else if(collidedWithWall == 0){
+                System.out.println("returned " + collidedWithWall);
                 wallCollisionHandler(checkXPosition,checkYPosition);
                 break;
             }else if(collidedWithWall == 1){
                 wallCollisionHandler(this.getPlayerXPosition(), this.getPlayerYPosition());
+                System.out.println("returned " + collidedWithWall);
                 break;
             }else{
                 setPlayerNewLocation(checkXPosition, checkYPosition);
@@ -210,13 +219,18 @@ public class HumanPlayer extends Player implements InputProcessor {
      * @param amountOfMovement
      * @return
      */
-    public ArrayList<Float> getCoordinatesToCheck(float amountOfMovement){
+    public ArrayList<Float> getCoordinatesToCheck(float amountOfMovement, Card card){
         ArrayList<Float> coordinatesToCheck = new ArrayList<>();
         float newPosition = 0;
         float checkXPosition = this.getPlayerXPosition();
         float checkYPosition = this.getPlayerYPosition();;
         if (amountOfMovement != 0) {
             newPosition =  300 * this.direction.getMoveDirection();
+            if(card.action == Action.BACK_UP){
+                System.out.println("old newpos " + newPosition);
+                newPosition = -newPosition;
+                System.out.println("new newpos " + newPosition);
+            }
         }
         if(walls.getPlayerXYDirection(this) == 'x'){
             checkXPosition = newPosition + this.getPlayerXPosition();
@@ -226,6 +240,7 @@ public class HumanPlayer extends Player implements InputProcessor {
         }
         coordinatesToCheck.add(checkXPosition);
         coordinatesToCheck.add(checkYPosition);
+        System.out.println(coordinatesToCheck);
         return coordinatesToCheck;
     }
 
