@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.util.concurrent.TimeUnit;
 
-
+/*
 public class ServerClientTest {
 
     Game game = new Game();
@@ -71,8 +71,8 @@ public class ServerClientTest {
         Assert.assertTrue(clientListener.gotPackage);
     }
 
-
-
 }
+
+ */
 
 
