@@ -8,6 +8,7 @@ import inf112.skeleton.app.graphics.Graphics;
 import inf112.skeleton.app.graphics.TileLayers;
 import inf112.skeleton.app.networking.GameClient;
 import inf112.skeleton.app.networking.GameServer;
+import inf112.skeleton.app.networking.listeners.ClientListener;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.shared.Action;
@@ -36,8 +37,12 @@ public class Game implements IGame {
     public GameScreen hostGameScreen = GameScreen.HOST;
     public GameScreen winScreen = GameScreen.WIN;
     public GameScreen loseScreen = GameScreen.LOSE;
+    public int numberOfPlayersConnected;
 
 
+    public void connectedPlayers(int totalPlayersConnectedToServer){
+        numberOfPlayersConnected = totalPlayersConnectedToServer;
+    }
     @Override
     public Graphics startGame() {
         graphics = new Graphics(this);

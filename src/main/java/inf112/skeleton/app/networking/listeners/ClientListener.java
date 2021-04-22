@@ -22,6 +22,7 @@ import inf112.skeleton.app.networking.packets.Packets;
  * Calls methods in the game to be able to send data to game.
  */
 public class ClientListener extends Listener  {
+
     private boolean c = false;
     public boolean gotPackage = false;
     private Game game;
@@ -30,7 +31,7 @@ public class ClientListener extends Listener  {
     private boolean playerCreated = false;
     private boolean clientHasSentCards = false;
     public int myId;
-    private int totalPlayersConnectedToServer = 0;
+    public int totalPlayersConnectedToServer = 0;
 
 
 
@@ -99,6 +100,7 @@ public class ClientListener extends Listener  {
         if (object instanceof Packets.PlayerNumberPacket) {
             Packets.PlayerNumberPacket p = (Packets.PlayerNumberPacket) object;
             totalPlayersConnectedToServer = p.numberOfPlayersConnected;
+            game.connectedPlayers(totalPlayersConnectedToServer);
 
             if (!playerCreated) {
                 playerCreated = true;
