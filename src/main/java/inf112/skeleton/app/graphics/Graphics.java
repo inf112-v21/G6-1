@@ -21,6 +21,7 @@ import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Graphics implements ApplicationListener {
@@ -203,7 +204,7 @@ public class Graphics implements ApplicationListener {
         Texture playerTexture = playerGraphics.getPlayerTexture(singlePlayer);
         singlePlayerSprite.setTexture(playerTexture);
         singlePlayerSprite.draw(tiledMapRenderer.getBatch());
-        game.singlePlayerRound(singlePlayerList,layer);
+        game.doSinglePlayerMove(singlePlayerList,layer);
 
     }
 
@@ -362,7 +363,7 @@ public class Graphics implements ApplicationListener {
             lifeTokenIndicator(singlePlayer);
 
         } else {
-            game.doRoundNetworkMultiplayer(layer);
+            game.multiplayerRound(layer);
             updatePlayerSprite(game.players, game.myHumanPlayer);
             //shows when to click the buttons and when not to click
             readyButtonIndicator(game.myHumanPlayer);

@@ -18,7 +18,7 @@ public abstract class Player extends BaseInputProcessor {
 //TODO color final
     public int damageTaken;
     public int healthToken;
-    public final Color color;
+    public  Color color;
     public Direction direction;
     public ArrayList<Card> chosenCards;
     public ArrayList<Card> playerDeck;
@@ -28,7 +28,7 @@ public abstract class Player extends BaseInputProcessor {
     public float playerCurrentYPosition;
     public ArrayList<Float> cardCoordinates;
     public ArrayList<Integer> movedCards;
-    public final ArrayList<Integer> flagsToVisit;
+    public  ArrayList<Integer> flagsToVisit;
     public boolean ready;
 
     /**
@@ -66,12 +66,14 @@ public abstract class Player extends BaseInputProcessor {
 
 
     /**
-     * This method essentially handles players card move.
-     * The method:
-     * Finds the direction to
-     * @param card
-     * @param wall
+     * This method is used to reset human player for a new game
+     * @param id player id
+     * @param color player color
+     * @param playerStartXPosition start position X
+     * @param playerStartYPosition start position Y
      */
+    public abstract void newHumanPlayer (int id, Color color, float playerStartXPosition,float playerStartYPosition);
+
     public abstract void playerMoveHandler(Card card, TiledMapTileLayer wall);
 
     public abstract void setNewPlayerCheckpointLocation(float xPosition, float yPosition);
