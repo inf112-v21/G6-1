@@ -288,7 +288,6 @@ public class Graphics implements ApplicationListener {
 
         joinGameScreenProcessor.setMouseClickCoordinates(camera);
         Gdx.input.setInputProcessor(joinGameScreenProcessor);
-        //Gdx.app.log("Text", );
     }
 
     private void renderWin() {
