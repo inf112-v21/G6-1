@@ -4,6 +4,7 @@ import inf112.skeleton.app.graphics.Graphics;
 
 public class HostGameScreenProcessor extends BaseInputProcessor {
     final Graphics graphics;
+    public boolean startGame = false;
 
     public HostGameScreenProcessor(Graphics graphics){
         super();
@@ -38,6 +39,7 @@ public class HostGameScreenProcessor extends BaseInputProcessor {
         System.out.println("Touch in menu input " + x + ", " + y);
         if (x >= 3260 && x <= 3960) {
             if (y <= 1950 && y >= 1722) {
+                startGame = true;
                 System.out.println("Host click");
                 graphics.game.typeOfGameStarted = GameType.NETWORK_HOST;
                 graphics.game.currentScreen = GameScreen.GAME;
