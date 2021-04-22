@@ -16,7 +16,7 @@ public class Walls {
     /**
      * Create a Hashmap where the key (Integer) is the id of the different walls in the wall layers.
      * The value is the direction the walls are facing in a tile.
-     * The value is an arrayList because there are some tiles that contains "multiple" walls that is
+     * The value is an arrayList because there are some tiles that contain "multiple" walls that is
      * the walls that are facing in more than one direction.
      */
     HashMap<Integer, ArrayList<Direction>> wallType = new HashMap<>() {{

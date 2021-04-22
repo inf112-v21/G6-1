@@ -29,6 +29,7 @@ public class Packets {
 
     static public class playerInfo {
         public HashMap<Integer, ArrayList<Float>> playerInfo = new HashMap<>();
+        public boolean firstPacket;
     }
 
     static public class SendAction {
@@ -38,6 +39,7 @@ public class Packets {
     static public  class TestPack{
         public String packet;
     }
+
 
 
 
