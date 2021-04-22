@@ -301,9 +301,11 @@ public class Game implements IGame {
         if (!allPlayerMoves.isEmpty()) {
             cardCount++;
             int count = players.size() * 5;
+
             System.out.println(cardCount + "cardcount ");
             System.out.println("count " + count);
-            if (cardCount == count) {
+            if (cardCount == count+1) {
+
                 myHumanPlayer.resetPlayer(myHumanPlayer);
                 resetOtherPlayers(players);
                 allPlayerMoves = new HashMap<>();
