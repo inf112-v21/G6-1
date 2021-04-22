@@ -1,6 +1,7 @@
 package inf112.skeleton.app.graphics;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -10,6 +11,12 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.game.*;
 import inf112.skeleton.app.game.Game;
@@ -35,6 +42,7 @@ public class Graphics implements ApplicationListener {
     public Texture menuScreenBackground;
     public Texture youWin, youLose;
     public Texture exitButton, playAgainButton;
+    public Texture rulesButton;
     public Texture reset, notReset;
     public Texture ready, notReady;
     public Texture emptyDamageToken, damageToken1, damageToken2, damageToken3,
@@ -60,8 +68,7 @@ public class Graphics implements ApplicationListener {
     private HashMap<Action, Texture> cardTextures = new HashMap<>();
     public final Game game;
     public final ArrayList<Player> singlePlayerList =new ArrayList<>();
-    TextInputListener listener = new TextInputListener();
-
+    public String enteredIp = "";
 
 
     public Graphics(Game game) {
@@ -133,7 +140,7 @@ public class Graphics implements ApplicationListener {
         camera.update();
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-        background = new Texture("Background.png");
+        background = new Texture("background1.png");
         youWin = new Texture("YouWin.png");
         youLose = new Texture("YouLose.png");
 
@@ -160,8 +167,10 @@ public class Graphics implements ApplicationListener {
         damageToken9 = new Texture("Damagetoken/140.png");
         damageToken10 = new Texture("Damagetoken/150.png");
 
+        rulesButton = new Texture("RulesButton.png");
+
         // Menu Textures
-        menuScreenBackground = new Texture("MenuScreen/MenuBackground.png"); // TODO actual textures
+        menuScreenBackground = new Texture("MenuScreen/MenuBackground.png");
         singlePlayerButton = new Texture("SinglePlayerButton.png");
         joinMultiPlayerButton = new Texture("JoinGameButton.png");
         hostMultiPlayerButton = new Texture("HostGameButton.png");
@@ -265,19 +274,20 @@ public class Graphics implements ApplicationListener {
         //draw background
         spriteBatch.begin();
         spriteBatch.draw(menuScreenBackground, 0, 0, 1280, 720);
-        spriteBatch.end();
 
         //draw buttons
-        spriteBatch.begin();
         spriteBatch.draw(readyButton,530,250,250,150);
         spriteBatch.draw(backToMenuScreenButton,530,150,250,150);
+
+        // Draw input
+        font.draw(spriteBatch, "Enter IP address by typing...", 500, 500);
+        font.draw(spriteBatch, enteredIp, 500, 460);
         spriteBatch.end();
 
         //handle input
+
         joinGameScreenProcessor.setMouseClickCoordinates(camera);
         Gdx.input.setInputProcessor(joinGameScreenProcessor);
-        Gdx.input.getTextInput(listener, "Type your IP", "Initial Textfield Value", "Hint Value");
-        Gdx.app.log("Text", listener.text);
     }
 
     private void renderWin() {
@@ -327,13 +337,21 @@ public class Graphics implements ApplicationListener {
             renderHostGameScreen();
             return;
         }
-        if(game.currentScreen == GameScreen.JOIN){
+        if (game.currentScreen == GameScreen.JOIN){
             renderJoinGameScreen();
             return;
         }
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, 1280, 720);
         spriteBatch.end();
+
+        if(game.currentScreen == GameScreen.GAME){
+            spriteBatch.begin();
+            spriteBatch.draw(rulesButton,-30,520,200,130);
+            spriteBatch.end();
+            endScreen.setMouseClickCoordinates(camera);
+            Gdx.input.setInputProcessor(endScreen);
+        }
 
         //shows when to click the buttons and when not to click
         readyButtonIndicator();
@@ -355,6 +373,7 @@ public class Graphics implements ApplicationListener {
         } else {
             game.multiplayerRound(layer);
             updatePlayerSprite(game.players, game.myHumanPlayer);
+
         }
         tiledMapRenderer.getBatch().end();
 
@@ -362,7 +381,6 @@ public class Graphics implements ApplicationListener {
         if (isWinner()) {
             if(game.winScreen== GameScreen.WIN) {
                 renderWin();
-
             }
         }
         //the player gets a lose screen when the player dies or loses against other players
@@ -372,6 +390,7 @@ public class Graphics implements ApplicationListener {
             }
         }
     }
+
 
     public boolean isWinner(){
         return singlePlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"));
@@ -405,16 +424,16 @@ public class Graphics implements ApplicationListener {
         // displaying the lifetoken
         spriteBatch.begin();
         if(singlePlayer.getPlayerHealth() == 1){
-            spriteBatch.draw(lifeToken1, 740, 530, 110, 65);
+            spriteBatch.draw(lifeToken1, 755, 505, 110, 65);
         }
         else if(singlePlayer.getPlayerHealth() == 2){
-            spriteBatch.draw(lifeToken2, 740, 530, 110, 65);
+            spriteBatch.draw(lifeToken2, 755, 505, 110, 65);
         }
         else if(singlePlayer.getPlayerHealth() == 3){
-            spriteBatch.draw(lifeToken3, 740, 530, 110, 65);
+            spriteBatch.draw(lifeToken3, 755, 505, 110, 65);
         }
         else{
-            spriteBatch.draw(emptyLifeToken, 740, 530, 110, 65);
+            spriteBatch.draw(emptyLifeToken, 755, 505, 110, 65);
         }
         spriteBatch.end();
     }
@@ -423,37 +442,37 @@ public class Graphics implements ApplicationListener {
         // displaying the damagetoken
         spriteBatch.begin();
         if(singlePlayer.getPlayerDamageTaken() == 1){
-            spriteBatch.draw(damageToken1, 710, 350, 185, 110);
+            spriteBatch.draw(damageToken1, 720, 345, 185, 110);
         }
         else if(singlePlayer.getPlayerDamageTaken() == 2){
-            spriteBatch.draw(damageToken2, 710, 350, 185, 110);
+            spriteBatch.draw(damageToken2, 720, 345, 185, 110);
         }
         else if(singlePlayer.getPlayerDamageTaken() == 3){
-            spriteBatch.draw(damageToken3, 710, 350, 185, 110);
+            spriteBatch.draw(damageToken3, 720, 345, 185, 110);
         }
         else if(singlePlayer.getPlayerDamageTaken() == 4){
-            spriteBatch.draw(damageToken4, 710, 350, 185, 110);
+            spriteBatch.draw(damageToken4, 720, 345, 185, 110);
         }
         else if(singlePlayer.getPlayerDamageTaken() == 5){
-            spriteBatch.draw(damageToken5, 710, 350, 185, 110);
+            spriteBatch.draw(damageToken5, 720, 345, 185, 110);
         }
         else if(singlePlayer.getPlayerDamageTaken() == 6){
-            spriteBatch.draw(damageToken6, 710, 350, 185, 110);
+            spriteBatch.draw(damageToken6, 720, 345, 185, 110);
         }
         else if(singlePlayer.getPlayerDamageTaken() == 7){
-            spriteBatch.draw(damageToken7, 710, 350, 185, 110);
+            spriteBatch.draw(damageToken7, 720, 345, 185, 110);
         }
         else if(singlePlayer.getPlayerDamageTaken() == 8){
-            spriteBatch.draw(damageToken8, 710, 350, 185, 110);
+            spriteBatch.draw(damageToken8, 720, 345, 185, 110);
         }
         else if(singlePlayer.getPlayerDamageTaken() == 9){
-            spriteBatch.draw(damageToken9, 710, 350, 185, 110);
+            spriteBatch.draw(damageToken9, 720, 345, 185, 110);
         }
         else if(singlePlayer.getPlayerDamageTaken() == 10){
-            spriteBatch.draw(damageToken10, 710, 350, 185, 110);
+            spriteBatch.draw(damageToken10, 720, 345, 185, 110);
         }
         else{
-            spriteBatch.draw(emptyDamageToken, 710, 350, 185, 110);
+            spriteBatch.draw(emptyDamageToken, 720, 345, 185, 110);
         }
         spriteBatch.end();
     }
