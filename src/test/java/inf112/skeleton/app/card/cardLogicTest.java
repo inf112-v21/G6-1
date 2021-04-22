@@ -1,5 +1,6 @@
 package inf112.skeleton.app.card;
 
+import inf112.skeleton.app.graphics.TileLayers;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Color;
@@ -11,14 +12,14 @@ public class cardLogicTest {
 
     final HumanPlayer humanPlayer = new HumanPlayer(Direction.NORTH, 1, Color.GREEN);
     //TODO need to replace updatePlayerLocation with doPlayerMove(Card card, TileLayers tileLayers)
-/**
+
     @Test
     public void testMoveOneCardMovesRobotOneSlot(){
         humanPlayer.setPlayerStartXPosition(0);
         humanPlayer.setPlayerStartYPosition(0);
         humanPlayer.direction = Direction.NORTH;
         MoveOne moveOneCard = new MoveOne(490, Action.MOVE_ONE);
-        humanPlayer.updatePlayerLocation(moveOneCard);
+        humanPlayer.doPlayerMove(moveOneCard, // TODO );
         Assertions.assertEquals(300, humanPlayer.getPlayerYPosition());
         Assertions.assertEquals(humanPlayer.getPlayerXPosition(), 0);
     }
@@ -29,7 +30,7 @@ public class cardLogicTest {
         humanPlayer.setPlayerStartYPosition(0);
         humanPlayer.direction = Direction.NORTH;
         MoveTwo moveTwoCard = new MoveTwo(670, Action.MOVE_TWO);
-        humanPlayer.updatePlayerLocation(moveTwoCard);
+        humanPlayer.doPlayerMove(moveTwoCard, // TODO);
         Assertions.assertEquals(600, humanPlayer.getPlayerYPosition());
         Assertions.assertEquals(humanPlayer.getPlayerXPosition(), 0);
     }
@@ -40,7 +41,7 @@ public class cardLogicTest {
         humanPlayer.setPlayerStartYPosition(0);
         humanPlayer.direction = Direction.NORTH;
         MoveThree moveThreeCard = new MoveThree(790, Action.MOVE_THREE);
-        humanPlayer.updatePlayerLocation(moveThreeCard);
+        humanPlayer.doPlayerMove(moveThreeCard, // TODO );
         Assertions.assertEquals(900, humanPlayer.getPlayerYPosition());
         Assertions.assertEquals(humanPlayer.getPlayerXPosition(), 0);
     }
@@ -51,7 +52,7 @@ public class cardLogicTest {
         humanPlayer.setPlayerStartYPosition(0);
         humanPlayer.direction = Direction.NORTH;
         RotateRight rotateRightCard = new RotateRight(80, Action.ROTATE_RIGHT);
-        humanPlayer.updatePlayerLocation(rotateRightCard);
+        humanPlayer.doPlayerMove(rotateRightCard, // TODO );
         Assertions.assertEquals(humanPlayer.direction, Direction.EAST);
     }
 
@@ -61,7 +62,7 @@ public class cardLogicTest {
         humanPlayer.setPlayerStartYPosition(0);
         humanPlayer.direction = Direction.NORTH;
         RotateLeft rotateLeftCard = new RotateLeft(70, Action.ROTATE_LEFT);
-        humanPlayer.updatePlayerLocation(rotateLeftCard);
+        humanPlayer.doPlayerMove(rotateLeftCard, // TODO);
         Assertions.assertEquals(humanPlayer.direction, Direction.WEST);
     }
 
@@ -71,7 +72,7 @@ public class cardLogicTest {
         humanPlayer.setPlayerStartYPosition(0);
         humanPlayer.direction = Direction.NORTH;
         RotateRight rotateRightCard = new RotateRight(80, Action.ROTATE_RIGHT);
-        humanPlayer.updatePlayerLocation(rotateRightCard);
+        humanPlayer.doPlayerMove(rotateRightCard, // TODO);
         Assertions.assertEquals(0, humanPlayer.getPlayerYPosition());
         Assertions.assertEquals(humanPlayer.getPlayerXPosition(), 0);
     }
@@ -82,7 +83,7 @@ public class cardLogicTest {
         humanPlayer.setPlayerStartYPosition(300);
         humanPlayer.direction = Direction.NORTH;
         BackUp backUpCard = new BackUp(430, Action.BACK_UP);
-        humanPlayer.updatePlayerLocation(backUpCard);
+        humanPlayer.doPlayerMove(backUpCard, // TODO);
         Assertions.assertEquals(0, humanPlayer.getPlayerYPosition());
         Assertions.assertEquals(humanPlayer.getPlayerXPosition(), 300);
     }
@@ -93,7 +94,7 @@ public class cardLogicTest {
         humanPlayer.setPlayerStartYPosition(0);
         humanPlayer.direction = Direction.NORTH;
         UTurn uTurnCard = new UTurn(10, Action.U_TURN);
-        humanPlayer.updatePlayerLocation(uTurnCard);
+        humanPlayer.doPlayerMove(uTurnCard, // TODO);
         Assertions.assertEquals(humanPlayer.direction, Direction.SOUTH);
     }
     */

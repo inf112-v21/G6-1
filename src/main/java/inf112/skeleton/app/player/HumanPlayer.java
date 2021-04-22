@@ -247,7 +247,7 @@ public class HumanPlayer extends Player {
      * Help method for playerMoveHandler
      * This method finds the next location to check for walls, and board limits.
      * It takes the amount of movement (0 or 300), finds the XY direction of the player,
-     * multiplays it by playerDirection.getMoveDirection which give the coorect direction to move NSEW.
+     * multiplies it by playerDirection.getMoveDirection which give the correct direction to move NSEW.
      * Then alters either X or Y direction and adds it to the list to be returned
      * @param amountOfMovement
      * @return

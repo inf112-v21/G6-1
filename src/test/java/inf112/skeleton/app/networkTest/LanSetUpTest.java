@@ -28,8 +28,8 @@ public class LanSetUpTest {
         game1 = new Game();
         game2 = new Game();
 
-        InetAddress ip = game1.hostNewGame("RiskyExchange.tmx");
-        game2.joinNewGame(ip);
+        //InetAddress ip = game1.hostNewGame("RiskyExchange.tmx");
+        //game2.joinNewGame(ip.getHostAddress());
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
