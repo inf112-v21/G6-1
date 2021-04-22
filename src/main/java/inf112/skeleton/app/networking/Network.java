@@ -15,25 +15,17 @@ public class Network {
      */
     static public void register (EndPoint endpoint) {
         Kryo kryo = endpoint.getKryo();
-        kryo.setRegistrationRequired(false);
-
-
 
         kryo.register(Packets.PlayerIdPacket.class);
         kryo.register(Packets.PlayerNumberPacket.class);
         kryo.register(Packets.StartGamePackage.class);
-        kryo.register(Packets.registerName.class);
-        kryo.register(Packets.RoundPacket.class);
         kryo.register(Packets.StartGamePackage.class);
-        kryo.register(Packets.StartSignalPacket.class);
         kryo.register(Packets.SendMapNameToPlayer.class);
         kryo.register(Packets.playerInfo.class);
+        kryo.register(Packets.SendAction.class);
 
-
-
+        kryo.register(java.util.HashMap.class);
         kryo.register(java.util.ArrayList.class);
-        kryo.register(boolean[].class);
-        kryo.register(String[].class);
         kryo.register(int[].class);
 
     }
