@@ -21,7 +21,9 @@ public class ClientListener extends Listener {
     private Game game;
     private Client client;
     private boolean playerCreated = false;
+    private boolean clientHasSentCards = false;
     public int myId;
+
 
 
 
@@ -62,18 +64,20 @@ public class ClientListener extends Listener {
     public void received(Connection c, Object object) {
 
 
-        if (game.myHumanPlayer != null && game.myHumanPlayer.ready) {
+        if (game.myHumanPlayer != null && game.myHumanPlayer.ready && clientHasSentCards == false) {
             System.out.println("Thomas har fått vite at jeg er klar" + game.myHumanPlayer.id);
             Packets.SendAction HereIsMyCards = new Packets.SendAction();
             HereIsMyCards.actionList = game.getPlayerActionList();
             client.sendTCP(HereIsMyCards);
 
             game.myHumanPlayer.ready = false;
+            clientHasSentCards = true;
         }
          if (object instanceof Packets.SendAction) {
              Packets.SendAction receivedActionsFromAll = (Packets.SendAction) object;
              game.allPlayerMoves=receivedActionsFromAll.actionList;
-             System.out.println(receivedActionsFromAll.actionList);
+             clientHasSentCards = false;
+             System.out.println(receivedActionsFromAll.actionList);a
          }
 
         if (object instanceof Packets.PlayerNumberPacket) {
@@ -96,7 +100,7 @@ public class ClientListener extends Listener {
         } else if (object instanceof Packets.playerInfo){
             Packets.playerInfo playerInfo = (Packets.playerInfo) object;
             System.out.println(playerInfo.playerInfo);
-            if (playerInfo.playerInfo.size() == 2) {
+            if (playerInfo.playerInfo.size() == 3) {
                 game.createListOfPlayers(playerInfo.playerInfo);
             }
             else {
