@@ -6,11 +6,12 @@ import inf112.skeleton.app.graphics.Graphics;
 
 import java.net.InetAddress;
 
-public class MenuInputProcessor implements InputProcessor {
-    private final Graphics graphics;
-    private String ip = "";
+public class MenuInputProcessor extends BaseInputProcessor {
+    final Graphics graphics;
+    String ip = "";
 
     public MenuInputProcessor(Graphics graphics) {
+        super();
         this.graphics = graphics;
     }
 
@@ -49,25 +50,31 @@ public class MenuInputProcessor implements InputProcessor {
 
     @Override
     public boolean touchUp(int i, int i1, int i2, int i3) {
-        float x = Gdx.input.getX();
-        float y = Gdx.input.getY();
+        float x = mouseClickXCoordinate;
+        float y = mouseClickYCoordinate;
 
         System.out.println("Touch in menu input " + x + ", " + y);
-        if (x >= 600 && x <= 725) {
-            if(y >= 270 && y <= 316) {
+        if (x >= 3260 && x <= 3960) {
+            if(y <= 2653 && y >= 2415) {
                 System.out.println("Single player click");
                 graphics.game.typeOfGameStarted = GameType.SINGLE_PLAYER;
                 graphics.game.currentScreen = GameScreen.GAME;
 
-            } else if (y >= 371 && y <= 415) {
+            } else if (y <= 1950 && y >= 1722) {
                 System.out.println("Host click");
+                graphics.game.currentScreen = GameScreen.HOST;
                 graphics.game.typeOfGameStarted = GameType.NETWORK_HOST;
                 graphics.game.chooseHostOrJoin();
                 graphics.game.currentScreen = GameScreen.GAME;
                 //graphics.game.hostNewGame("RiskyExchange.tmx");
 
-            } else if(y >= 469 && y <= 514) {
+
+            } else if(y <= 1240 && y >= 1036) {
                 System.out.println("Join click, attempting to join ip" + ip);
+                graphics.game.currentScreen = GameScreen.JOIN;
+
+
+                /**Dette skal brukes når bruker har skrevet inn IP
                 try {
                     InetAddress hostIp = InetAddress.getByName(ip);
                     graphics.game.typeOfGameStarted = GameType.NETWORK_JOIN;
@@ -75,7 +82,7 @@ public class MenuInputProcessor implements InputProcessor {
                     graphics.game.currentScreen = GameScreen.GAME;
                 } catch (Exception e) {
 
-                }
+                }**/
             }
         }
 

@@ -32,6 +32,9 @@ public class Game implements IGame {
     public GameType typeOfGameStarted = GameType.NONE;
     final CardMoveLogic cardMoveLogic = new CardMoveLogic();
     public GameScreen currentScreen = GameScreen.MENU;
+    public GameScreen hostGameScreen = GameScreen.HOST;
+    public GameScreen winScreen = GameScreen.WIN;
+    public GameScreen loseScreen = GameScreen.LOSE;
 
 
     @Override

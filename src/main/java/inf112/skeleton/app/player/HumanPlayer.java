@@ -3,6 +3,7 @@ package inf112.skeleton.app.player;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
 import inf112.skeleton.app.BoardItems.*;
 import inf112.skeleton.app.card.Card;
@@ -19,8 +20,7 @@ import inf112.skeleton.app.graphics.TileLayers;
  * It also contain methods for matching players sprite in graphics class to the player
  */
 
-public class HumanPlayer extends Player implements InputProcessor {
-
+public class HumanPlayer extends Player {
 
     public HumanPlayer(Direction direction, int id, Color color) {
         super(direction, id, color);

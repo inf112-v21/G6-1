@@ -3,6 +3,7 @@ package inf112.skeleton.app.graphics;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -10,12 +11,11 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import inf112.skeleton.app.card.CardMoveLogic;
+import inf112.skeleton.app.game.*;
 import inf112.skeleton.app.game.Game;
-import inf112.skeleton.app.game.GameScreen;
-import inf112.skeleton.app.game.GameType;
-import inf112.skeleton.app.game.MenuInputProcessor;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
+import inf112.skeleton.app.screens.EndScreen;
 import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
@@ -29,9 +29,11 @@ public class Graphics implements ApplicationListener {
     private OrthographicCamera camera;
     private OrthogonalTiledMapRenderer tiledMapRenderer;
     private SpriteBatch spriteBatch;
+    private BitmapFont font;
     public Texture background;
     public Texture menuScreenBackground;
-    public Texture youWin;
+    public Texture youWin, youLose;
+    public Texture exitButton, returnButton;
     public Texture reset, notReset;
     public Texture ready, notReady;
     public Texture emptyDamageToken, damageToken1, damageToken2, damageToken3,
@@ -41,20 +43,31 @@ public class Graphics implements ApplicationListener {
     public Texture singlePlayerButton;
     public Texture joinMultiPlayerButton;
     public Texture hostMultiPlayerButton;
+    public Texture startGameButton;
+    public Texture readyButton;
+    public Texture backToMenuScreenButton;
     public PlayerGraphics playerGraphics;
     public final CardGraphics cardGraphics;
     public final HumanPlayer singlePlayer = new HumanPlayer(Direction.NORTH,69,Color.GREEN);
     private final MenuInputProcessor menuInputProcessor;
+    private final HostGameScreenProcessor hostGameScreenProcessor;
+    private final JoinGameScreenProcessor joinGameScreenProcessor;
+    private final EndScreen endScreen;
     public Sprite singlePlayerSprite;
     public ArrayList<Sprite> cardSpriteList;
     private final CardMoveLogic cardMoveLogic = new CardMoveLogic();
     private HashMap<Action, Texture> cardTextures = new HashMap<>();
     public final Game game;
     public final ArrayList<Player> singlePlayerList =new ArrayList<>();
+    TextInputListener listener = new TextInputListener();
+
 
 
     public Graphics(Game game) {
         menuInputProcessor = new MenuInputProcessor(this);
+        hostGameScreenProcessor = new HostGameScreenProcessor(this);
+        joinGameScreenProcessor = new JoinGameScreenProcessor(this);
+        endScreen = new EndScreen(this);
         cardGraphics = new CardGraphics();
         this.game = game;
     }
@@ -120,7 +133,8 @@ public class Graphics implements ApplicationListener {
         tiledMap = new TmxMapLoader().load("Maps/RiskyExchange.tmx");
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
         background = new Texture("Background.png");
-        youWin = new Texture("YouWin.jpg");
+        youWin = new Texture("YouWin.png");
+        youLose = new Texture("YouLose.png");
 
         //reset and ready textures
         reset = new Texture("Buttons/RESET.png");
@@ -159,6 +173,22 @@ public class Graphics implements ApplicationListener {
                 (TiledMapTileLayer) tiledMap.getLayers().get("Walls"),
                 (TiledMapTileLayer) tiledMap.getLayers().get("Checkpoint"));
 
+        menuScreenBackground = new Texture("MenuScreen/MenuBackground.png");
+        singlePlayerButton = new Texture("SinglePlayerButton1.png");
+        joinMultiPlayerButton = new Texture("JoinGameButton1.png");
+        hostMultiPlayerButton = new Texture("HostGameButton1.png");
+
+        //Host screen textures
+        font = new BitmapFont();
+        startGameButton = new Texture("StartGameButton.png");
+        backToMenuScreenButton = new Texture("BackButton.png");
+
+        //Join screen textures
+        readyButton = new Texture("ReadyButton.png");
+
+        //End screen textures
+        exitButton = new Texture("ExitButton.png"); //TODO might change later
+        returnButton = new Texture("ReturnButton.png");
     }
     /**
      * temp runs a single-player gui
@@ -195,13 +225,92 @@ public class Graphics implements ApplicationListener {
 
         // Draw buttons
         spriteBatch.begin();
-        spriteBatch.draw(singlePlayerButton, 600, 400, 125, 55);
-        spriteBatch.draw(hostMultiPlayerButton, 600, 300, 125, 55);
-        spriteBatch.draw(joinMultiPlayerButton, 600, 200, 125, 55);
+        spriteBatch.draw(singlePlayerButton, 530, 350, 250, 150);
+        spriteBatch.draw(hostMultiPlayerButton, 530, 250, 250, 150);
+        spriteBatch.draw(joinMultiPlayerButton, 530, 150, 250, 150);
         spriteBatch.end();
 
         // Handle inputs
+        menuInputProcessor.setMouseClickCoordinates(camera);
         Gdx.input.setInputProcessor(menuInputProcessor);
+    }
+
+    private void renderHostGameScreen(){
+        //draw background
+        spriteBatch.begin();
+        spriteBatch.draw(menuScreenBackground, 0, 0, 1280, 720);
+        spriteBatch.end();
+
+        //draw message
+        spriteBatch.begin();
+        font.draw(spriteBatch, "Waiting for players..", 500, 500);
+        font.draw(spriteBatch, "There are " + game.getNumberOfPlayers() + " players in the game", 500, 450);
+        spriteBatch.end();
+
+        //
+
+        //draw buttons
+        spriteBatch.begin();
+        spriteBatch.draw(startGameButton,530,250,250,150);
+        spriteBatch.draw(backToMenuScreenButton,530,150,250,150);
+        spriteBatch.end();
+
+        //handle input
+        hostGameScreenProcessor.setMouseClickCoordinates(camera);
+        Gdx.input.setInputProcessor(hostGameScreenProcessor);
+    }
+
+    private void renderJoinGameScreen(){
+        //draw background
+        spriteBatch.begin();
+        spriteBatch.draw(menuScreenBackground, 0, 0, 1280, 720);
+        spriteBatch.end();
+
+        //draw buttons
+        spriteBatch.begin();
+        spriteBatch.draw(readyButton,530,250,250,150);
+        spriteBatch.draw(backToMenuScreenButton,530,150,250,150);
+        spriteBatch.end();
+
+        //handle input
+        joinGameScreenProcessor.setMouseClickCoordinates(camera);
+        Gdx.input.setInputProcessor(joinGameScreenProcessor);
+        Gdx.input.getTextInput(listener, "Type your IP", "Initial Textfield Value", "Hint Value");
+        Gdx.app.log("Text", listener.text);
+    }
+
+    private void renderWin() {
+        spriteBatch.begin();
+        spriteBatch.draw(youWin, 0, 0, 1280, 720);
+        spriteBatch.end();
+
+        spriteBatch.begin();
+        spriteBatch.draw(returnButton, 530, 250, 250, 150);
+        spriteBatch.end();
+
+        spriteBatch.begin();
+        spriteBatch.draw(exitButton, 530, 150, 250, 150);
+        spriteBatch.end();
+
+        endScreen.setMouseClickCoordinates(camera);
+        Gdx.input.setInputProcessor(endScreen);
+    }
+
+    private void renderLose() {
+        spriteBatch.begin();
+        spriteBatch.draw(youLose, 0, 0, 1280, 720);
+        spriteBatch.end();
+
+        spriteBatch.begin();
+        spriteBatch.draw(returnButton, 530, 250, 250, 150);
+        spriteBatch.end();
+
+        spriteBatch.begin();
+        spriteBatch.draw(exitButton, 530, 150, 250, 150);
+        spriteBatch.end();
+
+        endScreen.setMouseClickCoordinates(camera);
+        Gdx.input.setInputProcessor(endScreen);
     }
 
     /**
@@ -213,7 +322,14 @@ public class Graphics implements ApplicationListener {
             renderMenuScreen();
             return;
         }
-
+        if (game.currentScreen == GameScreen.HOST) {
+            renderHostGameScreen();
+            return;
+        }
+        if(game.currentScreen == GameScreen.JOIN){
+            renderJoinGameScreen();
+            return;
+        }
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, 1280, 720);
         spriteBatch.end();
@@ -242,13 +358,16 @@ public class Graphics implements ApplicationListener {
         tiledMapRenderer.getBatch().end();
 
         if (singlePlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"))) {
-            pause();
-            System.out.println("You Won!");
-            spriteBatch.begin();
-            spriteBatch.draw(youWin, 0, 0, 1280, 720);
-            spriteBatch.end();
-            pause();
-            dispose();
+            if(game.winScreen== GameScreen.WIN) {
+                //System.out.println("You Won!");
+                renderWin();
+            }
+        }
+
+        if(singlePlayer.getPlayerDamageTaken() == 10 || singlePlayer.getPlayerHealth() == 0){
+            if(game.loseScreen == GameScreen.LOSE){
+                renderLose();
+            }
         }
     }
 
@@ -353,4 +472,5 @@ public class Graphics implements ApplicationListener {
         background.dispose();
         youWin.dispose();
     }
+
 }

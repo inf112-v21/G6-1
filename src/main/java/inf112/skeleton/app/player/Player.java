@@ -1,9 +1,8 @@
 package inf112.skeleton.app.player;
 
-
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.card.Card;
+import inf112.skeleton.app.game.BaseInputProcessor;
 import inf112.skeleton.app.graphics.TileLayers;
 import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
@@ -11,7 +10,7 @@ import inf112.skeleton.app.shared.Direction;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public abstract class Player  {
+public abstract class Player extends BaseInputProcessor {
 
 
 
@@ -31,15 +30,13 @@ public abstract class Player  {
     public ArrayList<Integer> movedCards;
     public final ArrayList<Integer> flagsToVisit;
     public boolean ready;
+
     /**
      * @param direction The direction the player is facing. Needs to be set only when a player is created
      * Then it will be updated automatically during the game
      * @param id The name of the player
      * @param color Color of the player
      */
-
-
-
     public Player(Direction direction, int id, Color color) {
         this.id = id;
         this.color = color;
@@ -181,11 +178,4 @@ public abstract class Player  {
      * Takes a life from a player
      */
     public abstract void takePlayerLife();
-
-
-
-
-    public  abstract void setMouseClickCoordinates(OrthographicCamera camera);
-
-
 }
