@@ -237,7 +237,7 @@ public class Graphics implements ApplicationListener {
             singlePlayer();
 
         } else {
-            game.doRoundNetworkMultiplayer(layer);
+            game.multiplayerRound(layer);
             updatePlayerSprite(game.players, game.myHumanPlayer);
         }
         tiledMapRenderer.getBatch().end();

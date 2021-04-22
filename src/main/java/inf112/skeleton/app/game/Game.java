@@ -257,7 +257,8 @@ public class Game implements IGame {
 
 
         for(Integer key : keySet){
-            if(playerMoves.get(key).size() == maxValue){
+            System.out.println("lengt of cardlist " +playerMoves.get(key).size() + " id of player " + key);
+            if(playerMoves.get(key).size() != 0 && playerMoves.get(key).size() == maxValue){
                 playersToMove.put(key, playerMoves.get(key));
             }
         }
@@ -287,11 +288,20 @@ public class Game implements IGame {
     }
 
     public void multiplayerRound(TileLayers layer){
-        HashMap<Integer, ArrayList<Card>> moveThisPlayer = moveThisPlayer();
-        int playerId = (int) moveThisPlayer.keySet().toArray()[0];
-        Player player = players.get(playerId);
-        Card move = moveThisPlayer.get(playerId).get(0);
-        player.doPlayerMove(move, layer);
+        if(!allPlayerMoves.isEmpty()) {
+
+            giveAllPlayersCardObjects(allPlayerMoves);
+            HashMap<Integer, ArrayList<Card>> moveThisPlayer = moveThisPlayer();
+            int playerId = (int) moveThisPlayer.keySet().toArray()[0];
+            Player player = players.get(playerId);
+            Card move = moveThisPlayer.get(playerId).get(0);
+            try {
+                Thread.sleep(1000);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
