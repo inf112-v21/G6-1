@@ -272,6 +272,7 @@ public class Game implements IGame {
 
         Set<Integer> keySet = playerMoves.keySet();
         int maxValue = 0;
+        Player player = null;
 
         for(Integer key : keySet){
             if(playerMoves.get(key).get(0).priority > maxValue){
@@ -280,10 +281,13 @@ public class Game implements IGame {
                 moveThisPlayer = new HashMap<>();
 
                 maxValue = playerMoves.get(key).get(0).priority;
+                player = players.get(key);
+                
                 cardToPlay.add(playerMoves.get(key).remove(0));
                 moveThisPlayer.put(key,cardToPlay);
             }
         }
+        player.chosenCards.remove(0);
         return moveThisPlayer;
     }
 
@@ -295,6 +299,7 @@ public class Game implements IGame {
             int playerId = (int) moveThisPlayer.keySet().toArray()[0];
             Player player = players.get(playerId);
             Card move = moveThisPlayer.get(playerId).get(0);
+            player.doPlayerMove(move, layer);
             try {
                 Thread.sleep(1000);
 
