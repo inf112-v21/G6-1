@@ -104,8 +104,7 @@ public class ClientListener extends Listener {
             }
         } else if (object instanceof Packets.playerInfo){
             Packets.playerInfo playerInfo = (Packets.playerInfo) object;
-            System.out.println(playerInfo.playerInfo);
-            if (playerInfo.playerInfo.size() == totalPlayersConnectedToServer) {
+            if (playerInfo.firstPacket) {
                 game.createListOfPlayers(playerInfo.playerInfo);
             }
             else {

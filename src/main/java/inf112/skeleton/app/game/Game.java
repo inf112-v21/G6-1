@@ -90,7 +90,6 @@ public class Game implements IGame {
         server = new GameServer("RiskyExchange");
         server.run();
         client = new GameClient(server.getAddress(),Game.this);
-        typeOfGameStarted = GameType.NETWORK_HOST;
         return server.getAddress();
     }
 
@@ -107,7 +106,6 @@ public class Game implements IGame {
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
-        typeOfGameStarted = GameType.NETWORK_JOIN;
 
         client = new GameClient(hostIp, Game.this);
     }

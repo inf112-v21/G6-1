@@ -90,16 +90,17 @@ public class ServerListener extends Listener {
 
             Packets.playerInfo updatedPlayerInfo = new Packets.playerInfo();
             updatedPlayerInfo.playerInfo = playerInfoGlobal;
+            updatedPlayerInfo.firstPacket = true;
             server.sendToAllTCP(updatedPlayerInfo);
+            HGSP.startGame = false;
 
             this.startGameSession();
-            HGSP.startGame = false;
+
         }
 
         if (object instanceof Packets.playerInfo) {
             System.out.println("Motatt!");
             Packets.playerInfo playerInfo = (Packets.playerInfo) object;
-            System.out.println(playerInfo.playerInfo);
             Set<Integer> findPlayerIdKey = playerInfo.playerInfo.keySet();
 
             for (Integer key: findPlayerIdKey) {
