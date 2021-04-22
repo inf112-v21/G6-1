@@ -253,6 +253,32 @@ public class Game implements IGame {
         }
     }
 
+    public void cardCount(Player player, TileLayers layer){
+        if(player.chosenCards.isEmpty() && player.movedCards.size()==5){
+            boardItems.activateBoardItems(players, layer);
+            checkpoint.findCheckpoints(player, layer.checkpoint);
+            player.resetPlayer(player);
+        }
+    }
+    public void doSinglePlayerMove(ArrayList<Player> players, TileLayers layer){
+        Player singlePlayer = players.get(0);
+
+
+        if(singlePlayer.ready && !singlePlayer.chosenCards.isEmpty()){
+            singlePlayer.doPlayerMove(singlePlayer.chosenCards.remove(0), layer);
+            System.out.println("playerlist size " + singlePlayer.playerDeck.size());
+            try {
+                System.out.println("im sleeping!");
+                Thread.sleep(1000);
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        cardCount(singlePlayer, layer);
+
+    }
+
 
     public void updatePlayerInfo(HashMap<Integer, ArrayList<Float>> playerInfo) {
         for (Player player : players) {

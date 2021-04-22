@@ -170,7 +170,7 @@ public class Graphics implements ApplicationListener {
         Texture playerTexture = playerGraphics.getPlayerTexture(singlePlayer);
         singlePlayerSprite.setTexture(playerTexture);
         singlePlayerSprite.draw(tiledMapRenderer.getBatch());
-        game.singlePlayerRound(singlePlayerList,layer);
+        game.doSinglePlayerMove(singlePlayerList,layer);
 
     }
 
