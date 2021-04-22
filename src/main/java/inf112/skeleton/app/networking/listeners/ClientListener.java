@@ -100,7 +100,7 @@ public class ClientListener extends Listener {
         } else if (object instanceof Packets.playerInfo){
             Packets.playerInfo playerInfo = (Packets.playerInfo) object;
             System.out.println(playerInfo.playerInfo);
-            if (playerInfo.playerInfo.size() == 3) {
+            if (playerInfo.playerInfo.size() == 2) {
                 game.createListOfPlayers(playerInfo.playerInfo);
             }
             else {

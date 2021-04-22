@@ -29,7 +29,7 @@ public abstract class Player  {
     public float playerCurrentYPosition;
     public ArrayList<Float> cardCoordinates;
     public ArrayList<Integer> movedCards;
-    public final ArrayList<Integer> flagsToVisit;
+    public  ArrayList<Integer> flagsToVisit;
     public boolean ready;
     /**
      * @param direction The direction the player is facing. Needs to be set only when a player is created

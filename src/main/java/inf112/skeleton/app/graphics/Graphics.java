@@ -21,6 +21,7 @@ import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Graphics implements ApplicationListener {
@@ -247,6 +248,7 @@ public class Graphics implements ApplicationListener {
             spriteBatch.begin();
             spriteBatch.draw(youWin, 0, 0, 1280, 720);
             spriteBatch.end();
+
             pause();
             dispose();
         }

@@ -236,6 +236,66 @@ public class Game implements IGame {
     }
 
 
+    public int findMaxValue(){
+        int maxValue = 0;
+        HashMap<Integer, ArrayList<Card>> playerMoves = playerMoves();
+        Set<Integer> keySet = playerMoves.keySet();
+
+        for(Integer key : keySet){
+            if(playerMoves.get(key).size() > maxValue){
+                maxValue = playerMoves.get(key).size();
+            }
+        }
+        return maxValue;
+    }
+
+    public HashMap<Integer, ArrayList<Card>> playersToMove(){
+        int maxValue = findMaxValue();
+        HashMap<Integer, ArrayList<Card>> playerMoves = playerMoves();
+        Set<Integer> keySet = playerMoves.keySet();
+        HashMap<Integer, ArrayList<Card>> playersToMove = new HashMap<>();
+
+
+        for(Integer key : keySet){
+            if(playerMoves.get(key).size() == maxValue){
+                playersToMove.put(key, playerMoves.get(key));
+            }
+        }
+        return playersToMove;
+    }
+
+    public HashMap<Integer, ArrayList<Card>> moveThisPlayer(){
+
+        HashMap<Integer, ArrayList<Card>> playerMoves = playersToMove();
+        HashMap<Integer, ArrayList<Card>> moveThisPlayer = new HashMap<>();
+
+        Set<Integer> keySet = playerMoves.keySet();
+        int maxValue = 0;
+
+        for(Integer key : keySet){
+            if(playerMoves.get(key).get(0).priority > maxValue){
+
+                ArrayList<Card> cardToPlay = new ArrayList<>();
+                moveThisPlayer = new HashMap<>();
+
+                maxValue = playerMoves.get(key).get(0).priority;
+                cardToPlay.add(playerMoves.get(key).remove(0));
+                moveThisPlayer.put(key,cardToPlay);
+            }
+        }
+        return moveThisPlayer;
+    }
+
+    public void multiplayerRound(TileLayers layer){
+        HashMap<Integer, ArrayList<Card>> moveThisPlayer = moveThisPlayer();
+        int playerId = (int) moveThisPlayer.keySet().toArray()[0];
+        Player player = players.get(playerId);
+        Card move = moveThisPlayer.get(playerId).get(0);
+        player.doPlayerMove(move, layer);
+    }
+
+
+
     /**
      * Does a single player round when the single player press the ready button
      * @param players list of player
@@ -262,13 +322,9 @@ public class Game implements IGame {
     }
     public void doSinglePlayerMove(ArrayList<Player> players, TileLayers layer){
         Player singlePlayer = players.get(0);
-
-
         if(singlePlayer.ready && !singlePlayer.chosenCards.isEmpty()){
             singlePlayer.doPlayerMove(singlePlayer.chosenCards.remove(0), layer);
-            System.out.println("playerlist size " + singlePlayer.playerDeck.size());
             try {
-                System.out.println("im sleeping!");
                 Thread.sleep(1000);
 
             } catch (InterruptedException e) {
