@@ -1,8 +1,11 @@
 package inf112.skeleton.app.networking.listeners;
 
+import java.awt.*;
+import java.awt.image.BaseMultiResolutionImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.badlogic.gdx.utils.compression.lzma.Base;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
@@ -18,7 +21,7 @@ import inf112.skeleton.app.networking.packets.Packets;
  * The ClientListener class receives and sends data to and from the server.
  * Calls methods in the game to be able to send data to game.
  */
-public class ClientListener extends Listener {
+public class ClientListener extends Listener  {
     private boolean c = false;
     public boolean gotPackage = false;
     private Game game;
@@ -28,6 +31,7 @@ public class ClientListener extends Listener {
     private boolean clientHasSentCards = false;
     public int myId;
     private int totalPlayersConnectedToServer = 0;
+
 
 
 
@@ -68,6 +72,11 @@ public class ClientListener extends Listener {
 
     public void received(Connection c, Object object) {
 
+        if (game.graphics.hostGameScreenProcessor.startGame) {
+            Packets.StartGamePackage startGamePackage = new Packets.StartGamePackage();
+            client.sendTCP(startGamePackage);
+            game.graphics.hostGameScreenProcessor.startGame = false;
+        }
 
         if (game.myHumanPlayer != null && game.myHumanPlayer.ready && clientHasSentCards == false) {
             System.out.println("Thomas har fått vite at jeg er klar" + game.myHumanPlayer.id);

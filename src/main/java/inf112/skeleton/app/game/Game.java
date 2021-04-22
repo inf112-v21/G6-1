@@ -20,7 +20,7 @@ import java.util.*;
 
 public class Game implements IGame {
 
-
+    public Graphics graphics;
     public Player myHumanPlayer;
     public ArrayList<Player> players = new ArrayList<>();
     public HashMap<Integer, ArrayList<HashMap<Integer, Action>>> allPlayerMoves = new HashMap<>();
@@ -39,7 +39,8 @@ public class Game implements IGame {
 
     @Override
     public Graphics startGame() {
-        return new Graphics(this);
+        graphics = new Graphics(this);
+        return graphics;
     }
 /**
     public void chooseHostOrJoin () {

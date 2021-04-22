@@ -86,13 +86,12 @@ public class ServerListener extends Listener {
      */
     public void received(Connection connection, Object object) {
 
-        if (HGSP != null && HGSP.startGame) {
+        if (object instanceof Packets.StartGamePackage) {
 
             Packets.playerInfo updatedPlayerInfo = new Packets.playerInfo();
             updatedPlayerInfo.playerInfo = playerInfoGlobal;
             updatedPlayerInfo.firstPacket = true;
             server.sendToAllTCP(updatedPlayerInfo);
-            HGSP.startGame = false;
 
             this.startGameSession();
 

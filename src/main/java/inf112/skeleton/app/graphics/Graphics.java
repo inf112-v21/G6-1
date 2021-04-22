@@ -59,8 +59,8 @@ public class Graphics implements ApplicationListener {
     public final CardGraphics cardGraphics;
     public final HumanPlayer singlePlayer = new HumanPlayer(Direction.NORTH,69,Color.GREEN);
     private final MenuInputProcessor menuInputProcessor;
-    private final HostGameScreenProcessor hostGameScreenProcessor;
-    private final JoinGameScreenProcessor joinGameScreenProcessor;
+    public final HostGameScreenProcessor hostGameScreenProcessor;
+    public final JoinGameScreenProcessor joinGameScreenProcessor;
     private final EndScreen endScreen;
     public Sprite singlePlayerSprite;
     public ArrayList<Sprite> cardSpriteList;
