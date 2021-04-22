@@ -84,13 +84,7 @@ public class ServerListener extends Listener {
 
 
 
-        if (object instanceof Packets.RemovePlayerPacket) {
-            numberOfPlayers--;
-            Packets.PlayerNumberPacket numberOfPlayersConnected = new Packets.PlayerNumberPacket();
-            numberOfPlayersConnected.numberOfPlayersConnected = numberOfPlayers;
-            server.sendToAllTCP(numberOfPlayersConnected);
-
-        } else if (object instanceof Packets.playerInfo) {
+        if (object instanceof Packets.playerInfo) {
             System.out.println("Motatt!");
             Packets.playerInfo playerInfo = (Packets.playerInfo) object;
             System.out.println(playerInfo.playerInfo);

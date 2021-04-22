@@ -18,18 +18,14 @@ public class Network {
         kryo.setRegistrationRequired(false);
 
 
-        kryo.register(Packets.CardsPacket.class);
-        kryo.register(Packets.UpdateNames.class);
+
         kryo.register(Packets.PlayerIdPacket.class);
         kryo.register(Packets.PlayerNumberPacket.class);
         kryo.register(Packets.StartGamePackage.class);
         kryo.register(Packets.registerName.class);
-        kryo.register(Packets.RemovePlayerPacket.class);
         kryo.register(Packets.RoundPacket.class);
-        kryo.register(Packets.ShutDownRobotPacket.class);
         kryo.register(Packets.StartGamePackage.class);
         kryo.register(Packets.StartSignalPacket.class);
-        kryo.register(Packets.UpdateNames.class);
         kryo.register(Packets.SendMapNameToPlayer.class);
         kryo.register(Packets.playerInfo.class);
 
