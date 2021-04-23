@@ -24,10 +24,7 @@ public class CheckPoint {
                 checkpoint = checkpoints.getCell(tileXPositions / 300, tileYPositions / 300);
                 if (checkpoint != null && player.getPlayerXPosition() == tileXPositions
                             && player.getPlayerYPosition() == tileYPositions ) {
-                    System.out.println("Player old checkpoint x" + player.playerCheckpointPositionX + " old y " + player.playerCheckpointPositionY );
                     player.setNewPlayerCheckpointLocation(tileXPositions,tileYPositions);
-                    System.out.println("Player new checkpoint x" + player.playerCheckpointPositionX + " new y " + player.playerCheckpointPositionY );
-
                 }
             }
         }

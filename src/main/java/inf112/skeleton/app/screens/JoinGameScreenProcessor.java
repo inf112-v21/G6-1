@@ -51,13 +51,11 @@ public class JoinGameScreenProcessor extends BaseInputProcessor implements Input
         float x = mouseClickXCoordinate;
         float y = mouseClickYCoordinate;
 
-        System.out.println("Touch in menu input " + x + ", " + y);
         if (x >= 3260 && x <= 3960) {
             if (y <= 1267 && y >= 1029) {
                 graphics.game.currentScreen = GameScreen.MENU;
             }
             if (y <= 1960 && y >= 1722){
-                // TODO figure out how to connect to the following IP: graphics.enteredIp
                 graphics.game.joinNewGame(graphics.enteredIp);
                 // Once connected show the host screen
                 graphics.game.typeOfGameStarted = GameType.NETWORK_JOIN;

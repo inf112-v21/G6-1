@@ -48,7 +48,6 @@ public class HostGameScreenProcessor extends BaseInputProcessor {
             }
             if(y <= 1267 && y >= 1029) {
                 graphics.game.currentScreen = GameScreen.MENU;
-
                 graphics.game.server.stop();
 
             }

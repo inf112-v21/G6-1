@@ -61,7 +61,6 @@ public class MenuInputProcessor extends BaseInputProcessor {
                 graphics.game.hostNewGame();
 
             } else if(y <= 1240 && y >= 1036) {
-                System.out.println("Join click, attempting to join ip" + ip);
                 graphics.game.currentScreen = GameScreen.JOIN;
 
             }
