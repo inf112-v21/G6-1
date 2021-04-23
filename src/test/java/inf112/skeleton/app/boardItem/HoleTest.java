@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
 
-public class holeTest {
+public class HoleTest {
     HumanPlayer humanPlayer;
     Hole hole;
     final ArrayList<Player> testPlayers = new ArrayList<>();
