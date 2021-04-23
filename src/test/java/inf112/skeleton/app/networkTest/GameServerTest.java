@@ -11,9 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class GameServerTest {
 
-
-
-
     @Test
     public void ServerShouldStartOnHostsComputer() {
         GameServer server = new GameServer();
