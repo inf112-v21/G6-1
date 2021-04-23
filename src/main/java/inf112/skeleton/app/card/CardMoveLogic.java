@@ -122,8 +122,8 @@ public class CardMoveLogic {
     /**
      * This method convert ArrayList<HashMap<Integer(Priority), Action>> to ArrayList<Card>
      * to make cards from CardList possible to render in graphics
-     * @param sendAbleCards
-     * @return
+     * @param sendAbleCards cards to convert 
+     * @return ArrayList<Card> List of card object
      */
     public ArrayList<Card> convertToCardObject(ArrayList<HashMap<Integer, Action>> sendAbleCards){
         ArrayList<Card> cardsAsObject = new ArrayList<>();
