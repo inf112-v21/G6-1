@@ -51,7 +51,7 @@ If the player click the host game button, a server will be connected and the pla
 If the player click the join game button, they will be asked to enter the IP address. This information must be given from the player that is the host. When the player press the ready button, the game screen will be rendered without players og cards. This will first be shown when the host starts the game. 
 
 
-![Overview](https://github.com/inf112-v21/GameStoppers/blob/master/classDiagram/UML-diagram_oblig3.png?raw=true)
+![Overview](https://github.com/inf112-v21/GameStoppers/blob/master/classDiagram/UML-diagram_oblig4.png?raw=true)
 
 
 
