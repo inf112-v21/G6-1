@@ -20,13 +20,11 @@ public class EndScreen extends BaseInputProcessor {
 
         if (x >= 3227 && x <= 4088) {
             if(y <= 2030 && y >= 1680) {
-                System.out.println("Play again button click");
                 graphics.game.currentScreen = GameScreen.MENU;
                 graphics.game.typeOfGameStarted = GameType.NONE;
                 graphics.singlePlayer.newHumanPlayer(0, Color.GREEN, 0,0);
 
             } else if (y <= 1330 && y >= 980) {
-                System.out.println("Exit button click");
                 Gdx.app.exit();
             }
         }
