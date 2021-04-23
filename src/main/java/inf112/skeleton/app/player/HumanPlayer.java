@@ -3,7 +3,6 @@ package inf112.skeleton.app.player;
 import java.util.Arrays;
 import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import inf112.skeleton.app.card.Card;
 import com.badlogic.gdx.math.Vector3;
 import inf112.skeleton.app.shared.Color;
@@ -267,6 +266,15 @@ public class HumanPlayer extends Player {
         player.ready = false;
         player.playerDeck = cardMoveLogic.playerDeck();
         player.cardCoordinates = cardMoveLogic.resetCardCoordinates();
+        printPlayerCard();
+    }
+    @Override
+    public void printPlayerCard(){
+        System.out.println("Dealt cards: ");
+        for(Card card : this.playerDeck){
+            System.out.println("Type: " + card.action + " Priority: " + card.priority);
+        }
+        System.out.println("");
     }
 
 

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Assertions;
 
 import java.util.ArrayList;
 
-public class laserTest {
+public class LaserTest {
 
     HumanPlayer humanPlayer;
     Laser laser;

@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * If you get error "ExceptionInInitializerError", run the JVM with -XstartOnFirstThread.
  */
 
-public class gearTest {
+public class GearTest {
 
     Lwjgl3ApplicationConfiguration cfg;
     Graphics graphics;

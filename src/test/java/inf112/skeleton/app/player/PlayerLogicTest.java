@@ -5,7 +5,7 @@ import inf112.skeleton.app.shared.Direction;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
-public class playerLogicTest {
+public class PlayerLogicTest {
 
     final HumanPlayer humanPlayer = new HumanPlayer(Direction.NORTH, 1, Color.GREEN);
 

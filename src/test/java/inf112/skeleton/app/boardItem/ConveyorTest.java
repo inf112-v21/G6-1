@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.Before;
 
 
-public class conveyorTest {
+public class ConveyorTest {
 
 
     HumanPlayer humanPlayer;
