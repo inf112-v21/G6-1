@@ -8,7 +8,6 @@ import inf112.skeleton.app.graphics.Graphics;
 import inf112.skeleton.app.graphics.TileLayers;
 import inf112.skeleton.app.networking.GameClient;
 import inf112.skeleton.app.networking.GameServer;
-import inf112.skeleton.app.networking.listeners.ClientListener;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.shared.Action;
@@ -246,7 +245,7 @@ public class Game implements IGame {
                 }
                 boardItems.activateBoardItems(players, layer);
             }
-            myHumanPlayer.resetPlayer(myHumanPlayer);
+            myHumanPlayer.resetPlayerForNewRound(myHumanPlayer);
             resetOtherPlayers(players);
             allPlayerMoves = new HashMap<>();
         }
@@ -338,7 +337,7 @@ public class Game implements IGame {
             countCardsPlayedPerRound++;
             int amountOfCardsToBePlayedEachRound = players.size() * 5;
             if (countCardsPlayedPerRound == amountOfCardsToBePlayedEachRound+1) {
-                myHumanPlayer.resetPlayer(myHumanPlayer);
+                myHumanPlayer.resetPlayerForNewRound(myHumanPlayer);
                 resetOtherPlayers(players);
                 allPlayerMoves = new HashMap<>();
                 countCardsPlayedPerRound = 0;
@@ -388,7 +387,7 @@ public class Game implements IGame {
 
         if(player.chosenCards.isEmpty() && player.movedCards.size()==5){
 
-            player.resetPlayer(player);
+            player.resetPlayerForNewRound(player);
         }
     }
     public void doSinglePlayerMove(TileLayers layer){
