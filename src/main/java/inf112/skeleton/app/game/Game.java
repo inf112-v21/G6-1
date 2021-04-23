@@ -272,7 +272,7 @@ public class Game implements IGame {
             countCardsPlayedPerRound++;
             int amountOfCardsToBePlayedEachRound = players.size() * 5;
             if (countCardsPlayedPerRound == amountOfCardsToBePlayedEachRound+1) {
-                myHumanPlayer.resetPlayer(myHumanPlayer);
+                myHumanPlayer.resetPlayerForNewRound(myHumanPlayer);
                 resetOtherPlayers(players);
                 allPlayerMoves = new HashMap<>();
                 countCardsPlayedPerRound = 0;
@@ -345,7 +345,7 @@ public class Game implements IGame {
 
         if(player.chosenCards.isEmpty() && player.movedCards.size()==5){
 
-            player.resetPlayer(player);
+            player.resetPlayerForNewRound(player);
         }
     }
 
