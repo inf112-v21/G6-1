@@ -25,7 +25,7 @@ public class Game implements IGame {
     public Graphics graphics;
     public ArrayList<Player> players = new ArrayList<>();
     public HashMap<Integer, ArrayList<HashMap<Integer, Action>>> allPlayerMoves = new HashMap<>();
-    GameServer server;
+    public GameServer server;
     GameClient client;
     public int myId;
     BoardItems boardItems = new BoardItems();
@@ -37,54 +37,14 @@ public class Game implements IGame {
     public GameScreen winScreen = GameScreen.WIN;
     public GameScreen loseScreen = GameScreen.LOSE;
     public int numberOfPlayersConnected;
+    private boolean runOnceAtStartOfRound = false;
+    private int countCardsPlayedPerRound = 0;
 
-
-    public void connectedPlayers(int totalPlayersConnectedToServer){
-        numberOfPlayersConnected = totalPlayersConnectedToServer;
-    }
     @Override
     public Graphics startGame() {
         graphics = new Graphics(this);
         return graphics;
     }
-/**
-    public void chooseHostOrJoin () {
-        Scanner HostOrJoin = new Scanner(System.in);
-        System.out.println("Host (1), join (2) or start single player (3)?: ");
-
-        String choice = HostOrJoin.nextLine();
-        System.out.println("You choose " + choice);
-
-        if(choice.equals("1")){
-            hostNewGame("RiskyExchange");
-            typeOfGameStarted = GameType.NETWORK_HOST;
-        }
-        else if(choice.equals("2")){
-            InetAddress hostIp = null;
-            Scanner askForIpAddress = new Scanner(System.in);
-            System.out.println("Please enter the server IP to join: ");
-
-            String ChosenIP = askForIpAddress.nextLine();
-            try {
-                hostIp = InetAddress.getByName(ChosenIP);
-            } catch (UnknownHostException e) {
-                e.printStackTrace();
-            }
-            System.out.println(hostIp.getHostAddress());
-            typeOfGameStarted = GameType.NETWORK_JOIN;
-            joinNewGame(hostIp);
-
-        }
-        else if(choice.equals("3")){
-            System.out.println("Single player selected");
-            typeOfGameStarted = GameType.SINGLE_PLAYER;
-        }
-        else {
-            System.out.println("Please enter 1 or 2 when asked to");
-            chooseHostOrJoin();
-        }
-    }
-*/
 
     /**
      * InetAddress object created by the host. This is the only place server.run() should be used,
@@ -93,7 +53,7 @@ public class Game implements IGame {
      *
      */
     public InetAddress hostNewGame() {
-        server = new GameServer("RiskyExchange");
+        server = new GameServer();
         server.run();
         client = new GameClient(server.getAddress(),Game.this);
         return server.getAddress();
@@ -101,7 +61,7 @@ public class Game implements IGame {
 
 
     /**
-     * Creates client object for user. Might need more in this method.
+     * Creates client object for user. This is also ran for the host
      *
      * @param ip InetAddress object, is being called properly in @chooseHostOrJoin()
      */
@@ -219,42 +179,13 @@ public class Game implements IGame {
         }
     }
 
-
     /**
-     * Does a multiplayer round when the server sends the list of all moves for all players
-     * @param layer TileLayers
+     * Checks how many players are in the started game. The number comes from the server-side. Used to keep
+     * track of how many cards to be played per round.
+     *
      */
-    public void doRoundNetworkMultiplayer(TileLayers layer) {
-        if(!allPlayerMoves.isEmpty()){
-            giveAllPlayersCardObjects(allPlayerMoves);
-            HashMap<Integer, ArrayList<Card>> playerMoves = playerMoves();
-
-            for (int moveNumber = 0; moveNumber < 5; moveNumber++){
-                ArrayList<Card> roundMoves = new ArrayList<>();
-                for (Player p: players) {
-                    int playerId = p.id;
-                    Card playerMove = playerMoves.get(playerId).get(moveNumber);
-                    roundMoves.add(playerMove);
-                }
-                Collections.sort(roundMoves);
-                for (Card move: roundMoves) {
-                    for (Player player: players) {
-                        if (player.chosenCards.get(moveNumber).equals(move)) {
-                            player.doPlayerMove(move, layer);
-                            checkpoint.findCheckpoints(player, layer.checkpoint);
-                        }
-                    }
-                }
-                boardItems.activateBoardItems(players, layer);
-            }
-            myHumanPlayer.resetPlayerForNewRound(myHumanPlayer);
-            resetOtherPlayers(players);
-            allPlayerMoves = new HashMap<>();
-        }
-    }
-
-    public boolean getConnection(){
-        return client.getConnection();
+    public void connectedPlayers(int totalPlayersConnectedToServer){
+        numberOfPlayersConnected = totalPlayersConnectedToServer;
     }
 
 
@@ -310,30 +241,32 @@ public class Game implements IGame {
         HashMap<Integer, ArrayList<Card>> moveThisPlayer = new HashMap<>();
 
         Set<Integer> keySet = playerMoves.keySet();
-        int higestValuedPriorityCard = 0;
+        int highestValuedPriorityCard = 0;
         Player player = null;
 
         for(Integer key : keySet){
-            if(playerMoves.get(key).get(0).priority > higestValuedPriorityCard){
+            if(playerMoves.get(key).get(0).priority > highestValuedPriorityCard){
 
                 ArrayList<Card> cardToPlay = new ArrayList<>();
                 moveThisPlayer = new HashMap<>();
 
-                higestValuedPriorityCard = playerMoves.get(key).get(0).priority;
+                highestValuedPriorityCard = playerMoves.get(key).get(0).priority;
                 player = players.get(key);
                 
                 cardToPlay.add(playerMoves.get(key).get(0));
                 moveThisPlayer.put(key,cardToPlay);
             }
         }
-        System.out.println("Chosen cards before " + player.chosenCards.size() + "id " + player.id);
         player.chosenCards.remove(0);
-        System.out.println("Chosen cards after  " +  player.chosenCards.size() + "id " + player.id);
         return moveThisPlayer;
     }
-    boolean runOnceAtStartOfRound = false;
-    int countCardsPlayedPerRound = 0;
 
+
+    /**
+     * Checks if all cards has been played, and if os resets all players' cards and gives players new cards to prepare
+     * for a new round.
+     *
+     */
     public void keepPlaying() {
         if (!allPlayerMoves.isEmpty()) {
             countCardsPlayedPerRound++;
@@ -347,6 +280,15 @@ public class Game implements IGame {
             }
         }
     }
+
+    /**
+     * Method to activate all board items. This will only execute if all players has played their card for the given
+     * round.
+     *
+     * @param player
+     * @param layer
+     */
+
     public void boardItemsMove(Player player, TileLayers layer){
         int amountOfCardsToBePlayedEachRound = players.size() * 5;
         if(countCardsPlayedPerRound % players.size()  == 0 &&
@@ -355,6 +297,12 @@ public class Game implements IGame {
             checkpoint.findCheckpoints(player, layer.checkpoint);
         }
     }
+
+    /**
+     * Main function for multiplayer round.
+     *
+     * @param layer
+     */
     public void multiplayerRound(TileLayers layer){
         keepPlaying();
         if(!allPlayerMoves.isEmpty()) {
@@ -369,6 +317,7 @@ public class Game implements IGame {
             Card move = moveThisPlayer.get(playerId).get(0);
             player.doPlayerMove(move, layer);
             boardItemsMove(player,layer);
+
             try {
                 Thread.sleep(1000);
 
@@ -385,6 +334,13 @@ public class Game implements IGame {
         return false;
     }
 
+    /**
+     * Keeps count to check when player has played their 5 cards to avoid the program trying to play next card when
+     * there is none
+     *
+     * @param player
+     * @param layer
+     */
     public void cardCount(Player player, TileLayers layer){
 
         if(player.chosenCards.isEmpty() && player.movedCards.size()==5){
@@ -392,8 +348,14 @@ public class Game implements IGame {
             player.resetPlayerForNewRound(player);
         }
     }
+
+    /**
+     * When playing single player, this executed the moves and waits in between each move.
+     *
+     * @param layer
+     */
     public void doSinglePlayerMove(TileLayers layer){
-        ArrayList<Player> myHumanPlayerList = new ArrayList<Player>(Arrays.asList(myHumanPlayer));
+        ArrayList<Player> myHumanPlayerList = new ArrayList<>(Arrays.asList(myHumanPlayer));
         if(myHumanPlayer.ready && !myHumanPlayer.chosenCards.isEmpty()){
             myHumanPlayer.doPlayerMove(myHumanPlayer.chosenCards.remove(0), layer);
             boardItems.activateBoardItems(myHumanPlayerList, layer);
@@ -410,6 +372,11 @@ public class Game implements IGame {
     }
 
 
+    /**
+     * This updates the location of all players in the game during the game session.
+     *
+     * @param playerInfo
+     */
     public void updatePlayerInfo(HashMap<Integer, ArrayList<Float>> playerInfo) {
         for (Player player : players) {
             ArrayList<Float> useThisToUpdateCoordinates = playerInfo.get(player.id);
@@ -417,7 +384,4 @@ public class Game implements IGame {
             player.playerCurrentYPosition = useThisToUpdateCoordinates.get(1);
         }
     }
-
-
-
 }

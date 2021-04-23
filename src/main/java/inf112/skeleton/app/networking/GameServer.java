@@ -16,10 +16,6 @@ import java.net.UnknownHostException;
 
 
 public class GameServer implements Runnable {
-
-    int udp;
-    int tcp;
-
     Server server;
     ServerListener serverListener;
 
@@ -28,15 +24,8 @@ public class GameServer implements Runnable {
     static final int tcpPort = 54555;
 
 
-    public GameServer(String map) {
-
+    public GameServer() {
     }
-
-    public GameServer(int udp, int tcp){
-        this.udp = udp;
-        this.tcp = tcp;
-    }
-
 
     /**
      * Starts the server, tries to bind it and fetches host-ip for further use.

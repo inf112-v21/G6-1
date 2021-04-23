@@ -398,6 +398,9 @@ public class Graphics implements ApplicationListener {
         if (isWinner()) {
             if(game.winScreen== GameScreen.WIN) {
                 renderWin();
+                if(game.typeOfGameStarted == GameType.NETWORK_HOST) {
+                    game.server.stop();
+                }
             }
         }
         //the player gets a lose screen when the player dies or loses against other players

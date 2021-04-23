@@ -3,7 +3,6 @@ package inf112.skeleton.app.networking.listeners;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
-import inf112.skeleton.app.game.HostGameScreenProcessor;
 import inf112.skeleton.app.networking.packets.Packets;
 import inf112.skeleton.app.shared.Action;
 import java.util.ArrayList;
@@ -13,9 +12,6 @@ import java.util.Set;
 
 public class ServerListener extends Listener {
     private final Server server;
-    public boolean gotPackage = false;
-    public HostGameScreenProcessor HGSP;
-
     private final HashMap<Integer, ArrayList<HashMap<Integer, Action>>> cardsReceived;
     private int numberOfPlayers = 0;
     public HashMap<Integer, ArrayList<Float>> playerInfoGlobal = new HashMap<>();
@@ -44,18 +40,7 @@ public class ServerListener extends Listener {
         Packets.PlayerIdPacket playerIdPacket = new Packets.PlayerIdPacket();
         playerIdPacket.playerNumber = numberOfPlayers;
         server.sendToAllTCP(playerIdPacket);
-/**
-        if (numberOfPlayers >= 2) {
-
-            Packets.playerInfo updatedPlayerInfo = new Packets.playerInfo();
-            updatedPlayerInfo.playerInfo = playerInfoGlobal;
-            server.sendToAllTCP(updatedPlayerInfo);
-
-
-            this.startGameSession();
-*/
         }
-
 
 
     /**
@@ -94,11 +79,9 @@ public class ServerListener extends Listener {
             server.sendToAllTCP(updatedPlayerInfo);
 
             this.startGameSession();
-
         }
 
         if (object instanceof Packets.playerInfo) {
-            System.out.println("Motatt!");
             Packets.playerInfo playerInfo = (Packets.playerInfo) object;
             Set<Integer> findPlayerIdKey = playerInfo.playerInfo.keySet();
 
@@ -122,8 +105,6 @@ public class ServerListener extends Listener {
             for (Integer key: findPlayerIdKey) {
                 Integer foundKey = key;
                 cardsReceived.put(foundKey, receivedAction.actionList.get(foundKey));
-                System.out.println(foundKey);
-                System.out.println(cardsReceived);
             }
             if(checkIfAllClientsAreReady == numberOfPlayers) {
                 receivedAction.actionList = cardsReceived;
@@ -132,14 +113,6 @@ public class ServerListener extends Listener {
                 checkIfAllClientsAreReady = 0;
 
             }
-        } else if (object instanceof Packets.TestPack) {
-            System.out.println("Server got test pack");
-            Packets.TestPack packet = (Packets.TestPack) object;
-            gotPackage = true;
         }
-
-
-
-
     }
 }
