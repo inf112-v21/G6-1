@@ -75,7 +75,7 @@ public class Graphics implements ApplicationListener {
     }
 
     /**
-     * Updates current players card sprite, so that it matches the players backend playerdeck
+     * Updates current players card sprite, so that it matches the players backend player deck
      * @param humanPlayer humanPlayer
      */
     public void updateCardSprite(Player humanPlayer) {
@@ -434,10 +434,10 @@ public class Graphics implements ApplicationListener {
     }
 
     /**
-     * Informs the player how many lifes they have left.
+     * Informs the player how many lives they have left.
      */
     public void lifeTokenIndicator(){
-        // displaying the lifetoken
+        // displaying the life token
         spriteBatch.begin();
         if(singlePlayer.getPlayerHealth() == 1){
             spriteBatch.draw(lifeToken1, 755, 505, 110, 65);
