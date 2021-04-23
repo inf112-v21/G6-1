@@ -266,7 +266,7 @@ public class Graphics implements ApplicationListener {
         font.draw(spriteBatch, "There are " + game.numberOfPlayersConnected + " players in the game", 500, 450);
         spriteBatch.end();
 
-        //
+
 
         //draw buttons
         spriteBatch.begin();
