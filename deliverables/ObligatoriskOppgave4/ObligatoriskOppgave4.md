@@ -38,11 +38,11 @@ Skjermbilde av en del av projectboard er lagt ved i deliverables, det komplette 
 
 ## Brukerhistorier
 
-** 1) As a user I want to navigate through multiple menu screens, so that I can find the gamemode I want to play or the information I seek.
+**1)** As a user I want to navigate through multiple menu screens, so that I can find the gamemode I want to play or the information I seek.
 
     Acceptance criteria: 
 - All desired screens is working
 
-
+    
     Work tasks: 
 - Create desired screens 
