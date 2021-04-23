@@ -104,6 +104,7 @@ public class Game implements IGame {
             if(player.id == myId){
                 initializeMyHumanPlayer(player);
                 System.out.println("Your player color is: " + myHumanPlayer.color+ "!");
+                myHumanPlayer.printPlayerCard();
             }
 
         }
@@ -329,6 +330,7 @@ public class Game implements IGame {
     public boolean createSinglePlayer(){
         myHumanPlayer = new HumanPlayer(Direction.NORTH,69,Color.GREEN);
         myHumanPlayer.playerDeck = cardMoveLogic.playerDeck();
+        myHumanPlayer.printPlayerCard();
         return false;
     }
 
