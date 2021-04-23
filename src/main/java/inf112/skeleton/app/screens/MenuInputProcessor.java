@@ -1,12 +1,15 @@
-package inf112.skeleton.app.game;
+package inf112.skeleton.app.screens;
 
+import inf112.skeleton.app.game.GameScreen;
+import inf112.skeleton.app.game.GameType;
 import inf112.skeleton.app.graphics.Graphics;
+import inf112.skeleton.app.screens.BaseInputProcessor;
 
-public class HostGameScreenProcessor extends BaseInputProcessor {
+public class MenuInputProcessor extends BaseInputProcessor {
     final Graphics graphics;
-    public boolean startGame = false;
+    String ip = "";
 
-    public HostGameScreenProcessor(Graphics graphics){
+    public MenuInputProcessor(Graphics graphics) {
         super();
         this.graphics = graphics;
     }
@@ -23,6 +26,18 @@ public class HostGameScreenProcessor extends BaseInputProcessor {
 
     @Override
     public boolean keyTyped(char c) {
+
+
+        try {
+            int i = Integer.parseInt(c + "");
+            ip += i;
+        } catch (Exception e) {
+            if (c == '.') {
+                ip += c;
+            } else {
+                ip = "";
+            }
+        }
         return false;
     }
 
@@ -37,20 +52,21 @@ public class HostGameScreenProcessor extends BaseInputProcessor {
         float y = mouseClickYCoordinate;
 
         if (x >= 3260 && x <= 3960) {
-            if (y <= 1950 && y >= 1722) {
-                graphics.game.typeOfGameStarted = GameType.NETWORK_HOST;
+            if(y <= 2653 && y >= 2415) {
+                graphics.game.typeOfGameStarted = GameType.SINGLE_PLAYER;
                 graphics.game.currentScreen = GameScreen.GAME;
 
-                startGame = true;
+            } else if (y <= 1950 && y >= 1722) {
+                graphics.game.currentScreen = GameScreen.HOST;
+                graphics.game.hostNewGame();
+
+            } else if(y <= 1240 && y >= 1036) {
+                System.out.println("Join click, attempting to join ip" + ip);
+                graphics.game.currentScreen = GameScreen.JOIN;
+
             }
-            if(y <= 1267 && y >= 1029) {
-                graphics.game.currentScreen = GameScreen.MENU;
-
-                graphics.game.server.stop();
-
-            }
-
         }
+
 
         return false;
     }

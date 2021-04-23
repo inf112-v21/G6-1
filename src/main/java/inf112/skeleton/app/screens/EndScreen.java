@@ -1,7 +1,6 @@
 package inf112.skeleton.app.screens;
 
 import com.badlogic.gdx.Gdx;
-import inf112.skeleton.app.game.BaseInputProcessor;
 import inf112.skeleton.app.game.GameScreen;
 import inf112.skeleton.app.game.GameType;
 import inf112.skeleton.app.graphics.Graphics;

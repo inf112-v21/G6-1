@@ -16,6 +16,9 @@ import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.screens.EndScreen;
+import inf112.skeleton.app.screens.HostGameScreenProcessor;
+import inf112.skeleton.app.screens.JoinGameScreenProcessor;
+import inf112.skeleton.app.screens.MenuInputProcessor;
 import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
@@ -34,7 +37,6 @@ public class Graphics implements ApplicationListener {
     public Texture menuScreenBackground;
     public Texture youWin, youLose;
     public Texture exitButton, playAgainButton;
-    public Texture rulesButton;
     public Texture reset, notReset;
     public Texture ready, notReady;
     public Texture emptyDamageToken, damageToken1, damageToken2, damageToken3,
@@ -89,7 +91,7 @@ public class Graphics implements ApplicationListener {
 
 
     public void setInputProcessor(Player player){
-        Gdx.input.setInputProcessor((InputProcessor) player);
+        Gdx.input.setInputProcessor(player);
     }
 
 
@@ -156,8 +158,6 @@ public class Graphics implements ApplicationListener {
         damageToken9 = new Texture("Damagetoken/140.png");
         damageToken10 = new Texture("Damagetoken/150.png");
 
-        rulesButton = new Texture("RulesButton.png");
-
         // Menu Textures
         menuScreenBackground = new Texture("MenuScreen/MenuBackground.png");
         singlePlayerButton = new Texture("SinglePlayerButton.png");
@@ -186,15 +186,14 @@ public class Graphics implements ApplicationListener {
         readyButton = new Texture("ReadyButton.png");
 
         //End screen textures
-        exitButton = new Texture("ExitButton.png"); //TODO might change later
+        exitButton = new Texture("ExitButton.png");
         playAgainButton = new Texture("ReturnButton.png");
     }
+
     /**
      * temp runs a single-player gui
      */
     public void singlePlayer(){
-
-
         singlePlayerSprite = playerGraphics.getPlayerSprite(singlePlayer.color);
 
         singlePlayer.setMouseClickCoordinates(camera);
@@ -207,7 +206,6 @@ public class Graphics implements ApplicationListener {
         game.doSinglePlayerMove(layer);
 
     }
-
 
     /**
      * Displayed on the screen.
@@ -250,8 +248,6 @@ public class Graphics implements ApplicationListener {
         font.draw(spriteBatch, "Waiting for players..", 500, 500);
         font.draw(spriteBatch, "There are " + game.numberOfPlayersConnected + " players in the game", 500, 450);
         spriteBatch.end();
-
-
 
         //draw buttons
         spriteBatch.begin();
@@ -323,14 +319,17 @@ public class Graphics implements ApplicationListener {
      */
     @Override
     public void render() {
+        //The player gets up the MENU screen.
         if (game.currentScreen == GameScreen.MENU) {
             renderMenuScreen();
             return;
         }
+        //The player gets up the HOST screen.
         if (game.currentScreen == GameScreen.HOST) {
             renderHostGameScreen();
             return;
         }
+        //The player gets up a JOIN screen.
         if (game.currentScreen == GameScreen.JOIN){
             renderJoinGameScreen();
             return;
@@ -339,30 +338,18 @@ public class Graphics implements ApplicationListener {
         spriteBatch.draw(background, 0, 0, 1280, 720);
         spriteBatch.end();
 
-        if(game.currentScreen == GameScreen.GAME){
-            spriteBatch.begin();
-            spriteBatch.draw(rulesButton,-30,520,200,130);
-            spriteBatch.end();
-            endScreen.setMouseClickCoordinates(camera);
-            Gdx.input.setInputProcessor(endScreen);
-        }
-
-        //shows when to click the buttons and when not to click
         readyButtonIndicator();
         resetButtonIndicator();
 
-        //informs the player when damaged
         damageTokenIndicator();
-        //informs how many lifes the player has left
         lifeTokenIndicator();
 
         camera.update();
         tiledMapRenderer.setView(camera);
         tiledMapRenderer.render();
+
         tiledMapRenderer.getBatch().begin();
         if (game.typeOfGameStarted == GameType.SINGLE_PLAYER) {
-
-
             Gdx.input.setInputProcessor(singlePlayer);
             if(singlePlayerGameStarted){
                 singlePlayerGameStarted= game.createSinglePlayer();
@@ -375,11 +362,11 @@ public class Graphics implements ApplicationListener {
             singlePlayer = game.myHumanPlayer;
             game.multiplayerRound(layer);
             updatePlayerSprite(game.players, game.myHumanPlayer);
-
         }
         tiledMapRenderer.getBatch().end();
 
-        //the player gets a win screen after visiting all the flags
+
+        //The player gets a WIN screen when the player wins the game.
         if (isWinner()) {
             if(game.winScreen== GameScreen.WIN) {
                 renderWin();
@@ -388,7 +375,8 @@ public class Graphics implements ApplicationListener {
                 }
             }
         }
-        //the player gets a lose screen when the player dies or loses against other players
+
+        //The player gets a LOSE screen when the player dies or loses against other players.
         if(singlePlayer.isPlayerAlive()){
             if(game.loseScreen == GameScreen.LOSE){
                 renderLose();
@@ -396,14 +384,21 @@ public class Graphics implements ApplicationListener {
         }
     }
 
-
-
-    public boolean isWinner(){
+    /**
+     * The player wins the game by visiting all the flags in correct
+     * order.
+     * @return singlePlayer
+     */
+    private boolean isWinner(){
         return singlePlayer.hasPlayerVisitedAllFlags((TiledMapTileLayer) tiledMap.getLayers().get("flagLayer"));
     }
 
+    /**
+     * Shows when to click on the ready button, to preform the moves by
+     * selecting all 5 cards, and when not to click on the button.
+     */
     public void readyButtonIndicator(){
-        if(singlePlayer.movedCards.size() >= 5){
+        if(singlePlayer.movedCards.size() == 5){
             spriteBatch.begin();
             spriteBatch.draw(ready, 1053, 175, 125, 55);
             spriteBatch.end();
@@ -414,6 +409,10 @@ public class Graphics implements ApplicationListener {
         }
     }
 
+    /**
+     * Shows when to click on the reset button and when not to click on
+     * the button.
+     */
     public void resetButtonIndicator(){
         if(singlePlayer.movedCards.size() > 0){
             spriteBatch.begin();
@@ -426,6 +425,9 @@ public class Graphics implements ApplicationListener {
         }
     }
 
+    /**
+     * Informs the player how many lifes they have left.
+     */
     public void lifeTokenIndicator(){
         // displaying the lifetoken
         spriteBatch.begin();
@@ -444,6 +446,10 @@ public class Graphics implements ApplicationListener {
         spriteBatch.end();
     }
 
+    /**
+     * Informs the player when damaged by giving color to the
+     * empty spot where damage tokens are being displayed.
+     */
     public void damageTokenIndicator(){
         // displaying the damagetoken
         spriteBatch.begin();
