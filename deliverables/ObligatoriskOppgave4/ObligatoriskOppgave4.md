@@ -40,9 +40,56 @@ Skjermbilde av en del av projectboard er lagt ved i deliverables, det komplette 
 
 **1)** As a user I want to navigate through multiple menu screens, so that I can find the gamemode I want to play or the information I seek.
 
-    Acceptance criteria: 
+Acceptance criteria: 
 - All desired screens is working
 
-    
-    Work tasks: 
+Work tasks: 
 - Create desired screens 
+
+**2)** As a user I want my board piece to collide in walls, so that the game works as intended.
+
+Acceptance criteria:
+- Player can’t move if a wall is in its path.
+
+Work tasks:
+- Create wall logic and implement it in player move logic.
+
+**3)** As a user I want to be able to visit checkpoints, so that the game works as intended.
+
+Acceptance criteria:
+- Checkpoint is registered if a players turn ends on a checkpoint.
+
+Work tasks:
+- Create logic for checkpoint.
+
+**4)** As a user I want my board piece to have a checkpoint or start position registered, so that if my board piece dies, it returns to the checkpoint instead of the start position.
+
+Acceptance criteria: 
+- If a player dies, the piece is moved to the last checkpoint or start position.
+
+Work tasks: 
+- Add function to move player to checkpoint or start position in case of death.
+
+**5)** As a user I want to be able to read of my health and damage from the screen, so that I know
+how close I am to losing one health point, or dying from losing all of them.
+
+Acceptance criteria: 
+- Current damage and health is indicated on the play screen.
+
+Work tasks: 
+- Implement logic to connect backend player health and damage with gui representation.
+
+**6)** As a user I want to be able to choose between different screens, so that it is easy to choose between singler player, host or join game. 
+
+Acceptance criteria: 
+- A screen for host game before starting the game where number of players are showed. 
+- A screen for join game where the player can input the IP address in order to join the game. 
+
+Work task:
+- Implement a host screen where the host can see the number of players connected to the game. 
+- Implement a join screen where the player can input the IP address and press ready.
+
+
+
+
+
