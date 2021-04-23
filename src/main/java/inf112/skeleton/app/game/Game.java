@@ -121,6 +121,7 @@ public class Game implements IGame {
     /**
      * Create a list of players for a game, from a Hashmap containing player info provided by the server.
      * The Hashmap playerInfo contains player id and start position for all players connected to the game.
+     *
      * @param playerInfo HashMap<Integer (player id),ArrayList<Float (XY position index: 0 = X, 1 = Y)>>
      * @return ArrayList<Player> list of players
      */
@@ -169,6 +170,7 @@ public class Game implements IGame {
      * This method returns a Hashmap of cards the local player want to play this round with the local players id as key.
      * It converts the chosenCard list from the local player to a HashMap that ist possible to send
      * via network. The card Hashmap has card priority as key and its action as value.
+     *
      * @return HashMap<Integer (playerID), ArrayList<HashMap<Integer(Card Priority), Action (Card action)>>>
      */
     public HashMap<Integer, ArrayList<HashMap<Integer, Action>>> getPlayerActionList(){
