@@ -88,8 +88,6 @@ public class ServerListener extends Listener {
             for (Integer key: findPlayerIdKey) {
                 Integer foundKey = key;
                 playerInfoGlobal.put(foundKey, playerInfo.playerInfo.get(foundKey));
-                System.out.println(foundKey);
-                System.out.println(playerInfoGlobal);
             }
             Packets.playerInfo sendPlayerInfo = new Packets.playerInfo();
             sendPlayerInfo.playerInfo = playerInfoGlobal;
