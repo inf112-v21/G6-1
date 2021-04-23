@@ -1,4 +1,4 @@
-package inf112.skeleton.app.game;
+package inf112.skeleton.app.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;

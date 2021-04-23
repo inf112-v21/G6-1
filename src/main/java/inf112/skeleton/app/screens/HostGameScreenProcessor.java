@@ -1,12 +1,15 @@
-package inf112.skeleton.app.game;
+package inf112.skeleton.app.screens;
 
+import inf112.skeleton.app.game.GameScreen;
+import inf112.skeleton.app.game.GameType;
 import inf112.skeleton.app.graphics.Graphics;
+import inf112.skeleton.app.screens.BaseInputProcessor;
 
-public class MenuInputProcessor extends BaseInputProcessor {
+public class HostGameScreenProcessor extends BaseInputProcessor {
     final Graphics graphics;
-    String ip = "";
+    public boolean startGame = false;
 
-    public MenuInputProcessor(Graphics graphics) {
+    public HostGameScreenProcessor(Graphics graphics){
         super();
         this.graphics = graphics;
     }
@@ -23,18 +26,6 @@ public class MenuInputProcessor extends BaseInputProcessor {
 
     @Override
     public boolean keyTyped(char c) {
-
-
-        try {
-            int i = Integer.parseInt(c + "");
-            ip += i;
-        } catch (Exception e) {
-            if (c == '.') {
-                ip += c;
-            } else {
-                ip = "";
-            }
-        }
         return false;
     }
 
@@ -49,21 +40,20 @@ public class MenuInputProcessor extends BaseInputProcessor {
         float y = mouseClickYCoordinate;
 
         if (x >= 3260 && x <= 3960) {
-            if(y <= 2653 && y >= 2415) {
-                graphics.game.typeOfGameStarted = GameType.SINGLE_PLAYER;
+            if (y <= 1950 && y >= 1722) {
+                graphics.game.typeOfGameStarted = GameType.NETWORK_HOST;
                 graphics.game.currentScreen = GameScreen.GAME;
 
-            } else if (y <= 1950 && y >= 1722) {
-                graphics.game.currentScreen = GameScreen.HOST;
-                graphics.game.hostNewGame();
+                startGame = true;
+            }
+            if(y <= 1267 && y >= 1029) {
+                graphics.game.currentScreen = GameScreen.MENU;
 
-            } else if(y <= 1240 && y >= 1036) {
-                System.out.println("Join click, attempting to join ip" + ip);
-                graphics.game.currentScreen = GameScreen.JOIN;
+                graphics.game.server.stop();
 
             }
-        }
 
+        }
 
         return false;
     }
