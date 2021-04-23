@@ -8,7 +8,7 @@ import inf112.skeleton.app.screens.BaseInputProcessor;
 
 public class JoinGameScreenProcessor extends BaseInputProcessor implements Input.TextInputListener {
     final Graphics graphics;
-    String text;
+
 
     public JoinGameScreenProcessor(Graphics graphics){
         super();

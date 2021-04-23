@@ -48,8 +48,8 @@ public class ClientListener extends Listener  {
     /**
      * Kryonet Client calls this when it receives something from the server,
      * then this method sorts what type of object it is and sends it to the right place in the game class.
-     * @param c
-     * @param object
+     * @param c connection
+     * @param object object
      */
 
     public void received(Connection c, Object object) {

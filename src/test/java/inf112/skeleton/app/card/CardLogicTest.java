@@ -1,6 +1,5 @@
 package inf112.skeleton.app.card;
 
-import inf112.skeleton.app.graphics.TileLayers;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Color;

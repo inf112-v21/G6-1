@@ -97,8 +97,6 @@ final HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
      * @param conveyorMovement number of moves. one if yellow conveyor two if blue conveyor
      */
     public void movePlayerOnConveyor(Player player, int conveyorDirection, int conveyorMovement){
-        float oldPlayerXPos = player.getPlayerXPosition();
-        float oldPlayerYPos = player.getPlayerYPosition();
         if(conveyorDirection == Direction.NORTH.getDirectionDegree()) {
             player.updatePlayerYPosition(movePlayerAsFarAsPossible(player,
                     player.getPlayerYPosition() + conveyorMovement, Direction.NORTH));

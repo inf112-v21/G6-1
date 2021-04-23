@@ -42,7 +42,6 @@ public class PlayerGraphics {
     /**
      * Creates a hashmap with all player textures (all colors and all directions)
      * Get the texture by the player color and direction.
-     * @return Hashmap of player textures
      */
     private void createPlayerTextures() {
         HashMap<Direction,Texture> greenPiece = new HashMap<>();
@@ -87,7 +86,6 @@ public class PlayerGraphics {
     /**
      * Creates a hashmap of player sprites.
      * Get the sprite by the players color
-     * @return Hashmap of player sprites
      */
     private void createPlayerSprite(){
         this.playerSprites = new HashMap<>();

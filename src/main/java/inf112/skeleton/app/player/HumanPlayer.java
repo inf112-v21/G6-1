@@ -30,11 +30,8 @@ public class HumanPlayer extends Player {
 
     private float mouseClickXCoordinate;
     private float mouseClickYCoordinate;
-    public final Hole hole = new Hole();
-    public final Laser laser = new Laser();
     public final Walls walls = new Walls();
     private final CardMoveLogic cardMoveLogic;
-    public final BoardItems boardItems = new BoardItems();
     private final Vector3 mouseClickPosition;
     {
         cardMoveLogic = new CardMoveLogic();

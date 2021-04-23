@@ -83,8 +83,7 @@ public class ServerListener extends Listener {
             Set<Integer> findPlayerIdKey = playerInfo.playerInfo.keySet();
 
             for (Integer key: findPlayerIdKey) {
-                Integer foundKey = key;
-                playerInfoGlobal.put(foundKey, playerInfo.playerInfo.get(foundKey));
+                playerInfoGlobal.put(key, playerInfo.playerInfo.get(key));
             }
             Packets.playerInfo sendPlayerInfo = new Packets.playerInfo();
             sendPlayerInfo.playerInfo = playerInfoGlobal;
@@ -98,8 +97,7 @@ public class ServerListener extends Listener {
             Set<Integer> findPlayerIdKey = receivedAction.actionList.keySet();
 
             for (Integer key: findPlayerIdKey) {
-                Integer foundKey = key;
-                cardsReceived.put(foundKey, receivedAction.actionList.get(foundKey));
+                cardsReceived.put(key, receivedAction.actionList.get(key));
             }
             if(checkIfAllClientsAreReady == numberOfPlayers) {
                 receivedAction.actionList = cardsReceived;

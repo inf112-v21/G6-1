@@ -10,8 +10,7 @@ public class Network {
     /**
      * Method used to register all needed classes for the server and client.
      * This must be identical on both server and client.
-     *
-     * @param
+     * @param endpoint client and server
      */
     static public void register (EndPoint endpoint) {
         Kryo kryo = endpoint.getKryo();
