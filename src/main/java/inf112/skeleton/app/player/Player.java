@@ -30,6 +30,11 @@ public abstract class Player extends BaseInputProcessor {
     public  ArrayList<Integer> flagsToVisit;
     public ArrayList<Float> cardCoordinates;
 
+    /**
+     * Prints player deck
+     */
+    public abstract void printPlayerCard();
+
 
     /**
      * @param direction The direction the player is facing. Needs to be set only when a player is created

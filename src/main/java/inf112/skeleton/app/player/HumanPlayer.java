@@ -266,6 +266,15 @@ public class HumanPlayer extends Player {
         player.ready = false;
         player.playerDeck = cardMoveLogic.playerDeck();
         player.cardCoordinates = cardMoveLogic.resetCardCoordinates();
+        printPlayerCard();
+    }
+    @Override
+    public void printPlayerCard(){
+        System.out.println("Dealt cards: ");
+        for(Card card : this.playerDeck){
+            System.out.println("Type: " + card.action + " Priority: " + card.priority);
+        }
+        System.out.println("");
     }
 
 
