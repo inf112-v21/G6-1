@@ -4,10 +4,14 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.shared.Direction;
 
-import java.util.ArrayList;
 
 public class CheckPoint {
 
+    /**
+     * Finds checkpoints matching player positions
+     * @param player current
+     * @param checkpoints TiledMapTileLayer
+     */
     public void findCheckpoints(Player player , TiledMapTileLayer checkpoints){
         int startBoundaryX = Direction.WEST.getBoundaryCoordinate();
         int endBoundaryX = Direction.EAST.getBoundaryCoordinate();

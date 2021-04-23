@@ -15,21 +15,21 @@ public abstract class Player extends BaseInputProcessor {
 
 
     public int id;
-//TODO color final
+    public  Color color;
+    public boolean ready;
     public int damageTaken;
     public int healthToken;
-    public  Color color;
     public Direction direction;
-    public ArrayList<Card> chosenCards;
     public ArrayList<Card> playerDeck;
-    public float playerCheckpointPositionX;
-    public float playerCheckpointPositionY;
+    public ArrayList<Card> chosenCards;
     public float playerCurrentXPosition;
     public float playerCurrentYPosition;
-    public ArrayList<Float> cardCoordinates;
     public ArrayList<Integer> movedCards;
+    public float playerCheckpointPositionX;
+    public float playerCheckpointPositionY;
     public  ArrayList<Integer> flagsToVisit;
-    public boolean ready;
+    public ArrayList<Float> cardCoordinates;
+
 
     /**
      * @param direction The direction the player is facing. Needs to be set only when a player is created
@@ -74,13 +74,66 @@ public abstract class Player extends BaseInputProcessor {
      */
     public abstract void newHumanPlayer (int id, Color color, float playerStartXPosition,float playerStartYPosition);
 
+
+    /**
+     * Handles player movement when colliding with a wall, handles damage for player
+     * @param afterCollisionX player x position after collision with wall
+     * @param afterCollisionY player x position after collision with wall
+     */
+    public abstract void wallCollisionHandler(float afterCollisionX, float afterCollisionY);
+
+
+    /**
+     * This method sets a new player location
+     * @param xPosition of new location
+     * @param yPosition of new location
+     */
+    public abstract void setPlayerNewLocation(float xPosition, float yPosition);
+
+
+    /**
+     * This method handles player movement by card
+     * @param card this players round card
+     * @param wall TiledMapTileLayer
+     */
     public abstract void playerMoveHandler(Card card, TiledMapTileLayer wall);
 
+
+    /**
+     * This method set player checkpoint location
+     * @param xPosition of the new checkpoint
+     * @param yPosition of the new checkpoint
+     */
     public abstract void setNewPlayerCheckpointLocation(float xPosition, float yPosition);
 
+
+    /**
+     * This method is call when you want to do a move by card
+     * @param card to play
+     * @param tileLayers all TiledLayers
+     */
     public abstract void doPlayerMove(Card card, TileLayers tileLayers);
 
-    public abstract void resetPlayer(Player player);
+
+    /**
+     * Help method for playerMoveHandler
+     * This method finds the next location to check for walls, and board limits.
+     * It takes the amount of movement (0 or 300), finds the XY direction of the player,
+     * multiples it by playerDirection.getMoveDirection which give the correct direction to move NSEW.
+     * Then alters either X or Y direction and adds it to the list to be returned
+     * @param amountOfMovement 0 or 300
+     * @return  ArrayList<Float> coordinates 0 = X 1 = Y
+     */
+    public abstract ArrayList<Float> getCoordinatesToCheck(float amountOfMovement, Card card);
+
+
+    /**
+     * This reset everything that needs to be reset for a player to play a new round
+     * @param player reset
+     */
+    public abstract void resetPlayerForNewRound(Player player);
+
+
     /**
      * Needed to mach Sprite positions with the player when starting a game.
      * Pass this method in as X parameter in set player position sprite-built-in method.
@@ -89,6 +142,7 @@ public abstract class Player extends BaseInputProcessor {
      * @return playerStartXPosition, to set player sprite
      */
     public abstract float setPlayerStartXPosition(float playerStartXPosition);
+
 
     /**
      * Needed to mach Sprite positions with the player when starting a game.
@@ -99,11 +153,13 @@ public abstract class Player extends BaseInputProcessor {
      */
     public abstract float setPlayerStartYPosition(float playerStartYPosition);
 
+
     /**
      * Updates player X position, used in the render method of the
      * graphics class to keep Player position synchronised with player sprite.
      */
     public abstract void updatePlayerXPosition(float newXPosition);
+
 
     /**
      * Updates player Y position, used in the render method of the
@@ -111,15 +167,18 @@ public abstract class Player extends BaseInputProcessor {
      */
     public abstract void updatePlayerYPosition(float newYPosition);
 
+
     /**
      * @return X position of the player
      */
     public abstract float getPlayerXPosition();
 
+
     /**
      * @return Y position of player
      */
     public abstract float getPlayerYPosition();
+
 
     /**
      * The player needs to visit the flags in the correct order, to win.
@@ -132,6 +191,7 @@ public abstract class Player extends BaseInputProcessor {
      */
     public abstract boolean hasPlayerVisitedAllFlags(TiledMapTileLayer flagLayer);
 
+
     /**
      * Check if the player can move to the given X and Y position,
      * without going outside the board
@@ -141,6 +201,7 @@ public abstract class Player extends BaseInputProcessor {
      */
     public abstract boolean isPlayerOnBoard(float xDirection, float yDirection);
 
+
     /**
      * Calculate normalized coordinates. The tiled-map operates with
      * tile-size of 300 by 300. While the layers operates with tile-size of 1 by 1.
@@ -149,6 +210,7 @@ public abstract class Player extends BaseInputProcessor {
      */
     public abstract int normalizedCoordinates(float unNormalizedValue);
 
+
     /**
      * Set new direction of the player related to the given move degree
      * @param moveDegree amount of movement
@@ -156,11 +218,11 @@ public abstract class Player extends BaseInputProcessor {
     public abstract void setPlayerDirection(int moveDegree);
 
 
-
     /**
      * @return This method returns the players health token
      */
     public abstract int getPlayerHealth();
+
 
     /**
      * @return The amount of damage the player has
@@ -175,17 +237,21 @@ public abstract class Player extends BaseInputProcessor {
      */
     public abstract void dealDamageToPlayer();
 
+
     /**
      * If the players healthToken is more than zero the player is alive
      * and the function will return true.
-     * If the players healtToken in zero the player is dead
+     * If the players healthToken in zero the player is dead
      * and the function will return false.
      * @return boolean
      */
     public abstract boolean isPlayerAlive();
 
+
     /**
      * Takes a life from a player
      */
     public abstract void takePlayerLife();
+
+
 }

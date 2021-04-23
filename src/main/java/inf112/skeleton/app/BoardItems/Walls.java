@@ -115,12 +115,6 @@ public class Walls {
         return 2;
     }
 
-    /**
-     * return 0 flytter spiller til pos og break
-     * return 1 flytter ikke spiller men lar den stå brak
-     * return 2 flytter spiller og forsetter
-     */
-
 
     /**
      * This method checks if a player has the opposite direction than a wall

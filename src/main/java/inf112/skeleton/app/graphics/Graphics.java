@@ -366,6 +366,9 @@ public class Graphics implements ApplicationListener {
         if (isWinner()) {
             if(game.winScreen== GameScreen.WIN) {
                 renderWin();
+                if(game.typeOfGameStarted == GameType.NETWORK_HOST) {
+                    game.server.stop();
+                }
             }
         }
 

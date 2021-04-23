@@ -1,21 +1,20 @@
 package inf112.skeleton.app.player;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-
+import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Vector3;
-import inf112.skeleton.app.BoardItems.*;
 import inf112.skeleton.app.card.Card;
-import com.badlogic.gdx.InputProcessor;
-import inf112.skeleton.app.shared.Action;
+import com.badlogic.gdx.math.Vector3;
 import inf112.skeleton.app.shared.Color;
+import inf112.skeleton.app.BoardItems.*;
+import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Direction;
 import inf112.skeleton.app.card.CardMoveLogic;
+import inf112.skeleton.app.graphics.TileLayers;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import inf112.skeleton.app.graphics.TileLayers;
+
 /**
  * This class is to be used to create an human players.
  * This class keeps track of everything concerning a human player.
@@ -24,20 +23,19 @@ import inf112.skeleton.app.graphics.TileLayers;
 
 public class HumanPlayer extends Player {
 
+
     public HumanPlayer(Direction direction, int id, Color color) {
         super(direction, id, color);
     }
 
-    public final Gear gear = new Gear();
+
+    private float mouseClickXCoordinate;
+    private float mouseClickYCoordinate;
     public final Hole hole = new Hole();
     public final Laser laser = new Laser();
     public final Walls walls = new Walls();
-    public final Conveyor conveyor = new Conveyor();
-    public final CheckPoint checkpoint = new CheckPoint();
-    public final BoardItems boardItems = new BoardItems();
-    private float mouseClickXCoordinate;
-    private float mouseClickYCoordinate;
     private final CardMoveLogic cardMoveLogic;
+    public final BoardItems boardItems = new BoardItems();
     private final Vector3 mouseClickPosition;
     {
         cardMoveLogic = new CardMoveLogic();
@@ -46,43 +44,16 @@ public class HumanPlayer extends Player {
 
 
     @Override
-    public void newHumanPlayer (int id, Color color, float playerStartXPosition,float playerStartYPosition){
-        this.id = id;
-        this.color = color;
-        this.ready = false;
-        this.healthToken = 3;
-        this.damageTaken = 0;
-        this.direction = Direction.NORTH;
-        this.playerCurrentXPosition = 0;
-        this.playerCurrentYPosition = 0;
-        this.playerCheckpointPositionX = playerStartXPosition;
-        this.playerCheckpointPositionY = playerStartYPosition;
-        this.movedCards = new ArrayList<>();
-        this.chosenCards  =  new ArrayList<>();
-        this.playerDeck = cardMoveLogic.playerDeck();
-        this.flagsToVisit = new ArrayList<>(Arrays.asList(55,63,71));
-        this.cardCoordinates = new ArrayList<>(
-                Arrays.asList(5555f, 3090f,
-                        6080f, 3090f,
-                        6605f, 3090f,
-                        5555f, 2370f,
-                        6080f, 2370f,
-                        6605f, 2370f,
-                        5555f, 1640f,
-                        6080f, 1640f,
-                        6605f, 1640f));
-    }
-
-
-    @Override
     public int getPlayerHealth(){
         return this.healthToken;
     }
+
 
     @Override
     public int getPlayerDamageTaken(){
         return this.damageTaken;
     }
+
 
     @Override
     public void dealDamageToPlayer(){
@@ -91,12 +62,15 @@ public class HumanPlayer extends Player {
             takePlayerLife();
         }
     }
+
+
     @Override
     public void setNewPlayerCheckpointLocation(float xPosition, float yPosition){
         this.playerCheckpointPositionX = xPosition;
         this.playerCheckpointPositionY = yPosition;
 
     }
+
 
     @Override
     public void takePlayerLife() {
@@ -109,10 +83,12 @@ public class HumanPlayer extends Player {
 
     }
 
+
     @Override
     public boolean isPlayerAlive(){
         return this.healthToken <= 0;
     }
+
 
     @Override
     public float setPlayerStartXPosition(float playerStartXPosition){
@@ -203,20 +179,18 @@ public class HumanPlayer extends Player {
         }
     }
 
-    /**
-     * This method handles player movement by card
-     * @param moveCard this players round card
-     * @param wall TiledMapTileLayer
-     */
+
+    @Override
     public void playerMoveHandler(Card moveCard, TiledMapTileLayer wall){
         int collidedWithWall;
         float checkXPosition;
         float checkYPosition;
         float moveCardAction = moveCard.action.getAction();
+        ArrayList<Float> nextCoordinatesToCheck;
+
         if(moveCard.action == Action.BACK_UP){
             moveCardAction = moveCardAction *(-1);
         }
-        ArrayList<Float> nextCoordinatesToCheck;
 
         for(float movement = 0; movement <= moveCardAction; movement+=300){
 
@@ -230,7 +204,6 @@ public class HumanPlayer extends Player {
                 break;
             }
             else if(collidedWithWall == 0){
-                System.out.println("returned " + collidedWithWall);
                 wallCollisionHandler(checkXPosition,checkYPosition);
                 break;
             }else if(collidedWithWall == 1){
@@ -243,20 +216,14 @@ public class HumanPlayer extends Player {
         }
     }
 
-    /**
-     * Help method for playerMoveHandler
-     * This method finds the next location to check for walls, and board limits.
-     * It takes the amount of movement (0 or 300), finds the XY direction of the player,
-     * multiplays it by playerDirection.getMoveDirection which give the coorect direction to move NSEW.
-     * Then alters either X or Y direction and adds it to the list to be returned
-     * @param amountOfMovement
-     * @return
-     */
+
+    @Override
     public ArrayList<Float> getCoordinatesToCheck(float amountOfMovement, Card card){
         ArrayList<Float> coordinatesToCheck = new ArrayList<>();
         float newPosition = 0;
         float checkXPosition = this.getPlayerXPosition();
-        float checkYPosition = this.getPlayerYPosition();;
+        float checkYPosition = this.getPlayerYPosition();
+
         if (amountOfMovement != 0) {
             newPosition =  300 * this.direction.getMoveDirection();
             if(card.action == Action.BACK_UP){
@@ -273,11 +240,11 @@ public class HumanPlayer extends Player {
         }
         coordinatesToCheck.add(checkXPosition);
         coordinatesToCheck.add(checkYPosition);
-        System.out.println(coordinatesToCheck);
         return coordinatesToCheck;
     }
 
 
+    @Override
     public void wallCollisionHandler(float afterCollisionX, float afterCollisionY){
         updatePlayerXPosition(afterCollisionX);
         updatePlayerYPosition(afterCollisionY);
@@ -286,16 +253,17 @@ public class HumanPlayer extends Player {
         System.out.println("new damage " + this.damageTaken);
     }
 
-    private void setPlayerNewLocation(float xPosition, float yPosition) {
+
+    @Override
+    public void setPlayerNewLocation(float xPosition, float yPosition) {
         updatePlayerXPosition(xPosition);
         updatePlayerYPosition(yPosition);
 
     }
 
 
-
     @Override
-    public void resetPlayer(Player player){
+    public void resetPlayerForNewRound(Player player){
         player.movedCards = new ArrayList<>();
         player.chosenCards = new ArrayList<>();
         player.playerDeck = new ArrayList<>();
@@ -304,15 +272,6 @@ public class HumanPlayer extends Player {
         player.cardCoordinates = cardMoveLogic.resetCardCoordinates();
     }
 
-
-
-    /**
-     * This method saves mouse click coordinates (coordinates on the window that is pushed) to a vector 3 object.
-     * Translated them to map coordinates and saves them to class variables in HumanPlayer.
-     * Map coordinates will always match the map regardless of the window size of OS
-     * This method has to be called in the render function to get the camera else it will provide a NPE
-     * @param camera OrthographicCamera created in graphics
-     */
 
     @Override
     public void setMouseClickCoordinates(OrthographicCamera camera){
@@ -327,10 +286,34 @@ public class HumanPlayer extends Player {
     }
 
 
-    /**
-     * Create a click-box around the cards the player is dealt.
-     * When the card on the screen is clicked with the mouse moveCardWhenClicked is called.
-     */
+    @Override
+    public void newHumanPlayer (int id, Color color, float playerStartXPosition,float playerStartYPosition){
+        this.id = id;
+        this.color = color;
+        this.ready = false;
+        this.healthToken = 3;
+        this.damageTaken = 0;
+        this.direction = Direction.NORTH;
+        this.playerCurrentXPosition = 0;
+        this.playerCurrentYPosition = 0;
+        this.playerCheckpointPositionX = playerStartXPosition;
+        this.playerCheckpointPositionY = playerStartYPosition;
+        this.movedCards = new ArrayList<>();
+        this.chosenCards  =  new ArrayList<>();
+        this.playerDeck = cardMoveLogic.playerDeck();
+        this.flagsToVisit = new ArrayList<>(Arrays.asList(55,63,71));
+        this.cardCoordinates = new ArrayList<>(
+                Arrays.asList(5555f, 3090f,
+                        6080f, 3090f,
+                        6605f, 3090f,
+                        5555f, 2370f,
+                        6080f, 2370f,
+                        6605f, 2370f,
+                        5555f, 1640f,
+                        6080f, 1640f,
+                        6605f, 1640f));
+    }
+
 
     @Override
     public boolean touchUp(int i, int i1, int i2, int i3) {
@@ -359,10 +342,11 @@ public class HumanPlayer extends Player {
             cardMoveLogic.resetCard(this);
         } else if (this.chosenCards.size() >= 5 && x >6590 && x < 7070 && y <= 1155 && y >= 850) {
             this.ready = true;
-            System.out.println(this.ready);
         }
         return false;
     }
+
+
     @Override
     public boolean touchDragged(int i, int i1, int i2) {return false;}
     @Override

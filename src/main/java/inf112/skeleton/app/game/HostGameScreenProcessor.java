@@ -36,10 +36,8 @@ public class HostGameScreenProcessor extends BaseInputProcessor {
         float x = mouseClickXCoordinate;
         float y = mouseClickYCoordinate;
 
-        System.out.println("Touch in menu input " + x + ", " + y);
         if (x >= 3260 && x <= 3960) {
             if (y <= 1950 && y >= 1722) {
-                System.out.println("Host click");
                 graphics.game.typeOfGameStarted = GameType.NETWORK_HOST;
                 graphics.game.currentScreen = GameScreen.GAME;
 
