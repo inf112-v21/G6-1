@@ -1,6 +1,6 @@
-#Obligatorisk oppgave 4
+# Obligatorisk oppgave 4
 
-##Team og prosjekt
+## Team og prosjekt
 
 Vi startet arbeidet med obligen med sprint planlegging. Vi lagde en liste med funksjonalitet som vi mente var nødvendig å få med, i tillegg til funksjonalitet som vi ønsket å forsøke å implementere hvis vi hadde tid før innlevering. Dette inkluderte blant annet flere skjermer slik at spilleren kunne velge mellom spilltyper, nettverk, implementere vegger på spillbrettet, checkpoints og få GUI til å vise liv og skade. Vi fortsatte med å definere brukerhistoriene og issues på projectboardet og fordele ut arbeidsoppgavene.
 Etter forrige innlevering har vi ikke endret mer på rollefordeling. Vi har også hatt samme fordeling i forhold til hvilken del av koden vi har jobbet med. Hossein og Thomas har fokusert på nettverk, Erlend har fokusert på implementering av spill logikk og Yasmin og Vilde har fortsatt på GUI og forskjellige screens.
