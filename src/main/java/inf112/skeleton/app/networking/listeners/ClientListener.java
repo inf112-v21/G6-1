@@ -60,7 +60,7 @@ public class ClientListener extends Listener  {
             game.graphics.hostGameScreenProcessor.startGame = false;
         }
 
-        if (game.myHumanPlayer != null && game.myHumanPlayer.ready && clientHasSentCards == false) {
+        if (game.myHumanPlayer != null && game.myHumanPlayer.ready && !clientHasSentCards) {
             Packets.SendAction HereIsMyCards = new Packets.SendAction();
             HereIsMyCards.actionList = game.getPlayerActionList();
             client.sendTCP(HereIsMyCards);

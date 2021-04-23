@@ -19,7 +19,7 @@ public class Walls {
      * The value is an arrayList because there are some tiles that contain "multiple" walls that is
      * the walls that are facing in more than one direction.
      */
-    HashMap<Integer, ArrayList<Direction>> wallType = new HashMap<>() {{
+    final HashMap<Integer, ArrayList<Direction>> wallType = new HashMap<>() {{
         put(8, new ArrayList<>(Arrays.asList(Direction.SOUTH, Direction.EAST)));
         put(16, new ArrayList<>(Arrays.asList( Direction.NORTH, Direction.EAST)));
         put(23, new ArrayList<>(Collections.singletonList(Direction.EAST)));

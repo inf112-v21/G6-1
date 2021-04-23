@@ -2,7 +2,6 @@ package inf112.skeleton.app.card;
 import inf112.skeleton.app.shared.Action;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 
 

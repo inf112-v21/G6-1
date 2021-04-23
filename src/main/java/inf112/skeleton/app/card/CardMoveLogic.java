@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public class CardMoveLogic {
     private final CardDeck cardDeck = new CardDeck();
-    ArrayList<Card> deck = cardDeck.getCardDeck();
+    final ArrayList<Card> deck = cardDeck.getCardDeck();
     /**
      * This method returns the initial card position to where the cards are placed
      * on the game-board when a player gets a new deck of cards
@@ -122,7 +122,7 @@ public class CardMoveLogic {
     /**
      * This method convert ArrayList<HashMap<Integer(Priority), Action>> to ArrayList<Card>
      * to make cards from CardList possible to render in graphics
-     * @param sendAbleCards cards to convert 
+     * @param sendAbleCards cards to convert
      * @return ArrayList<Card> List of card object
      */
     public ArrayList<Card> convertToCardObject(ArrayList<HashMap<Integer, Action>> sendAbleCards){

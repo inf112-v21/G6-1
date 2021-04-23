@@ -1,11 +1,8 @@
 package inf112.skeleton.app.card;
 
 import inf112.skeleton.app.player.HumanPlayer;
-import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
-import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 
 public class cardLogicTest {
 

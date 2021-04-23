@@ -14,7 +14,7 @@ public class ServerListener extends Listener {
     private final Server server;
     private final HashMap<Integer, ArrayList<HashMap<Integer, Action>>> cardsReceived;
     private int numberOfPlayers = 0;
-    public HashMap<Integer, ArrayList<Float>> playerInfoGlobal = new HashMap<>();
+    public final HashMap<Integer, ArrayList<Float>> playerInfoGlobal = new HashMap<>();
     private int checkIfAllClientsAreReady=0;
 
 

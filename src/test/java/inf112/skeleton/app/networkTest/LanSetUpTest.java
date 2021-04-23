@@ -1,21 +1,5 @@
 package inf112.skeleton.app.networkTest;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.backends.headless.HeadlessApplication;
-import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
-import com.badlogic.gdx.graphics.GL20;
-import inf112.skeleton.app.EmptyApplicationListener;
-import inf112.skeleton.app.game.Game;
-
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-
-import java.net.InetAddress;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
 /**
 public class LanSetUpTest {
     private static Game game1, game2;

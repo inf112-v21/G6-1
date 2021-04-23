@@ -7,10 +7,10 @@ import java.util.ArrayList;
 
 public class BoardItems {
 
-    public Conveyor conveyor = new Conveyor();
-    public Gear gear = new Gear();
-    public Laser laser = new Laser();
-    public Hole hole = new Hole();
+    public final Conveyor conveyor = new Conveyor();
+    public final Gear gear = new Gear();
+    public final Laser laser = new Laser();
+    public final Hole hole = new Hole();
 
     /**
      * This method runs all active board items:

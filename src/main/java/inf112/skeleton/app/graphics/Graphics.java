@@ -1,7 +1,6 @@
 package inf112.skeleton.app.graphics;
 
 import com.badlogic.gdx.*;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -11,12 +10,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import inf112.skeleton.app.card.CardMoveLogic;
 import inf112.skeleton.app.game.*;
 import inf112.skeleton.app.game.Game;
@@ -28,7 +21,6 @@ import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class Graphics implements ApplicationListener {
@@ -64,7 +56,7 @@ public class Graphics implements ApplicationListener {
     private final EndScreen endScreen;
     public Sprite singlePlayerSprite;
     public ArrayList<Sprite> cardSpriteList;
-    private  CardMoveLogic cardMoveLogic = new CardMoveLogic();
+    private final CardMoveLogic cardMoveLogic = new CardMoveLogic();
     private HashMap<Action, Texture> cardTextures = new HashMap<>();
     public final Game game;
     public final ArrayList<Player> singlePlayerList =new ArrayList<>();
@@ -123,13 +115,6 @@ public class Graphics implements ApplicationListener {
     public void create() {
         playerGraphics = new PlayerGraphics();
 
-        /**
-
-        singlePlayer.playerDeck = cardMoveLogic.playerDeck();
-
-        singlePlayerSprite = playerGraphics.getPlayerSprite(singlePlayer.color);
-        singlePlayerSprite.setSize(300,300);
-         */
         singlePlayer.playerDeck = cardMoveLogic.playerDeck();
         // Creates a list of sprites
         cardSpriteList = cardGraphics.createCardSprite();
@@ -379,7 +364,7 @@ public class Graphics implements ApplicationListener {
 
 
             Gdx.input.setInputProcessor(singlePlayer);
-            if(singlePlayerGameStarted == true){
+            if(singlePlayerGameStarted){
                 singlePlayerGameStarted= game.createSinglePlayer();
             }
 

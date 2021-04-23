@@ -23,19 +23,19 @@ public class Game implements IGame {
 
     public Player myHumanPlayer = new HumanPlayer(Direction.NORTH,69,Color.GREEN);
     public Graphics graphics;
-    public ArrayList<Player> players = new ArrayList<>();
+    public final ArrayList<Player> players = new ArrayList<>();
     public HashMap<Integer, ArrayList<HashMap<Integer, Action>>> allPlayerMoves = new HashMap<>();
     public GameServer server;
     GameClient client;
     public int myId;
-    BoardItems boardItems = new BoardItems();
-    public CheckPoint checkpoint = new CheckPoint();
+    final BoardItems boardItems = new BoardItems();
+    public final CheckPoint checkpoint = new CheckPoint();
     public GameType typeOfGameStarted = GameType.NONE;
     final CardMoveLogic cardMoveLogic = new CardMoveLogic();
     public GameScreen currentScreen = GameScreen.MENU;
     public GameScreen hostGameScreen = GameScreen.HOST;
-    public GameScreen winScreen = GameScreen.WIN;
-    public GameScreen loseScreen = GameScreen.LOSE;
+    public final GameScreen winScreen = GameScreen.WIN;
+    public final GameScreen loseScreen = GameScreen.LOSE;
     public int numberOfPlayersConnected;
     private boolean runOnceAtStartOfRound = false;
     private int countCardsPlayedPerRound = 0;
@@ -52,11 +52,10 @@ public class Game implements IGame {
      *
      *
      */
-    public InetAddress hostNewGame() {
+    public void hostNewGame() {
         server = new GameServer();
         server.run();
         client = new GameClient(server.getAddress(),Game.this);
-        return server.getAddress();
     }
 
 
@@ -82,16 +81,14 @@ public class Game implements IGame {
      * The Hashmap playerInfo contains player id and start position for all players connected to the game.
      *
      * @param playerInfo HashMap<Integer (player id),ArrayList<Float (XY position index: 0 = X, 1 = Y)>>
-     * @return ArrayList<Player> list of players
      */
-    public ArrayList<Player> createListOfPlayers(HashMap<Integer,ArrayList<Float>> playerInfo){
+    public void createListOfPlayers(HashMap<Integer,ArrayList<Float>> playerInfo){
         Set<Integer> playerID = playerInfo.keySet();
         for(Integer player : playerID){
             players.add(new HumanPlayer(Direction.NORTH,player,Color.getPlayerColor(player)));
 
         }
         setStartPos(playerInfo);
-        return players;
     }
 
 
@@ -306,7 +303,7 @@ public class Game implements IGame {
     public void multiplayerRound(TileLayers layer){
         keepPlaying();
         if(!allPlayerMoves.isEmpty()) {
-            if(runOnceAtStartOfRound == false ){
+            if(!runOnceAtStartOfRound){
                 giveAllPlayersCardObjects(allPlayerMoves);
                 runOnceAtStartOfRound = true;
             }
@@ -337,11 +334,10 @@ public class Game implements IGame {
     /**
      * Keeps count to check when player has played their 5 cards to avoid the program trying to play next card when
      * there is none
+     *  @param player
      *
-     * @param player
-     * @param layer
      */
-    public void cardCount(Player player, TileLayers layer){
+    public void cardCount(Player player){
 
         if(player.chosenCards.isEmpty() && player.movedCards.size()==5){
 
@@ -367,7 +363,7 @@ public class Game implements IGame {
                 e.printStackTrace();
             }
         }
-        cardCount(myHumanPlayer, layer);
+        cardCount(myHumanPlayer);
 
     }
 

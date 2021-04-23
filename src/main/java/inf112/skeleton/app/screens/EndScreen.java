@@ -5,11 +5,10 @@ import inf112.skeleton.app.game.BaseInputProcessor;
 import inf112.skeleton.app.game.GameScreen;
 import inf112.skeleton.app.game.GameType;
 import inf112.skeleton.app.graphics.Graphics;
-import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.shared.Color;
 
 public class EndScreen extends BaseInputProcessor {
-    Graphics graphics;
+    final Graphics graphics;
 
     public EndScreen(Graphics graphics) {
         this.graphics = graphics;

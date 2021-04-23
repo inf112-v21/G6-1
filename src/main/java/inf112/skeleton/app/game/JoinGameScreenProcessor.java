@@ -81,7 +81,6 @@ public class JoinGameScreenProcessor extends BaseInputProcessor implements Input
 
     @Override
     public void input(String s) {
-        this.text = text;
     }
 
     @Override
