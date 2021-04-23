@@ -90,3 +90,4 @@ however the project still runs and it does not affect performance.
 * When running all tests at once, your computer may run out of memory. If this happens, just
 try running less tests at once, or try running all of them again. 
 
+* Some bug when playing multiplayer, concerning cardlist. Hasen't managed to pinpoint the excact problem. But when using reset on cards and pushing multiple times on cards. The game stops because of a NPE.
