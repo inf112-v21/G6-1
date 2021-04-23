@@ -37,7 +37,6 @@ public class GameServer implements Runnable {
         Network.register(server);
 
 
-        System.out.println("Creating the server...");
         server.addListener(serverListener);
 
         try {
@@ -50,12 +49,10 @@ public class GameServer implements Runnable {
 
         try {
             address = InetAddress.getLocalHost();
-            System.out.println(address);
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
 
-        System.out.println("Server has started:");
     }
 
     public void stop() {

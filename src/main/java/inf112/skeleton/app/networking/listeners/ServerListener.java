@@ -30,7 +30,6 @@ public class ServerListener extends Listener {
 
 
     public void connected(Connection connection) {
-        System.out.println("Player " + (numberOfPlayers) + " has connected to the server");
         numberOfPlayers++;
 
         Packets.PlayerNumberPacket playerPacket = new Packets.PlayerNumberPacket();
@@ -49,7 +48,6 @@ public class ServerListener extends Listener {
      * @param connection connection
      */
     public void disconnected(Connection connection) {
-        System.out.println("Player: (" + numberOfPlayers + ") has been disconnected");
         numberOfPlayers--;
         Packets.PlayerNumberPacket numberOfPlayers = new Packets.PlayerNumberPacket();
         numberOfPlayers.numberOfPlayersConnected = this.numberOfPlayers;
@@ -58,7 +56,6 @@ public class ServerListener extends Listener {
 
 
     public void startGameSession() {
-        System.out.println("Instructing all clients to start the game");
         Packets.StartGamePackage p = new Packets.StartGamePackage();
         server.sendToAllTCP(p);
     }

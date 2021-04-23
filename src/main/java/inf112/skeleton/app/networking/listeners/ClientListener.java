@@ -102,7 +102,6 @@ public class ClientListener extends Listener  {
                 game.updatePlayerInfo(playerInfo.playerInfo);
             }
         } else if (object instanceof Packets.StartGamePackage) {
-            System.out.println("Starting game");
             game.startGame();
         }
     }

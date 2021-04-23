@@ -103,6 +103,7 @@ public class Game implements IGame {
             player.setPlayerStartYPosition(playerStartPos.get(1));
             if(player.id == myId){
                 initializeMyHumanPlayer(player);
+                System.out.println("Your player color is: " + myHumanPlayer.color+ "!");
             }
 
         }

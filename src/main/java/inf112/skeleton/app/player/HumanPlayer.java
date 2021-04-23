@@ -3,7 +3,6 @@ package inf112.skeleton.app.player;
 import java.util.Arrays;
 import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import inf112.skeleton.app.card.Card;
 import com.badlogic.gdx.math.Vector3;
 import inf112.skeleton.app.shared.Color;
