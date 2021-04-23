@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Assertions;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class wallTest {
+public class WallTest {
 
     Lwjgl3ApplicationConfiguration cfg;
     Graphics graphics;

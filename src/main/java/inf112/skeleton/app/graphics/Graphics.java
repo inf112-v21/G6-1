@@ -64,7 +64,7 @@ public class Graphics implements ApplicationListener {
     public final ArrayList<Player> singlePlayerList =new ArrayList<>();
     public String enteredIp = "";
     public boolean singlePlayerGameStarted = true;
-   
+
     public Graphics(Game game) {
         menuInputProcessor = new MenuInputProcessor(this);
         hostGameScreenProcessor = new HostGameScreenProcessor(this);
@@ -208,7 +208,6 @@ public class Graphics implements ApplicationListener {
         singlePlayerSprite.draw(tiledMapRenderer.getBatch());
         game.doSinglePlayerMove(layer);
 
-
     }
 
     /**
@@ -222,6 +221,78 @@ public class Graphics implements ApplicationListener {
         camera.viewportHeight = 720;
         camera.update();
     }
+
+    /**
+     * This is where the graphics of the game get rendered.
+     */
+    @Override
+    public void render() {
+        //The player gets up the MENU screen.
+        if (game.currentScreen == GameScreen.MENU) {
+            renderMenuScreen();
+            return;
+        }
+        //The player gets up the HOST screen.
+        if (game.currentScreen == GameScreen.HOST) {
+            renderHostGameScreen();
+            return;
+        }
+        //The player gets up a JOIN screen.
+        if (game.currentScreen == GameScreen.JOIN){
+            renderJoinGameScreen();
+            return;
+        }
+
+        spriteBatch.begin();
+        spriteBatch.draw(background, 0, 0, 1280, 720);
+        spriteBatch.end();
+
+        readyButtonIndicator();
+        resetButtonIndicator();
+
+        damageTokenIndicator();
+        lifeTokenIndicator();
+
+        camera.update();
+        tiledMapRenderer.setView(camera);
+        tiledMapRenderer.render();
+
+        tiledMapRenderer.getBatch().begin();
+        if (game.typeOfGameStarted == GameType.SINGLE_PLAYER) {
+            Gdx.input.setInputProcessor(singlePlayer);
+            if(singlePlayerGameStarted){
+                singlePlayerGameStarted= game.createSinglePlayer();
+            }
+
+            singlePlayer = game.myHumanPlayer;
+            singlePlayer();
+
+        } else {
+            singlePlayer = game.myHumanPlayer;
+            game.multiplayerRound(layer);
+            updatePlayerSprite(game.players, game.myHumanPlayer);
+        }
+        tiledMapRenderer.getBatch().end();
+
+
+        //The player gets a WIN screen when the player wins the game.
+        if (isWinner()) {
+            if(game.winScreen== GameScreen.WIN) {
+                renderWin();
+                if(game.typeOfGameStarted == GameType.NETWORK_HOST) {
+                    game.server.stop();
+                }
+            }
+        }
+
+        //The player gets a LOSE screen when the player dies or loses against other players.
+        if(singlePlayer.isPlayerAlive()){
+            if(game.loseScreen == GameScreen.LOSE){
+                renderLose();
+            }
+        }
+    }
+
 
     private void renderMenuScreen() {
         // Draw background
@@ -284,107 +355,37 @@ public class Graphics implements ApplicationListener {
     }
 
     private void renderWin() {
+        //draw image "You Lose"
         spriteBatch.begin();
         spriteBatch.draw(youWin, 0, 0, 1280, 720);
         spriteBatch.end();
 
+        //draw buttons
         spriteBatch.begin();
         spriteBatch.draw(playAgainButton, 530, 250, 250, 150);
-        spriteBatch.end();
-
-        spriteBatch.begin();
         spriteBatch.draw(exitButton, 530, 150, 250, 150);
         spriteBatch.end();
 
+        //handle input
         endScreen.setMouseClickCoordinates(camera);
         Gdx.input.setInputProcessor(endScreen);
     }
 
     private void renderLose() {
+        //draw image "You Lose"
         spriteBatch.begin();
         spriteBatch.draw(youLose, 0, 0, 1280, 720);
         spriteBatch.end();
 
+        //draw buttons
         spriteBatch.begin();
         spriteBatch.draw(playAgainButton, 530, 250, 250, 150);
-        spriteBatch.end();
-
-        spriteBatch.begin();
         spriteBatch.draw(exitButton, 530, 150, 250, 150);
         spriteBatch.end();
 
+        //handle input
         endScreen.setMouseClickCoordinates(camera);
         Gdx.input.setInputProcessor(endScreen);
-    }
-
-    /**
-     * This is where the graphics of the game get rendered.
-     */
-    @Override
-    public void render() {
-        //The player gets up the MENU screen.
-        if (game.currentScreen == GameScreen.MENU) {
-            renderMenuScreen();
-            return;
-        }
-        //The player gets up the HOST screen.
-        if (game.currentScreen == GameScreen.HOST) {
-            renderHostGameScreen();
-            return;
-        }
-        //The player gets up a JOIN screen.
-        if (game.currentScreen == GameScreen.JOIN){
-            renderJoinGameScreen();
-            return;
-        }
-        spriteBatch.begin();
-        spriteBatch.draw(background, 0, 0, 1280, 720);
-        spriteBatch.end();
-
-        readyButtonIndicator();
-        resetButtonIndicator();
-
-        damageTokenIndicator();
-        lifeTokenIndicator();
-
-        camera.update();
-        tiledMapRenderer.setView(camera);
-        tiledMapRenderer.render();
-
-        tiledMapRenderer.getBatch().begin();
-        if (game.typeOfGameStarted == GameType.SINGLE_PLAYER) {
-            Gdx.input.setInputProcessor(singlePlayer);
-            if(singlePlayerGameStarted){
-                singlePlayerGameStarted= game.createSinglePlayer();
-            }
-            singlePlayer = game.myHumanPlayer;
-            singlePlayer();
-
-
-        } else {
-            singlePlayer = game.myHumanPlayer;
-            game.multiplayerRound(layer);
-            updatePlayerSprite(game.players, game.myHumanPlayer);
-        }
-        tiledMapRenderer.getBatch().end();
-
-
-        //The player gets a WIN screen when the player wins the game.
-        if (isWinner()) {
-            if(game.winScreen== GameScreen.WIN) {
-                renderWin();
-                if(game.typeOfGameStarted == GameType.NETWORK_HOST) {
-                    game.server.stop();
-                }
-            }
-        }
-
-        //The player gets a LOSE screen when the player dies or loses against other players.
-        if(singlePlayer.isPlayerAlive()){
-            if(game.loseScreen == GameScreen.LOSE){
-                renderLose();
-            }
-        }
     }
 
     /**
@@ -510,7 +511,6 @@ public class Graphics implements ApplicationListener {
         tiledMap.dispose();
         spriteBatch.dispose();
         background.dispose();
-        youWin.dispose();
     }
 
 }

@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
-public class gameLogicTest {
+public class GameLogicTest {
 
     /**
      * In order for the test to run, a game window must be initialised.
