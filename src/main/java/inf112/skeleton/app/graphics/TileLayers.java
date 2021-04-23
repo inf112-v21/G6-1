@@ -3,14 +3,14 @@ package inf112.skeleton.app.graphics;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 public class TileLayers {
-    public TiledMapTileLayer laser;
-    public TiledMapTileLayer blueConveyor;
-    public TiledMapTileLayer yellowConveyor;
-    public TiledMapTileLayer redGear;
-    public TiledMapTileLayer greenGear;
-    public TiledMapTileLayer hole;
-    public TiledMapTileLayer wall;
-    public TiledMapTileLayer checkpoint;
+    public final TiledMapTileLayer laser;
+    public final TiledMapTileLayer blueConveyor;
+    public final TiledMapTileLayer yellowConveyor;
+    public final TiledMapTileLayer redGear;
+    public final TiledMapTileLayer greenGear;
+    public final TiledMapTileLayer hole;
+    public final TiledMapTileLayer wall;
+    public final TiledMapTileLayer checkpoint;
     public TileLayers(TiledMapTileLayer laser, TiledMapTileLayer blueConveyor,
                       TiledMapTileLayer yellowConveyor, TiledMapTileLayer redGear, TiledMapTileLayer greenGear,
                       TiledMapTileLayer hole,TiledMapTileLayer wall, TiledMapTileLayer checkpoint){

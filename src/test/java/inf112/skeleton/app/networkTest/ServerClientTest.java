@@ -1,21 +1,5 @@
 package inf112.skeleton.app.networkTest;
 
-import inf112.skeleton.app.game.Game;
-import inf112.skeleton.app.networking.GameClient;
-import inf112.skeleton.app.networking.GameServer;
-
-import inf112.skeleton.app.networking.listeners.ClientListener;
-import inf112.skeleton.app.networking.listeners.ServerListener;
-import inf112.skeleton.app.networking.packets.Packets;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
-import java.io.IOException;
-import java.net.InetAddress;
-import java.util.concurrent.TimeUnit;
-
 /*
 public class ServerClientTest {
 

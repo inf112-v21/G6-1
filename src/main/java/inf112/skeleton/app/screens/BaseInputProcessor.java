@@ -1,10 +1,9 @@
-package inf112.skeleton.app.game;
+package inf112.skeleton.app.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
-import inf112.skeleton.app.graphics.Graphics;
 
 public abstract class BaseInputProcessor implements InputProcessor {
     public float mouseClickXCoordinate;

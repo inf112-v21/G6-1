@@ -10,9 +10,9 @@ import java.net.InetAddress;
 
 
 public class GameClient extends Listener {
-    public Client client;
-    int udpPort;
-    int tcpPort;
+    public final Client client;
+    final int udpPort;
+    final int tcpPort;
 
     public GameClient(InetAddress ipAddress, Game game){
         client = new Client();

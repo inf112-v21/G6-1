@@ -16,6 +16,9 @@ import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.screens.EndScreen;
+import inf112.skeleton.app.screens.HostGameScreenProcessor;
+import inf112.skeleton.app.screens.JoinGameScreenProcessor;
+import inf112.skeleton.app.screens.MenuInputProcessor;
 import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
@@ -113,6 +116,7 @@ public class Graphics implements ApplicationListener {
     @Override
     public void create() {
         playerGraphics = new PlayerGraphics();
+
         singlePlayer.playerDeck = cardMoveLogic.playerDeck();
         // Creates a list of sprites
         cardSpriteList = cardGraphics.createCardSprite();
