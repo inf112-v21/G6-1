@@ -74,6 +74,10 @@ public class Graphics implements ApplicationListener {
         this.game = game;
     }
 
+    /**
+     *
+     * @param humanPlayer humanPlayer
+     */
     public void updateCardSprite(Player humanPlayer) {
         int cardNumber = 0;
         int cardCoordinateX = 0;
@@ -89,12 +93,15 @@ public class Graphics implements ApplicationListener {
         }
     }
 
-
     public void setInputProcessor(Player player){
         Gdx.input.setInputProcessor(player);
     }
 
-
+    /**
+     *
+     * @param players players
+     * @param myPlayer myPlayer
+     */
     public void updatePlayerSprite(ArrayList<Player> players, Player myPlayer){
         if (players == null || players.isEmpty()) {
             return;
@@ -111,7 +118,6 @@ public class Graphics implements ApplicationListener {
             playerSprite.draw(tiledMapRenderer.getBatch());
         }
     }
-
 
     @Override
     public void create() {
@@ -141,11 +147,13 @@ public class Graphics implements ApplicationListener {
         ready = new Texture("Buttons/READY.png");
         notReady = new Texture("Buttons/notREADY.png");
 
+        //life token textures
         lifeToken3 = new Texture("LifeToken/1.png");
         lifeToken2 = new Texture("LifeToken/2.png");
         lifeToken1 = new Texture("LifeToken/3.png");
         emptyLifeToken = new Texture("LifeToken/4.png");
 
+        //damage token textures
         emptyDamageToken = new Texture("Damagetoken/50.png");
         damageToken1 = new Texture("Damagetoken/60.png");
         damageToken2 = new Texture("Damagetoken/70.png");
@@ -158,11 +166,11 @@ public class Graphics implements ApplicationListener {
         damageToken9 = new Texture("Damagetoken/140.png");
         damageToken10 = new Texture("Damagetoken/150.png");
 
-        // Menu Textures
+        //Menu Textures
         menuScreenBackground = new Texture("MenuScreen/MenuBackground.png");
-        singlePlayerButton = new Texture("SinglePlayerButton.png");
-        joinMultiPlayerButton = new Texture("JoinGameButton.png");
-        hostMultiPlayerButton = new Texture("HostGameButton.png");
+        singlePlayerButton = new Texture("Buttons/SinglePlayerButton.png");
+        joinMultiPlayerButton = new Texture("Buttons/JoinGameButton.png");
+        hostMultiPlayerButton = new Texture("Buttons/HostGameButton.png");
         layer = new TileLayers((TiledMapTileLayer) tiledMap.getLayers().get("Laser"),
                 (TiledMapTileLayer) tiledMap.getLayers().get("BlueConveyor"),
                 (TiledMapTileLayer) tiledMap.getLayers().get("YellowConveyor"),
@@ -172,22 +180,17 @@ public class Graphics implements ApplicationListener {
                 (TiledMapTileLayer) tiledMap.getLayers().get("Walls"),
                 (TiledMapTileLayer) tiledMap.getLayers().get("Checkpoint"));
 
-        menuScreenBackground = new Texture("MenuScreen/MenuBackground.png");
-        singlePlayerButton = new Texture("SinglePlayerButton1.png");
-        joinMultiPlayerButton = new Texture("JoinGameButton1.png");
-        hostMultiPlayerButton = new Texture("HostGameButton1.png");
-
         //Host screen textures
         font = new BitmapFont();
-        startGameButton = new Texture("StartGameButton.png");
-        backToMenuScreenButton = new Texture("BackButton.png");
+        startGameButton = new Texture("Buttons/StartGameButton.png");
+        backToMenuScreenButton = new Texture("Buttons/BackButton.png");
 
         //Join screen textures
-        readyButton = new Texture("ReadyButton.png");
+        readyButton = new Texture("Buttons/ReadyButton.png");
 
         //End screen textures
-        exitButton = new Texture("ExitButton.png");
-        playAgainButton = new Texture("ReturnButton.png");
+        exitButton = new Texture("Buttons/ExitButton.png");
+        playAgainButton = new Texture("Buttons/PlayAgainButton.png");
     }
 
     /**
@@ -275,7 +278,6 @@ public class Graphics implements ApplicationListener {
         spriteBatch.end();
 
         //handle input
-
         joinGameScreenProcessor.setMouseClickCoordinates(camera);
         Gdx.input.setInputProcessor(joinGameScreenProcessor);
     }
