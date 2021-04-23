@@ -246,9 +246,8 @@ public class HumanPlayer extends Player {
     public void wallCollisionHandler(float afterCollisionX, float afterCollisionY){
         updatePlayerXPosition(afterCollisionX);
         updatePlayerYPosition(afterCollisionY);
-        System.out.println("Player hit a wall! old damage " + this.damageTaken);
         dealDamageToPlayer();
-        System.out.println("new damage " + this.damageTaken);
+
     }
 
 
@@ -352,14 +351,9 @@ public class HumanPlayer extends Player {
     @Override
     public boolean scrolled(int i) {return false;}
     @Override
-    public boolean keyDown(int keyPressed) {
-        if(keyPressed == Input.Keys.UP) updatePlayerYPosition(getPlayerYPosition()+300);
-        if(keyPressed == Input.Keys.DOWN) updatePlayerYPosition(getPlayerYPosition()-300);
-        if(keyPressed == Input.Keys.RIGHT) updatePlayerXPosition(getPlayerXPosition()+300);
-        if(keyPressed == Input.Keys.LEFT) updatePlayerXPosition(getPlayerXPosition()-300);
-        return false;}
+    public boolean keyDown(int keyPressed) {return false;}
     @Override
-    public boolean keyUp(int keyPressed) { return false;}
+    public boolean keyUp(int keyPressed) {return false;}
     @Override
     public boolean keyTyped(char c) {return false;}
     @Override
