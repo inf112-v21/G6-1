@@ -12,7 +12,7 @@ public class GameServerTest {
 
     @Test
     public void ServerShouldStartOnHostsComputer() {
-        GameServer server = new GameServer("RiskyExchange");
+        GameServer server = new GameServer();
 
         server.run();
         String correctIP = server.getAddress().getHostAddress();

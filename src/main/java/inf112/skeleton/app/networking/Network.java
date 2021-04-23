@@ -23,13 +23,10 @@ public class Network {
         kryo.register(Packets.SendMapNameToPlayer.class);
         kryo.register(Packets.playerInfo.class);
         kryo.register(Packets.SendAction.class);
-        kryo.register(Packets.TestPack.class);
         kryo.register(inf112.skeleton.app.shared.Action.class);
         kryo.register(java.util.HashMap.class);
         kryo.register(java.util.ArrayList.class);
         kryo.register(int[].class);
-
-
 
     }
 

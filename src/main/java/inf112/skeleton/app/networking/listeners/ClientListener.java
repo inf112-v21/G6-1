@@ -1,19 +1,10 @@
 package inf112.skeleton.app.networking.listeners;
 
-import java.awt.*;
-import java.awt.image.BaseMultiResolutionImage;
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import com.badlogic.gdx.utils.compression.lzma.Base;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-
-import com.jcraft.jogg.Packet;
-import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.game.Game;
-import inf112.skeleton.app.networking.Network;
 import inf112.skeleton.app.networking.packets.Packets;
 
 
@@ -23,20 +14,12 @@ import inf112.skeleton.app.networking.packets.Packets;
  */
 public class ClientListener extends Listener  {
 
-    private boolean c = false;
-    public boolean gotPackage = false;
     private Game game;
     private Client client;
-    private ClientListener cListener;
     private boolean playerCreated = false;
     private boolean clientHasSentCards = false;
     public int myId;
     public int totalPlayersConnectedToServer = 0;
-
-
-
-
-
 
     /**
      * Initializes the listener class.
@@ -55,13 +38,10 @@ public class ClientListener extends Listener  {
      */
     public void connected(Connection connection) {
         System.out.println("Cl: Established connection");
-        c = true;
     }
-
 
     public void disconnected(Connection connection ) {
         System.out.println("Cl: You have been disconnected from the server");
-        c = false;
     }
 
 
@@ -80,9 +60,7 @@ public class ClientListener extends Listener  {
             game.graphics.hostGameScreenProcessor.startGame = false;
         }
 
-
         if (game.myHumanPlayer != null && game.myHumanPlayer.ready && clientHasSentCards == false) {
-            System.out.println("Thomas har fått vite at jeg er klar" + game.myHumanPlayer.id);
             Packets.SendAction HereIsMyCards = new Packets.SendAction();
             HereIsMyCards.actionList = game.getPlayerActionList();
             client.sendTCP(HereIsMyCards);
@@ -94,7 +72,6 @@ public class ClientListener extends Listener  {
              Packets.SendAction receivedActionsFromAll = (Packets.SendAction) object;
              game.allPlayerMoves=receivedActionsFromAll.actionList;
              clientHasSentCards = false;
-             System.out.println(receivedActionsFromAll.actionList);
          }
 
         if (object instanceof Packets.PlayerNumberPacket) {
@@ -115,6 +92,7 @@ public class ClientListener extends Listener  {
 
                 client.sendTCP(playerInfo);
             }
+
         } else if (object instanceof Packets.playerInfo){
             Packets.playerInfo playerInfo = (Packets.playerInfo) object;
             if (playerInfo.firstPacket) {
@@ -127,21 +105,5 @@ public class ClientListener extends Listener  {
             System.out.println("Starting game");
             game.startGame();
         }
-        if (object instanceof Packets.TestPack) {
-            System.out.println("Client received test packet");
-            Packets.TestPack packet = (Packets.TestPack) object;
-            if (packet != null) {
-                gotPackage = true;
-            }
-        }
-
-    }
-
-    public boolean getConnection(){
-        return cListener.getConnection();
-    }
-
-    public boolean getC() {
-        return c;
     }
 }
