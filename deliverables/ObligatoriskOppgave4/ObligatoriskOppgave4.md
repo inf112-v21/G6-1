@@ -33,6 +33,7 @@ Vi har fått implementert all funksjonalitet som vi hadde prioritert i sprint pl
 - Koble opp liv til skade.
 - Koble opp GUI illustrasjoner til liv og skade.
 - Checkpoints som spiller blir flyttet til om de dør.
+- Printer farge på spiller i terminal når spillet starter, samt kort med prioritet for hver runde. 
 
 Skjermbilde av en del av projectboard er lagt ved i deliverables, det komplette projectboard finnes her: https://github.com/inf112-v21/GameStoppers/projects/5
 

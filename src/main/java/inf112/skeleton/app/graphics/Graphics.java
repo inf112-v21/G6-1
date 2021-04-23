@@ -320,16 +320,13 @@ public class Graphics implements ApplicationListener {
         //draw background
         spriteBatch.begin();
         spriteBatch.draw(menuScreenBackground, 0, 0, 1280, 720);
-        spriteBatch.end();
 
         //draw message
-        spriteBatch.begin();
         font.draw(spriteBatch, "Waiting for players..", 500, 500);
         font.draw(spriteBatch, "There are " + game.numberOfPlayersConnected + " players in the game", 500, 450);
-        spriteBatch.end();
+
 
         //draw buttons
-        spriteBatch.begin();
         spriteBatch.draw(startGameButton,530,250,250,150);
         spriteBatch.draw(backToMenuScreenButton,530,150,250,150);
         spriteBatch.end();
@@ -362,10 +359,10 @@ public class Graphics implements ApplicationListener {
         //draw image "You Lose"
         spriteBatch.begin();
         spriteBatch.draw(youWin, 0, 0, 1280, 720);
-        spriteBatch.end();
+
 
         //draw buttons
-        spriteBatch.begin();
+
         spriteBatch.draw(playAgainButton, 530, 250, 250, 150);
         spriteBatch.draw(exitButton, 530, 150, 250, 150);
         spriteBatch.end();
@@ -379,10 +376,10 @@ public class Graphics implements ApplicationListener {
         //draw image "You Lose"
         spriteBatch.begin();
         spriteBatch.draw(youLose, 0, 0, 1280, 720);
-        spriteBatch.end();
+
 
         //draw buttons
-        spriteBatch.begin();
+
         spriteBatch.draw(playAgainButton, 530, 250, 250, 150);
         spriteBatch.draw(exitButton, 530, 150, 250, 150);
         spriteBatch.end();

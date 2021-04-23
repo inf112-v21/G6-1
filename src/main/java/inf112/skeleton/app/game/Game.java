@@ -132,7 +132,7 @@ public class Game  {
      * @return HashMap<Integer (playerID), ArrayList<HashMap<Integer(Card Priority), Action (Card action)>>>
      */
     public HashMap<Integer, ArrayList<HashMap<Integer, Action>>> getPlayerActionList(){
-        HashMap<Integer, ArrayList<HashMap<Integer, Action>>>  sendAbleChosenCards = new HashMap();
+        HashMap<Integer, ArrayList<HashMap<Integer, Action>>>  sendAbleChosenCards = new HashMap<>();
         ArrayList<HashMap<Integer, Action>> sendAbleCards =
                 cardMoveLogic.convertToSendAbleCard(myHumanPlayer.chosenCards);
         sendAbleChosenCards.put(myHumanPlayer.id,sendAbleCards);
@@ -159,7 +159,7 @@ public class Game  {
      * @return  HashMap<Integer (Player id), ArrayList<Card>>
      */
     public HashMap<Integer, ArrayList<Card>> playerMoves(){
-        HashMap<Integer, ArrayList<Card>> playerMoves = new HashMap();
+        HashMap<Integer, ArrayList<Card>> playerMoves = new HashMap<>();
         for(Player player : players){
             playerMoves.put(player.id,player.chosenCards);
         }
@@ -353,7 +353,7 @@ public class Game  {
      * @param layer TileLayers
      */
     public void doSinglePlayerMove(TileLayers layer){
-        ArrayList<Player> myHumanPlayerList = new ArrayList<>(Arrays.asList(myHumanPlayer));
+        ArrayList<Player> myHumanPlayerList = new ArrayList<>(Collections.singletonList(myHumanPlayer));
         if(myHumanPlayer.ready && !myHumanPlayer.chosenCards.isEmpty()){
             myHumanPlayer.doPlayerMove(myHumanPlayer.chosenCards.remove(0), layer);
             boardItems.activateBoardItems(myHumanPlayerList, layer);

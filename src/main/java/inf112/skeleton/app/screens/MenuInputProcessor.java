@@ -3,7 +3,7 @@ package inf112.skeleton.app.screens;
 import inf112.skeleton.app.game.GameScreen;
 import inf112.skeleton.app.game.GameType;
 import inf112.skeleton.app.graphics.Graphics;
-import inf112.skeleton.app.screens.BaseInputProcessor;
+
 
 public class MenuInputProcessor extends BaseInputProcessor {
     final Graphics graphics;

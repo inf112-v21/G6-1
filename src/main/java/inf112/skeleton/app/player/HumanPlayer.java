@@ -267,11 +267,10 @@ public class HumanPlayer extends Player {
     }
     @Override
     public void printPlayerCard(){
-        System.out.println("Dealt cards: ");
+        System.out.println("\nDealt cards: ");
         for(Card card : this.playerDeck){
             System.out.println("Type: " + card.action + " Priority: " + card.priority);
         }
-        System.out.println("");
     }
 
 
