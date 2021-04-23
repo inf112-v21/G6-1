@@ -6,10 +6,10 @@ import inf112.skeleton.app.game.GameType;
 import inf112.skeleton.app.graphics.Graphics;
 import inf112.skeleton.app.shared.Color;
 
-public class EndScreen extends BaseInputProcessor {
+public class EndScreenProcessor extends BaseInputProcessor {
     final Graphics graphics;
 
-    public EndScreen(Graphics graphics) {
+    public EndScreenProcessor(Graphics graphics) {
         this.graphics = graphics;
     }
 

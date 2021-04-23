@@ -15,7 +15,7 @@ import inf112.skeleton.app.game.*;
 import inf112.skeleton.app.game.Game;
 import inf112.skeleton.app.player.HumanPlayer;
 import inf112.skeleton.app.player.Player;
-import inf112.skeleton.app.screens.EndScreen;
+import inf112.skeleton.app.screens.EndScreenProcessor;
 import inf112.skeleton.app.screens.HostGameScreenProcessor;
 import inf112.skeleton.app.screens.JoinGameScreenProcessor;
 import inf112.skeleton.app.screens.MenuInputProcessor;
@@ -55,7 +55,7 @@ public class Graphics implements ApplicationListener {
     private final MenuInputProcessor menuInputProcessor;
     public final HostGameScreenProcessor hostGameScreenProcessor;
     public final JoinGameScreenProcessor joinGameScreenProcessor;
-    private final EndScreen endScreen;
+    private final EndScreenProcessor endScreenProcessor;
     public Sprite singlePlayerSprite;
     public ArrayList<Sprite> cardSpriteList;
     private final CardMoveLogic cardMoveLogic = new CardMoveLogic();
@@ -69,7 +69,7 @@ public class Graphics implements ApplicationListener {
         menuInputProcessor = new MenuInputProcessor(this);
         hostGameScreenProcessor = new HostGameScreenProcessor(this);
         joinGameScreenProcessor = new JoinGameScreenProcessor(this);
-        endScreen = new EndScreen(this);
+        endScreenProcessor = new EndScreenProcessor(this);
         cardGraphics = new CardGraphics();
         this.game = game;
     }
@@ -367,8 +367,8 @@ public class Graphics implements ApplicationListener {
         spriteBatch.end();
 
         //handle input
-        endScreen.setMouseClickCoordinates(camera);
-        Gdx.input.setInputProcessor(endScreen);
+        endScreenProcessor.setMouseClickCoordinates(camera);
+        Gdx.input.setInputProcessor(endScreenProcessor);
     }
 
     private void renderLose() {
@@ -384,8 +384,8 @@ public class Graphics implements ApplicationListener {
         spriteBatch.end();
 
         //handle input
-        endScreen.setMouseClickCoordinates(camera);
-        Gdx.input.setInputProcessor(endScreen);
+        endScreenProcessor.setMouseClickCoordinates(camera);
+        Gdx.input.setInputProcessor(endScreenProcessor);
     }
 
     /**
