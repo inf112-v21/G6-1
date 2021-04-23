@@ -385,17 +385,18 @@ public class Game implements IGame {
     }
 
     public void cardCount(Player player, TileLayers layer){
-        ArrayList<Player> myHumanPlayerList = new ArrayList<Player>(Arrays.asList(player));
+
         if(player.chosenCards.isEmpty() && player.movedCards.size()==5){
-            boardItems.activateBoardItems(myHumanPlayerList, layer);
-            checkpoint.findCheckpoints(player, layer.checkpoint);
+
             player.resetPlayer(player);
         }
     }
     public void doSinglePlayerMove(TileLayers layer){
-
+        ArrayList<Player> myHumanPlayerList = new ArrayList<Player>(Arrays.asList(myHumanPlayer));
         if(myHumanPlayer.ready && !myHumanPlayer.chosenCards.isEmpty()){
             myHumanPlayer.doPlayerMove(myHumanPlayer.chosenCards.remove(0), layer);
+            boardItems.activateBoardItems(myHumanPlayerList, layer);
+            checkpoint.findCheckpoints(myHumanPlayer, layer.checkpoint);
             try {
                 Thread.sleep(1000);
 
