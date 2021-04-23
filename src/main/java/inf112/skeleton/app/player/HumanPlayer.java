@@ -104,9 +104,6 @@ public class HumanPlayer extends Player {
         this.damageTaken = 0;
         this.updatePlayerXPosition(this.playerCheckpointPositionX);
         this.updatePlayerYPosition(this.playerCheckpointPositionY);
-        System.out.println("Player "+ this.color + " lost a life and has now " + this.healthToken
-                + " lives and " + this.damageTaken + " damage");
-
     }
 
     @Override
@@ -280,9 +277,7 @@ public class HumanPlayer extends Player {
     public void wallCollisionHandler(float afterCollisionX, float afterCollisionY){
         updatePlayerXPosition(afterCollisionX);
         updatePlayerYPosition(afterCollisionY);
-        System.out.println("Player hit a wall! old damage " + this.damageTaken);
         dealDamageToPlayer();
-        System.out.println("new damage " + this.damageTaken);
     }
 
     private void setPlayerNewLocation(float xPosition, float yPosition) {
@@ -358,7 +353,6 @@ public class HumanPlayer extends Player {
             cardMoveLogic.resetCard(this);
         } else if (this.chosenCards.size() >= 5 && x >6590 && x < 7070 && y <= 1155 && y >= 850) {
             this.ready = true;
-            System.out.println(this.ready);
         }
         return false;
     }

@@ -118,12 +118,6 @@ final HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
         if(player.getPlayerYPosition() == 0 && player.getPlayerXPosition() == 1500){
             player.updatePlayerYPosition(300);
         }
-        System.out.println("Player " + player.color +" was standing on a conveyor and was moved "
-                + conveyorMovement/300 + " tiles");
-        System.out.println("Old position was x " + oldPlayerXPos / 300 + " y " + oldPlayerYPos / 300 +
-                " New position is x " + player.getPlayerXPosition() / 300  + " y " + player.getPlayerYPosition() / 300);
-        System.out.println(" ");
-
     }
 
     public float movePlayerAsFarAsPossible(Player player, float move, Direction moveDir){

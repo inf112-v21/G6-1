@@ -82,5 +82,5 @@ public class wallTest {
         Assertions.assertEquals(humanPlayer.damageTaken ,1);
 
     }
-    
+
 }
