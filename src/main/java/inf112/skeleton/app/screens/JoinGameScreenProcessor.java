@@ -35,8 +35,6 @@ public class JoinGameScreenProcessor extends BaseInputProcessor implements Input
         if (c == '\b' && graphics.enteredIp.length() > 0) {
             graphics.enteredIp = graphics.enteredIp.substring(0, graphics.enteredIp.length() - 1);
         }
-        System.out.println("The character pressed is ");
-        System.out.println(c);
 
         return false;
     }

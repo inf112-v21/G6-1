@@ -64,7 +64,7 @@ public class Graphics implements ApplicationListener {
     public final ArrayList<Player> singlePlayerList =new ArrayList<>();
     public String enteredIp = "";
     public boolean singlePlayerGameStarted = true;
-
+   
     public Graphics(Game game) {
         menuInputProcessor = new MenuInputProcessor(this);
         hostGameScreenProcessor = new HostGameScreenProcessor(this);
@@ -207,6 +207,7 @@ public class Graphics implements ApplicationListener {
         singlePlayerSprite.setSize(300,300);
         singlePlayerSprite.draw(tiledMapRenderer.getBatch());
         game.doSinglePlayerMove(layer);
+
 
     }
 
@@ -356,9 +357,9 @@ public class Graphics implements ApplicationListener {
             if(singlePlayerGameStarted){
                 singlePlayerGameStarted= game.createSinglePlayer();
             }
-
             singlePlayer = game.myHumanPlayer;
             singlePlayer();
+
 
         } else {
             singlePlayer = game.myHumanPlayer;
