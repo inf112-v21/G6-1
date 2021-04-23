@@ -75,12 +75,9 @@ public class HumanPlayer extends Player {
     @Override
     public void takePlayerLife() {
         this.healthToken -- ;
-        this.damageTaken ++;
+        this.damageTaken = 0;
         this.updatePlayerXPosition(this.playerCheckpointPositionX);
         this.updatePlayerYPosition(this.playerCheckpointPositionY);
-        System.out.println("Player "+ this.color + " lost a life and has now " + this.healthToken
-                + " lives and " + this.damageTaken + " damage");
-
     }
 
 
@@ -240,6 +237,7 @@ public class HumanPlayer extends Player {
         }
         coordinatesToCheck.add(checkXPosition);
         coordinatesToCheck.add(checkYPosition);
+
         return coordinatesToCheck;
     }
 
