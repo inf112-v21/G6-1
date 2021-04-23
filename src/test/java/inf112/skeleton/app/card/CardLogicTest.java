@@ -8,7 +8,7 @@ import inf112.skeleton.app.shared.Direction;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 
-public class cardLogicTest {
+public class CardLogicTest {
 
     final HumanPlayer humanPlayer = new HumanPlayer(Direction.NORTH, 1, Color.GREEN);
     //TODO need to replace updatePlayerLocation with doPlayerMove(Card card, TileLayers tileLayers)
