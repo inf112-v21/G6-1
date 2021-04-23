@@ -1,10 +1,6 @@
 package inf112.skeleton.app.game;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import inf112.skeleton.app.graphics.Graphics;
-
-import java.net.InetAddress;
 
 public class MenuInputProcessor extends BaseInputProcessor {
     final Graphics graphics;
@@ -27,12 +23,11 @@ public class MenuInputProcessor extends BaseInputProcessor {
 
     @Override
     public boolean keyTyped(char c) {
-        System.out.println("Character typed: " + c);
+
 
         try {
             int i = Integer.parseInt(c + "");
             ip += i;
-            System.out.println("Total ip so far is " + ip);
         } catch (Exception e) {
             if (c == '.') {
                 ip += c;
@@ -53,37 +48,19 @@ public class MenuInputProcessor extends BaseInputProcessor {
         float x = mouseClickXCoordinate;
         float y = mouseClickYCoordinate;
 
-        System.out.println("Touch in menu input " + x + ", " + y);
         if (x >= 3260 && x <= 3960) {
             if(y <= 2653 && y >= 2415) {
-                System.out.println("Single player click");
                 graphics.game.typeOfGameStarted = GameType.SINGLE_PLAYER;
                 graphics.game.currentScreen = GameScreen.GAME;
 
             } else if (y <= 1950 && y >= 1722) {
-                System.out.println("Host click");
                 graphics.game.currentScreen = GameScreen.HOST;
                 graphics.game.hostNewGame();
-                //graphics.game.typeOfGameStarted = GameType.NETWORK_HOST;
-                //graphics.game.chooseHostOrJoin();
-                //graphics.game.currentScreen = GameScreen.GAME;
-                //graphics.game.hostNewGame("RiskyExchange.tmx");
-
 
             } else if(y <= 1240 && y >= 1036) {
                 System.out.println("Join click, attempting to join ip" + ip);
                 graphics.game.currentScreen = GameScreen.JOIN;
 
-
-                /**Dette skal brukes når bruker har skrevet inn IP
-                try {
-                    InetAddress hostIp = InetAddress.getByName(ip);
-                    graphics.game.typeOfGameStarted = GameType.NETWORK_JOIN;
-                    graphics.game.chooseHostOrJoin();
-                    graphics.game.currentScreen = GameScreen.GAME;
-                } catch (Exception e) {
-
-                }**/
             }
         }
 
