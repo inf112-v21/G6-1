@@ -4,7 +4,7 @@ import com.badlogic.gdx.Input;
 import inf112.skeleton.app.game.GameScreen;
 import inf112.skeleton.app.game.GameType;
 import inf112.skeleton.app.graphics.Graphics;
-import inf112.skeleton.app.screens.BaseInputProcessor;
+
 
 public class JoinGameScreenProcessor extends BaseInputProcessor implements Input.TextInputListener {
     final Graphics graphics;
