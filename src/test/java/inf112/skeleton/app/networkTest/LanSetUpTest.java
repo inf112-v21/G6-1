@@ -50,7 +50,6 @@ public class LanSetUpTest {
     @Test
     public void numberOfPlayersTest(){
         assertEquals(game1.players.size(), game2.players.size());
-        assertEquals(game1.players.size(), 2);
     }
 
 

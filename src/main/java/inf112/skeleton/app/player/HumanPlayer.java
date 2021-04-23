@@ -101,7 +101,7 @@ public class HumanPlayer extends Player {
     @Override
     public void takePlayerLife() {
         this.healthToken -- ;
-        this.damageTaken ++;
+        this.damageTaken = 0;
         this.updatePlayerXPosition(this.playerCheckpointPositionX);
         this.updatePlayerYPosition(this.playerCheckpointPositionY);
         System.out.println("Player "+ this.color + " lost a life and has now " + this.healthToken
@@ -230,7 +230,6 @@ public class HumanPlayer extends Player {
                 break;
             }
             else if(collidedWithWall == 0){
-                System.out.println("returned " + collidedWithWall);
                 wallCollisionHandler(checkXPosition,checkYPosition);
                 break;
             }else if(collidedWithWall == 1){
@@ -273,7 +272,7 @@ public class HumanPlayer extends Player {
         }
         coordinatesToCheck.add(checkXPosition);
         coordinatesToCheck.add(checkYPosition);
-        System.out.println(coordinatesToCheck);
+
         return coordinatesToCheck;
     }
 
