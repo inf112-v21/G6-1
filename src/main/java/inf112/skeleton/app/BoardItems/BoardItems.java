@@ -12,6 +12,15 @@ public class BoardItems {
     public Laser laser = new Laser();
     public Hole hole = new Hole();
 
+    /**
+     * This method runs all active board items:
+     * Gear
+     * Conveyors
+     * Laser
+     * Hole
+     * @param players list of players in the game
+     * @param layers all tiled layers
+     */
     public void activateBoardItems(ArrayList<Player> players, TileLayers layers){
         conveyor.runConveyor(players, layers.yellowConveyor, layers.blueConveyor);
         gear.runGears(players,layers.redGear, layers.greenGear);
