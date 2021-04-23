@@ -18,7 +18,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.*;
 
-public class Game implements IGame {
+public class Game  {
 
 
     public Player myHumanPlayer = new HumanPlayer(Direction.NORTH,69,Color.GREEN);
@@ -40,7 +40,7 @@ public class Game implements IGame {
     private boolean runOnceAtStartOfRound = false;
     private int countCardsPlayedPerRound = 0;
 
-    @Override
+
     public Graphics startGame() {
         graphics = new Graphics(this);
         return graphics;
@@ -149,8 +149,7 @@ public class Game implements IGame {
     public void giveAllPlayersCardObjects(HashMap<Integer, ArrayList<HashMap<Integer, Action>>> actionList){
         for(Player player : players){
             ArrayList<HashMap<Integer, Action>> sendAbleCard = actionList.get(player.id);
-            ArrayList<Card> cardObject = cardMoveLogic.convertToCardObject(sendAbleCard);
-            player.chosenCards = cardObject;
+            player.chosenCards = cardMoveLogic.convertToCardObject(sendAbleCard);
         }
     }
 
@@ -192,8 +191,8 @@ public class Game implements IGame {
     /**
      * Finds the largest size of a list found in the playerMoves across all keys.
      *
-     * @param playerMoves
-     * @return
+     * @param playerMoves list of player moves
+     * @return maxValue
      */
     public int findMaxValue( HashMap<Integer, ArrayList<Card>> playerMoves){
         int maxValue = 0;
@@ -231,7 +230,7 @@ public class Game implements IGame {
      * Uses the hashmap from playersToMove and checks which of the players has played the card with the
      * highest priority
      *
-     * @return
+     * @return  HashMap<Integer, ArrayList<Card>>
      */
 
     public HashMap<Integer, ArrayList<Card>> moveThisPlayer(){
@@ -284,8 +283,8 @@ public class Game implements IGame {
      * Method to activate all board items. This will only execute if all players has played their card for the given
      * round.
      *
-     * @param player
-     * @param layer
+     * @param player current player
+     * @param layer TileLayers
      */
 
     public void boardItemsMove(Player player, TileLayers layer){
@@ -300,7 +299,7 @@ public class Game implements IGame {
     /**
      * Main function for multiplayer round.
      *
-     * @param layer
+     * @param layer TileLayers
      */
     public void multiplayerRound(TileLayers layer){
         keepPlaying();
@@ -337,7 +336,7 @@ public class Game implements IGame {
     /**
      * Keeps count to check when player has played their 5 cards to avoid the program trying to play next card when
      * there is none
-     *  @param player
+     *  @param player current player
      *
      */
     public void cardCount(Player player){
@@ -351,7 +350,7 @@ public class Game implements IGame {
     /**
      * When playing single player, this executed the moves and waits in between each move.
      *
-     * @param layer
+     * @param layer TileLayers
      */
     public void doSinglePlayerMove(TileLayers layer){
         ArrayList<Player> myHumanPlayerList = new ArrayList<>(Arrays.asList(myHumanPlayer));
@@ -374,7 +373,7 @@ public class Game implements IGame {
     /**
      * This updates the location of all players in the game during the game session.
      *
-     * @param playerInfo
+     * @param playerInfo id and location
      */
     public void updatePlayerInfo(HashMap<Integer, ArrayList<Float>> playerInfo) {
         for (Player player : players) {

@@ -2,8 +2,6 @@ package inf112.skeleton.app.boardItem;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
-import inf112.skeleton.app.BoardItems.Gear;
-import inf112.skeleton.app.BoardItems.Walls;
 import inf112.skeleton.app.card.Card;
 import inf112.skeleton.app.card.MoveOne;
 import inf112.skeleton.app.card.MoveThree;
@@ -14,13 +12,9 @@ import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.shared.Action;
 import inf112.skeleton.app.shared.Color;
 import inf112.skeleton.app.shared.Direction;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
-
-import java.awt.*;
-import java.util.ArrayList;
 
 public class WallTest {
 
@@ -28,8 +22,8 @@ public class WallTest {
     Graphics graphics;
     Player humanPlayer;
     final float tileSize = 300;
-    Card cardMoveOne = new MoveOne(300, Action.MOVE_ONE);
-    Card cardMoveThree = new MoveThree(300, Action.MOVE_THREE);
+    final Card cardMoveOne = new MoveOne(300, Action.MOVE_ONE);
+    final Card cardMoveThree = new MoveThree(300, Action.MOVE_THREE);
 
     @Before
     public void setup() {

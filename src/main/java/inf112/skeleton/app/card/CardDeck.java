@@ -72,8 +72,7 @@ public class CardDeck {
         return cardDeckOneRound;
     }
     public ArrayList<Card> getCardDeck(){
-        ArrayList<Card> allCards = cardDeck;
-        return allCards;
+        return cardDeck;
     }
 
 

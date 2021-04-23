@@ -75,7 +75,7 @@ public class Graphics implements ApplicationListener {
     }
 
     /**
-     *
+     * Updates current players card sprite, so that it matches the players backend playerdeck
      * @param humanPlayer humanPlayer
      */
     public void updateCardSprite(Player humanPlayer) {
@@ -93,12 +93,16 @@ public class Graphics implements ApplicationListener {
         }
     }
 
+    /**
+     * Sets input processor for current player
+     * @param player current player
+     */
     public void setInputProcessor(Player player){
         Gdx.input.setInputProcessor(player);
     }
 
     /**
-     *
+     * Updates players sprites to match players direction and color
      * @param players players
      * @param myPlayer myPlayer
      */
