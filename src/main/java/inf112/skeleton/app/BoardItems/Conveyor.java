@@ -126,6 +126,15 @@ final HashMap<Integer,Integer> blueConveyorDirection = new HashMap<>() {{
 
     }
 
+
+    /**
+     * If a players move would take the player outside the board, this method return the
+     * end coordinate at the board
+     * @param player the player
+     * @param move amount of movement
+     * @param moveDir direction of movement
+     * @return move
+     */
     public float movePlayerAsFarAsPossible(Player player, float move, Direction moveDir){
          if(moveDir == Direction.NORTH && !player.isPlayerOnBoard(player.getPlayerXPosition(),move)) return 3900;
          else if(moveDir == Direction.SOUTH && !player.isPlayerOnBoard(player.getPlayerXPosition(),move) ) return 0;
